@@ -55,6 +55,7 @@
 }
 
 .start-page__content-left-btn {
+    border: none;
     margin-top: 21px;
     display: flex;
     align-items: center;
