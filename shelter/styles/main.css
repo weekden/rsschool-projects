@@ -94,11 +94,7 @@ header{
 } 
 
 .start-page__wrapper {
-    width: 1280px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    padding-inline: 40px;
+    padding: 0 40px;
 }
 
 .header-content__nav {
@@ -372,5 +368,160 @@ header{
     color: var(--color-dark-l);
 }
 
+/* ___________donation____________ */
 
+#donation {
+    height: 462px;
+    background: var(--color-light-l);
+}
 
+.donation-content {
+    width: 915px;
+    height: 282px;
+    display: flex;
+    align-items: center;
+}
+
+.donation-content__img {
+    display: block;
+    width: 505px;
+    height: 261px;
+}
+
+.donation-content__text {
+    margin-left: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.donation-content__title {
+   text-align: start;
+   margin-bottom: 0;
+}
+
+.donation-content__subtitle {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 16px; 
+    letter-spacing: 0.06em;
+    color: var(--color-dark-l);
+}
+
+.donation-content__card-wrapper {
+    border-radius: 9px;
+    width: 349px;
+    height: 43px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-primary);
+    gap: 10px;
+}
+
+.donation-content__card-main {
+    width: 100%;
+   display: flex;
+   justify-content: space-evenly;
+}
+
+.donation-content__card-icon,
+.donation-content__card-numder {
+    display: block;
+}
+
+.donation-content__card-numder {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px; 
+    letter-spacing: 0.06em;
+    color: var(--color-dark-l);
+}
+
+.donation-content__text-italic {
+    font-family: var(--second-family);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    color: var(--color-dark-m);
+}
+
+/* ___________footer____________ */
+
+footer {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content:space-between ;
+    align-items: end;
+}
+
+.footer__wrapper {
+    padding: 0 40px;
+}
+
+.footer-items {
+    width: 100%;
+    height: 310px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.footer-item:first-child {
+    width: 278px;
+}
+
+.footer-item:nth-child(2) {
+    width: 302px;
+}
+
+.footer-item:last-child {
+    width: 300px;
+    height: 310px;
+}
+
+.footer-item__title {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 45px; 
+    letter-spacing: 0.075em;
+    color: var(--color-light-xl);
+    text-align: start;
+    margin-top: 15px;
+    margin-bottom: 34px;
+}
+
+.footer-item__contacts {
+    height: 46px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.footer-item__contacts-icon {
+    display: block;
+    margin-right: 20px;
+}
+
+.footer-item__contacts-description {
+    display: block;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px; 
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+}
+
+.footer-item .footer-item__contacts:first-of-type {
+    margin-bottom: 25px;
+}
