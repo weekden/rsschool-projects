@@ -1,8 +1,4 @@
 /* ___________header____________ */
-.main__logo {
-    cursor: default;
-}
-
 .main__nav-link:hover {
     color: var(--color-light-s);
 }
