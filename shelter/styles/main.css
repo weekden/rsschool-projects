@@ -1,5 +1,22 @@
-/* ___________start-page____________ */
+/* ___________header____________ */
+.main__logo {
+    cursor: default;
+}
 
+.main__nav-link:hover {
+    color: var(--color-light-s);
+}
+
+.header-content__nav-li:nth-child(1) {
+    border-bottom: 3px solid var(--color-primary);
+}
+
+.header-content__nav-li:nth-child(1) .main__nav-link {
+    color: var(--color-light-s);
+    cursor: default;
+}
+
+/* ___________start-page____________ */
 #start-page {
    height: 908px;
    position: relative;
@@ -56,6 +73,7 @@
 
 .start-page__content-left-btn {
     border: none;
+    text-decoration: none;
     margin-top: 21px;
     display: flex;
     align-items: center;
@@ -70,11 +88,11 @@
 
 .start-page__content-left-btn:hover {
     cursor: pointer;
+    background: var(--color-primary-light);
 }
 
 .btn-text-position {
     display: block;
-    text-decoration: none;
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 17px;
@@ -164,6 +182,11 @@
     align-items: center;
 }
 
+.pets-slider__card:hover {
+    cursor: pointer;
+    background: var(--color-light-xl);
+}
+
 .pets-slider__card-img {
     display: block;
     border-radius: 9px 9px 0 0;
@@ -192,6 +215,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 10px;
+    background: none;
 }
 
 .pets-btn {
@@ -206,7 +230,7 @@
     width: 261px;
     height: 52px;
     background: var(--color-primary);
-    border: none;
+    text-decoration: none;
 }
 
 /* ___________help____________ */

@@ -1,6 +1,8 @@
 .header-pets {
     position: relative;
     height: 120px;
+    display: flex;
+    top: 0;
 }
 
 .pets-logo__title {
@@ -9,6 +11,29 @@
 
 .pets-logo__subtitle {
     color: var(--color-dark-3xl);
+}
+
+.header-content__nav-li:nth-child(2) {
+    border-bottom: 3px solid var(--color-primary);
+}
+
+.pets__nav-link {
+    color: var(--color-dark-l);
+}
+
+.header-content__nav-li:nth-child(2) .pets__nav-link {
+    color: var(--color-dark-3xl);
+    cursor: default;
+}
+
+.header-content__nav-li:not(:nth-child(2)) .pets__nav-link:hover,
+.pets-logo__title:hover {
+    color: var(--color-dark-3xl);
+}
+
+.header-content__nav-li:not(:nth-child(2)) .pets__nav-link:active,
+.pets-logo__title:active {
+    color: var(--color-dark-l);
 }
 
 #pets {
@@ -20,6 +45,10 @@
 
 .pets-content {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .pets-cards__container {
@@ -40,6 +69,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: ease 0.3s;
+}
+
+.pets__card:hover {
+    background: var(--color-light-xl);
 }
 
 .pets__card-img {
@@ -62,6 +96,7 @@
 
 .pets__card-btn {
     border: 2px solid var(--color-primary);
+    background: var(--color-light-s);
     border-radius: 100px;
     width: 187px;
     height: 52px;
@@ -70,4 +105,59 @@
     justify-content: center;
     flex-direction: column;
     gap: 10px;
+    cursor: pointer;
+}
+
+.btn-text-position {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 22px; 
+    letter-spacing: 0.06em;
+    color: var(--color-dark-3xl);
+}
+
+.pets-nav {
+    width: 340px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 59px;
+}
+
+.pets-nav__circle {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--color-primary);
+    border-radius: 100px;
+    padding: 14px 21px;
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+    background: none;
+}
+
+.pets-nav__circle-content {
+    display: block;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px; 
+    letter-spacing: 0.06em;
+    text-align: center;
+    color: var(--color-dark-3xl);
+}
+
+#pets-nav__current-page {
+    cursor: default;
+    background: var(--color-primary);
+}
+
+#pets-nav__duble-prew:disabled,
+#pets-nav__single-prew:disabled {
+    background: none;
+    border: 2px solid var(--color-dark-s);
+    cursor: auto;
+    opacity: 0.5;
 }
