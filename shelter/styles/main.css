@@ -1,18 +1,26 @@
 /* ___________header____________ */
+
+.main__logo:hover h1
+ {
+    color: var(--color-primary-light)
+}
+
+.main__logo:hover h2 {
+    color: var(--color-light-s)
+}
 .main__nav-link:hover {
     color: var(--color-light-s);
+    
 }
 
-.header-content__nav-li:nth-child(1) {
+.main__nav-link-active {
     border-bottom: 3px solid var(--color-primary);
-}
-
-.header-content__nav-li:nth-child(1) .main__nav-link {
     color: var(--color-light-s);
     cursor: default;
 }
 
 /* ___________start-page____________ */
+
 #start-page {
    height: 908px;
    position: relative;
@@ -87,16 +95,6 @@
     background: var(--color-primary-light);
 }
 
-.btn-text-position {
-    display: block;
-    font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 17px; 
-    letter-spacing: 0.06em;
-    color: var(--color-dark-3xl);
-}
-
 /* ___________about____________ */
 
 #about {
@@ -128,7 +126,6 @@
 
 .about-content__right-text {
     font-family: var(--second-family);
-    font-weight: 400;
     font-size: 15px;
     line-height: 24px; 
     color: var(--color-dark-xl);
@@ -166,53 +163,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.pets-slider__card {
-    border-radius: 9px;
-    width: 270px;
-    height: 435px;
-    background: var(--color-light-s);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: ease 0.3s;
-}
-
-.pets-slider__card:hover {
-    cursor: pointer;
-    background: var(--color-light-xl);
-}
-
-.pets-slider__card-img {
-    display: block;
-    border-radius: 9px 9px 0 0;
-    width: 270px;
-    height: 270px;
-    object-fit: contain;
-}
-
-.pets-slider__card-name {
-    font-family: var(--font-family);
-    font-weight: 400;
-    font-size: 20px;
-    letter-spacing: 0.06em;
-    text-align: center;
-    color: var(--color-dark-l);
-    margin: 30px 0;
-}
-
-.pets-slider__card-btn {
-    border: 2px solid var(--color-primary);
-    border-radius: 100px;
-    width: 187px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    background: none;
 }
 
 .pets-btn {
@@ -260,8 +210,6 @@
 }
 
 .help-list__item-text {
-    font-family: var(--font-family);
-    font-weight: 400;
     font-size: 20px;
     line-height: 23px; 
     letter-spacing: 0.06em;
@@ -304,8 +252,6 @@
 }
 
 .donation-content__subtitle {
-    font-family: var(--font-family);
-    font-weight: 400;
     font-size: 15px;
     line-height: 16px; 
     letter-spacing: 0.06em;
@@ -326,9 +272,21 @@
 
 .donation-content__card-main {
    width: 100%;
+   height: inherit;
    display: flex;
    justify-content: space-evenly;
+   align-items: center;
    text-decoration: none;
+}
+
+.donation-content__card-main * {
+    transition: ease-in-out 0.5s;
+}
+
+.donation-content__card-main:hover svg path,
+.donation-content__card-main:hover span {
+    fill: var(--color-light-s);
+    color: var(--color-light-s);
 }
 
 .donation-content__card-icon,
@@ -337,8 +295,6 @@
 }
 
 .donation-content__card-numder {
-    font-family: var(--font-family);
-    font-weight: 400;
     font-size: 20px;
     line-height: 23px; 
     letter-spacing: 0.06em;
@@ -348,8 +304,9 @@
 .donation-content__text-italic {
     font-family: var(--second-family);
     font-style: italic;
-    font-weight: 400;
     font-size: 12px;
     line-height: 150%;
     color: var(--color-dark-m);
 }
+
+
