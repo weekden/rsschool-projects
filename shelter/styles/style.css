@@ -29,6 +29,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 62.5%;
 }
 
 .shelter-container {
@@ -37,19 +38,19 @@ html {
 }
 
 .section-title {
-  font-size: 35px;
-  line-height: 45px;
+  font-size: 3.5rem;
+  line-height: 4.5rem;
   letter-spacing: 0.06em;
   text-align: center;
   color: var(--color-dark-l);
-  margin-bottom: 60px;
-  max-width: 400px;
+  /* margin-bottom: 6rem; */
+  max-width: 40rem;
 }
 
 .section__wrapper {
   position: relative;
   width: 100%;
-  padding: 5rem 2.5rem 6.25rem 2.5rem;
+  padding: 8rem 4rem 10rem 4rem;
   height: 100%;
   max-width: 1280px;
   display: flex;
@@ -61,8 +62,8 @@ html {
 }
 
 .btn-text-position {
-  font-size: 17px;
-  line-height: 17px;
+  font-size: 1.7rem;
+  line-height: 1.7rem;
   letter-spacing: 0.06em;
   color: var(--color-dark-3xl);
 }
@@ -142,45 +143,51 @@ header {
   width: 100%;
   left: 50%;
   transform: translateX(-50%);
-  padding-inline: 2.5rem;
+  padding-inline: 4rem;
   z-index: 1;
 }
 
 .header-content {
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .header-content__logo {
-  display: block;
-  width: 184px;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  width: 186px;
   height: inherit;
-  margin-left: 4px;
+  margin-left: 0.4rem;
   text-decoration: none;
 }
 
 .header-content__logo-title,
 .pets-logo__title,
 .main-logo__title {
-  font-size: 32px;
-  letter-spacing: 1.7px;
-  line-height: 35px;
+  font-size: 3.2rem;
+  letter-spacing: 0.06em;
+  line-height: 110%;
   color: var(--color-primary);
-  margin-bottom: 9px;
   transition: ease-in-out 0.5s;
 }
 
 .header-content__logo-subtitle {
   font-family: var(--second-family);
-  font-size: 13px;
-  letter-spacing: 1.3px;
+  font-size: 1.3rem;
+  line-height: 1.3em;
+  letter-spacing: 0.1em;
   color: var(--color-light-xl);
 }
 
 .header-content__nav {
-  width: 443px;
+  max-width: 443px;
+  width: 100%;
   height: 27px;
 }
 
@@ -189,16 +196,6 @@ header {
   list-style: none;
   display: flex;
   justify-content: space-between;
-  align-items: start;
-}
-
-.header-content__nav-li {
-  height: 27px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .header-content__nav-link {
@@ -206,8 +203,8 @@ header {
   height: 24px;
   text-decoration: none;
   font-family: var(--second-family);
-  font-size: 15px;
-  line-height: 20px;
+  font-size: 1.5rem;
+  line-height: 2rem;
   color: var(--color-dark-s);
   transition: color ease-in-out 0.5s;
 }
@@ -356,4 +353,28 @@ footer {
 
 .pets__card:hover .pets__card-btn {
   background: var(--color-primary-light);
+}
+
+
+
+
+@media (max-width: 768px) {
+    header {
+        position: absolute;
+        top: 30px;
+        height: 60px;
+        width: 100%;
+        max-width: 708px;
+        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-inline: 0;
+        z-index: 1;
+    }
+
+    .header-content__logo {
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 0;
+      }
 }

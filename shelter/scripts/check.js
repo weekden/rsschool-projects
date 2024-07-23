@@ -62,5 +62,5 @@ let check = `Самопроверочка....
     Вобщем я старался.... Спасибо ))))
 
     TotalScore 100 / 100
-`
-console.log(check)
+`;
+console.log(check);
