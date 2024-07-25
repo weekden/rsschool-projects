@@ -74,6 +74,11 @@ html {
     background: var(--color-primary-light);
 }
 
+
+.btn-no-bg:hover{
+    border: 2px solid var(--color-primary-light);
+}
+
 /* ___________background____________ */
 
 .background-gradient {
@@ -119,7 +124,7 @@ header{
 
 .header-content__logo {
 	display: block;
-    width: 184px;
+    width: 186px;
     height: inherit;
 	margin-left: 4px;
 	text-decoration: none;
@@ -129,7 +134,7 @@ header{
 .pets-logo__title,
 .main-logo__title {
     font-size: 32px;
-    letter-spacing: 1.7px;
+    letter-spacing: 0.06em;
     line-height: 35px;
     color: var(--color-primary);
     margin-bottom: 9px;
@@ -167,11 +172,11 @@ header{
 
 .header-content__nav-link {
     display: block;
-    height: 24px;
+    height: 26px;
     text-decoration: none;
     font-family: var(--second-family);
     font-size: 15px;
-    line-height: 20px; 
+    line-height: 24px; 
     color: var(--color-dark-s);
     transition: color ease-in-out 0.5s;
 }
