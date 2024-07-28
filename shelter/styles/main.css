@@ -57,7 +57,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	row-gap: 4.1rem;
+	row-gap: 4.2rem;
 	margin-top: -17.5%;
 }
 
@@ -79,7 +79,7 @@
 	font-family: var(--font-family);
 	font-weight: 400;
 	font-size: 4.4rem;
-	line-height: 130%;
+	line-height: 132%;
 	color: var(--color-light-xl);
 }
 
@@ -224,7 +224,7 @@
     max-width: 1026px;
 	width: 100%;
 	height: auto;
-    margin-top: 5.8rem;
+    margin-top: 6.2rem;
 }
 
 .help-list__wrapper {
@@ -245,9 +245,10 @@
 }
 
 .help-list__item-text {
+    height: 2.3rem;
 	font-size: 2rem;
-	line-height: 105%;
-	letter-spacing: 0.06em;
+	line-height: 95%;
+	letter-spacing: 0.065em;
 	text-align: center;
 	color: var(--color-dark-l);
 }
@@ -483,6 +484,10 @@
         justify-content: space-between;
         flex-basis: 27%;
     }
+    
+    .help-list__item-text {
+        line-height: 130%;
+    }
 
     /* ___________donation____________ */
 
@@ -496,6 +501,10 @@
         padding-left: 0;
         gap: 2.1rem;
         flex-basis: 77%;
+    }
+
+    .donation-content__left {
+        width: 100%;
     }
 
 }

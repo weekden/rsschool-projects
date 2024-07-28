@@ -1,11 +1,16 @@
 .header-pets {
     position: relative;
-    height: 120px;
+    height: 12rem;
     display: flex;
     top: 0;
 }
 
+.pets-logo {
+    justify-content: center;
+}
+
 .pets-logo__title {
+    height: 4.5rem;
     color: var(--color-dark-l);
 }
 
@@ -34,7 +39,7 @@
 
 #pets {
     position: relative;
-    height: 1342px;
+    height: 100%;
     width: 100%;
     background: var(--color-light-l);
 }
@@ -50,11 +55,12 @@
 .pets-cards__container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: 40px;
+    column-gap: 3.25%;
     row-gap: 30px;
+    margin-top: 5.8rem;
 }
 
 .pets-nav {
@@ -80,7 +86,7 @@
 
 .pets-nav__circle-content {
     display: block;
-    font-size: 20px;
+    font-size: 2rem;
     line-height: 23px; 
     letter-spacing: 0.06em;
     text-align: center;
