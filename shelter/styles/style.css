@@ -50,7 +50,8 @@ html {
 .section__wrapper {
 	position: relative;
 	width: 100%;
-	padding: 8rem 4rem 10rem 4rem;
+	/* padding: 8rem 4rem 10rem 4rem; */
+    padding: 5.3% 2% 6.5% 2%;
 	height: 100%;
 	max-width: 1280px;
 	display: flex;
@@ -81,58 +82,6 @@ html {
 }
 
 /* ___________background____________ */
-
-/* .background-gradient {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    max-height: 908px;
-    overflow: hidden;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-    background: url(../images/start-screen-gradient-background.png), radial-gradient(237.5% 111.8% at 0% 0%, rgb(91, 72, 58) 0%, rgb(38, 36, 37) 100%);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.background-gradient img {
-    display: block;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    max-height: 908px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}  */
-
-/* .start-page__background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  max-height: 908px;
-  overflow: hidden;
-  background: url(../images/start-screen-gradient-background.png),
-    radial-gradient(
-      237.5% 111.8% at 0% 0%,
-      rgb(91, 72, 58) 0%,
-      rgb(38, 36, 37) 100%
-    );
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.start-page__background img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-} */
 
 .background {
 	position: relative;
@@ -242,6 +191,7 @@ footer {
     width: 100%;
 	height: 100%;
     padding: 0 4rem;
+    margin-bottom: -1px;
 }
 
 .footer-items {
@@ -357,6 +307,20 @@ footer {
 	color: var(--color-dark-l);
 }
 
+.pets__card-btn {
+    border: 2px solid var(--color-primary);
+    border-radius: 100px;
+    width: 69%;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    background: none;
+    margin-bottom: 9.5%;
+}
+
 .pets__card:hover {
 	cursor: pointer;
 	background: var(--color-light-xl);
@@ -382,6 +346,15 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+    .section__wrapper {
+        padding: 10.5% 4rem 13% 4rem;
+    }
+
+    .pets__wrapper {
+        padding: 10.5% 8rem 13% 8rem;
+    }
+
 	header {
 		position: absolute;
 		top: 30px;
@@ -402,12 +375,12 @@ footer {
 	}
 
 	.pets__card {
-		width: 38.5%;
+		width: 44.5%;
 	}
 
 	.pets__card-btn {
-		width: 71%;
-		margin-bottom: 10%;
+		width: 69%;
+		margin-bottom: 11.3%;
 	}
 
     .footer-items {
