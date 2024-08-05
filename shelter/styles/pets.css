@@ -1,11 +1,16 @@
 .header-pets {
     position: relative;
-    height: 120px;
+    height: 12rem;
     display: flex;
     top: 0;
 }
 
+.pets-logo {
+    justify-content: center;
+}
+
 .pets-logo__title {
+    height: 4.5rem;
     color: var(--color-dark-l);
 }
 
@@ -34,13 +39,16 @@
 
 #pets {
     position: relative;
-    height: 1342px;
+    max-height: 1733px;
+    height: 100%;
     width: 100%;
     background: var(--color-light-l);
 }
 
 .pets-content {
     width: 100%;
+    max-height: 1603px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,19 +57,23 @@
 
 .pets-cards__container {
     width: 100%;
+    max-height: 900px;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    align-items: center;
-    column-gap: 40px;
-    row-gap: 30px;
+    align-items: start;
+    row-gap: 3.5rem;
+    column-gap: 3.2%;
+    margin-top: 5%;
+    margin-bottom: 5.5%;
+    overflow: hidden;
 }
 
 .pets-nav {
     width: 340px;
     display: flex;
     justify-content: space-between;
-    margin-top: 59px;
 }
 
 .pets-nav__circle {
@@ -80,7 +92,7 @@
 
 .pets-nav__circle-content {
     display: block;
-    font-size: 20px;
+    font-size: 2rem;
     line-height: 23px; 
     letter-spacing: 0.06em;
     text-align: center;
@@ -99,4 +111,157 @@
     border: 2px solid var(--color-dark-s);
     cursor: auto;
     opacity: 0.5;
+}
+
+@media (max-width: 1000px) {
+    .pets-cards__container {
+        position: relative;
+        width: 100%;
+        max-height: 930px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: start;
+        column-gap: 5%;
+        row-gap: 30px;
+        margin-top: 14%;
+        margin-bottom: 13.3%;
+    }
+
+    .pets__card {
+        width: 29.815%;
+    }
+
+    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(6)) {
+        position: absolute;
+        top: 0;
+        right: -29.815%;
+    }
+
+}
+
+
+
+@media (max-width: 768px){
+
+    .pets-cards__container {
+        width: 100%;
+        max-height: 1365px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: start;
+        column-gap: 4rem;
+        row-gap: 30px;
+        margin-top: 4.5%;
+        margin-bottom: 5.5%;
+    }
+
+    .pets__card {
+        width: 39.245%;
+    }
+
+    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(6)) {
+        position: absolute;
+        top: 0;
+        right: -39.245%;
+    }
+
+    .pets__card-btn {
+		width: 69%;
+		margin-bottom: 11.3%;
+	}
+}
+@media (max-width: 650px){
+    .pets__wrapper {
+        padding: 10.5% 2rem 13% 2rem;
+    }
+}
+
+@media (max-width: 528px){
+
+    .pets-cards__container {
+        width: 100%;
+        max-height: 1365px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: start;
+        column-gap: 4rem;
+        row-gap: 30px;
+        margin-top: 5%;
+        margin-bottom: 13.3%;
+        overflow: hidden;
+    }
+
+    .pets__card {
+        width: 55.35%;
+    }
+
+    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
+        position: absolute;
+        top: 0;
+        right: -55.35%;
+    }
+
+    .pets-nav {
+        width: 95%;
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 400px){
+
+    .pets-cards__container {
+        width: 100%;
+        max-height: 1365px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: start;
+        column-gap: 4rem;
+        row-gap: 30px;
+        margin-top: 5%;
+        margin-bottom: 13.3%;
+        overflow: hidden;
+    }
+
+    .pets__card {
+        width: 75.03%;
+    }
+
+    .pets__card:not(:nth-child(1),:nth-child(2),:nth-child(3)) {
+        position: absolute;
+        top: 0;
+        right: -75.03%;
+    }
+    
+}
+
+@media (max-width: 320px){
+    .pets__wrapper {
+        padding: 13.125% 1rem 13.125% 1rem;
+    }
+    .pets-cards__container {
+        margin-top: 14%;
+    }
+
+    .pets__card {
+        width: 90%;
+    }
+
+    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
+        position: absolute;
+        top: 0;
+        right: -90%;
+    }
+
+    .pets-nav {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
