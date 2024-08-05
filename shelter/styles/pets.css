@@ -102,6 +102,7 @@
 #pets-nav__current-page {
     cursor: default;
     background: var(--color-primary);
+    border: 2px solid var(--color-primary);
 }
 
 #pets-nav__duble-prew:disabled,
