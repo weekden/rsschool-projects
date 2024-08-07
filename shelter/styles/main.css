@@ -161,6 +161,7 @@
 .pets-slider__btn {
 	border-radius: 10rem;
 	border: 2px solid var(--color-primary);
+    background-color: transparent;
 	width: 5.2rem;
 	height: 5.2rem;
 	display: flex;
@@ -804,10 +805,6 @@
 	.pets-slider {
 		margin-top: 13%;
 		margin-bottom: 40.5%;
-	}
-
-	.pets-slider__controls {
-		top: 458px;
 	}
 
 	#pets-slider__btn-left {
