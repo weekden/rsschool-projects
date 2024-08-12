@@ -5,6 +5,10 @@
     top: 0;
 }
 
+.burger-btn__line-pets {
+    border: 2px solid #000;
+}
+
 .pets-logo {
     justify-content: center;
     width: 19rem;
