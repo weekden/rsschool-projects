@@ -7,7 +7,7 @@
 }
 
 @font-face {
-	font-family: 'GGeorgia Italic';
+	font-family: 'Georgia Italic';
 	src: local('Georgia Italic'), url('../fonts/georgia/georgia-italic.woff2') format('woff2'), url('../fonts/georgia/georgia-italic.woff') format('woff'),
 		url('../fonts/georgia/georgia-italic.ttf') format('truetype');
 	font-style: italic;
@@ -384,6 +384,91 @@ footer {
 
 .pets__card:hover .pets__card-btn {
 	background: var(--color-primary-light);
+}
+
+/* ___________popup____________ */
+#popup {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: none;
+}
+.popup-wrapper {
+    position: absolute;
+    z-index: 10;
+    width: 952px;
+    height: 552px;
+    left: 50%;
+    top: calc(50% - 305px);
+    transform: translate(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.close-popup {
+	width: 5.2rem;
+	height: 5.2rem;
+	border-radius: 10rem;
+	border: 2px solid var(--color-primary);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    align-self: flex-end;
+    margin-right: 9px;
+}
+
+.popup {
+	width: 900px;
+	height: 500px;
+	background: var(--color-light-s);
+	border-radius: 9px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 30px;
+}
+
+.popup img {
+	display: block;
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+}
+
+.popup-right {
+    height: 362px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: self-start;
+    margin-top: 51px;
+}
+
+.popup-title {
+	font-size: 35px;
+	line-height: 130%;
+	letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+.popup-subtitle {
+	font-size: 20px;
+	line-height: 115%;
+	letter-spacing: 0.06em;
+}
+
+.popup-title__wrapper {
+    margin-bottom: 40px;
+}
+
+.popup-description, .popup-li {
+    font-size: 15px;
+	line-height: 110%;
+	letter-spacing: 0.06em;
+}
+
+.popup-li::marker {
+color: var(--color-primary);
 }
 
 /* ___________add classes____________ */

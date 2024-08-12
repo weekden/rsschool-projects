@@ -39,7 +39,7 @@ const toggleNavMenu = () => {
 
 
 const closeNavMenu = () => {
-    checkStateBody(!isActive);
+	checkStateBody(!isActive);
 	burgerBtn.classList.remove('active-burger-btn');
 	navMenu.classList.remove('show-nav-menu');
 };
@@ -50,12 +50,31 @@ const checkWindowSize = () => {
 		burgerBtn.classList.add('show-burger-btn');
 	} else {
 		burgerBtn.classList.remove('show-burger-btn');
-        checkPage();
+		checkPage();
 	}
 };
 
 burgerBtn.addEventListener('click', toggleNavMenu);
-shadow.addEventListener("click", closeNavMenu)
+shadow.addEventListener('click', closeNavMenu);
 linksNavMenu.forEach(link => link.addEventListener('click', closeNavMenu));
 window.addEventListener('load', checkWindowSize);
 window.addEventListener('resize', checkWindowSize);
+
+const popup = ` 
+        <div class="popup-wrapper">
+            <div class="close-popup"></div>
+            <div class="popup">
+               <div class="part-left"></div>
+               <div class="part-right">
+                  <p class="popup-title"></p>
+                  <p class="popup-subtitle"></p>
+                  <p class="popup-description"></p>
+                  <li class="popup-li popup-age"></li>
+                  <li class="popup-li popup-inoculations"></li>
+                  <li class="popup-li popup-diseases"></li>
+                  <li class="popup-li popup-parasites"></li>
+               </div>
+            </div>
+         </div>`;
+
+
