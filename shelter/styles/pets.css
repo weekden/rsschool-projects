@@ -253,6 +253,7 @@
     }
     .pets-cards__container {
         margin-top: 14%;
+        margin-bottom: 14%;
     }
 
     .pets__card {
