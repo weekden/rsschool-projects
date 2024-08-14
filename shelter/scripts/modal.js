@@ -1,4 +1,3 @@
-const modalPopup = document.querySelector('.popup-wrapper .popup');
 const popupImg = document.querySelector('.popup img');
 const petName = document.querySelector('.popup-title');
 const petType = document.querySelector('.popup-subtitle');
@@ -16,10 +15,10 @@ fetch('animals.json')
 		petName.innerHTML = pets[0].name;
 		petType.innerHTML = `${pets[0].type} - ${pets[0].breed}`;
 		petDescription.innerHTML = `${pets[0].description}`;
-		petAge.innerHTML = `<span style="font-weight: 700;">Age:</span>  ${pets[0].age}`;
-		petInoculations.innerHTML = `<span style="font-weight: 700;">Inoculations:</span> ${pets[0].inoculations}`;
-		petDiseases.innerHTML = `<span style="font-weight: 700;">Diseases:</span> ${pets[0].diseases}`;
-		petParasit.innerHTML = `<span style="font-weight: 700;">Parasites:</span>  ${pets[0].parasites}`;
+		petAge.innerHTML = `<span>Age:</span>    ${pets[0].age}`;
+		petInoculations.innerHTML = `<span>Inoculations:</span>   ${pets[0].inoculations}`;
+		petDiseases.innerHTML = `<span>Diseases:</span>   ${pets[0].diseases}`;
+		petParasit.innerHTML = `<span>Parasites:</span>   ${pets[0].parasites}`;
 
 		console.log('GET ANIMALSDATA=', animalsData);
 	})

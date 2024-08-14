@@ -168,14 +168,14 @@
 	height: 100%;
 }
 
-/* .pets-slider__card {
+.pets-slider__card {
     width: auto;
-} */
+}
 
 
 .pets-slider__card:not(:nth-child(1),:nth-child(2),:nth-child(3)) {
     position: absolute;
-    right: -22.5%;
+    right: -270px;
 }
 
 .pets-slider__btn {

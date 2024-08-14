@@ -11,14 +11,12 @@
 	<body>
 		<div class="shelter-container">
          <div class="shadow"></div>
-         <div id="popup">
-            <div class="popup-wrapper">
-               <div class="close-popup">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42618 6.00003L11.7046 1.72158C12.0985 1.32775 12.0985 0.689213 11.7046 0.295433C11.3108 -0.0984027 10.6723 -0.0984027 10.2785 0.295433L5.99998 4.57394L1.72148 0.295377C1.32765 -0.098459 0.68917 -0.098459 0.295334 0.295377C-0.0984448 0.689213 -0.0984448 1.32775 0.295334 1.72153L4.57383 5.99997L0.295334 10.2785C-0.0984448 10.6723 -0.0984448 11.3108 0.295334 11.7046C0.68917 12.0985 1.32765 12.0985 1.72148 11.7046L5.99998 7.42612L10.2785 11.7046C10.6723 12.0985 11.3108 12.0985 11.7046 11.7046C12.0985 11.3108 12.0985 10.6723 11.7046 10.2785L7.42618 6.00003Z" fill="#292929" />
-                   </svg>
-               </div>
                <div class="popup">
+                  <div class="close-popup">
+                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.42618 6.00003L11.7046 1.72158C12.0985 1.32775 12.0985 0.689213 11.7046 0.295433C11.3108 -0.0984027 10.6723 -0.0984027 10.2785 0.295433L5.99998 4.57394L1.72148 0.295377C1.32765 -0.098459 0.68917 -0.098459 0.295334 0.295377C-0.0984448 0.689213 -0.0984448 1.32775 0.295334 1.72153L4.57383 5.99997L0.295334 10.2785C-0.0984448 10.6723 -0.0984448 11.3108 0.295334 11.7046C0.68917 12.0985 1.32765 12.0985 1.72148 11.7046L5.99998 7.42612L10.2785 11.7046C10.6723 12.0985 11.3108 12.0985 11.7046 11.7046C12.0985 11.3108 12.0985 10.6723 11.7046 10.2785L7.42618 6.00003Z" fill="#292929" />
+                      </svg>
+                  </div>
                   <img src="#" alt="popup-animal">
                   <div class="popup-right">
                      <div class="popup-title__wrapper">
@@ -26,7 +24,7 @@
                         <p class="popup-subtitle"></p>
                      </div>
                      <p class="popup-description"></p>
-                     <ul>
+                     <ul class="popup-ul">
                         <li class="popup-li popup-age"></li>
                         <li class="popup-li popup-inoculations"></li>
                         <li class="popup-li popup-diseases"></li>
@@ -34,8 +32,6 @@
                      </ul>
                   </div>
                </div>
-            </div>
-         </div>
 			<div class="start-page__wrapper">
 				<header>
 					<div class="header-content">
@@ -126,8 +122,6 @@
 							</div>
 							<div class="pets-slider__cards">
 								<div class="pets-slider__card pets__card">
-									<!-- <img class="pets__card-img" src="images/pets/pets-katrine.png" alt="pets-katrine">
-									<p class="pets__card-name">Katrine</p> -->
                            <img class="pets__card-img" src="#"  alt="pets-katrine">
 									<p class="pets__card-name"></p>
 									<button class="pets__card-btn btn btn-no-bg">
@@ -363,6 +357,6 @@
       <script defer src="animals.json"></script>
       <script defer src="scripts/script.js"></script>
       <script defer src="scripts/modal.js"></script>
-      <!-- <script defer src="scripts/carusel.js"></script> -->
+      <script defer src="scripts/carusel.js"></script>
 	</body>
 </html>

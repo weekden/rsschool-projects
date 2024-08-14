@@ -5,14 +5,20 @@ const linksNavMenu = document.querySelectorAll('.header-content__nav-link');
 const shadow = document.querySelector('.shadow');
 const headerContent = document.querySelector('.header-content');
 
+const modal = document.querySelector('.popup');
+const cardList = document.querySelectorAll('.pets__card');
+const modalCloseBtn = document.querySelector('.close-popup');
+
+console.log(cardList);
 let isActive = true;
+let scrollPosition = 0;
+
 const checkPage = () => {
 	if (window.innerWidth < 768) {
 		if (window.document.title.toLowerCase() === 'shelter-pets') {
 			navMenu.classList.add('white-menu');
 		} else {
 			navMenu.classList.add('dark-menu');
-			console.log('add');
 		}
 	} else {
 		navMenu.classList.remove('white-menu');
@@ -37,14 +43,31 @@ const toggleNavMenu = () => {
 	navMenu.classList.toggle('show-nav-menu');
 };
 
-
 const closeNavMenu = () => {
 	checkStateBody(!isActive);
 	burgerBtn.classList.remove('active-burger-btn');
 	navMenu.classList.remove('show-nav-menu');
 };
 
-// // resize
+const getScrollbarWidth = () => {
+	return window.innerWidth - document.documentElement.clientWidth;
+};
+
+const showModal = () => {
+	const scrollbarWidth = getScrollbarWidth();
+	body.style.paddingRight = `${scrollbarWidth}px`;
+	body.classList.add('no-scroll-modal');
+	modal.classList.add('show-popup');
+	shadow.classList.add('show');
+};
+
+const closeModal = () => {
+	body.classList.remove('no-scroll-modal');
+	body.style.paddingRight = '';
+	modal.classList.remove('show-popup');
+	shadow.classList.remove('show');
+};
+
 const checkWindowSize = () => {
 	if (window.innerWidth < 768) {
 		burgerBtn.classList.add('show-burger-btn');
@@ -53,28 +76,16 @@ const checkWindowSize = () => {
 		checkPage();
 	}
 };
-
-burgerBtn.addEventListener('click', toggleNavMenu);
-shadow.addEventListener('click', closeNavMenu);
-linksNavMenu.forEach(link => link.addEventListener('click', closeNavMenu));
 window.addEventListener('load', checkWindowSize);
 window.addEventListener('resize', checkWindowSize);
 
-const popup = ` 
-        <div class="popup-wrapper">
-            <div class="close-popup"></div>
-            <div class="popup">
-               <div class="part-left"></div>
-               <div class="part-right">
-                  <p class="popup-title"></p>
-                  <p class="popup-subtitle"></p>
-                  <p class="popup-description"></p>
-                  <li class="popup-li popup-age"></li>
-                  <li class="popup-li popup-inoculations"></li>
-                  <li class="popup-li popup-diseases"></li>
-                  <li class="popup-li popup-parasites"></li>
-               </div>
-            </div>
-         </div>`;
+cardList.forEach((card) => {
+	card.addEventListener('click', showModal);
+});
 
+burgerBtn.addEventListener('click', toggleNavMenu);
+shadow.addEventListener('click', closeNavMenu);
+shadow.addEventListener('click', closeModal);
+linksNavMenu.forEach(link => link.addEventListener('click', closeNavMenu));
+modalCloseBtn.addEventListener('click', closeModal);
 
