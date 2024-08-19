@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Shelter</title>
-		<link rel="icon" href="images/favicon/favicon.png">
-		<link rel="stylesheet" href="styles/style.css">
-		<link rel="stylesheet" href="styles/main.css">
+		<link rel="icon" href="images/favicon/favicon.png" />
+		<link rel="stylesheet" href="styles/style.css" />
+		<link rel="stylesheet" href="styles/main.css" />
 	</head>
 	<body>
 		<div class="shelter-container">
+			<div class="shadow"></div>
+			<div class="popup">
+				<div class="close-popup">
+					<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M7.42618 6.00003L11.7046 1.72158C12.0985 1.32775 12.0985 0.689213 11.7046 0.295433C11.3108 -0.0984027 10.6723 -0.0984027 10.2785 0.295433L5.99998 4.57394L1.72148 0.295377C1.32765 -0.098459 0.68917 -0.098459 0.295334 0.295377C-0.0984448 0.689213 -0.0984448 1.32775 0.295334 1.72153L4.57383 5.99997L0.295334 10.2785C-0.0984448 10.6723 -0.0984448 11.3108 0.295334 11.7046C0.68917 12.0985 1.32765 12.0985 1.72148 11.7046L5.99998 7.42612L10.2785 11.7046C10.6723 12.0985 11.3108 12.0985 11.7046 11.7046C12.0985 11.3108 12.0985 10.6723 11.7046 10.2785L7.42618 6.00003Z"
+							fill="#292929"
+						/>
+					</svg>
+				</div>
+				<img src="#" alt="popup-animal" />
+				<div class="popup-right">
+					<div class="popup-title__wrapper">
+						<p class="popup-title"></p>
+						<p class="popup-subtitle"></p>
+					</div>
+					<p class="popup-description"></p>
+					<ul class="popup-ul">
+						<li class="popup-li popup-age"></li>
+						<li class="popup-li popup-inoculations"></li>
+						<li class="popup-li popup-diseases"></li>
+						<li class="popup-li popup-parasites"></li>
+					</ul>
+				</div>
+			</div>
 			<div class="start-page__wrapper">
 				<header>
 					<div class="header-content">
@@ -33,11 +60,11 @@
 								</li>
 							</ul>
 						</nav>
-                  <div class="burger-btn">
-                     <div class="burger-btn__line"></div>
-                     <div class="burger-btn__line"></div>
-                     <div class="burger-btn__line"></div>
-                 </div> 
+						<div class="burger-btn">
+							<div class="burger-btn__line"></div>
+							<div class="burger-btn__line"></div>
+							<div class="burger-btn__line"></div>
+						</div>
 					</div>
 				</header>
 			</div>
@@ -57,7 +84,7 @@
 							</div>
 						</div>
 						<div class="start-page__content-right">
-							<img src="images/start-screen-puppy.png" alt="start-screen-puppy">
+							<img src="images/start-screen-puppy.png" alt="start-screen-puppy" />
 						</div>
 					</div>
 				</section>
@@ -65,7 +92,7 @@
 					<div class="section__wrapper">
 						<div class="about-content">
 							<div class="about-content__left">
-								<img src="images/about-pets.png" alt="about-pets">
+								<img src="images/about-pets.png" alt="about-pets" />
 							</div>
 							<div class="about-content__right">
 								<h3 class="about-content__right-title section-title">About the shelter “Cozy&nbsp;House”</h3>
@@ -85,43 +112,7 @@
 				<section id="pets">
 					<div class="section__wrapper pets__wrapper">
 						<h3 class="section-title">Our friends who are&nbsp;looking for a house</h3>
-						<div class="pets-slider">
-							<div class="pets-slider__controls">
-								<button class="pets-slider__btn btn btn-no-bg" id="pets-slider__btn-left">
-									<svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M14 2V4H3V6L0 3L3 0V2H14Z" fill="#292929" />
-									</svg>
-								</button>
-								<button class="pets-slider__btn btn btn-no-bg" id="pets-slider__btn-right">
-									<svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0 4V2L11 2V0L14 3L11 6V4L0 4Z" fill="#292929" />
-									</svg>
-								</button>
-							</div>
-							<div class="pets-slider__cards">
-								<div class="pets-slider__card pets__card">
-									<img class="pets__card-img" src="images/pets/pets-katrine.png" alt="pets-katrine">
-									<p class="pets__card-name">Katrine</p>
-									<button class="pets__card-btn btn btn-no-bg">
-										<span class="btn-text-position">Learn more</span>
-									</button>
-								</div>
-								<div class="pets-slider__card pets__card">
-									<img class="pets__card-img" src="images/pets/pets-jennifer.png" alt="pets-jennifer">
-									<p class="pets__card-name">Jennifer</p>
-									<button class="pets__card-btn btn btn-no-bg">
-										<span class="btn-text-position">Learn more</span>
-									</button>
-								</div>
-								<div class="pets-slider__card pets__card">
-									<img class="pets__card-img" src="images/pets/pets-woody.png" alt="pets-woody">
-									<p class="pets__card-name">Woody</p>
-									<button class="pets__card-btn btn btn-no-bg">
-										<span class="btn-text-position">Learn more</span>
-									</button>
-								</div>
-							</div>
-						</div>
+						<div class="pets-slider"></div>
 						<a href="pages/pets.html#pets" class="pets-btn btn btn-bg">
 							<span class="btn-text-position">Get to know the rest</span>
 						</a>
@@ -134,55 +125,55 @@
 							<div class="help-list__wrapper">
 								<div class="help-list__item item1">
 									<div class="help-list__icon-wrapper">
-										<img class="help-list__item-icon" src="images/icons/Vector.png" alt="help-list-icon">
+										<img class="help-list__item-icon" src="images/icons/Vector.png" alt="help-list-icon" />
 									</div>
 									<p class="help-list__item-text">Pet food</p>
 								</div>
 								<div class="help-list__item item2">
 									<div class="help-list__icon-wrapper">
-                              <img class="help-list__item-icon" src="images/icons/transportation.png" alt="help-list-icon">
-                           </div>
+										<img class="help-list__item-icon" src="images/icons/transportation.png" alt="help-list-icon" />
+									</div>
 									<p class="help-list__item-text">Transportation</p>
 								</div>
 								<div class="help-list__item item3">
 									<div class="help-list__icon-wrapper">
-										<img class="help-list__item-icon" src="images/icons/toys.png" alt="help-list-icon">
+										<img class="help-list__item-icon" src="images/icons/toys.png" alt="help-list-icon" />
 									</div>
 									<p class="help-list__item-text">Toys</p>
 								</div>
 								<div class="help-list__item item4">
 									<div class="help-list__icon-wrapper">
-										<img class="help-list__item-icon" src="images/icons/bowls-and-cups.png" alt="help-list-icon">
+										<img class="help-list__item-icon" src="images/icons/bowls-and-cups.png" alt="help-list-icon" />
 									</div>
 									<p class="help-list__item-text">Bowls and cups</p>
 								</div>
 								<div class="help-list__item item5">
 									<div class="help-list__icon-wrapper">
-										<img class="help-list__item-icon" src="images/icons/shampoos.png" alt="help-list-icon">
+										<img class="help-list__item-icon" src="images/icons/shampoos.png" alt="help-list-icon" />
 									</div>
 									<p class="help-list__item-text">Shampoos</p>
 								</div>
 								<div class="help-list__item item6">
 									<div class="help-list__icon-wrapper">
-										<img class="help-list__item-icon" src="images/icons/vitamins.png" alt="help-list-icon">
+										<img class="help-list__item-icon" src="images/icons/vitamins.png" alt="help-list-icon" />
 									</div>
 									<p class="help-list__item-text">Vitamins</p>
 								</div>
 								<div class="help-list__item item7">
 									<div class="help-list__icon-wrapper">
-										<img class="help-list__item-icon" src="images/icons/medicines.png" alt="help-list-icon">
+										<img class="help-list__item-icon" src="images/icons/medicines.png" alt="help-list-icon" />
 									</div>
 									<p class="help-list__item-text">Medicines</p>
 								</div>
 								<div class="help-list__item item8">
 									<div class="help-list__icon-wrapper">
-										<img class="help-list__item-icon" src="images/icons/collars-or-leashes.png" alt="help-list-icon">
+										<img class="help-list__item-icon" src="images/icons/collars-or-leashes.png" alt="help-list-icon" />
 									</div>
 									<p class="help-list__item-text">Collars / leashes</p>
 								</div>
 								<div class="help-list__item item9">
 									<div class="help-list__icon-wrapper">
-										<img class="help-list__item-icon" src="images/icons/sleeping-area.png" alt="help-list-icon">
+										<img class="help-list__item-icon" src="images/icons/sleeping-area.png" alt="help-list-icon" />
 									</div>
 									<p class="help-list__item-text">Sleeping areas</p>
 								</div>
@@ -190,11 +181,11 @@
 						</div>
 					</div>
 				</section>
-				 <section id="donation">
+				<section id="donation">
 					<div class="section__wrapper">
 						<div class="donation-content">
 							<div class="donation-content__left">
-								<img class="donation-content__img" src="images/donation-dog.png" alt="donation-dog">
+								<img class="donation-content__img" src="images/donation-dog.png" alt="donation-dog" />
 							</div>
 							<div class="donation-content__right">
 								<h3 class="section-title donation-content__title">You can also make&nbsp;a&nbsp;donation</h3>
@@ -219,7 +210,7 @@
 							</div>
 						</div>
 					</div>
-				</section> 
+				</section>
 			</main>
 			<footer id="footer" class="background background-footer">
 				<div class="footer__wrapper">
@@ -291,12 +282,14 @@
 							</a>
 						</div>
 						<div class="footer-item">
-							<img class="footer-item__img" src="images/footer-puppy.png" alt="footer-puppy">
+							<img class="footer-item__img" src="images/footer-puppy.png" alt="footer-puppy" />
 						</div>
 					</div>
 				</div>
 			</footer>
 		</div>
-		<script src="scripts/check.js"></script>
+		<script defer src="animals.json"></script>
+      <script defer src="scripts/script.js"></script>
+		<script defer src="scripts/carusel.js"></script>
 	</body>
 </html>
