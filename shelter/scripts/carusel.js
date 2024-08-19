@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (window.innerWidth < 1000) return 2;
 				return 3;
 			}
-            // updateSlider(pets, slideIndex, chunkLength);
+            updateSlider(pets, slideIndex, chunkLength);
 
 			function getChunk(_data, _slideIndex, _chunkLength) {
 				let chunk = _data.slice(_slideIndex, _slideIndex + _chunkLength);
