@@ -3,24 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
 		.then(response => response.json())
 		.then(animalsData => {
 			const pets = animalsData;
-           
+
 			const slider = document.querySelector('.pets-slider');
 
 			let slideIndex = 0;
-			let chunkLength = getChunkLength();
+			let chunkLength = 3;
 
-			function getChunkLength() {
-				if (window.innerWidth < 650) return 1;
-				if (window.innerWidth < 1000) return 2;
-				return 3;
+			function addAtibute(_data) {
+				_data.forEach((item, index) => {
+					item.atribute = index;
+				});
 			}
-            updateSlider(pets, slideIndex, chunkLength);
+			addAtibute(pets);
+			updateSlider(pets, slideIndex, chunkLength);
 
 			function getChunk(_data, _slideIndex, _chunkLength) {
 				let chunk = _data.slice(_slideIndex, _slideIndex + _chunkLength);
 				if (chunk.length < _chunkLength) {
-					return chunk.concat(_data[0]);
-				} else return chunk;
+					 chunk = chunk.concat(_data[0]);
+                     return chunk.sort(() => Math.random() - 0.5)
+				} else return chunk.sort(() => Math.random() - 0.5)
 			}
 
 			function updateSlider(_data, _slideIndex, _chunkLength) {
@@ -38,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				getChunk(_data, _slideIndex, _chunkLength).forEach((item, index) => {
 					const card = document.createElement('div');
 					card.className = 'pets-slider__card pets__card';
-					card.setAttribute('data-index-card', `${_slideIndex + index}`);
+					card.setAttribute('data-index-card', `${item.atribute}`);
 					const cardImg = document.createElement('img');
 					cardImg.className = 'pets__card-img';
 					cardImg.src = `./${item.img}`;
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				cardList.forEach(card => {
 					card.addEventListener('click', () => {
 						const cardIndex = card.getAttribute('data-index-card');
-						showModal(cardIndex);
+						showModal(cardIndex, 'animals.json', '');
 					});
 				});
 
@@ -105,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				});
 				btnRightSlide.addEventListener('click', () => {
 					slideIndex -= chunkLength;
-					slideContainer.style.transform = `translateX(${slideContainer.offsetWidth + btnRightSlide.offsetWidth}px)`;
+					slideContainer.style.transform = `translateX(${slideContainer.offsetWidth + btnLeftSlide.offsetWidth}px)`;
 					setTimeout(() => {
 						slideContainer.style.transform = `translateX(0)`;
 						updateSlider(pets, slideIndex, chunkLength);
@@ -132,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			window.addEventListener('load', checkWindowSize);
 			window.addEventListener('resize', checkWindowSize);
-			console.log('GET ANIMALSDATA=', animalsData);
 		})
 		.catch(error => console.error('Ошибка:', error));
 });
