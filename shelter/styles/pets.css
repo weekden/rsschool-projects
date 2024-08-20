@@ -111,7 +111,9 @@
 }
 
 #pets-nav__duble-prew:disabled,
-#pets-nav__single-prew:disabled {
+#pets-nav__single-prew:disabled,
+#pets-nav__single-next:disabled,
+#pets-nav__duble-next:disabled {
     background: none;
     border: 2px solid var(--color-dark-s);
     cursor: auto;
@@ -138,11 +140,11 @@
         width: 29.815%;
     }
 
-    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(6)) {
+    /* .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(6)) {
         position: absolute;
         top: 0;
         right: -29.815%;
-    }
+    } */
 
 }
 
@@ -168,11 +170,11 @@
         width: 39.245%;
     }
 
-    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(6)) {
+    /* .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5), :nth-child(6)) {
         position: absolute;
         top: 0;
         right: -39.245%;
-    }
+    } */
 
     .pets__card-btn {
 		width: 69%;
@@ -206,11 +208,11 @@
         width: 55.35%;
     }
 
-    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
+    /* .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
         position: absolute;
         top: 0;
         right: -55.35%;
-    }
+    } */
 
     .pets-nav {
         width: 95%;
@@ -239,11 +241,11 @@
         width: 75.03%;
     }
 
-    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
+    /* .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
         position: absolute;
         top: 0;
         right: -75.03%;
-    }
+    } */
     
 }
 
@@ -260,11 +262,11 @@
         width: 90%;
     }
 
-    .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
+    /* .pets-cards__container .pets__card:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
         position: absolute;
         top: 0;
         right: -90%;
-    }
+    } */
 
     .pets-nav {
         width: 100%;
