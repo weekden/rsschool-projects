@@ -111,18 +111,20 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 
 			const checkWindowSize = () => {
+                let newChunkLength = chunkLength;
 				if (window.innerWidth < 1000) {
-					chunkLength = 6;
-					updateSlider(petsExpanded, slideIndex, chunkLength);
+					newChunkLength = 6;
 				} else {
-					chunkLength = 8;
-					updateSlider(petsExpanded, slideIndex, chunkLength);
+					newChunkLength = 8;
 				}
 				if (window.innerWidth < 528) {
-					chunkLength = 3;
-					updateSlider(petsExpanded, slideIndex, chunkLength);
+					newChunkLength = 3;
 				} else if (window.innerWidth > 528 && window.innerWidth < 1000) {
-					chunkLength = 6;
+					newChunkLength = 6;
+				}
+
+                if (newChunkLength !== chunkLength) {
+					chunkLength = newChunkLength;
 					updateSlider(petsExpanded, slideIndex, chunkLength);
 				}
 			};

@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			function getChunk(_data, _slideIndex, _chunkLength) {
 				let chunk = _data.slice(_slideIndex, _slideIndex + _chunkLength);
 				if (chunk.length < _chunkLength) {
-					 chunk = chunk.concat(_data[0]);
-                     return chunk.sort(() => Math.random() - 0.5)
-				} else return chunk.sort(() => Math.random() - 0.5)
+					chunk = chunk.concat(_data[0]);
+					return chunk.sort(() => Math.random() - 0.5);
+				} else return chunk.sort(() => Math.random() - 0.5);
 			}
 
 			function updateSlider(_data, _slideIndex, _chunkLength) {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				const slideContainer = document.createElement('div');
 				slideContainer.className = 'slide-container';
 				slideContainer.style.position = 'relative';
-				getChunk(_data, _slideIndex, _chunkLength).forEach((item, index) => {
+				getChunk(_data, _slideIndex, _chunkLength).forEach(item => {
 					const card = document.createElement('div');
 					card.className = 'pets-slider__card pets__card';
 					card.setAttribute('data-index-card', `${item.atribute}`);
@@ -116,22 +116,23 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const checkWindowSize = () => {
+				let newChunkLength = chunkLength;
 				if (window.innerWidth < 1000) {
-					chunkLength = 2;
-					updateSlider(pets, slideIndex, chunkLength);
+					newChunkLength = 2;
 				} else {
-					chunkLength = 3;
-					updateSlider(pets, slideIndex, chunkLength);
+					newChunkLength = 3;
 				}
 				if (window.innerWidth < 650) {
-					chunkLength = 1;
-					updateSlider(pets, slideIndex, chunkLength);
+					newChunkLength = 1;
 				} else if (window.innerWidth > 650 && window.innerWidth < 1000) {
-					chunkLength = 2;
-					updateSlider(pets, slideIndex, chunkLength);
+					newChunkLength = 2;
 				}
+				if (newChunkLength !== chunkLength) {
+					chunkLength = newChunkLength;
+					updateSlider(pets, slideIndex, chunkLength);
+				} 
 			};
-
+    
 			window.addEventListener('load', checkWindowSize);
 			window.addEventListener('resize', checkWindowSize);
 		})
