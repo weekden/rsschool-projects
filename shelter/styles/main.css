@@ -156,25 +156,6 @@
 	align-items: center;
 }
 
-/* .pets-slider__cards {
-    position: relative;
-	overflow: hidden;
-	display: flex;
-	justify-content: space-between;
-    max-width: 1200px;
-    width: 100%;
-	align-items: center;
-	height: 100%;
-    transition:  0.3s ease-in-out;
-} */
-
-/* .slide {
-   width: 28.5%;
-   display: flex;
-   justify-content: center;
-   align-items: start;
-   
-} */
 
 .slide-container {
 	width: 100%;

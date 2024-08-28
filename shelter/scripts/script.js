@@ -93,7 +93,7 @@ const closeModal = () => {
 	shadow.classList.remove('show');
 };
 
-const checkWindowSize = () => {
+const checkWindowSizeForBuger = () => {
 	if (window.innerWidth < 768) {
 		burgerBtn.classList.add('show-burger-btn');
 	} else {
@@ -102,8 +102,8 @@ const checkWindowSize = () => {
 	}
 };
 
-window.addEventListener('load', checkWindowSize);
-window.addEventListener('resize', checkWindowSize);
+window.addEventListener('load', checkWindowSizeForBuger);
+window.addEventListener('resize', checkWindowSizeForBuger);
 
 burgerBtn.addEventListener('click', toggleNavMenu);
 shadow.addEventListener('click', closeNavMenu);
