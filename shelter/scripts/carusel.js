@@ -1,25 +1,23 @@
-
-const slider = document.querySelector('.pets-slider');
+const slider = document.querySelector('.slider');
+const btnLeftSlide = document.querySelector('#slider-left-btn');
+const btnRightSlide = document.querySelector('#slider-right-btn');
 let pets = null;
 let slideIndex = 0;
 let chunkLength = 3;
-let prevIndex = null;
-let prevChunk = null;
+let isAnimate = false;
 
 document.addEventListener('DOMContentLoaded', () => {
 	fetch('animals.json')
 		.then(response => response.json())
 		.then(animalsData => {
-			 pets = animalsData;
+			pets = animalsData;
 
 			addAtibute(animalsData);
 			randomSortPets(animalsData);
-			updateSlider(animalsData, slideIndex, chunkLength);
+			initSlider(animalsData, slideIndex, chunkLength);
 		})
 		.catch(error => console.error('Ошибка:', error));
 });
-
-
 
 function addAtibute(_data) {
 	_data.forEach((item, index) => {
@@ -40,119 +38,107 @@ function getChunk(_data, _slideIndex, _chunkLength) {
 	return chunk;
 }
 
-function updateSlider(_data, _slideIndex, _chunkLength) {
-	slider.innerHTML = '';
+function createCards(_item) {
+	const card = document.createElement('div');
+	card.className = 'pets-slider__card pets__card';
+	card.setAttribute('data-index-card', `${_item.atribute}`);
+	const cardImg = document.createElement('img');
+	cardImg.className = 'pets__card-img';
+	cardImg.src = `./${_item.img}`;
+	cardImg.alt = `pets-${_item.name.toLowerCase()}`;
+    
+
+	const cardName = document.createElement('p');
+	cardName.className = 'pets__card-name';
+	cardName.innerHTML = _item.name;
+
+	const cardBtn = document.createElement('button');
+	cardBtn.className = 'pets__card-btn btn btn-no-bg';
+	cardBtn.innerHTML = '<span class="btn-text-position">Learn more</span>';
+
+	card.append(cardImg);
+	card.append(cardName);
+	card.append(cardBtn);
+	return card;
+}
+
+function initSlider(_data, _slideIndex, _chunkLength) {
 	const slideContainer = document.createElement('div');
 	slideContainer.className = 'slide-container';
 
-	// let currentChunk = _slideIndex === prevIndex ? prevChunk : getChunk(_data, _slideIndex, _chunkLength);
-
 	getChunk(_data, _slideIndex, _chunkLength).forEach(item => {
-		const card = document.createElement('div');
-		card.className = 'pets-slider__card pets__card';
-		card.setAttribute('data-index-card', `${item.atribute}`);
-		const cardImg = document.createElement('img');
-		cardImg.className = 'pets__card-img';
-		cardImg.src = `./${item.img}`;
-		cardImg.alt = `pets-${item.name.toLowerCase()}`;
-
-		const cardName = document.createElement('p');
-		cardName.className = 'pets__card-name';
-		cardName.innerHTML = item.name;
-
-		const cardBtn = document.createElement('button');
-		cardBtn.className = 'pets__card-btn btn btn-no-bg';
-		cardBtn.innerHTML = '<span class="btn-text-position">Learn more</span>';
-
-		card.append(cardImg);
-		card.append(cardName);
-		card.append(cardBtn);
-
-		slideContainer.append(card);
+		slideContainer.append(createCards(item));
 	});
 
-	// prevChunk = currentChunk;
-
-	// prevIndex = _slideIndex;
-	// randomSortPets(_data);
-	const btnLeftSlide = document.createElement('div');
-	btnLeftSlide.className = 'pets-slider__btn';
-	btnLeftSlide.id = 'slider-left-btn';
-	btnLeftSlide.classList.add('btn');
-	btnLeftSlide.classList.add('btn-no-bg');
-
-	const btnRightSlide = document.createElement('div');
-	btnRightSlide.className = 'pets-slider__btn';
-	btnRightSlide.id = 'slider-right-btn';
-	btnRightSlide.classList.add('btn');
-	btnRightSlide.classList.add('btn-no-bg');
-
-	const arrowLeft = document.createElement('svg');
-	const arrowRight = document.createElement('svg');
-	arrowLeft.innerHTML = `<svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14 2V4H3V6L0 3L3 0V2H14Z" fill="#292929" />
-                        </svg>`;
-	arrowRight.innerHTML = `<svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 4V2L11 2V0L14 3L11 6V4L0 4Z" fill="#292929" />
-                        </svg>`;
-
-	btnLeftSlide.append(arrowLeft);
-	btnRightSlide.append(arrowRight);
-
-	slider.append(btnLeftSlide);
 	slider.append(slideContainer);
-	slider.append(btnRightSlide);
+}
+
+function updateSlider(_data, _slideIndex, _chunkLength, direction) {
+	const slideContainer = slider.querySelector('.slide-container');
+
+	const newSlideContainer = document.createElement('div');
+	newSlideContainer.className = 'slide-container';
+
+	getChunk(_data, _slideIndex, _chunkLength).forEach(item => {
+		newSlideContainer.append(createCards(item));
+	});
+
+    slideContainer.style.transform = `translateX(${direction === 'left' ? '100%' : '-100%'})`;
+    
+	if (direction === 'left') {
+		slider.prepend(newSlideContainer);
+		newSlideContainer.style.position = 'absolute';
+		newSlideContainer.style.transform = `translateX(-100%)`;
+	} else if (direction === 'right') {
+		slider.append(newSlideContainer);
+		slideContainer.style.position = 'absolute';
+		newSlideContainer.style.transform = `translateX(100%)`;
+	}
+
+	setTimeout(() => {
+		newSlideContainer.style.transform = `translateX(0)`;
+	}, 0);
+
+	setTimeout(() => {
+		newSlideContainer.style.position = 'relative';
+		slideContainer.style.position = 'relative';
+		slideContainer.style.width = '0 px';
+		slideContainer.remove();
+		isAnimate = false;
+	}, 500);
 
 	cardList = document.querySelectorAll('.pets__card');
 	cardList.forEach(card => {
 		card.addEventListener('click', () => {
 			const cardIndex = card.getAttribute('data-index-card');
-			showModal(cardIndex, 'animals.json', '');
+			showModal(cardIndex, '../animals.json', '');
 		});
 	});
-
-	btnLeftSlide.addEventListener('click', () => {
-		slideIndex -= chunkLength;
-
-		if (slideIndex < 0) {
-			slideIndex = pets.length + slideIndex;
-		}
-
-		updateSlider(pets, slideIndex, chunkLength);
-		// if (slideIndex === prevIndex) {
-		//     updateSlider(pets, prevIndex, chunkLength);
-
-		// } else {
-		//     slideContainer.style.transform = `translateX(-${slideContainer.offsetWidth + btnLeftSlide.offsetWidth}px)`;
-		//     setTimeout(() => {
-		//         slideContainer.style.transform = `translateX(0)`;
-
-		//         updateSlider(pets, slideIndex, chunkLength);
-
-		//     }, 300);
-		// }
-	});
-
-	btnRightSlide.addEventListener('click', () => {
-		slideIndex += chunkLength;
-		if (slideIndex >= pets.length) {
-			slideIndex = slideIndex % pets.length;
-		}
-		updateSlider(pets, slideIndex, chunkLength);
-		// if (slideIndex === prevIndex) {
-		//     updateSlider(pets, prevIndex, chunkLength);
-
-		// } else {
-		//     slideContainer.style.transform = `translateX(${slideContainer.offsetWidth + btnLeftSlide.offsetWidth}px)`;
-		//     setTimeout(() => {
-		//         slideContainer.style.transform = `translateX(0)`;
-
-		//         updateSlider(pets, slideIndex, chunkLength);
-
-		//     }, 300);
-		// }
-	});
 }
+
+btnLeftSlide.addEventListener('click', () => {
+	if (isAnimate) return;
+	isAnimate = !isAnimate;
+
+	slideIndex -= chunkLength;
+
+	if (slideIndex < 0) {
+		slideIndex = pets.length + slideIndex;
+	}
+	updateSlider(pets, slideIndex, chunkLength, 'left');
+});
+
+btnRightSlide.addEventListener('click', () => {
+	if (isAnimate) return;
+	isAnimate = !isAnimate;
+
+	slideIndex += chunkLength;
+
+	if (slideIndex >= pets.length) {
+		slideIndex = slideIndex % pets.length;
+	}
+	updateSlider(pets, slideIndex, chunkLength, 'right');
+});
 
 const checkWindowSize = () => {
 	let newChunkLength = null;
@@ -168,7 +154,8 @@ const checkWindowSize = () => {
 	if (newChunkLength === chunkLength) return;
 
 	chunkLength = newChunkLength;
-	updateSlider(pets, slideIndex, chunkLength);
+
+	updateSlider(pets, slideIndex, chunkLength, 'right');
 };
 
 window.addEventListener('load', checkWindowSize);

@@ -108,5 +108,13 @@ window.addEventListener('resize', checkWindowSizeForBuger);
 burgerBtn.addEventListener('click', toggleNavMenu);
 shadow.addEventListener('click', closeNavMenu);
 shadow.addEventListener('click', closeModal);
-linksNavMenu.forEach(link => link.addEventListener('click', closeNavMenu));
+linksNavMenu.forEach(link => link.addEventListener('click',(event) =>{
+    event.preventDefault()
+    closeNavMenu()
+    setTimeout(() => {
+        window.location.href = link.href; 
+    }, 500);
+} ));
 modalCloseBtn.addEventListener('click', closeModal);
+
+
