@@ -46,7 +46,6 @@ function createCards(_item) {
 	cardImg.className = 'pets__card-img';
 	cardImg.src = `./${_item.img}`;
 	cardImg.alt = `pets-${_item.name.toLowerCase()}`;
-    
 
 	const cardName = document.createElement('p');
 	cardName.className = 'pets__card-name';
@@ -62,6 +61,16 @@ function createCards(_item) {
 	return card;
 }
 
+function showModal() {
+    cardList = document.querySelectorAll('.pets__card');
+	cardList.forEach(card => {
+		card.addEventListener('click', () => {
+			const cardIndex = card.getAttribute('data-index-card');
+			createModal(cardIndex, '../animals.json', '');
+		});
+	});
+}
+
 function initSlider(_data, _slideIndex, _chunkLength) {
 	const slideContainer = document.createElement('div');
 	slideContainer.className = 'slide-container';
@@ -71,20 +80,30 @@ function initSlider(_data, _slideIndex, _chunkLength) {
 	});
 
 	slider.append(slideContainer);
+    showModal()
 }
 
-function updateSlider(_data, _slideIndex, _chunkLength, direction) {
+function updateSlider(_data, _slideIndex, _chunkLength, direction, resize = false) {
+    if(isAnimate && resize) return
+    isAnimate = true
+    
 	const slideContainer = slider.querySelector('.slide-container');
 
 	const newSlideContainer = document.createElement('div');
 	newSlideContainer.className = 'slide-container';
 
+    if(!resize) {
+        slideContainer.classList.add("slide-animation")
+        newSlideContainer.classList.add("slide-animation")
+    } else {
+        slideContainer.classList.remove("slide-animation")
+        newSlideContainer.classList.remove("slide-animation")
+    }
+
 	getChunk(_data, _slideIndex, _chunkLength).forEach(item => {
 		newSlideContainer.append(createCards(item));
 	});
 
-    slideContainer.style.transform = `translateX(${direction === 'left' ? '100%' : '-100%'})`;
-    
 	if (direction === 'left') {
 		slider.prepend(newSlideContainer);
 		newSlideContainer.style.position = 'absolute';
@@ -95,7 +114,9 @@ function updateSlider(_data, _slideIndex, _chunkLength, direction) {
 		newSlideContainer.style.transform = `translateX(100%)`;
 	}
 
+
 	setTimeout(() => {
+        slideContainer.style.transform = `translateX(${direction === 'left' ? '100%' : '-100%'})`;
 		newSlideContainer.style.transform = `translateX(0)`;
 	}, 0);
 
@@ -107,18 +128,11 @@ function updateSlider(_data, _slideIndex, _chunkLength, direction) {
 		isAnimate = false;
 	}, 500);
 
-	cardList = document.querySelectorAll('.pets__card');
-	cardList.forEach(card => {
-		card.addEventListener('click', () => {
-			const cardIndex = card.getAttribute('data-index-card');
-			showModal(cardIndex, '../animals.json', '');
-		});
-	});
+    showModal()
 }
 
 btnLeftSlide.addEventListener('click', () => {
 	if (isAnimate) return;
-	isAnimate = !isAnimate;
 
 	slideIndex -= chunkLength;
 
@@ -130,7 +144,6 @@ btnLeftSlide.addEventListener('click', () => {
 
 btnRightSlide.addEventListener('click', () => {
 	if (isAnimate) return;
-	isAnimate = !isAnimate;
 
 	slideIndex += chunkLength;
 
@@ -151,12 +164,15 @@ const checkWindowSize = () => {
 		newChunkLength = 3;
 	}
 
-	if (newChunkLength === chunkLength) return;
+	if (newChunkLength === chunkLength || isAnimate) return;
 
 	chunkLength = newChunkLength;
 
-	updateSlider(pets, slideIndex, chunkLength, 'right');
+	updateSlider(pets, slideIndex, chunkLength, 'right', true);
 };
 
 window.addEventListener('load', checkWindowSize);
 window.addEventListener('resize', checkWindowSize);
+
+
+

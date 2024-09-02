@@ -60,7 +60,7 @@ const getScrollbarWidth = () => {
 	return window.innerWidth - document.documentElement.clientWidth;
 };
 
-function showModal(cardIndex, route, imageRoute ) {
+function createModal(cardIndex, route, imageRoute ) {
 	const scrollbarWidth = getScrollbarWidth();
 	body.style.paddingRight = `${scrollbarWidth}px`;
 	body.classList.add('no-scroll-modal');

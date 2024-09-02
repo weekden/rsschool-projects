@@ -10,19 +10,17 @@ let chunkLength = 8;
 let pets = null;
 let pagesCounter = 1;
 let petsExpanded = [];
+let lastElementsPrevPets = null;
 
 fetch('../animals.json')
 	.then(response => response.json())
 	.then(animalsData => {
 		pets = animalsData;
-
 		addAtibute(animalsData);
-        
-		for (let i = 0; i < 6; i++) {
-			pets = pets.sort(() => Math.random() - 0.5);
-			petsExpanded = petsExpanded.concat(pets);
-		}
-
+        pets = pets.sort(() => Math.random() - 0.5);
+		createPetsExpandedArray();
+        console.log(petsExpanded)
+		updateSlider(petsExpanded, slideIndex, chunkLength);
 	})
 	.catch(error => console.error('Ошибка:', error));
 
@@ -30,6 +28,35 @@ function addAtibute(_data) {
 	_data.forEach((item, index) => {
 		item.atribute = index;
 	});
+}
+
+function sortParts() {
+    let firstHalf =  pets.slice(0, pets.length / 2).sort(() => Math.random() - 0.5);
+    let secondHalf =  pets.slice(-pets.length / 2).sort(() => Math.random() - 0.5);
+    return firstHalf.concat(secondHalf)
+}
+
+function arraysEqal(arr1, arr2) {
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+}
+
+function createPetsExpandedArray() {
+	for (let i = 0; i < 6; i++) {
+		if (i > 0) {
+            let newSortPets = sortParts();
+            while(arraysEqal(newSortPets, pets)) {
+                sortParts()
+            }
+            petsExpanded = petsExpanded.concat(newSortPets)
+           continue;
+		}
+
+		petsExpanded = petsExpanded.concat(pets);
+
+	}
 }
 
 function getChunk(_data, _slideIndex, _chunkLength) {
@@ -46,7 +73,6 @@ function checkPageNumber() {
 }
 
 function updateSlider(_data, _slideIndex, _chunkLength) {
-
 	paginationContainer.innerHTML = '';
 	currentPageNumder.innerHTML = pagesCounter;
 	checkPageNumber();
@@ -74,21 +100,18 @@ function updateSlider(_data, _slideIndex, _chunkLength) {
 		paginationContainer.append(card);
 	});
 
+
 	cardList = document.querySelectorAll('.pets__card');
 	cardList.forEach(card => {
 		card.addEventListener('click', () => {
 			const cardIndex = card.getAttribute('data-index-card');
-			showModal(cardIndex, '../animals.json', '../');
+			createModal(cardIndex, '../animals.json', '../');
 		});
 	});
 }
 
 btnNext.addEventListener('click', () => {
 	slideIndex += chunkLength;
-
-	if (slideIndex >= petsExpanded.length) {
-		slideIndex = 0;
-	}
 	pagesCounter++;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 });
@@ -101,10 +124,6 @@ btnDubleNext.addEventListener('click', () => {
 
 btnPrew.addEventListener('click', () => {
 	slideIndex -= chunkLength;
-
-	if (slideIndex < 0) {
-		slideIndex = petsExpanded.length - chunkLength;
-	}
 	pagesCounter--;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 });
@@ -117,14 +136,21 @@ btnDublePrew.addEventListener('click', () => {
 
 const checkWindowSize = () => {
 	let newChunkLength = chunkLength;
+
 	if (window.innerWidth < 528) {
 		newChunkLength = 3;
 	} else if (window.innerWidth < 1000) {
 		newChunkLength = 6;
 	} else newChunkLength = 8;
 
-	if (newChunkLength === chunkLength) return;
-	chunkLength = newChunkLength;
+    if (newChunkLength !== chunkLength) {
+
+        pagesCounter = Math.ceil((slideIndex + 1) / newChunkLength);
+        slideIndex = pagesCounter * newChunkLength - newChunkLength;
+   
+        chunkLength = newChunkLength;
+    }
+
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 };
 

@@ -170,11 +170,15 @@ height: 100%;
 	display: flex;
 	justify-content: space-around;
 	align-items: start;
-	transition: transform 0.5s ease-in-out;
+	
     max-width: 1096px;
     max-height: 430px;
 	width: 100%;
     height: 100%;
+}
+
+.slide-animation{
+    transition: transform 0.5s ease-in-out;
 }
 
 .pets-slider__card {
@@ -210,6 +214,7 @@ height: 100%;
 	height: 5.2rem;
 	background: var(--color-primary);
 	text-decoration: none;
+    user-select: none;
 }
 
 /* ___________help____________ */
