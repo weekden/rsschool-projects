@@ -146,7 +146,6 @@ const checkWindowSize = () => {
 	} else newChunkLength = 8;
 
     if (newChunkLength !== chunkLength) {
-        slideIndex
         pagesCounter = Math.ceil((slideIndex + 1) / newChunkLength);
         slideIndex = pagesCounter * newChunkLength - newChunkLength;
    
