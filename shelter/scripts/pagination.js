@@ -47,16 +47,18 @@ function createPetsExpandedArray() {
 	for (let i = 0; i < 6; i++) {
 		if (i > 0) {
             let newSortPets = sortParts();
-            while(arraysEqal(newSortPets, pets)) {
+            if(arraysEqal(newSortPets, pets)) {
                 sortParts()
+             
             }
+         
             petsExpanded = petsExpanded.concat(newSortPets)
            continue;
 		}
 
 		petsExpanded = petsExpanded.concat(pets);
-
 	}
+    
 }
 
 function getChunk(_data, _slideIndex, _chunkLength) {
