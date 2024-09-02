@@ -60,16 +60,16 @@ const getScrollbarWidth = () => {
 	return window.innerWidth - document.documentElement.clientWidth;
 };
 
-const showModal = cardIndex => {
+function createModal(cardIndex, route, imageRoute ) {
 	const scrollbarWidth = getScrollbarWidth();
 	body.style.paddingRight = `${scrollbarWidth}px`;
 	body.classList.add('no-scroll-modal');
-	fetch('animals.json')
+	fetch(route)
 		.then(response => response.json())
 		.then(animalsData => {
 			const pets = animalsData;
 			console.log(pets);
-			popupImg.src = `./${pets[cardIndex].img}`;
+			popupImg.src = `${imageRoute}./${pets[cardIndex].img}`;
 			petName.innerHTML = pets[cardIndex].name;
 			petType.innerHTML = `${pets[cardIndex].type} - ${pets[cardIndex].breed}`;
 			petDescription.innerHTML = `${pets[cardIndex].description}`;
@@ -93,7 +93,7 @@ const closeModal = () => {
 	shadow.classList.remove('show');
 };
 
-const checkWindowSize = () => {
+const checkWindowSizeForBuger = () => {
 	if (window.innerWidth < 768) {
 		burgerBtn.classList.add('show-burger-btn');
 	} else {
@@ -102,11 +102,19 @@ const checkWindowSize = () => {
 	}
 };
 
-window.addEventListener('load', checkWindowSize);
-window.addEventListener('resize', checkWindowSize);
+window.addEventListener('load', checkWindowSizeForBuger);
+window.addEventListener('resize', checkWindowSizeForBuger);
 
 burgerBtn.addEventListener('click', toggleNavMenu);
 shadow.addEventListener('click', closeNavMenu);
 shadow.addEventListener('click', closeModal);
-linksNavMenu.forEach(link => link.addEventListener('click', closeNavMenu));
+linksNavMenu.forEach(link => link.addEventListener('click',(event) =>{
+    event.preventDefault()
+    closeNavMenu()
+    setTimeout(() => {
+        window.location.href = link.href; 
+    }, 500);
+} ));
 modalCloseBtn.addEventListener('click', closeModal);
+
+

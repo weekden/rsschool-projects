@@ -435,6 +435,8 @@ footer {
     width: 500px ;
     height: 500px;
     object-fit: cover;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
 }
 
 .popup-right {
