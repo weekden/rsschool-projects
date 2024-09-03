@@ -6,7 +6,7 @@ let slideIndex = 0;
 let chunkLength = 3;
 let isAnimate = false;
 
-fetch('/animals.json')
+fetch('../animals.json')
 	.then(response => response.json())
 	.then(animalsData => {
 		pets = animalsData;
