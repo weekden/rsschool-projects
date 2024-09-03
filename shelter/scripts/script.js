@@ -84,6 +84,7 @@ function createModal(_cardIndex, _route) {
 	shadow.classList.add('show');
 };
 
+
 function showModal() {
     cardList = document.querySelectorAll('.pets__card');
 	cardList.forEach(card => {
@@ -92,6 +93,12 @@ function showModal() {
 			createModal(cardIndex, '../animals.json');
 		});
 	});
+}
+
+function deletEventListener() {
+    cardList.forEach(card => {
+        card.removeEventListener("click", createModal)
+    })
 }
 
 const closeModal = () => {

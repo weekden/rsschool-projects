@@ -106,24 +106,28 @@ function updateSlider(_data, _slideIndex, _chunkLength) {
 }
 
 btnNext.addEventListener('click', () => {
+    deletEventListener()
 	slideIndex += chunkLength;
 	pagesCounter++;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 });
 
 btnDubleNext.addEventListener('click', () => {
+    deletEventListener()
 	slideIndex = petsExpanded.length - chunkLength;
 	pagesCounter = petsExpanded.length / chunkLength;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 });
 
 btnPrew.addEventListener('click', () => {
+    deletEventListener()
 	slideIndex -= chunkLength;
 	pagesCounter--;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 });
 
 btnDublePrew.addEventListener('click', () => {
+    deletEventListener()
 	slideIndex = 0;
 	pagesCounter = 1;
 	updateSlider(petsExpanded, slideIndex, chunkLength);

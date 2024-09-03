@@ -6,18 +6,16 @@ let slideIndex = 0;
 let chunkLength = 3;
 let isAnimate = false;
 
-document.addEventListener('DOMContentLoaded', () => {
-	fetch('animals.json')
-		.then(response => response.json())
-		.then(animalsData => {
-			pets = animalsData;
+fetch('../animals.json')
+	.then(response => response.json())
+	.then(animalsData => {
+		pets = animalsData;
 
-			addAtibute(animalsData);
-			randomSortPets(animalsData);
-			initSlider(animalsData, slideIndex, chunkLength);
-		})
-		.catch(error => console.error('Ошибка:', error));
-});
+		addAtibute(animalsData);
+		randomSortPets(animalsData);
+		initSlider(animalsData, slideIndex, chunkLength);
+	})
+	.catch(error => console.error('Ошибка:', error));
 
 function addAtibute(_data) {
 	_data.forEach((item, index) => {
@@ -61,8 +59,6 @@ function createCards(_item) {
 	return card;
 }
 
-
-
 function initSlider(_data, _slideIndex, _chunkLength) {
 	const slideContainer = document.createElement('div');
 	slideContainer.className = 'slide-container';
@@ -72,25 +68,25 @@ function initSlider(_data, _slideIndex, _chunkLength) {
 	});
 
 	slider.append(slideContainer);
-    showModal()
+	showModal();
 }
 
 function updateSlider(_data, _slideIndex, _chunkLength, direction, resize = false) {
-    if(isAnimate && resize) return
-    isAnimate = true
-    
+	if (isAnimate && resize) return;
+	isAnimate = true;
+
 	const slideContainer = slider.querySelector('.slide-container');
 
 	const newSlideContainer = document.createElement('div');
 	newSlideContainer.className = 'slide-container';
 
-    if(!resize) {
-        slideContainer.classList.add("slide-animation")
-        newSlideContainer.classList.add("slide-animation")
-    } else {
-        slideContainer.classList.remove("slide-animation")
-        newSlideContainer.classList.remove("slide-animation")
-    }
+	if (!resize) {
+		slideContainer.classList.add('slide-animation');
+		newSlideContainer.classList.add('slide-animation');
+	} else {
+		slideContainer.classList.remove('slide-animation');
+		newSlideContainer.classList.remove('slide-animation');
+	}
 
 	getChunk(_data, _slideIndex, _chunkLength).forEach(item => {
 		newSlideContainer.append(createCards(item));
@@ -106,21 +102,20 @@ function updateSlider(_data, _slideIndex, _chunkLength, direction, resize = fals
 		newSlideContainer.style.transform = `translateX(100%)`;
 	}
 
-
 	setTimeout(() => {
-        slideContainer.style.transform = `translateX(${direction === 'left' ? '100%' : '-100%'})`;
+		slideContainer.style.transform = `translateX(${direction === 'left' ? '100%' : '-100%'})`;
 		newSlideContainer.style.transform = `translateX(0)`;
+		showModal();
 	}, 0);
 
 	setTimeout(() => {
+		deletEventListener();
 		newSlideContainer.style.position = 'relative';
 		slideContainer.style.position = 'relative';
 		slideContainer.style.width = '0 px';
 		slideContainer.remove();
 		isAnimate = false;
 	}, 500);
-
-    showModal()
 }
 
 btnLeftSlide.addEventListener('click', () => {
@@ -165,6 +160,3 @@ const checkWindowSize = () => {
 
 window.addEventListener('load', checkWindowSize);
 window.addEventListener('resize', checkWindowSize);
-
-
-
