@@ -60,23 +60,21 @@ const getScrollbarWidth = () => {
 	return window.innerWidth - document.documentElement.clientWidth;
 };
 
-function createModal(cardIndex, route, imageRoute ) {
+function createModal(_cardIndex, _route) {
 	const scrollbarWidth = getScrollbarWidth();
 	body.style.paddingRight = `${scrollbarWidth}px`;
 	body.classList.add('no-scroll-modal');
-	fetch(route)
+	fetch(_route)
 		.then(response => response.json())
 		.then(animalsData => {
-			const pets = animalsData;
-			console.log(pets);
-			popupImg.src = `${imageRoute}./${pets[cardIndex].img}`;
-			petName.innerHTML = pets[cardIndex].name;
-			petType.innerHTML = `${pets[cardIndex].type} - ${pets[cardIndex].breed}`;
-			petDescription.innerHTML = `${pets[cardIndex].description}`;
-			petAge.innerHTML = `<span>Age:</span>    ${pets[cardIndex].age}`;
-			petInoculations.innerHTML = `<span>Inoculations:</span>   ${pets[cardIndex].inoculations}`;
-			petDiseases.innerHTML = `<span>Diseases:</span>   ${pets[cardIndex].diseases}`;
-			petParasit.innerHTML = `<span>Parasites:</span>   ${pets[cardIndex].parasites}`;
+			popupImg.src = `../${animalsData[_cardIndex].img}`;
+			petName.innerHTML = animalsData[_cardIndex].name;
+			petType.innerHTML = `${animalsData[_cardIndex].type} - ${animalsData[_cardIndex].breed}`;
+			petDescription.innerHTML = `${animalsData[_cardIndex].description}`;
+			petAge.innerHTML = `<span>Age:</span>    ${animalsData[_cardIndex].age}`;
+			petInoculations.innerHTML = `<span>Inoculations:</span>   ${animalsData[_cardIndex].inoculations}`;
+			petDiseases.innerHTML = `<span>Diseases:</span>   ${animalsData[_cardIndex].diseases}`;
+			petParasit.innerHTML = `<span>Parasites:</span>   ${animalsData[_cardIndex].parasites}`;
 
 			console.log('GET ANIMALSDATA=', animalsData);
 		})
@@ -85,6 +83,16 @@ function createModal(cardIndex, route, imageRoute ) {
 	modal.classList.add('show-popup');
 	shadow.classList.add('show');
 };
+
+function showModal() {
+    cardList = document.querySelectorAll('.pets__card');
+	cardList.forEach(card => {
+		card.addEventListener('click', () => {
+			const cardIndex = card.getAttribute('data-index-card');
+			createModal(cardIndex, '../animals.json');
+		});
+	});
+}
 
 const closeModal = () => {
 	body.classList.remove('no-scroll-modal');

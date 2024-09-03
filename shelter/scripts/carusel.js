@@ -61,15 +61,7 @@ function createCards(_item) {
 	return card;
 }
 
-function showModal() {
-    cardList = document.querySelectorAll('.pets__card');
-	cardList.forEach(card => {
-		card.addEventListener('click', () => {
-			const cardIndex = card.getAttribute('data-index-card');
-			createModal(cardIndex, '../animals.json', '');
-		});
-	});
-}
+
 
 function initSlider(_data, _slideIndex, _chunkLength) {
 	const slideContainer = document.createElement('div');
