@@ -102,14 +102,7 @@ function updateSlider(_data, _slideIndex, _chunkLength) {
 		paginationContainer.append(card);
 	});
 
-
-	cardList = document.querySelectorAll('.pets__card');
-	cardList.forEach(card => {
-		card.addEventListener('click', () => {
-			const cardIndex = card.getAttribute('data-index-card');
-			createModal(cardIndex, '../animals.json', '../');
-		});
-	});
+    showModal()
 }
 
 btnNext.addEventListener('click', () => {
