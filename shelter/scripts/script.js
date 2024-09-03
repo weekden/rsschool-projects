@@ -114,16 +114,18 @@ const checkWindowSizeForBuger = () => {
 	if (window.innerWidth >= 768) {
 		if (isOpenMenu) closeNavMenu();
 		burgerBtn.classList.remove('show-burger-btn');
+        burgerBtn.removeEventListener("click", toggleNavMenu)
 	} else {
 		burgerBtn.classList.add('show-burger-btn');
+        burgerBtn.addEventListener('click', toggleNavMenu);
 	}
 	checkPage();
 };
 
-window.addEventListener('load', checkWindowSizeForBuger);
+window.addEventListener('load', checkWindowSizeForBuger); 
 window.addEventListener('resize', checkWindowSizeForBuger);
 
-burgerBtn.addEventListener('click', toggleNavMenu);
+
 shadow.addEventListener('click', closeNavMenu);
 shadow.addEventListener('click', closeModal);
 linksNavMenu.forEach(link => link.addEventListener('click',(event) =>{
