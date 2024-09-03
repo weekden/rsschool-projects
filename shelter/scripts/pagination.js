@@ -49,11 +49,9 @@ function createPetsExpandedArray() {
             let newSortPets = sortParts();
             if(arraysEqal(newSortPets, pets)) {
                 sortParts()
-             
             }
-         
             petsExpanded = petsExpanded.concat(newSortPets)
-           continue;
+            continue;
 		}
 
 		petsExpanded = petsExpanded.concat(pets);

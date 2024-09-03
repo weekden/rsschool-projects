@@ -17,8 +17,8 @@ const petInoculations = document.querySelector('.popup-inoculations');
 const petDiseases = document.querySelector('.popup-diseases');
 const petParasit = document.querySelector('.popup-parasites');
 
-let isActive = true;
-let scrollPosition = 0;
+let isOpenMenu = false;
+
 
 const checkPage = () => {
 	if (window.innerWidth < 768) {
@@ -44,14 +44,16 @@ const checkStateBody = isActive => {
 };
 
 const toggleNavMenu = () => {
-	checkStateBody(isActive);
+    isOpenMenu = true
+	checkStateBody(isOpenMenu);
 	checkPage();
 	burgerBtn.classList.toggle('active-burger-btn');
 	navMenu.classList.toggle('show-nav-menu');
 };
 
 const closeNavMenu = () => {
-	checkStateBody(!isActive);
+    isOpenMenu = false
+	checkStateBody(isOpenMenu);
 	burgerBtn.classList.remove('active-burger-btn');
 	navMenu.classList.remove('show-nav-menu');
 };
@@ -109,18 +111,21 @@ const closeModal = () => {
 };
 
 const checkWindowSizeForBuger = () => {
-	if (window.innerWidth < 768) {
-		burgerBtn.classList.add('show-burger-btn');
-	} else {
+	if (window.innerWidth >= 768) {
+		if (isOpenMenu) closeNavMenu();
 		burgerBtn.classList.remove('show-burger-btn');
-		checkPage();
+        burgerBtn.removeEventListener("click", toggleNavMenu)
+	} else {
+		burgerBtn.classList.add('show-burger-btn');
+        burgerBtn.addEventListener('click', toggleNavMenu);
 	}
+	checkPage();
 };
 
-window.addEventListener('load', checkWindowSizeForBuger);
+window.addEventListener('load', checkWindowSizeForBuger); 
 window.addEventListener('resize', checkWindowSizeForBuger);
 
-burgerBtn.addEventListener('click', toggleNavMenu);
+
 shadow.addEventListener('click', closeNavMenu);
 shadow.addEventListener('click', closeModal);
 linksNavMenu.forEach(link => link.addEventListener('click',(event) =>{
@@ -131,5 +136,4 @@ linksNavMenu.forEach(link => link.addEventListener('click',(event) =>{
     }, 500);
 } ));
 modalCloseBtn.addEventListener('click', closeModal);
-
 

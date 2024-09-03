@@ -6,7 +6,7 @@ let slideIndex = 0;
 let chunkLength = 3;
 let isAnimate = false;
 
-fetch('../animals.json')
+fetch('/animals.json')
 	.then(response => response.json())
 	.then(animalsData => {
 		pets = animalsData;
@@ -42,7 +42,7 @@ function createCards(_item) {
 	card.setAttribute('data-index-card', `${_item.atribute}`);
 	const cardImg = document.createElement('img');
 	cardImg.className = 'pets__card-img';
-	cardImg.src = `./${_item.img}`;
+	cardImg.src = `${_item.img}`;
 	cardImg.alt = `pets-${_item.name.toLowerCase()}`;
 
 	const cardName = document.createElement('p');
