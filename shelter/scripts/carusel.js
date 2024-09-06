@@ -68,7 +68,7 @@ function initSlider(_data, _slideIndex, _chunkLength) {
 	});
 
 	slider.append(slideContainer);
-	showModal("animals.json");
+	showModal("animals.json", "./");
 }
 
 function updateSlider(_data, _slideIndex, _chunkLength, direction, resize = false) {
@@ -105,7 +105,7 @@ function updateSlider(_data, _slideIndex, _chunkLength, direction, resize = fals
 	setTimeout(() => {
 		slideContainer.style.transform = `translateX(${direction === 'left' ? '100%' : '-100%'})`;
 		newSlideContainer.style.transform = `translateX(0)`;
-		showModal("animals.json");
+		showModal("animals.json", "./");
 	}, 0);
 
 	setTimeout(() => {
