@@ -100,7 +100,7 @@ function updateSlider(_data, _slideIndex, _chunkLength) {
 		paginationContainer.append(card);
 	});
 
-    showModal()
+    showModal("../animals.json")
 }
 
 btnNext.addEventListener('click', () => {
