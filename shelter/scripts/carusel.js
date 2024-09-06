@@ -42,7 +42,7 @@ function createCards(_item) {
 	card.setAttribute('data-index-card', `${_item.atribute}`);
 	const cardImg = document.createElement('img');
 	cardImg.className = 'pets__card-img';
-	cardImg.src = `../${_item.img}`;
+	cardImg.src = `./${_item.img}`;
 	cardImg.alt = `pets-${_item.name.toLowerCase()}`;
 
 	const cardName = document.createElement('p');
@@ -68,7 +68,7 @@ function initSlider(_data, _slideIndex, _chunkLength) {
 	});
 
 	slider.append(slideContainer);
-	showModal("/animals.json");
+	showModal("animals.json");
 }
 
 function updateSlider(_data, _slideIndex, _chunkLength, direction, resize = false) {
@@ -105,7 +105,7 @@ function updateSlider(_data, _slideIndex, _chunkLength, direction, resize = fals
 	setTimeout(() => {
 		slideContainer.style.transform = `translateX(${direction === 'left' ? '100%' : '-100%'})`;
 		newSlideContainer.style.transform = `translateX(0)`;
-		showModal("/animals.json");
+		showModal("animals.json");
 	}, 0);
 
 	setTimeout(() => {
