@@ -62,14 +62,14 @@ const getScrollbarWidth = () => {
 	return window.innerWidth - document.documentElement.clientWidth;
 };
 
-function createModal(_cardIndex, _route) {
+function createModal(_cardIndex, _route, _routeImg) {
 	const scrollbarWidth = getScrollbarWidth();
 	body.style.paddingRight = `${scrollbarWidth}px`;
 	body.classList.add('no-scroll-modal');
 	fetch(_route)
 		.then(response => response.json())
 		.then(animalsData => {
-			popupImg.src = `../${animalsData[_cardIndex].img}`;
+			popupImg.src = `${_routeImg}${animalsData[_cardIndex].img}`;
 			petName.innerHTML = animalsData[_cardIndex].name;
 			petType.innerHTML = `${animalsData[_cardIndex].type} - ${animalsData[_cardIndex].breed}`;
 			petDescription.innerHTML = `${animalsData[_cardIndex].description}`;
@@ -87,12 +87,12 @@ function createModal(_cardIndex, _route) {
 };
 
 
-function showModal(_route) {
+function showModal(_route, _routeImg) {
     cardList = document.querySelectorAll('.pets__card');
 	cardList.forEach(card => {
 		card.addEventListener('click', () => {
 			const cardIndex = card.getAttribute('data-index-card');
-			createModal(cardIndex, _route);
+			createModal(cardIndex, _route, _routeImg);
 		});
 	});
 }
