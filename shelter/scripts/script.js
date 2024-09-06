@@ -87,12 +87,12 @@ function createModal(_cardIndex, _route) {
 };
 
 
-function showModal() {
+function showModal(_route) {
     cardList = document.querySelectorAll('.pets__card');
 	cardList.forEach(card => {
 		card.addEventListener('click', () => {
 			const cardIndex = card.getAttribute('data-index-card');
-			createModal(cardIndex, '../animals.json');
+			createModal(cardIndex, _route);
 		});
 	});
 }
