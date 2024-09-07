@@ -33,7 +33,7 @@ const checkPage = () => {
 	}
 };
 
-const checkStateBody = isActive => {
+const checkStateBody = (isActive) => {
 	if (isActive) {
 		body.classList.toggle('no-scroll');
 		shadow.classList.toggle('show');
@@ -77,8 +77,6 @@ function createModal(_cardIndex, _route, _routeImg) {
 			petInoculations.innerHTML = `<span>Inoculations:</span>   ${animalsData[_cardIndex].inoculations}`;
 			petDiseases.innerHTML = `<span>Diseases:</span>   ${animalsData[_cardIndex].diseases}`;
 			petParasit.innerHTML = `<span>Parasites:</span>   ${animalsData[_cardIndex].parasites}`;
-
-			console.log('GET ANIMALSDATA=', animalsData);
 		})
 		.catch(error => console.error('Ошибка:', error));
 
