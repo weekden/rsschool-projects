@@ -17,9 +17,10 @@ fetch('../animals.json')
 	.then(animalsData => {
 		pets = animalsData;
 		addAtibute(animalsData);
-        pets = pets.sort(() => Math.random() - 0.5);
+		pets = pets.sort(() => Math.random() - 0.5);
 		createPetsExpandedArray();
-        console.log(petsExpanded)
+		console.log('Массив на 48 питомцев');
+		console.log(petsExpanded);
 		updateSlider(petsExpanded, slideIndex, chunkLength);
 	})
 	.catch(error => console.error('Ошибка:', error));
@@ -31,32 +32,30 @@ function addAtibute(_data) {
 }
 
 function sortParts() {
-    let firstHalf =  pets.slice(0, pets.length / 2).sort(() => Math.random() - 0.5);
-    let secondHalf =  pets.slice(-pets.length / 2).sort(() => Math.random() - 0.5);
-    return firstHalf.concat(secondHalf)
+	let firstHalf = pets.slice(0, pets.length / 2).sort(() => Math.random() - 0.5);
+	let secondHalf = pets.slice(-pets.length / 2).sort(() => Math.random() - 0.5);
+	return firstHalf.concat(secondHalf);
 }
 
 function arraysEqal(arr1, arr2) {
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) return false;
-    }
-    return true;
+	for (let i = 0; i < arr1.length; i++) {
+		if (arr1[i] !== arr2[i]) return false;
+	}
+	return true;
 }
 
 function createPetsExpandedArray() {
 	for (let i = 0; i < 6; i++) {
 		if (i > 0) {
-            let newSortPets = sortParts();
-            if(arraysEqal(newSortPets, pets)) {
-                sortParts()
-            }
-            petsExpanded = petsExpanded.concat(newSortPets)
-            continue;
+			let newSortPets = sortParts();
+			if (arraysEqal(newSortPets, pets)) {
+				sortParts();
+			}
+			petsExpanded = petsExpanded.concat(newSortPets);
+			continue;
 		}
-
 		petsExpanded = petsExpanded.concat(pets);
 	}
-    
 }
 
 function getChunk(_data, _slideIndex, _chunkLength) {
@@ -100,32 +99,32 @@ function updateSlider(_data, _slideIndex, _chunkLength) {
 		paginationContainer.append(card);
 	});
 
-    showModal("../animals.json", "../")
+	showModal('../animals.json', '../');
 }
 
 btnNext.addEventListener('click', () => {
-    deletEventListener()
+	deletEventListener();
 	slideIndex += chunkLength;
 	pagesCounter++;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 });
 
 btnDubleNext.addEventListener('click', () => {
-    deletEventListener()
+	deletEventListener();
 	slideIndex = petsExpanded.length - chunkLength;
 	pagesCounter = petsExpanded.length / chunkLength;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 });
 
 btnPrew.addEventListener('click', () => {
-    deletEventListener()
+	deletEventListener();
 	slideIndex -= chunkLength;
 	pagesCounter--;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 });
 
 btnDublePrew.addEventListener('click', () => {
-    deletEventListener()
+	deletEventListener();
 	slideIndex = 0;
 	pagesCounter = 1;
 	updateSlider(petsExpanded, slideIndex, chunkLength);
@@ -140,12 +139,12 @@ const checkWindowSize = () => {
 		newChunkLength = 6;
 	} else newChunkLength = 8;
 
-    if (newChunkLength !== chunkLength) {
-        pagesCounter = Math.ceil((slideIndex + 1) / newChunkLength);
-        slideIndex = pagesCounter * newChunkLength - newChunkLength;
-   
-        chunkLength = newChunkLength;
-    }
+	if (newChunkLength !== chunkLength) {
+		pagesCounter = Math.ceil((slideIndex + 1) / newChunkLength);
+		slideIndex = pagesCounter * newChunkLength - newChunkLength;
+
+		chunkLength = newChunkLength;
+	}
 
 	updateSlider(petsExpanded, slideIndex, chunkLength);
 };
