@@ -1,6 +1,7 @@
 function AudioPlayerController() {
 	let myModel = null;
 	let myContainer = null;
+
 	this.init = function (model, container) {
 		myModel = model;
 		myContainer = container;
@@ -12,7 +13,7 @@ function AudioPlayerController() {
 		btnNextTrack.addEventListener('click', this.getNextTrack);
 
 		const btnPlayPause = myContainer.querySelector('#play-pause');
-		btnPlayPause.addEventListener('togle', this.playPuseTrack);
+		btnPlayPause.addEventListener('click', this.togglePlayPause);
 	};
 
 	this.getPrevTrack = function () {
@@ -23,8 +24,8 @@ function AudioPlayerController() {
 		myModel.getNextTrack();
 	};
 
-	this.playPuseTrack = function () {
-		myModel.playPuseTrack();
+	this.togglePlayPause = function () {
+		myModel.togglePlayPause();
 	};
 }
 
@@ -63,6 +64,10 @@ function AudioPlayerModel() {
 			'audio-src': track.audio,
 			duration: track.duration,
 		};
+
+		if (myView) {
+			myView.initPlayer(trackInfoObj);
+		}
 	};
 
 	this.getNextTrack = function () {
@@ -71,6 +76,7 @@ function AudioPlayerModel() {
 			currentTrackIndex = 0;
 		}
 		this.loadCurrentTrack();
+        myView.playPauseSong(isPlayed);
 	};
 
 	this.getPrevTrack = function () {
@@ -79,8 +85,17 @@ function AudioPlayerModel() {
 			currentTrackIndex = tracks.length - 1;
 		}
 		this.loadCurrentTrack();
+        myView.playPauseSong(isPlayed);
 	};
 
+	this.updateDuration = function () {
+		const durationTrack = trackInfoObj.duration;
+	};
+
+	this.togglePlayPause = function () {
+		isPlayed = !isPlayed;
+		myView.playPauseSong(isPlayed);
+	};
 }
 
 function AudioPlayerView() {
@@ -88,6 +103,27 @@ function AudioPlayerView() {
 
 	this.init = function (container) {
 		myContainer = container;
+		this.initPlayer = function (trackInfo) {
+			const audioElement = myContainer.querySelector('audio');
+			const trackTitleElement = myContainer.querySelector('.track-name');
+			const artistElement = myContainer.querySelector('.author');
+			const albumImageElement = myContainer.querySelector('.album-img');
+			const trackDuration = myContainer.querySelector('#duration');
+
+			audioElement.src = trackInfo['audio-src'];
+			trackTitleElement.textContent = trackInfo['track-name'];
+			artistElement.textContent = trackInfo.author;
+			albumImageElement.src = trackInfo['album-img'];
+		};
+
+		this.playPauseSong = function (isPlayed) {
+			const audioElement = myContainer.querySelector('audio');
+			if (isPlayed) {
+				audioElement.play();
+			} else {
+				audioElement.pause();
+			}
+		};
 	};
 }
 
