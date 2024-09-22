@@ -145,8 +145,7 @@ footer {
 }
 
 
-.control-btn:hover,
-.trackList-img:hover
+.control-btn:hover
  {
     scale: 1.15;
 }
@@ -158,7 +157,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(109, 109, 110, 0.8);
+    background-color: rgba(109, 109, 110, 0.7);
     top: -100%;
     transition: top 0.3s ease-in-out;
 }
@@ -184,8 +183,16 @@ footer {
     border-radius: 50%;
 }
 
+.tracklist-track {
+    font-size: 1.2rem;
+}
+
 .tracklist-li:hover {
-    background-color: rgba(109, 109, 110, 0.2);
+    background-color: rgba(109, 109, 110, 0.7);
+}
+
+.tracklist-li:hover .trackList-img {
+    scale: 1.15;
 }
 
 @media (max-width: 400px) {

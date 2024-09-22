@@ -283,12 +283,16 @@ function AudioPlayerView() {
 			trackListImg.src = element.album_image;
 			trackListImg.alt = element.album_name;
 
+            const trackArtistName = document.createElement("p");
+            trackArtistName.classList.add("tracklist-track")
+            trackArtistName.textContent = `${element.artist_name} - ${element.name}`
+
 			const trackDuration = document.createElement('span');
 			const minutes = Math.floor(element.duration / 60);
 			const seconds = element.duration % 60;
 			trackDuration.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-			trackLi.append(trackListImg, trackDuration);
+			trackLi.append(trackListImg, trackArtistName, trackDuration);
 			trackListContainer.append(trackLi);
 		});
 	};
