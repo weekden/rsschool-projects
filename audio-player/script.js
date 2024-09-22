@@ -79,6 +79,8 @@ function AudioPlayerModel() {
 			'audio-src': track.audio,
 			duration: track.duration,
 		};
+
+		console.log(track);
 		// проверяем если есть view то передаем объект во view
 		if (myView) {
 			myView.initPlayer(trackInfoObj);
@@ -128,20 +130,33 @@ function AudioPlayerView() {
 		const audioElement = myContainer.querySelector('audio');
 		const trackTitleElement = myContainer.querySelector('.track-name');
 		const artistElement = myContainer.querySelector('.author');
+		const albumNameElement = myContainer.querySelector('.album');
 		const albumImageElement = myContainer.querySelector('.album-img');
+		const apBackground = myContainer.querySelector('.ap-background');
+        const iconPause = myContainer.querySelector(".fa-pause")
 
 		audioElement.src = trackInfo['audio-src'];
 		trackTitleElement.textContent = trackInfo['track-name'];
 		artistElement.textContent = trackInfo.author;
+		albumNameElement.textContent = trackInfo.album;
 		albumImageElement.src = trackInfo['album-img'];
+
+		apBackground.style.backgroundImage = `url(${trackInfo['album-img']})`;
+        iconPause.style.display = "none"
 	};
 	// управление состоянием audio played or paused
 	this.playPauseSong = function (isPlayed) {
 		const audioElement = myContainer.querySelector('audio');
+        const iconPlay = myContainer.querySelector(".fa-play")
+        const iconPause = myContainer.querySelector(".fa-pause")
 		if (isPlayed) {
 			audioElement.play();
+            iconPlay.style.display = "none"
+            iconPause.style.display = "block"
 		} else {
 			audioElement.pause();
+            iconPause.style.display = "none"
+            iconPlay.style.display = "block"
 		}
 	};
 
@@ -155,6 +170,8 @@ function AudioPlayerView() {
 		// проверяем задано новое время
 		if (trackInfo.newTime) {
 			audioElement.currentTime = trackInfo.newTime;
+		} else {
+			audioElement.currentTime = 0;
 		}
 
 		// Обновляем время трека и прогресс-бара

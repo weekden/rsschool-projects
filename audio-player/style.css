@@ -7,26 +7,131 @@
 body {
     width: 100%;
     height: 100vh;
-
-}
-
-.ap-wrapper {
-    width: 450px;
-    height: 600px;
-    margin:  auto;
-}
-
-.progress-bar__container {
-    width: 90%;
-    height: 25px;
-    border: 1px solid black;
     display: flex;
-    justify-content: start;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#audio-player {
+    max-width: 450px;
+    width: 100%;
+    max-height: 650px;
+    height: 100%;
+}
+
+.ap-wrapper{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 9px;
+    height: 100%;
+    color: rgb(255, 255, 255);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+
+.ap-background { 
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    border-radius: 9px;
+}
+
+.album-img {
+    border-radius: 9px;
+    border: 1px solid silver;
+    margin-top: 10%;
+    width: 70%;
+    height: auto;
+}
+
+.track-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
 
-.progress-bar {
-    width: 50%;
-    height: 15px;
-    background-color: blue;
+.played-track {
+    position: relative;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
 }
+
+.progress-container {
+    width: 90%;
+}
+
+.time-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+}
+
+.progress-bar__container {
+    width: 100%;
+    height: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 9px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+}
+
+.progress-bar {
+    height: 9px;
+    border-radius: 9px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.controls-container {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-btn {
+    cursor: pointer;
+}
+
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-content {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-elem {
+    width: 50px;
+    display: inline-block;
+    text-align: center;
+}
+
+.year-prodaction {
+    font-size: 0.8rem;
+}
+
+.footer-content:last-child a {
+    text-align: end;
+}
+
+.footer-elem:hover,
+.control-btn:hover
+ {
+    scale: 1.1;
+}
+
+
+
