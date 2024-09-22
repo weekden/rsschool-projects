@@ -144,10 +144,48 @@ footer {
     text-align: end;
 }
 
-.footer-elem:hover,
-.control-btn:hover
+
+.control-btn:hover,
+.trackList-img:hover
  {
     scale: 1.15;
+}
+
+.tracklist-container {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(109, 109, 110, 0.8);
+    top: -100%;
+    transition: top 0.3s ease-in-out;
+}
+
+.show-tacklist {
+    top: 0;
+}
+
+
+.tracklist-li {
+   width: 100%;
+   padding: 2px 20px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: 1px solid gray;
+   cursor: pointer;
+}
+
+.trackList-img {
+    display: block;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.tracklist-li:hover {
+    background-color: rgba(109, 109, 110, 0.2);
 }
 
 @media (max-width: 400px) {

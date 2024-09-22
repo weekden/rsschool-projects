@@ -1,6 +1,7 @@
 function AudioPlayerController() {
 	let myModel = null;
 	let myContainer = null;
+
 	// Инициализируем контроллер и связываем модель с которой работаем и контейнер внутри которого будем работать
 	this.init = function (model, container) {
 		myModel = model;
@@ -45,11 +46,23 @@ function AudioPlayerController() {
 		const clickX = event.offsetX; // координата X по клику
 		myModel.setProgressWidth(progressWidth, clickX);
 	};
-
+    // назначаем обработчик на отображение списка треков
 	this.getTrackList = function () {
+        // используем дилигирование вешаем обработчик на родителя
+		const trackListElem = myContainer.querySelector('.tracklist-container');
+		trackListElem.addEventListener('click', event => {
+            // проверяем что клик был по li
+			const clickedElement = event.target.closest('.tracklist-li');
+            // если был по li то получаем индекс из атрибута который сетали при создании списка
+			if (clickedElement) {
+				const trackIndex = clickedElement.getAttribute('data-index');
+                // передаем в модель индекс
+				myModel.playTrack(trackIndex);
+			}
+		});
 		myModel.getTrackList();
 	};
-
+    // обработчик для кнопки shuffle
 	this.shuffleTracks = function () {
 		myModel.toggleShuffle();
 	};
@@ -62,16 +75,16 @@ function AudioPlayerModel() {
 	let trackInfoObj = {};
 	let isPlayed = false;
 	let isShuffle = false;
+	let isShowTackList = false;
 	let startTracksArr = null;
 	// Инициализируем модель и связываем ее с view. При инициализации делаем запрос на получение треков
 	this.init = function (view) {
 		myView = view;
 		this.fetchTracks();
-       
 	};
 
 	// запрос на получение 10 популярныз треков сохраняем не сортированный массив и по получении данных вызываем загрузку трека
-    this.fetchTracks = function () {
+	this.fetchTracks = function () {
 		const clientId = '9f39c9c0';
 		const apiUrl = `https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=json&limit=10&order=popularity_total`;
 
@@ -79,15 +92,15 @@ function AudioPlayerModel() {
 			.then(response => response.json())
 			.then(data => {
 				tracks = data.results;
-                startTracksArr = tracks.slice();
-                this.loadCurrentTrack();
+				startTracksArr = tracks.slice();
+				this.loadCurrentTrack();
 			})
 			.catch(error => console.error('Ошибка при загрузке треков:', error));
 	};
 
 	// формируем объект с данными необходимымыми для дальнейшей работы
 	this.loadCurrentTrack = function () {
-		const track = tracks[currentTrackIndex];
+		let track = tracks[currentTrackIndex];
 		trackInfoObj = {
 			author: track.artist_name,
 			'track-name': track.name,
@@ -97,11 +110,11 @@ function AudioPlayerModel() {
 			duration: track.duration,
 		};
 
-		console.log(tracks);
 		// проверяем если есть view то передаем объект во view
 		if (myView) {
 			myView.initPlayer(trackInfoObj);
 			myView.updatePlayerTime(trackInfoObj);
+			myView.createTrackList(tracks);
 		}
 	};
 	// функция перехода к след треку
@@ -125,6 +138,7 @@ function AudioPlayerModel() {
 	// функция переключения состояния флага играет или не играет и предаем во view
 	this.togglePlayPause = function () {
 		isPlayed = !isPlayed;
+
 		myView.playPauseSong(isPlayed);
 	};
 
@@ -134,19 +148,31 @@ function AudioPlayerModel() {
 		trackInfoObj.newTime = newTime;
 		myView.updatePlayerTime(trackInfoObj);
 	};
-    // перемешиваем треки и в зависимости от флага вызываем загрузку трека в прямом или случайном порядке
+	// перемешиваем треки и в зависимости от флага вызываем загрузку трека в прямом или случайном порядке
 	this.toggleShuffle = function () {
 		isShuffle = !isShuffle;
+        isPlayed = !isPlayed
 		if (isShuffle) {
 			tracks = tracks.sort(() => Math.random() - 0.5);
 		} else {
 			tracks = startTracksArr.slice();
 		}
-
 		currentTrackIndex = 0;
 		this.loadCurrentTrack();
 		this.togglePlayPause();
 		myView.toggleShuffle(isShuffle);
+	};
+    // назначаем флаг и у вью вызываем функцию показа списка
+	this.getTrackList = function () {
+		isShowTackList = !isShowTackList;
+		myView.toggleShowTrackList(isShowTackList);
+	};
+    // запуск трека по полученому индексу из списка
+	this.playTrack = function (index) {
+        isPlayed = !isPlayed
+		currentTrackIndex = index;
+		this.loadCurrentTrack();
+		this.togglePlayPause();
 	};
 }
 
@@ -242,6 +268,44 @@ function AudioPlayerView() {
 		audioElement.addEventListener('timeupdate', updateTime);
 
 		updateTime();
+	};
+    // отображение трек листа
+	this.createTrackList = function (tracks) {
+		const trackListContainer = myContainer.querySelector('.tracklist-container');
+		trackListContainer.innerHTML = '';
+		tracks.forEach((element, index) => {
+			const trackLi = document.createElement('li');
+			trackLi.setAttribute('data-index', index);
+			trackLi.classList.add('tracklist-li');
+
+			const trackListImg = document.createElement('img');
+			trackListImg.classList.add('trackList-img');
+			trackListImg.src = element.album_image;
+			trackListImg.alt = element.album_name;
+
+			const trackDuration = document.createElement('span');
+			const minutes = Math.floor(element.duration / 60);
+			const seconds = element.duration % 60;
+			trackDuration.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+			trackLi.append(trackListImg, trackDuration);
+			trackListContainer.append(trackLi);
+		});
+		console.log(tracks);
+	};
+    // изменение отображения кнопки показа списка
+	this.toggleShowTrackList = function (isShowTackList) {
+		const trackListContainer = myContainer.querySelector('.tracklist-container');
+		const iconTrackList = myContainer.querySelector('.fa-bars');
+		if (isShowTackList) {
+			trackListContainer.classList.toggle('show-tacklist');
+			iconTrackList.style.color = 'darkgrey';
+         
+		} else {
+			trackListContainer.classList.remove('show-tacklist');
+			iconTrackList.style.color = 'white';
+           
+		}
 	};
 }
 
