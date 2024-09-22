@@ -20,6 +20,12 @@ function AudioPlayerController() {
 		// событие по окончанию трека
 		const audioElement = myContainer.querySelector('audio');
 		audioElement.addEventListener('ended', this.getNextTrack);
+
+		const btnTrackList = myContainer.querySelector('#track-list');
+		btnTrackList.addEventListener('click', this.getTrackList);
+
+		const btnShuffle = myContainer.querySelector('#shuffle');
+		btnShuffle.addEventListener('click', this.shuffleTracks);
 	};
 	// Назначаем обработчики событий для кнопок предыдущего и следующего треков
 	this.getPrevTrack = function () {
@@ -37,9 +43,15 @@ function AudioPlayerController() {
 	this.getProgressWidth = function (event) {
 		const progressWidth = this.offsetWidth; // общая ширина проогрес-бара
 		const clickX = event.offsetX; // координата X по клику
-		console.log(progressWidth);
-		console.log(clickX);
 		myModel.setProgressWidth(progressWidth, clickX);
+	};
+
+	this.getTrackList = function () {
+		myModel.getTrackList();
+	};
+
+	this.shuffleTracks = function () {
+		myModel.toggleShuffle();
 	};
 }
 
@@ -49,13 +61,17 @@ function AudioPlayerModel() {
 	let currentTrackIndex = 0;
 	let trackInfoObj = {};
 	let isPlayed = false;
+	let isShuffle = false;
+	let startTracksArr = null;
 	// Инициализируем модель и связываем ее с view. При инициализации делаем запрос на получение треков
 	this.init = function (view) {
 		myView = view;
 		this.fetchTracks();
+       
 	};
-	// запрос на получение 10 популярныз треков
-	this.fetchTracks = function () {
+
+	// запрос на получение 10 популярныз треков сохраняем не сортированный массив и по получении данных вызываем загрузку трека
+    this.fetchTracks = function () {
 		const clientId = '9f39c9c0';
 		const apiUrl = `https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=json&limit=10&order=popularity_total`;
 
@@ -63,7 +79,8 @@ function AudioPlayerModel() {
 			.then(response => response.json())
 			.then(data => {
 				tracks = data.results;
-				this.loadCurrentTrack();
+                startTracksArr = tracks.slice();
+                this.loadCurrentTrack();
 			})
 			.catch(error => console.error('Ошибка при загрузке треков:', error));
 	};
@@ -80,7 +97,7 @@ function AudioPlayerModel() {
 			duration: track.duration,
 		};
 
-		console.log(track);
+		console.log(tracks);
 		// проверяем если есть view то передаем объект во view
 		if (myView) {
 			myView.initPlayer(trackInfoObj);
@@ -117,6 +134,20 @@ function AudioPlayerModel() {
 		trackInfoObj.newTime = newTime;
 		myView.updatePlayerTime(trackInfoObj);
 	};
+    // перемешиваем треки и в зависимости от флага вызываем загрузку трека в прямом или случайном порядке
+	this.toggleShuffle = function () {
+		isShuffle = !isShuffle;
+		if (isShuffle) {
+			tracks = tracks.sort(() => Math.random() - 0.5);
+		} else {
+			tracks = startTracksArr.slice();
+		}
+
+		currentTrackIndex = 0;
+		this.loadCurrentTrack();
+		this.togglePlayPause();
+		myView.toggleShuffle(isShuffle);
+	};
 }
 
 function AudioPlayerView() {
@@ -133,7 +164,7 @@ function AudioPlayerView() {
 		const albumNameElement = myContainer.querySelector('.album');
 		const albumImageElement = myContainer.querySelector('.album-img');
 		const apBackground = myContainer.querySelector('.ap-background');
-        const iconPause = myContainer.querySelector(".fa-pause")
+		const iconPause = myContainer.querySelector('.fa-pause');
 
 		audioElement.src = trackInfo['audio-src'];
 		trackTitleElement.textContent = trackInfo['track-name'];
@@ -142,21 +173,30 @@ function AudioPlayerView() {
 		albumImageElement.src = trackInfo['album-img'];
 
 		apBackground.style.backgroundImage = `url(${trackInfo['album-img']})`;
-        iconPause.style.display = "none"
+		iconPause.style.display = 'none';
 	};
 	// управление состоянием audio played or paused
 	this.playPauseSong = function (isPlayed) {
 		const audioElement = myContainer.querySelector('audio');
-        const iconPlay = myContainer.querySelector(".fa-play")
-        const iconPause = myContainer.querySelector(".fa-pause")
+		const iconPlay = myContainer.querySelector('.fa-play');
+		const iconPause = myContainer.querySelector('.fa-pause');
 		if (isPlayed) {
 			audioElement.play();
-            iconPlay.style.display = "none"
-            iconPause.style.display = "block"
+			iconPlay.style.display = 'none';
+			iconPause.style.display = 'block';
 		} else {
 			audioElement.pause();
-            iconPause.style.display = "none"
-            iconPlay.style.display = "block"
+			iconPause.style.display = 'none';
+			iconPlay.style.display = 'block';
+		}
+	};
+
+	this.toggleShuffle = function (isShuffle) {
+		const iconShuffle = myContainer.querySelector('.fa-shuffle');
+		if (isShuffle) {
+			iconShuffle.style.color = 'darkgrey';
+		} else {
+			iconShuffle.style.color = 'white';
 		}
 	};
 
