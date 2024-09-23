@@ -111,10 +111,23 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 7rem;
 }
 
 .control-btn {
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+.icon-change-color path {
+    fill: #ffffff; 
+}
+
+.icon-change-color.active path {
+    fill: rgb(169, 169, 169); 
 }
 
 footer {
@@ -160,6 +173,8 @@ footer {
     background-color: rgba(109, 109, 110, 0.7);
     top: -100%;
     transition: top 0.3s ease-in-out;
+    border-top-right-radius: 9px;
+    border-top-left-radius: 9px;
 }
 
 .show-tacklist {
@@ -194,6 +209,11 @@ footer {
 .tracklist-li:hover .trackList-img {
     scale: 1.15;
 }
+
+
+
+
+
 
 @media (max-width: 400px) {
     html {

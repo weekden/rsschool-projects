@@ -218,12 +218,12 @@ function AudioPlayerView() {
 	};
 
 	this.toggleShuffle = function (isShuffle) {
-		const iconShuffle = myContainer.querySelector('.fa-shuffle');
+		const iconShuffle = myContainer.querySelector('#shuffle .icon-change-color');
 		if (isShuffle) {
-			iconShuffle.style.color = 'darkgrey';
-		} else {
-			iconShuffle.style.color = 'white';
-		}
+            iconShuffle.classList.add('active');
+        } else {
+            iconShuffle.classList.remove('active');
+        }
 	};
 
 	// одновление времени проигрывания и положения прогрес-бара
@@ -299,14 +299,14 @@ function AudioPlayerView() {
     // изменение отображения кнопки показа списка
 	this.toggleShowTrackList = function (isShowTackList) {
 		const trackListContainer = myContainer.querySelector('.tracklist-container');
-		const iconTrackList = myContainer.querySelector('.fa-bars');
+		const iconTrackList = myContainer.querySelector('#track-list .icon-change-color');
 		if (isShowTackList) {
 			trackListContainer.classList.toggle('show-tacklist');
-			iconTrackList.style.color = 'darkgrey';
+			iconTrackList.classList.add('active');;
          
 		} else {
 			trackListContainer.classList.remove('show-tacklist');
-			iconTrackList.style.color = 'white';
+			iconTrackList.classList.remove('active');
            
 		}
 	};
@@ -340,5 +340,6 @@ const check = `
 высокое качество оформления приложения предполагает собственное оригинальное оформление равное или отличающееся в лучшую сторону по сравнению с демо
 
 Так же хочу добавить, при написании данной работы использовал MVC паттерн. А также все данные для работы плеера получал по средствам API при помощи feth запросов с сервиса https://api.jamendo.com
+
 Было еще несколько задумок для реализации, но в стлу того, что на работу было потрачено 3 дня всего не успел.`
 console.log(check)
