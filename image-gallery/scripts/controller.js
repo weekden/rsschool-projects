@@ -3,13 +3,20 @@ export function ImageGaleryController() {
 	let myContainer = null;
 
 	// Инициализируем контроллер и связываем модель с которой работаем и контейнер внутри которого будем работать
-	this.init = function (model, container) {
+	this.init = (model, container) => {
 		myModel = model;
 		myContainer = container;
 		// Объявляем обработчики событий для кнопок управления
-        
+
+        const inputSearch = myContainer.querySelector("#input-search");
+        inputSearch.addEventListener("keypress", this.hendlerEnterPress)
+        inputSearch.addEventListener("input", this.checkInputValue)
+
         const btnSearch = myContainer.querySelector("#btn-search");
-        btnSearch.addEventListener("click", this.getSearchValue)
+        btnSearch.addEventListener("click", this.getSearchValue);
+
+        const btnEndSearch = myContainer.querySelector("#btn-mark")
+        btnEndSearch.addEventListener("click", this.getColection)
 
 		const btnPrevCollection = myContainer.querySelector('#prev');
 		btnPrevCollection.addEventListener('click', this.getPrevColection);
@@ -27,36 +34,46 @@ export function ImageGaleryController() {
         numberColection.addEventListener("input", this.getColectionNumber);
 
 
+
+
 	};
 	// Назначаем обработчики событий для кнопок 
-	this.getPrevColection = function () {
+	this.getPrevColection = () => {
 		myModel.setPrevColectionNumber();
 	};
 
-    this.getNexColection = function () {
+    this.getNexColection = () => {
         myModel.setNextColectionNumber()
     }
 
-    this.getFirstaPageNumber = function () {
+    this.getFirstaPageNumber = () => {
         myModel.setFirstColectionNumber();
     }
 
-    this.getLastColectionNumber = function () {
+    this.getLastColectionNumber = () => {
         myModel.setLastColectionNumber();
     }
     
-    this.getSearchValue = function () {
+    this.getSearchValue = () => {
         const inputSearch = myContainer.querySelector("#input-search")
         const quertyWord = inputSearch.value;
-        console.log(typeof(quertyWord))
+   
         myModel.setQuertyWord(quertyWord)
     }
 
-    this.getColectionNumber = function () {
-        const numberColection = myContainer.querySelector("#page-number");
-        const pageNumber = numberColection.value;
-        console.log(pageNumber)
+    this.getColection = () => {
+        myModel.resetSearch()
     }
 
+    this.hendlerEnterPress = (event) => {
+        if(event.key === "Enter") {
+            this.getSearchValue()
+        }
+    }
 
+    this.checkInputValue = () => {
+        const inputSearch = myContainer.querySelector("#input-search")
+       if (inputSearch.value === "")
+        this.getColection()
+    }
 }
