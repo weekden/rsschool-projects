@@ -8,7 +8,7 @@ export function ImageGaleryModel() {
 	// Инициализируем модель и связываем ее с view. При инициализации делаем запрос на получение foto
 	this.init = function (view) {
 		myView = view;
-		this.fetchPhotos();
+		// this.fetchPhotos();
 	};
 
   
