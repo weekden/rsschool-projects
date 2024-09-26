@@ -1,0 +1,11 @@
+footer {
+    background-color: black;
+}
+img {
+    display: block;
+    max-width: 400px;
+    max-height: 267px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;   
+}
