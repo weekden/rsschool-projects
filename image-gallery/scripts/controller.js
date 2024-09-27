@@ -32,7 +32,7 @@ export function ImageGaleryController() {
 
 		const imgContainer = myContainer.querySelector('.images-wrapper');
 		imgContainer.addEventListener('click', event => {
-			const clickedElement = event.target.closest('.favorite-icon');
+			const clickedElement = event.target.closest('.favorite-icon__container');
 
 			if (clickedElement) {
 				const imgID = clickedElement.getAttribute('data-index');
