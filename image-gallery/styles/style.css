@@ -241,6 +241,11 @@ img:hover {
     align-items: center;
 }
 
+.year-prodaction {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
 @media (max-width: 1000px) {
     .img-container {
         flex-basis: 31%;
@@ -275,6 +280,10 @@ img:hover {
 }
 
 @media (max-width: 450px) {
+
+    html {
+        font-size: 57%;
+    }
     .img-container {
         flex-basis: 98%;
     }

@@ -8,6 +8,7 @@ export function ImageGaleryModel() {
     let favoritePhotoArray = [];
 	let quertyWord = '';
 	let urlSearch = '';
+    let isAdd = false;
 
 	// Инициализируем модель и связываем ее с view. При инициализации делаем запрос на получение foto
 	this.init = view => {
@@ -37,14 +38,18 @@ export function ImageGaleryModel() {
 		}
 	};
 	// запрос для получения фото по ID
-	this.fethPhotoByID = async function (photoID) {
+	this.fethPhotoByID = async function (photoID, flag) {
 		const url = `https://api.unsplash.com/photos/${photoID}?client_id=${APIKEY}`;
 		try {
 			const response = await fetch(url);
 			const favoritePhoto = await response.json();
 			if (response.ok) {
-				console.log(favoritePhoto);
-				this.setPhotoToLS(favoritePhoto);
+                if(flag === "addFavotite" ) {
+                    this.setPhotoToLS(favoritePhoto);
+                }
+                if(flag === "singleRender") {
+                    myView.renderSinglePhoto(favoritePhoto)
+                }
 			}
 		} catch (error) {
 			console.error('Ошибка в получении фото', error);
@@ -85,8 +90,16 @@ export function ImageGaleryModel() {
 
 	this.setPhotoID = id => {
 		photoID = id;
-		this.fethPhotoByID(id);
 	};
+
+    this.addPhotoToFavorite =  () => {
+        this.fethPhotoByID(photoID, "addFavotite");
+        
+    }
+
+    this.getPhotoForRender =  () => {
+        this.fethPhotoByID(photoID, "singleRender");
+    }
     
 	this.setPhotoToLS = favoritePhoto => {
         this.getArrPhotoFromLS()

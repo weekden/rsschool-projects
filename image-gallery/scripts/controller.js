@@ -32,12 +32,19 @@ export function ImageGaleryController() {
 
 		const imgContainer = myContainer.querySelector('.images-wrapper');
 		imgContainer.addEventListener('click', event => {
-			const clickedElement = event.target.closest('.favorite-icon__container');
-
-			if (clickedElement) {
-				const imgID = clickedElement.getAttribute('data-index');
+			const clickedIcon = event.target.closest('.favorite-icon__container');
+            const clickedImg = event.target.closest(".img-container")
+            let imgID
+			if (clickedIcon ) {
+			    imgID = clickedIcon.getAttribute('data-index');
 				myModel.setPhotoID(imgID);
-			}
+                myModel.addPhotoToFavorite()
+			} else if (clickedImg) {
+                imgID = clickedImg.getAttribute('data-index');
+                myModel.setPhotoID(imgID);
+                myModel.getPhotoForRender();
+            }
+            
 		});
 	};
 	// Назначаем обработчики событий для кнопок
