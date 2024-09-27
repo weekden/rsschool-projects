@@ -24,14 +24,14 @@ export function ImageGaleryController() {
 		const btnNextColection = myContainer.querySelector('#next');
 		btnNextColection.addEventListener('click', this.getNexColection);
 
-        const btnLastColection = myContainer.querySelector("#end");
-        btnLastColection.addEventListener("click", this.getLastColectionNumber)
+        // const btnLastColection = myContainer.querySelector("#end");
+        // btnLastColection.addEventListener("click", this.getLastColectionNumber)
 
-        const btnFirstColection = myContainer.querySelector("#start");
-        btnFirstColection.addEventListener("click", this.getFirstaPageNumber)
+        // const btnFirstColection = myContainer.querySelector("#start");
+        // btnFirstColection.addEventListener("click", this.getFirstaPageNumber)
 
-        const numberColection = myContainer.querySelector("#page-number");
-        numberColection.addEventListener("input", this.getColectionNumber);
+        // const numberColection = myContainer.querySelector("#page-number");
+        // numberColection.addEventListener("input", this.getColectionNumber);
 
 
 
@@ -46,13 +46,13 @@ export function ImageGaleryController() {
         myModel.setNextColectionNumber()
     }
 
-    this.getFirstaPageNumber = () => {
-        myModel.setFirstColectionNumber();
-    }
+    // this.getFirstaPageNumber = () => {
+    //     myModel.setFirstColectionNumber();
+    // }
 
-    this.getLastColectionNumber = () => {
-        myModel.setLastColectionNumber();
-    }
+    // this.getLastColectionNumber = () => {
+    //     myModel.setLastColectionNumber();
+    // }
     
     this.getSearchValue = () => {
         const inputSearch = myContainer.querySelector("#input-search")
