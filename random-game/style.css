@@ -4,6 +4,13 @@
 	box-sizing: border-box;
 }
 
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 #game-wrapper {
 	position: relative;
 	display: flex;
@@ -11,9 +18,10 @@
 	justify-content: center;
 	align-items: center;
 	row-gap: 10px;
-	max-width: 1280px;
+	max-width: 800px;
 	width: 100%;
 	margin: 0 auto;
+    flex: 1;
 }
 
 button {
@@ -22,7 +30,7 @@ button {
 	font-size: 16px;
 	cursor: pointer;
 	background-color: #ff00bf;
-	color: #fff;
+	color: #ffffff;
 	border: none;
 	outline: none;
 	border-radius: 5px;
@@ -44,7 +52,8 @@ button {
 	width: 100%;
 }
 
-.results-container {
+.results-container,
+.settings-container {
 	position: absolute;
 }
 
@@ -89,9 +98,10 @@ button:hover {
 	display: none;
 }
 
-.results-container.active {
+.results-container.active, 
+.settings-container.active {
 	width: 100%;
-	height: 100vh;
+	height: 110vh;
 	position: fixed;
 	z-index: 5;
 	display: flex;
@@ -100,3 +110,67 @@ button:hover {
 	align-items: center;
 	background-color: rgba(100, 100, 100, 0.8);
 }
+
+.settings {
+    width: 50%;
+    height: 50%;
+    background-color:#800080 ;
+    border-radius: 8px;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#mute {
+    display: none;
+}
+
+.settings-row label,
+.settings-row select {
+    cursor: pointer;
+}
+
+.tutorial {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 40px;
+    color: #ffffff;
+}
+
+.user-header {
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+#close-settings {
+    display: block;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+#close-settings:hover {
+    background-color: #ffffff;
+    color: #800080;
+}
+
+footer {
+	background-color: #800080;
+    margin-top: auto;
+}
+
+.footer-container {
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #800080;
+	width: 90%;
+	height: 2rem;
+}
+

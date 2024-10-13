@@ -1,10 +1,21 @@
 const gameBoard = document.querySelector('#game-canvas');
 const buttonStart = document.querySelector('#button-start');
 const buttonResult = document.querySelector('#results');
+const buttonSettings = document.querySelector("#settings")
 const gameCounter = document.querySelector('#game-score');
 const resultTable = document.querySelector('#result-table');
 const btnCloseResult = document.querySelector('#close-results');
+const btnCloseSettings = document.querySelector("#close-settings")
 const resultContainer = document.querySelector('.results-container');
+const settingsContainer = document.querySelector(".settings-container")
+const settingsBox = document.querySelector(".settings")
+const audioElements = document.querySelectorAll('audio');
+const muteCheckbox = document.querySelector('#mute');
+const selectFinalCount = document.querySelector('#count-select');
+const iconMute = document.querySelector("#icon-mute")
+
+
+
 const ctx = gameBoard.getContext('2d');
 
 // Размеры игрового поля
@@ -48,7 +59,12 @@ let isRightHandMovingDown = false;
 let isLeftHandMovingUp = false;
 let isLeftHandMovingDown = false;
 
-const finalCount = 2; // Победное количество очков
+// Audio
+const soundBounse = document.querySelector('#bounce');
+const soundGoal = document.querySelector('#goal');
+const soundStart = document.querySelector('#start');
+
+let finalCount = 3; // Победное количество очков
 const speedBallCoef = 1.1; // Коэфицент ускорения
 const initCount = 3;
 let count = initCount; // Начальный отсчет
@@ -60,6 +76,7 @@ const resultsArr = []; // массив результатов игр
 let isPaused = false;
 
 gameCounter.innerHTML = `${leftPlayerScore} : ${rightPlayerScore}`;
+
 
 // Игровое поле
 const drawGameBoard = () => {
@@ -236,6 +253,7 @@ const moveBall = () => {
 		} else {
 			ballSpeedX = -ballMaxSpeedX;
 		}
+		soundBounse.play();
 	}
 
 	// Отскок от правой платформы
@@ -246,6 +264,7 @@ const moveBall = () => {
 		} else {
 			ballSpeedX = -ballMaxSpeedX;
 		}
+		soundBounse.play();
 	}
 
 	// Пролет мимо платформ, мяч попадает в правую или левую стенку
@@ -291,6 +310,8 @@ const isGoal = () => {
 		handSpeed = 0;
 		ballPosX = gameBoardWidth - ballRadius;
 	}
+
+	soundGoal.play();
 	// Залипание мяча у стенки на 1сек
 	setTimeout(resetBall, 1000);
 	// Обновляем табло с очками
@@ -383,6 +404,7 @@ const counterDown = () => {
 			clearInterval(countDownInterval); // Удаляем интервал
 			drawStaticElements(); // Отрисовываем статические элементы
 			randomMoveBall(); // Расчитываем случайный угол для стартового запуска мяча
+			soundStart.play();
 			draw(); // Полная отрисовка ("запуск")
 		}
 	}, 1000);
@@ -400,7 +422,9 @@ const removeEventListeners = () => {
 	document.removeEventListener('keydown', keyDownHandler);
 	document.removeEventListener('keyup', keyUpHandler);
 	buttonStart.removeEventListener('click', restartGame);
-  buttonResult.addEventListener('click', renderResultTable);
+	buttonResult.removeEventListener('click', renderResultTable);
+	muteCheckbox.removeEventListener('change', togleMute);
+  selectFinalCount.removeEventListener('change', setFinalCount);
 };
 
 const addEventListeners = () => {
@@ -408,60 +432,43 @@ const addEventListeners = () => {
 	document.addEventListener('keyup', keyUpHandler);
 	buttonStart.addEventListener('click', restartGame);
 	buttonResult.addEventListener('click', renderResultTable);
+	muteCheckbox.addEventListener('change', togleMute);
+  selectFinalCount.addEventListener('change', setFinalCount);
+  buttonSettings.addEventListener("click", showSettings)
+  btnCloseSettings.addEventListener("click", hideSettings)
 };
-// получение результатов из LS
-const getResultFromLS = () => {
-return JSON.parse(localStorage.getItem('result'));
+// отображаем окно настроек
+const showSettings = () => {
+  settingsContainer.classList.add("active")
+  settingsBox.classList.remove("hide")
+  
+}
+// прячем окно настроек
+const hideSettings = () => {
+  settingsContainer.classList.remove("active")
+  settingsBox.classList.add("hide")
 }
 
-
-// отрисовка таблицы резуьтатов
-const renderResultTable = () => {
-	const results = getResultFromLS();
-  if(!results) return;
-
-  resultContainer.classList.add("active")
-  btnCloseResult.classList.remove("hide")
-  btnCloseResult.onclick = () => {
-    resultTable.innerHTML = "";
-    btnCloseResult.classList.add("hide")
-    resultContainer.classList.remove("active")
-   
-  };
-
-	const tableHeader = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-  headerRow.className = 'table-header__row'
-  const gameHeader = document.createElement('th');
-  
-  tableHeader.innerHTML = `<tr><th class="table-header" colspan="2"> Result of last games </th></tr>`;
-  const countHeader = document.createElement('th');
-  countHeader.textContent = 'Count';
-  gameHeader.textContent = 'Game';
-
-  headerRow.append(gameHeader, countHeader);
-  tableHeader.append(headerRow)
-
-  const tableBody = document.createElement('tbody');
-	results.forEach((item, index) => {
-    const row = document.createElement('tr'); 
-
-    const gameCell = document.createElement('td');
-    gameCell.textContent = `Game ${index + 1}`; 
-
-    const coinCell = document.createElement('td');
-    coinCell.textContent = item; 
-
-    row.appendChild(gameCell);
-    row.appendChild(coinCell);
-
- 
-    tableBody.appendChild(row);
-	})
-  resultTable.append(tableHeader, tableBody)
+// отключение звуков
+const togleMute = () => {
+	audioElements.forEach(audio => {
+		audio.muted = muteCheckbox.checked;
+	});
+  if (muteCheckbox.checked) {
+    iconMute.textContent = "Off";
+  } else {
+    iconMute.textContent = "On";
+  }
+};
+// изменение итогового счета
+const setFinalCount = () => {
+	finalCount = +selectFinalCount.value;
 };
 
-addEventListeners();
+// получение результатов из LS
+const getResultFromLS = () => {
+	return JSON.parse(localStorage.getItem('result'));
+};
 
 // сохранение результатов последних игр в LS
 const setResultsToLS = () => {
@@ -472,3 +479,51 @@ const setResultsToLS = () => {
 	let jsonString = JSON.stringify(resultsArr);
 	localStorage.setItem('result', jsonString);
 };
+
+// отрисовка таблицы резуьтатов
+const renderResultTable = () => {
+	const results = getResultFromLS();
+	if (!results) return;
+
+	resultContainer.classList.add('active');
+	btnCloseResult.classList.remove('hide');
+	btnCloseResult.onclick = () => {
+		resultTable.innerHTML = '';
+		btnCloseResult.classList.add('hide');
+		resultContainer.classList.remove('active');
+	};
+
+	const tableHeader = document.createElement('thead');
+	const headerRow = document.createElement('tr');
+	headerRow.className = 'table-header__row';
+	const gameHeader = document.createElement('th');
+
+	tableHeader.innerHTML = `<tr><th class="table-header" colspan="2"> Result of last games </th></tr>`;
+	const countHeader = document.createElement('th');
+	countHeader.textContent = 'Count';
+	gameHeader.textContent = 'Game';
+
+	headerRow.append(gameHeader, countHeader);
+	tableHeader.append(headerRow);
+
+	const tableBody = document.createElement('tbody');
+	results.forEach((item, index) => {
+		const row = document.createElement('tr');
+
+		const gameCell = document.createElement('td');
+		gameCell.textContent = `Game ${index + 1}`;
+
+		const coinCell = document.createElement('td');
+		coinCell.textContent = item;
+
+		row.appendChild(gameCell);
+		row.appendChild(coinCell);
+
+		tableBody.appendChild(row);
+	});
+	resultTable.append(tableHeader, tableBody);
+};
+
+addEventListeners();
+
+
