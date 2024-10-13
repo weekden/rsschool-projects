@@ -1,6 +1,10 @@
 const gameBoard = document.querySelector('#game-canvas');
 const buttonStart = document.querySelector('#button-start');
+const buttonResult = document.querySelector('#results');
 const gameCounter = document.querySelector('#game-score');
+const resultTable = document.querySelector('#result-table');
+const btnCloseResult = document.querySelector('#close-results');
+const resultContainer = document.querySelector('.results-container');
 const ctx = gameBoard.getContext('2d');
 
 // Размеры игрового поля
@@ -44,7 +48,7 @@ let isRightHandMovingDown = false;
 let isLeftHandMovingUp = false;
 let isLeftHandMovingDown = false;
 
-const finalCount = 5; // Победное количество очков
+const finalCount = 2; // Победное количество очков
 const speedBallCoef = 1.1; // Коэфицент ускорения
 const initCount = 3;
 let count = initCount; // Начальный отсчет
@@ -52,6 +56,8 @@ let rightPlayerScore = 0; // Начальное количество очков
 let leftPlayerScore = 0; // Начальное количество очков
 let angle = null; //  угол старта мяча
 let animationId; //  id  анимации
+const resultsArr = []; // массив результатов игр
+let isPaused = false;
 
 gameCounter.innerHTML = `${leftPlayerScore} : ${rightPlayerScore}`;
 
@@ -289,7 +295,6 @@ const isGoal = () => {
 	setTimeout(resetBall, 1000);
 	// Обновляем табло с очками
 	updateScore();
-	return;
 };
 
 // Сброс позиций на начальные
@@ -349,6 +354,7 @@ const isGameOver = (leftPlayerScore, rightPlayerScore) => {
 		drawMessageGameOver(); // Выводим сообщения об окончании игры
 		drawMessageResetGame(); // Выводим сообщения о возможности перезапуска игшры
 		addEventListeners(); // Добавляем слушатели событий
+		setResultsToLS();
 		return true;
 	}
 	return false;
@@ -394,12 +400,75 @@ const removeEventListeners = () => {
 	document.removeEventListener('keydown', keyDownHandler);
 	document.removeEventListener('keyup', keyUpHandler);
 	buttonStart.removeEventListener('click', restartGame);
+  buttonResult.addEventListener('click', renderResultTable);
 };
 
 const addEventListeners = () => {
 	document.addEventListener('keydown', keyDownHandler);
 	document.addEventListener('keyup', keyUpHandler);
 	buttonStart.addEventListener('click', restartGame);
+	buttonResult.addEventListener('click', renderResultTable);
+};
+// получение результатов из LS
+const getResultFromLS = () => {
+return JSON.parse(localStorage.getItem('result'));
+}
+
+
+// отрисовка таблицы резуьтатов
+const renderResultTable = () => {
+	const results = getResultFromLS();
+  if(!results) return;
+
+  resultContainer.classList.add("active")
+  btnCloseResult.classList.remove("hide")
+  btnCloseResult.onclick = () => {
+    resultTable.innerHTML = "";
+    btnCloseResult.classList.add("hide")
+    resultContainer.classList.remove("active")
+   
+  };
+
+	const tableHeader = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+  headerRow.className = 'table-header__row'
+  const gameHeader = document.createElement('th');
+  
+  tableHeader.innerHTML = `<tr><th class="table-header" colspan="2"> Result of last games </th></tr>`;
+  const countHeader = document.createElement('th');
+  countHeader.textContent = 'Count';
+  gameHeader.textContent = 'Game';
+
+  headerRow.append(gameHeader, countHeader);
+  tableHeader.append(headerRow)
+
+  const tableBody = document.createElement('tbody');
+	results.forEach((item, index) => {
+    const row = document.createElement('tr'); 
+
+    const gameCell = document.createElement('td');
+    gameCell.textContent = `Game ${index + 1}`; 
+
+    const coinCell = document.createElement('td');
+    coinCell.textContent = item; 
+
+    row.appendChild(gameCell);
+    row.appendChild(coinCell);
+
+ 
+    tableBody.appendChild(row);
+	})
+  resultTable.append(tableHeader, tableBody)
 };
 
 addEventListeners();
+
+// сохранение результатов последних игр в LS
+const setResultsToLS = () => {
+	resultsArr.push(`${leftPlayerScore} - ${rightPlayerScore}`);
+	if (resultsArr.length > 10) {
+		resultsArr.shift();
+	}
+	let jsonString = JSON.stringify(resultsArr);
+	localStorage.setItem('result', jsonString);
+};

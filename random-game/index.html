@@ -1,17 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Random-game</title>
-   <link rel="stylesheet" href="style.css">
-</head>
-<body>
-   <div class="game-wrapper">
-      <button id="button-start">Start</button>
-      <p id="game-score"></p>
-      <canvas id="game-canvas" width="800" height="500"></canvas>
-  </div>
-  <script src="scripts/script.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Random-game</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="game-wrapper">
+         <div class="results-container">
+            <table id="result-table"></table>
+            <button id="close-results" class="hide">Close</button>
+         </div>
+         <div class="settings-container">
+            <div class="settings">
+               <div class="settings-row">
+                  <p>Sound</p>
+                  <input type="checkbox">
+               </div>
+               <div class="settings-row">
+                  <p>Max count</p>
+                  <input type="text">
+               </div>
+            </div>
+            <button id="close-settings" class="hide">Close</button>
+         </div>
+			<div class="buttons-container">
+				<button id="settings">Settings</button>
+				<button id="button-start">Start</button>
+				<button id="results">Results</button>
+			</div>
+			<p id="game-score"></p>
+			<div class="game">
+				<div class="user">
+					<p>Player 1</p>
+					<p>controls</p>
+					<p>
+						mooving Up -
+						<span>LShift</span>
+					</p>
+					<p>
+						mooving Down -
+						<span>LCtrl</span>
+					</p>
+				</div>
+				<canvas id="game-canvas" width="800" height="500"></canvas>
+				<div class="user">
+					<p>Player 2</p>
+					<p>controls</p>
+					<p>
+						mooving Up -
+						<span>Up</span>
+					</p>
+					<p>
+						mooving Down -
+						<span>Down</span>
+					</p>
+				</div>
+			</div>
+		</div>
+      <div class="audio">
+      </div>
+		<script src="scripts/script.js"></script>
+	</body>
 </html>
