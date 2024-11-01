@@ -65,3 +65,11 @@ $static-white-40: rgba(255, 255, 255, 0.4);
 		color: $dark;
 	}
 }
+
+%slider-btn-disabled {
+    border: 1px solid $static-white-40;
+    svg path {
+        stroke-opacity: 0.4;
+    }
+    
+}
