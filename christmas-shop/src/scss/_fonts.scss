@@ -1,0 +1,23 @@
+@font-face {
+	font-family: 'Montserrat-Regular';
+	src: local('Montserrat'), url('../fonts/montserrat/Montserrat-Regular.woff2') format('woff2'), url('../fonts/montserrat/Montserrat-Regular.woff') format('woff'),
+		url('../fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Montserrat-SemiBold';
+	src: local('Montserrat-SemiBold'), url('../fonts/montserrat/Montserrat-SemiBold.woff2') format('woff2'), url('../fonts/montserrat/Montserrat-SemiBold.woff') format('woff'),
+		url('../fonts/montserrat/Montserrat-SemiBold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'Allura-Regular';
+	src: local('Allura-Regular'), url('../fonts/allura/Allura-Regular.woff2') format('woff2'), url('../fonts/allura/Allura-Regular.woff') format('woff'),
+		url('../fonts/allura/Allura-Regular.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 400;
+}

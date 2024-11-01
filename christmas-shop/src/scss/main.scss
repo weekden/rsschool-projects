@@ -1,0 +1,28 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: $font-famaly;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style-type: none;
+}
+
+.page-wrapper {
+	max-width: 144rem;
+	width: 144rem;
+	margin: 0 auto;
+}
+@import './blocks/header';
