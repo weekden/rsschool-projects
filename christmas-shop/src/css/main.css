@@ -22,19 +22,19 @@
   font-style: normal;
   font-weight: 400;
 }
-.hero-inner, .section {
+section {
   background-image: url(".././img/bg-snow.png");
   background-size: cover;
   background-position-y: center;
 }
 
-.hero-inner__container, .hero-inner, .header__menu-list .header__menu-item, .section__btn {
+section, .hero-inner__container, .hero-inner, .header__menu-list .header__menu-item, .section__btn {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.header__logo {
+.about-inner, .header__logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,6 +45,14 @@
   font-size: 2.4rem;
   line-height: 100%;
   letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.about-inner .section__title {
+  font-size: 2.4rem;
+  line-height: 152%;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: #fff;
 }
 
@@ -60,6 +68,10 @@
   text-transform: uppercase;
   text-align: center;
   color: #fff;
+}
+.section__btn:hover {
+  background-color: #fff;
+  color: #181c29;
 }
 
 .header__menu-list .header__menu-item .header__menu-link, .header__logo {
@@ -115,9 +127,16 @@ header {
   height: inherit;
 }
 
+.hero {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+}
+
 .hero-inner {
-  height: 52.4rem;
   background-image: url(".././img/bg-ball.png");
+  background-size: cover;
+  background-position-y: center;
 }
 
 .hero-inner__container {
@@ -126,6 +145,7 @@ header {
   width: 100%;
   gap: 1.2rem;
   padding: 6rem 0;
+  margin: 6rem 0;
 }
 
 .title {
@@ -136,6 +156,51 @@ header {
   text-transform: uppercase;
   color: #fff;
   text-align: center;
+}
+
+.about {
+  background-position-x: center;
+}
+
+.about-inner {
+  max-height: 52.8rem;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  margin: 6rem 0;
+  border-radius: 2rem;
+}
+.about-inner .section__title {
+  color: #181c29;
+}
+.about-inner .section__subtitle {
+  color: #ff4646;
+}
+
+.about__left-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  margin-left: 6rem;
+  max-width: 42.6rem;
+  width: 100%;
+}
+
+.about__description {
+  color: #181c29;
+  font-size: 1.6rem;
+  font-family: "Montserrat-Regular", sans-serif;
+  line-height: 148%;
+}
+
+.about__right {
+  height: 52.8rem;
+}
+.about__right img {
+  border-radius: 2rem;
+  height: 100%;
 }
 
 body {
@@ -163,4 +228,8 @@ li {
 main {
   background: #ff4646;
   border-radius: 2rem;
+}
+
+section {
+  padding: 0 8.2rem;
 }/*# sourceMappingURL=main.css.map */
