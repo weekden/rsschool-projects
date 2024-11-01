@@ -3,9 +3,13 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+@import './fonts';
+@import './vars';
+@import './blocks/header';
+@import './blocks/hero';
 
 body {
-	font-family: $font-famaly;
+	font-family: $font-family;
 }
 
 html {
@@ -25,4 +29,11 @@ li {
 	width: 144rem;
 	margin: 0 auto;
 }
-@import './blocks/header';
+
+main {
+    background: $primary;
+    border-radius: 2rem;
+}
+
+
+

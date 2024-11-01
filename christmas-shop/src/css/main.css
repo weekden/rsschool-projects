@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 @font-face {
   font-family: "Montserrat-Regular";
   src: local("Montserrat"), url("../fonts/montserrat/Montserrat-Regular.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Regular.woff") format("woff"), url("../fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
@@ -16,19 +22,47 @@
   font-style: normal;
   font-weight: 400;
 }
-header .header__inner .header__menu .header__menu-list .header__menu-item {
+.hero-inner, .section {
+  background-image: url(".././img/bg-snow.png");
+  background-size: cover;
+  background-position-y: center;
+}
+
+.hero-inner__container, .hero-inner, .header__menu-list .header__menu-item, .section__btn {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-header .header__inner .header__logo {
+.header__logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-header .header__inner .header__menu .header__menu-list .header__menu-item .header__menu-link, header .header__inner .header__logo {
+.section__subtitle {
+  font-family: "Allura-Regular", sans-serif;
+  font-size: 2.4rem;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.section__btn {
+  border-radius: 2rem;
+  padding: 2rem 3.2rem;
+  width: 23.5rem;
+  height: 5.6rem;
+  background-color: #181c29;
+  font-size: 1.2rem;
+  line-height: 130%;
+  letter-spacing: 0.048em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+}
+
+.header__menu-list .header__menu-item .header__menu-link, .header__logo {
   color: #181c29;
   font-size: 1.2rem;
   padding: 1.2rem 2rem;
@@ -37,7 +71,7 @@ header .header__inner .header__menu .header__menu-list .header__menu-item .heade
   border-radius: 1.2rem;
   background-color: #fff;
 }
-header .header__inner .header__menu .header__menu-list .header__menu-item .header__menu-link:hover, header .header__inner .header__logo:hover {
+.header__menu-list .header__menu-item .header__menu-link:hover, .header__logo:hover {
   background-color: rgba(255, 70, 70, 0.1);
 }
 
@@ -49,7 +83,8 @@ header {
   display: flex;
   align-items: center;
 }
-header .header__inner {
+
+.header__inner {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -57,30 +92,50 @@ header .header__inner {
   margin: 0 8.2rem;
   height: 4rem;
 }
-header .header__inner .header__logo {
+
+.header__logo {
   width: 14.1rem;
 }
-header .header__inner .header__menu {
+
+.header__menu {
   height: inherit;
 }
-header .header__inner .header__menu .header__menu-list {
+
+.header__menu-list {
   display: flex;
   flex-direction: row;
   gap: 0.8rem;
   height: inherit;
 }
-header .header__inner .header__menu .header__menu-list .header__menu-item {
+.header__menu-list .header__menu-item {
   height: inherit;
 }
-header .header__inner .header__menu .header__menu-list .header__menu-item .header__menu-link {
+.header__menu-list .header__menu-item .header__menu-link {
   display: block;
   height: inherit;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.hero-inner {
+  height: 52.4rem;
+  background-image: url(".././img/bg-ball.png");
+}
+
+.hero-inner__container {
+  flex-direction: column;
+  max-width: 42.6rem;
+  width: 100%;
+  gap: 1.2rem;
+  padding: 6rem 0;
+}
+
+.title {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 3.2rem;
+  line-height: 150%;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
 }
 
 body {
@@ -103,4 +158,9 @@ li {
   max-width: 144rem;
   width: 144rem;
   margin: 0 auto;
+}
+
+main {
+  background: #ff4646;
+  border-radius: 2rem;
 }/*# sourceMappingURL=main.css.map */

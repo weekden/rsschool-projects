@@ -1,8 +1,6 @@
-@import './fonts';
-
-$font-famaly: 'Montserrat-SemiBold', sans-serif;
-$font-famaly-redular: 'Montserrat-Regular', sans-serif;
-$second-famaly: 'Allura-Regular', sans-serif;
+$font-family: 'Montserrat-SemiBold', sans-serif;
+$font-family-redular: 'Montserrat-Regular', sans-serif;
+$second-family: 'Allura-Regular', sans-serif;
 
 $primary: #ff4646;
 $dark: #181c29;
@@ -15,16 +13,43 @@ $primary-10: rgba(255, 70, 70, 0.1);
 $static-white-20: rgba(255, 255, 255, 0.2);
 $static-white-40: rgba(255, 255, 255, 0.4);
 
+%bg-section {
+	background-image: url('.././img/bg-snow.png');
+	background-size: cover;
+	background-position-y: center;
+}
+
 %flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 %flex-space {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
+%subtitle {
+	font-family: $second-family;
+	font-size: 2.4rem;
+	line-height: 100%;
+	letter-spacing: 0.05em;
+	color: $static-white;
+}
 
+%section-btn {
+	@extend %flex-center;
+	border-radius: 2rem;
+	padding: 2rem 3.2rem;
+	width: 23.5rem;
+	height: 5.6rem;
+	background-color: $dark;
+	font-size: 1.2rem;
+	line-height: 130%;
+	letter-spacing: 0.048em;
+	text-transform: uppercase;
+	text-align: center;
+	color: $static-white;
+}
