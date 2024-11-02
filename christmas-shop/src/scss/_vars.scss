@@ -17,6 +17,7 @@ $static-white-40: rgba(255, 255, 255, 0.4);
 	background-image: url('.././img/bg-snow.png');
 	background-size: cover;
 	background-position-y: center;
+    background-position-x: center;
 }
 
 %flex-center {
@@ -41,7 +42,7 @@ $static-white-40: rgba(255, 255, 255, 0.4);
 
 %section-title {
 	font-size: 2.4rem;
-	line-height: 152%;
+	line-height: 151%;
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
 	color: $static-white;

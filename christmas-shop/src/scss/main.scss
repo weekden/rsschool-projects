@@ -10,6 +10,7 @@
 @import './blocks/about';
 @import './blocks/slider';
 @import './blocks/gifts';
+@import './blocks/cta';
 
 body {
 	font-family: $font-family;
@@ -48,13 +49,13 @@ section {
     @extend %flex-center;
     flex-direction: column;
     gap: 1.2rem;
-    .section__title {
-        @extend %section-title;
-    }
-    .section__subtitle {
-        @extend %section-subtitle;
-    }
+    
 }
-
+.section__title {
+    @extend %section-title;
+}
+.section__subtitle {
+    @extend %section-subtitle;
+}
 
 
