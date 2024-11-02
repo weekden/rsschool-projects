@@ -3,13 +3,10 @@
 }
 
 .slider-inner {
-	padding: 6rem 0;
+	margin: 6rem 0;
 	overflow: hidden;
-	text-align: center;
 	.section__title {
-		@extend %section-title;
 		margin-right: 8.2rem;
-        margin-top: 1.2rem;
 	}
 	.section__subtitle {
 		margin-right: 8.2rem;
@@ -19,7 +16,7 @@
 .slider {
 	@extend %flex-center;
 	gap: 2rem;
-    margin: 2rem 0;
+	margin: 2rem 0;
 	flex-wrap: nowrap;
 	width: max-content;
 }
@@ -41,7 +38,7 @@
 	img {
 		width: 20rem;
 		height: auto;
-        border-radius: 2rem;
+		border-radius: 2rem;
 	}
 }
 
@@ -50,19 +47,30 @@
 }
 
 .slider__controls-container {
-    @extend %flex-center;
-    justify-content: flex-end;
-    gap: 2rem;
+	@extend %flex-center;
+	justify-content: flex-end;
+	gap: 2rem;
 }
 
 .slider__controls-btn {
-    @extend %flex-center;
+	@extend %flex-center;
 	border: 1px solid $static-white;
 	border-radius: 2rem;
 	width: 5.6rem;
 	height: 5.6rem;
+	&:hover {
+		cursor: pointer;
+		background-color: $static-white;
+		path {
+			stroke: $primary;
+		}
+	}
 }
 
-#slide-left {
-    @extend %slider-btn-disabled;
+.slide-btn__disabled {
+    border: 1px solid $static-white-40;
+    pointer-events: none;
+	svg path {
+		stroke-opacity: 0.4;
+	}
 }

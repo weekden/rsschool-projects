@@ -28,19 +28,19 @@ section {
   background-position-y: center;
 }
 
-section, .slider__controls-btn, .slider__controls-container, .slider, .hero-inner__container, .hero-inner, .header__menu-list .header__menu-item, .section__btn {
+.section__title-container, section, .gifts__inner, .slider__controls-btn, .slider__controls-container, .slider, .hero-inner__container, .hero-inner, .header__menu-list .header__menu-item, .gift__card, .section__btn {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.slider__item, .about-inner, .header__logo {
+.gifts__container, .slider__item, .about-inner, .header__logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.section__subtitle {
+.section__title-container .section__subtitle, .section__subtitle {
   font-family: "Allura-Regular", sans-serif;
   font-size: 2.4rem;
   line-height: 100%;
@@ -48,7 +48,7 @@ section, .slider__controls-btn, .slider__controls-container, .slider, .hero-inne
   color: #fff;
 }
 
-.slider-inner .section__title, .about-inner .section__title {
+.section__title-container .section__title {
   font-size: 2.4rem;
   line-height: 152%;
   letter-spacing: 0.16em;
@@ -74,11 +74,62 @@ section, .slider__controls-btn, .slider__controls-container, .slider, .hero-inne
   color: #181c29;
 }
 
-#slide-left {
-  border: 1px solid rgba(255, 255, 255, 0.4);
+.gift__card {
+  flex-direction: column;
+  background: #ecf3f8;
+  border-radius: 2rem;
+  max-width: 31rem;
+  max-height: 34.2rem;
+  width: 100%;
+  height: 100%;
+  gap: 0;
 }
-#slide-left svg path {
-  stroke-opacity: 0.4;
+.gift__card img {
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.gift__card .gift__description {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2rem;
+  background: #fff;
+  width: 100%;
+  padding: 2rem;
+  gap: 0.8rem;
+  min-height: 11.2rem;
+}
+.gift__card .gift__description p {
+  font-size: 1.2rem;
+  line-height: 120%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.gift__card .gift__description h3 {
+  font-size: 1.6rem;
+  line-height: 152%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #181c29;
+}
+.gift__card:hover {
+  cursor: pointer;
+}
+.gift__card:hover h3 {
+  color: #ff4646;
+}
+
+.gift__type-harmony {
+  color: #ff43f7;
+}
+
+.gift__type-work {
+  color: #4361ff;
+}
+
+.gift__type-health {
+  color: #06a44f;
 }
 
 .header__menu-list .header__menu-item .header__menu-link, .header__logo {
@@ -167,21 +218,25 @@ header {
 
 .about {
   background-position-x: center;
+  justify-content: space-between;
 }
 
 .about-inner {
-  max-height: 52.8rem;
-  height: 100%;
-  width: 100%;
   background-color: #fff;
   margin: 6rem 0;
   border-radius: 2rem;
+  width: 100%;
 }
-.about-inner .section__title {
+.about-inner .section__title-container {
+  gap: 2rem;
+  align-items: start;
+}
+.about-inner .section__title-container .section__title {
   color: #181c29;
 }
-.about-inner .section__subtitle {
+.about-inner .section__title-container .section__subtitle {
   color: #ff4646;
+  text-align: start;
 }
 
 .about__left-container {
@@ -191,6 +246,7 @@ header {
   flex-direction: column;
   gap: 2rem;
   margin-left: 6rem;
+  padding: 6rem 0;
   max-width: 42.6rem;
   width: 100%;
 }
@@ -215,13 +271,11 @@ header {
 }
 
 .slider-inner {
-  padding: 6rem 0;
+  margin: 6rem 0;
   overflow: hidden;
-  text-align: center;
 }
 .slider-inner .section__title {
   margin-right: 8.2rem;
-  margin-top: 1.2rem;
 }
 .slider-inner .section__subtitle {
   margin-right: 8.2rem;
@@ -270,6 +324,32 @@ header {
   width: 5.6rem;
   height: 5.6rem;
 }
+.slider__controls-btn:hover {
+  cursor: pointer;
+  background-color: #fff;
+}
+.slider__controls-btn:hover path {
+  stroke: #ff4646;
+}
+
+.slide-btn__disabled {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+.slide-btn__disabled svg path {
+  stroke-opacity: 0.4;
+}
+
+.gifts__inner {
+  margin: 6rem 0;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.gifts__container {
+  align-items: start;
+  gap: 1.2rem;
+}
 
 body {
   font-family: "Montserrat-SemiBold", sans-serif;
@@ -300,4 +380,9 @@ main {
 
 section {
   padding: 0 8.2rem;
+}
+
+.section__title-container {
+  flex-direction: column;
+  gap: 1.2rem;
 }/*# sourceMappingURL=main.css.map */

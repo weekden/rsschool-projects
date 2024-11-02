@@ -9,6 +9,7 @@
 @import './blocks/hero';
 @import './blocks/about';
 @import './blocks/slider';
+@import './blocks/gifts';
 
 body {
 	font-family: $font-family;
@@ -41,6 +42,18 @@ section {
     @extend %bg-section;
     @extend %flex-center;
     padding: 0 8.2rem;
+}
+
+.section__title-container {
+    @extend %flex-center;
+    flex-direction: column;
+    gap: 1.2rem;
+    .section__title {
+        @extend %section-title;
+    }
+    .section__subtitle {
+        @extend %section-subtitle;
+    }
 }
 
 
