@@ -11,6 +11,7 @@
 @import './blocks/slider';
 @import './blocks/gifts';
 @import './blocks/cta';
+@import './blocks/footer';
 
 body {
 	font-family: $font-family;
@@ -30,8 +31,9 @@ li {
 
 .page-wrapper {
 	max-width: 144rem;
-	width: 144rem;
+	width: 100%;
 	margin: 0 auto;
+    background: $static-white;
 }
 
 main {

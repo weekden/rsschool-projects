@@ -29,13 +29,13 @@ section {
   background-position-x: center;
 }
 
-.section__title-container, section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .hero-inner__container, .hero-inner, .header__menu-list .header__menu-item, .gift__card, .section__btn {
+.section__title-container, section, .footer__items-social, .footer__items .footer__item, .footer__inner, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .hero-inner__container, .hero-inner, .header__menu-list .header__menu-item, .gift__card, .section__btn {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.gifts__container, .slider__item, .about-inner, .header__logo {
+.footer__items, .gifts__container, .slider__item, .about-inner, .header__logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,7 +49,7 @@ section {
   color: #fff;
 }
 
-.section__title {
+.section__title, .footer__items .footer__item-title {
   font-size: 2.4rem;
   line-height: 151%;
   letter-spacing: 0.16em;
@@ -432,6 +432,62 @@ header {
   right: 0;
 }
 
+.footer__inner {
+  margin: 6rem 8.2rem;
+  gap: 6rem;
+  flex-direction: column;
+}
+.footer__inner div:last-child {
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.footer__items {
+  text-align: center;
+  width: 100%;
+}
+.footer__items .footer__item {
+  border-radius: 2rem;
+  background: #ecf3f8;
+  max-width: 41.7rem;
+  width: 100%;
+  padding: 2rem;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.footer__items .footer__item-title {
+  color: #181c29;
+}
+.footer__items .footer__item-subtitle {
+  font-size: 1.6rem;
+  line-height: 152%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #181c29;
+}
+
+.footer__items-social {
+  gap: 1.2rem;
+}
+.footer__items-social div {
+  padding: 0.8rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.footer__items-author {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 1.6rem;
+  line-height: 148%;
+  text-align: center;
+  color: #181c29;
+}
+
+.footer__items-subtitle {
+  color: #181c29;
+}
+
 body {
   font-family: "Montserrat-SemiBold", sans-serif;
 }
@@ -450,8 +506,9 @@ li {
 
 .page-wrapper {
   max-width: 144rem;
-  width: 144rem;
+  width: 100%;
   margin: 0 auto;
+  background: #fff;
 }
 
 main {
