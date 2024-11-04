@@ -16,8 +16,7 @@ $static-white-40: rgba(255, 255, 255, 0.4);
 %bg-section {
 	background-image: url('.././img/bg-snow.png');
 	background-size: cover;
-	background-position-y: center;
-    background-position-x: center;
+	background-position: center;
 }
 
 %flex-center {
@@ -50,6 +49,7 @@ $static-white-40: rgba(255, 255, 255, 0.4);
 
 %section-btn {
 	@extend %flex-center;
+    @extend %transition-color;
 	border-radius: 2rem;
 	padding: 2rem 3.2rem;
 	width: 23.5rem;
@@ -66,6 +66,16 @@ $static-white-40: rgba(255, 255, 255, 0.4);
 		color: $dark;
 	}
 }
+
+%transition-color {
+    transition: color 0.3s ease-in-out, background 0.3s ease-in-out, stroke 0.3s ease-in-out;
+}
+
+%noteractive {
+    pointer-events: none;
+}
+
+
 
 .gift__card {
 	@extend %flex-center;
@@ -101,12 +111,19 @@ $static-white-40: rgba(255, 255, 255, 0.4);
 			text-transform: uppercase;
 		}
 		h3 {
-			font-size: 1.6rem;
-			line-height: 152%;
-			letter-spacing: 0.08em;
-			text-transform: uppercase;
-			color: $dark;
-		}
+            @extend %transition-color;
+            font-size: 1.6rem;
+            line-height: 152%;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: $dark;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; // Указывает количество строк для обрезки
+            text-overflow: ellipsis;
+            
+        }
 	}
     &:hover {
         cursor: pointer;

@@ -1,33 +1,38 @@
 .footer__inner {
 	margin: 6rem 8.2rem;
 	@extend %flex-center;
-    gap: 6rem;
+	gap: 6rem;
 	flex-direction: column;
-	div:last-child {
-		flex-direction: column;
-		gap: 1.2rem;
-	}
 }
 
-.footer__items {
+.footer__contacts {
 	@extend %flex-space;
-    text-align: center;
+	text-align: center;
 	width: 100%;
-    .footer__item {
-        border-radius: 2rem;
-        background: $content-background;
-        max-width: 41.7rem;
-        width: 100%;
-        padding: 2rem;
-        @extend %flex-center;
-        flex-direction: column;
-        gap: 1.2rem;
-    }
-	.footer__item-title {
+	.footer__contact {
+		border-radius: 2rem;
+		background: $content-background;
+		max-width: 41.7rem;
+		width: 33%;
+		padding: 2rem;
+		a {
+			@extend %flex-center;
+			flex-direction: column;
+			gap: 1.2rem;
+		}
+		&:hover {
+			p {
+                @extend %transition-color;
+				color: $primary;
+			}
+			cursor: pointer;
+		}
+	}
+	.footer__contact-title {
 		@extend %section-title;
 		color: $dark;
 	}
-	.footer__item-subtitle {
+	.footer__contact-subtitle {
 		font-size: 1.6rem;
 		line-height: 152%;
 		letter-spacing: 0.08em;
@@ -37,13 +42,26 @@
 	}
 }
 
+.footer__items {
+	@extend %flex-center;
+	flex-direction: column;
+	gap: 1.2rem;
+}
+
 .footer__items-social {
 	@extend %flex-center;
-    gap: 1.2rem;
+	gap: 1.2rem;
 	div {
 		padding: 0.8rem;
 		width: 4rem;
 		height: 4rem;
+		cursor: pointer;
+		path {
+			transition: stroke 0.2s ease-in-out;
+		}
+		&:hover path {
+			stroke: $primary;
+		}
 	}
 }
 
@@ -54,6 +72,10 @@
 	text-align: center;
 	color: $dark;
 }
-.footer__items-subtitle {
+.footer__items-subtitle a {
+    @extend %transition-color;
 	color: $dark;
+	&:hover {
+		color: $primary;
+	}
 }

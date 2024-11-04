@@ -1,34 +1,34 @@
 .section-cta {
-    position: relative;
+	position: relative;
 }
 .bg-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('.././img/bg-forest.png');
-    background-size: cover;
-    z-index: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url('.././img/bg-forest.png');
+	background-size: cover;
+	z-index: 0;
 }
 .cta-inner {
-    position: relative;
-    z-index: 2;
+	position: relative;
+	z-index: 2;
 	margin: 6rem 0;
 	@extend %flex-center;
 	flex-direction: column;
-    width: 100%;
+	width: 100%;
 }
 
 .cta-container {
 	max-width: 42.6rem;
 	width: 100%;
 	margin: 6rem 0;
-    padding: 6rem 0;
+	padding: 6rem 0;
 	@extend %flex-center;
 	flex-direction: column;
 	text-align: center;
-    gap: 2rem;
+	gap: 2rem;
 }
 .timer-inner {
 	max-width: 42.6rem;
@@ -44,10 +44,12 @@
 	max-width: 34.4rem;
 	width: 100%;
 	height: 7.2rem;
-    background: $static-white-40;
+	background: $static-white-40;
 }
 
 .timer__section {
+	@extend %flex-center;
+	flex-direction: column;
 	width: 8rem;
 	p {
 		font-size: 2.4rem;
@@ -63,17 +65,20 @@
 		letter-spacing: 0.05em;
 	}
 }
-#timer-days, #timer-hours, #timer-minutes {
-    position: relative;
-    &::after {
-        content: '';
-        display: inline-block;
-        width: 0;              
-        height: 2rem; 
-        border: 1px solid $static-white-40;          
-        position: absolute;
-        top: 2.5rem;
-        transform: translateY(-50%); 
-        right: 0;       
-    }
+
+.timer-container {
+	.timer__section:not(:last-of-type) {
+		position: relative;
+		&::after {
+			content: '';
+			display: inline-block;
+			width: 0;
+			height: 2rem;
+			border: 1px solid $static-white-40;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 0;
+		}
+	}
 }

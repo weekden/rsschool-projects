@@ -13,12 +13,15 @@
 @import './blocks/cta';
 @import './blocks/footer';
 
+@import './blocks/page-gifts';
+
 body {
 	font-family: $font-family;
 }
 
 html {
 	font-size: 62.5%;
+    scroll-behavior: smooth;
 }
 
 a {
