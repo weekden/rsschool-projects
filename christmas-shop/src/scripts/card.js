@@ -12,6 +12,7 @@ const renderCard = (_item, _route) => {
 	giftName.classList.add('gift__name');
 
 	giftImg.src = `${_route}gift-${_item.category.toLowerCase().split(' ').join('-')}.png`;
+  giftImg.alt = 'gift-img'
 	giftType.textContent = _item.category;
 	giftType.style.color = _item.color;
 	giftName.textContent = _item.name;

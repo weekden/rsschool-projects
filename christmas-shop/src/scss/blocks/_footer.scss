@@ -7,13 +7,12 @@
 
 .footer__contacts {
 	@extend %flex-space;
-	text-align: center;
 	width: 100%;
 	.footer__contact {
 		border-radius: 2rem;
 		background: $content-background;
 		max-width: 41.7rem;
-		width: 33%;
+		flex-basis: 100%;
 		padding: 2rem;
 		a {
 			@extend %flex-center;

@@ -1,0 +1,61 @@
+%bg-section {
+	background-image: url('.././img/bg-snow.png');
+	background-size: cover;
+	background-position: center;
+}
+
+%flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+%flex-space {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+%section-subtitle {
+	font-family: $second-family;
+	font-size: 2.4rem;
+	line-height: 100%;
+	letter-spacing: 0.05em;
+	color: $static-white;
+}
+
+%section-title {
+	font-size: 2.4rem;
+	line-height: 151%;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: $static-white;
+}
+
+%section-btn {
+	@extend %flex-center;
+    @extend %transition-color;
+	border-radius: 2rem;
+	padding: 2rem 3.2rem;
+	width: 23.5rem;
+	height: 5.6rem;
+	background-color: $dark;
+	font-size: 1.2rem;
+	line-height: 130%;
+	letter-spacing: 0.048em;
+	text-transform: uppercase;
+	text-align: center;
+	color: $static-white;
+	&:hover {
+		background-color: $static-white;
+		color: $dark;
+	}
+}
+
+%transition-color {
+    transition: color 0.3s ease-in-out, background 0.3s ease-in-out, stroke 0.3s ease-in-out;
+}
+
+%noteractive {
+    pointer-events: none;
+}

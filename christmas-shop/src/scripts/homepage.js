@@ -9,7 +9,6 @@ import {appendCardInGiftsContainer} from './card.js';
         .then(response => response.json())
         .then(giftsData => {
           giftsHome = giftsData;
-            console.log(giftsHome)
             appendCardInGiftsContainer(giftsHome, giftsContainer, routeHomePage);
         })
         .catch(error => console.error('Ошибка:', error));

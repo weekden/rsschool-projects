@@ -4,10 +4,11 @@
     padding: 0;
 }
 .hero-inner {
+    @extend %flex-center;
 	background-image: url('.././img/bg-ball.png');
 	background-size: cover;
-	background-position-y: center;
-	@extend %flex-center;
+	background-position: center;
+    background-repeat: no-repeat;
 }
 
 .hero-inner__container {

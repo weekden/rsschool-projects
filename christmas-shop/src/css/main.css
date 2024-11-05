@@ -1,9 +1,83 @@
-* {
-  margin: 0;
-  padding: 0;
+@charset "UTF-8";
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 @font-face {
   font-family: "Montserrat-Regular";
   src: local("Montserrat"), url("../fonts/montserrat/Montserrat-Regular.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Regular.woff") format("woff"), url("../fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
@@ -22,13 +96,64 @@
   font-style: normal;
   font-weight: 400;
 }
+.gift__card {
+  flex-direction: column;
+  background: #ecf3f8;
+  border-radius: 2rem;
+  max-width: 31rem;
+  max-height: 34.2rem;
+  width: 100%;
+  height: 100%;
+  gap: 0;
+}
+.gift__card img {
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.gift__card .gift__description {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2rem;
+  background: #fff;
+  width: 100%;
+  padding: 2rem;
+  gap: 0.9rem;
+  min-height: 11.2rem;
+}
+.gift__card .gift__description p {
+  font-size: 1.2rem;
+  line-height: 120%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.gift__card .gift__description h3 {
+  font-size: 1.6rem;
+  line-height: 152%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #181c29;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+}
+.gift__card:hover {
+  cursor: pointer;
+}
+.gift__card:hover h3 {
+  color: #ff4646;
+}
+
 section {
   background-image: url(".././img/bg-snow.png");
   background-size: cover;
   background-position: center;
 }
 
-.section__title-container, section, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .hero-inner__container, .hero-inner, .header__menu-item, .gift__card, .section__btn {
+.section__title-container, section, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .hero-inner__container, .hero-inner, .header__menu-item, .section__btn, .gift__card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,69 +201,6 @@ section {
 
 .page-gifts__tabs-tab, .footer__items-subtitle a, .footer__contacts .footer__contact:hover p, .slider__controls-btn:hover path, .slider__controls-btn, .header__menu-link, .header__logo, .gift__card .gift__description h3, .section__btn {
   transition: color 0.3s ease-in-out, background 0.3s ease-in-out, stroke 0.3s ease-in-out;
-}
-
-.gift__card {
-  flex-direction: column;
-  background: #ecf3f8;
-  border-radius: 2rem;
-  max-width: 31rem;
-  max-height: 34.2rem;
-  width: 100%;
-  height: 100%;
-  gap: 0;
-}
-.gift__card img {
-  width: 100%;
-  height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.gift__card .gift__description {
-  display: flex;
-  flex-direction: column;
-  border-radius: 2rem;
-  background: #fff;
-  width: 100%;
-  padding: 2rem;
-  gap: 0.8rem;
-  min-height: 11.2rem;
-}
-.gift__card .gift__description p {
-  font-size: 1.2rem;
-  line-height: 120%;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.gift__card .gift__description h3 {
-  font-size: 1.6rem;
-  line-height: 152%;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #181c29;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  text-overflow: ellipsis;
-}
-.gift__card:hover {
-  cursor: pointer;
-}
-.gift__card:hover h3 {
-  color: #ff4646;
-}
-
-.gift__type-harmony {
-  color: #ff43f7;
-}
-
-.gift__type-work {
-  color: #4361ff;
-}
-
-.gift__type-health {
-  color: #06a44f;
 }
 
 .header__menu-link, .header__logo {
@@ -210,7 +272,8 @@ header {
 .hero-inner {
   background-image: url(".././img/bg-ball.png");
   background-size: cover;
-  background-position-y: center;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .hero-inner__container {
@@ -378,7 +441,9 @@ header {
   height: 100%;
   background: url(".././img/bg-forest.png");
   background-size: cover;
+  background-position: center;
   z-index: 0;
+  background-repeat: no-repeat;
 }
 
 .cta-inner {
@@ -403,7 +468,7 @@ header {
   max-width: 42.6rem;
   width: 100%;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.75rem;
 }
 
 .timer-container {
@@ -455,14 +520,13 @@ header {
 }
 
 .footer__contacts {
-  text-align: center;
   width: 100%;
 }
 .footer__contacts .footer__contact {
   border-radius: 2rem;
   background: #ecf3f8;
   max-width: 41.7rem;
-  width: 33%;
+  flex-basis: 100%;
   padding: 2rem;
 }
 .footer__contacts .footer__contact a {
@@ -540,6 +604,8 @@ header {
   max-width: 42.6rem;
   width: 100%;
   text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.18em;
 }
 
 .page-gifts__tabs {
@@ -585,13 +651,9 @@ a {
   text-decoration: none;
 }
 
-li {
-  list-style-type: none;
-}
-
 .page-wrapper {
   max-width: 144rem;
-  width: 100%;
+  width: 144rem;
   margin: 0 auto;
   background: #fff;
 }
