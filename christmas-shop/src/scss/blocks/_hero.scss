@@ -9,6 +9,7 @@
 	background-size: cover;
 	background-position: center;
     background-repeat: no-repeat;
+    padding: 6rem 0;
 }
 
 .hero-inner__container {
@@ -18,14 +19,12 @@
 	width: 100%;
 	gap: 1.2rem;
 	padding: 6rem 0;
-	margin: 6rem 0;
 }
 
 .title {
-	font-family: $font-family-redular;
 	font-size: 3.2rem;
 	line-height: 150%;
-	letter-spacing: 0.18em;
+	letter-spacing: 0.17em;
 	text-transform: uppercase;
 	color: $static-white;
 	text-align: center;

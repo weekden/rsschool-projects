@@ -35,7 +35,6 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  line-height: 1.5;
 }
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
@@ -130,7 +129,7 @@ select {
 }
 .gift__card .gift__description h3 {
   font-size: 1.6rem;
-  line-height: 152%;
+  line-height: 160%;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #181c29;
@@ -153,7 +152,7 @@ section {
   background-position: center;
 }
 
-.section__title-container, section, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .hero-inner__container, .hero-inner, .header__menu-item, .section__btn, .gift__card {
+.section__title-container, section, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .header__menu-item, .section__btn, .gift__card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,7 +174,7 @@ section {
 
 .section__title, .footer__contacts .footer__contact-title {
   font-size: 2.4rem;
-  line-height: 151%;
+  line-height: 150%;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #fff;
@@ -274,6 +273,7 @@ header {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  padding: 6rem 0;
 }
 
 .hero-inner__container {
@@ -282,14 +282,12 @@ header {
   width: 100%;
   gap: 1.2rem;
   padding: 6rem 0;
-  margin: 6rem 0;
 }
 
 .title {
-  font-family: "Montserrat-Regular", sans-serif;
   font-size: 3.2rem;
   line-height: 150%;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
   color: #fff;
   text-align: center;
@@ -306,7 +304,7 @@ header {
   width: 100%;
 }
 .about-inner .section__title-container {
-  gap: 2rem;
+  gap: 2.2rem;
   align-items: start;
 }
 .about-inner .section__title-container .section__title {
@@ -317,13 +315,16 @@ header {
   text-align: start;
 }
 
+.about__left {
+  padding: 0 6rem;
+}
+
 .about__left-container {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   gap: 2rem;
-  margin-left: 6rem;
   padding: 6rem 0;
   max-width: 42.6rem;
   width: 100%;
@@ -342,15 +343,22 @@ header {
 .about__right img {
   border-radius: 2rem;
   height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .section-slider {
+  flex-direction: column;
+  gap: 0;
   padding-right: 0;
 }
 
 .slider-inner {
+  flex-direction: column;
+  gap: 2rem;
   margin: 6rem 0;
   overflow: hidden;
+  width: 100%;
 }
 .slider-inner .section__title {
   margin-right: 8.2rem;
@@ -360,15 +368,14 @@ header {
 }
 
 .slider {
-  gap: 2rem;
-  margin: 2rem 0;
-  flex-wrap: nowrap;
   width: -moz-max-content;
   width: max-content;
+  gap: 2rem;
+  flex-wrap: nowrap;
+  align-self: flex-start;
 }
 
 .slider__item {
-  height: 20rem;
   gap: 2rem;
 }
 .slider__item p {
@@ -378,17 +385,18 @@ header {
   color: #fff;
 }
 
-.slider__item-img {
-  height: inherit;
-}
 .slider__item-img img {
-  width: 20rem;
+  max-width: 20rem;
+  width: 100%;
   height: auto;
   border-radius: 2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .slider__controls {
   padding-right: 8.2rem;
+  align-self: end;
 }
 
 .slider__controls-container {
@@ -468,7 +476,7 @@ header {
   max-width: 42.6rem;
   width: 100%;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.8rem;
 }
 
 .timer-container {
@@ -650,6 +658,10 @@ html {
 
 a {
   text-decoration: none;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
 }
 
 .page-wrapper {
