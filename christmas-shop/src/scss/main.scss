@@ -35,7 +35,7 @@ h1, h2, h3 {
 
 .page-wrapper {
 	max-width: 144rem;
-	width: 144rem;
+	width: 100%;
 	margin: 0 auto;
 	background: $static-white;
 }
@@ -61,4 +61,11 @@ section {
 }
 .section__subtitle {
 	@extend %section-subtitle;
+}
+
+
+@media (max-width: 1060px) {
+    section {
+        padding: 0 0.8rem;
+    }
 }

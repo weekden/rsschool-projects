@@ -8,11 +8,11 @@
 .footer__contacts {
 	@extend %flex-space;
 	width: 100%;
+    gap: 1.2rem;
 	.footer__contact {
 		border-radius: 2rem;
 		background: $content-background;
-		max-width: 41.7rem;
-		flex-basis: 100%;
+		width: 33%;
 		padding: 2rem;
 		a {
 			@extend %flex-center;
@@ -77,4 +77,19 @@
 	&:hover {
 		color: $primary;
 	}
+}
+
+@media (max-width: 1205px) {
+    .footer__contacts {
+        flex-direction: column;
+        .footer__contact {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 1060px) {
+    .footer__inner {
+        margin: 6rem 0.8rem;
+    }
 }

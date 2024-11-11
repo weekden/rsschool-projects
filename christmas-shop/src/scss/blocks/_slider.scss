@@ -84,3 +84,10 @@
 		stroke-opacity: 0.4;
 	}
 }
+
+@media (max-width: 1060px) {
+    .slider__controls {
+        padding-right: 0.8rem;
+    }
+}
+

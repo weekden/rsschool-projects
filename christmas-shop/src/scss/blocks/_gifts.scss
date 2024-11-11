@@ -10,3 +10,10 @@
     align-items: start;
     gap: 1.2rem;
 }
+
+@media (max-width: 900px) {
+    .gifts__container {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}

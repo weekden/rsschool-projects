@@ -64,3 +64,35 @@ header {
         pointer-events: none;
     } 
 }
+
+.burger-btn {
+    display: none;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.burger-btn__rotate {
+    path:first-child {
+        transform: rotate(45deg) translate(0px, 5px);
+        transform-origin: center;
+    }
+    path:last-child {
+        transform: rotate(-45deg) translate(-1px, -5px);
+        transform-origin: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .header__inner {
+        margin: 0 0.8rem;
+    }
+
+    .header__menu {
+        display: none;
+    }
+
+    .burger-btn {
+        display: block;
+    }
+}
