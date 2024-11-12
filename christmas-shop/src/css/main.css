@@ -240,23 +240,17 @@ header {
 }
 
 .header__menu {
-  height: inherit;
+  height: 100%;
 }
 
 .header__menu-list {
   display: flex;
   flex-direction: row;
   gap: 0.8rem;
-  height: inherit;
-}
-
-.header__menu-item {
-  height: inherit;
 }
 
 .header__menu-link {
   display: block;
-  height: inherit;
 }
 .gifts__menu-list li:first-child {
   pointer-events: none;
