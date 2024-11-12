@@ -56,12 +56,14 @@
 	}
 }
 
+@media (max-width: 767.9px) {
+    .about__left {
+        padding: 0 2rem;
+    }
+}
+
 @media (max-width: 654px) {
     .about-inner {
         flex-direction: column;
-    }
-
-    .about__left {
-        padding: 0 2rem;
     }
 }
