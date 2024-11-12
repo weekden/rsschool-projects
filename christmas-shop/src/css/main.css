@@ -152,7 +152,7 @@ section {
   background-position: center;
 }
 
-.section__title-container, section, .page-gifts__container, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .burger-btn, .header__menu-item, .section__btn, .gift__card {
+.section__title-container, section, .page-gifts__container, .return-circle div, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .burger-btn, .header__menu-item, .section__btn, .gift__card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -706,6 +706,10 @@ header {
     margin: 6rem 0.8rem;
   }
 }
+.gifts__page-wrapper {
+  position: relative;
+}
+
 .page-gifts__section {
   background-image: url(".././img/bg-garland.png");
   background-position: top;
@@ -750,6 +754,25 @@ header {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #fff;
+}
+
+.return-circle {
+  display: none;
+}
+.return-circle div {
+  border-radius: 50%;
+  width: 5.6rem;
+  height: 5.6rem;
+  border: 1px solid #ff4646;
+  background: #fff;
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0.8rem;
+}
+.return-circle div a {
+  padding: 1.8rem;
 }
 
 .page-gifts__container {
