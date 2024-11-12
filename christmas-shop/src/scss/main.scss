@@ -65,6 +65,14 @@ section {
 	@extend %section-subtitle;
 }
 
+.show-item {
+    display: block;
+}
+
+.hide-item {
+    display: none;
+}
+
 @media (max-width: 1080px) {
 	section {
 		padding: 0 0.8rem;

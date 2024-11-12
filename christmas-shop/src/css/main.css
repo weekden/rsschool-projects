@@ -152,7 +152,7 @@ section {
   background-position: center;
 }
 
-.section__title-container, section, .page-gifts__container, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .header__menu-item, .section__btn, .gift__card {
+.section__title-container, section, .page-gifts__container, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .burger-btn, .header__menu-item, .section__btn, .gift__card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,25 +259,20 @@ header {
 .burger-btn {
   display: none;
 }
+
+.burger-btn {
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.5rem 1rem;
+}
 .burger-btn .burger-btn__line {
   height: 1px;
   width: 20px;
   background-color: #181c29;
+  transition: transform 0.3s ease-in-out;
 }
 .burger-btn:hover {
   cursor: pointer;
-}
-
-.burger-btn__rotate div:first-child {
-  transform: rotate(45deg) translate(3px, 2px);
-  transform-origin: center;
-}
-.burger-btn__rotate div:last-child {
-  transform: rotate(-45deg) translate(4px, -3px);
-  transform-origin: center;
-}
-.burger-btn__rotate div {
-  transition: transform 0.3s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -289,11 +284,6 @@ header {
   }
   .burger-btn {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1.5rem 1rem;
   }
 }
 .hero {
@@ -803,6 +793,14 @@ section {
 .section__title-container {
   flex-direction: column;
   gap: 1.2rem;
+}
+
+.show-item {
+  display: block;
+}
+
+.hide-item {
+  display: none;
 }
 
 @media (max-width: 1080px) {
