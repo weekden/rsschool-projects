@@ -9,6 +9,11 @@
 	background-color: $static-white;
 }
 
+%menu-item__active {
+    background-color: $primary-10;
+    color: $primary;
+}
+
 header {
 	width: 100%;
 	text-transform: uppercase;
@@ -54,8 +59,7 @@ header {
     height: inherit;
     @extend %menu-item;
     &:hover {
-        background-color: $primary-10;
-        color: $primary;
+        @extend %menu-item__active;
     }
 }
 
@@ -63,6 +67,10 @@ header {
     li:first-child {
         pointer-events: none;
     } 
+}
+
+.menu-item__active {
+    @extend %menu-item__active;
 }
 
 .burger-btn {

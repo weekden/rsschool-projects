@@ -212,6 +212,11 @@ section {
   background-color: #fff;
 }
 
+.menu-item__active, .header__menu-link:hover {
+  background-color: rgba(255, 70, 70, 0.1);
+  color: #ff4646;
+}
+
 header {
   width: 100%;
   text-transform: uppercase;
@@ -253,11 +258,6 @@ header {
   display: block;
   height: inherit;
 }
-.header__menu-link:hover {
-  background-color: rgba(255, 70, 70, 0.1);
-  color: #ff4646;
-}
-
 .gifts__menu-list li:first-child {
   pointer-events: none;
 }
