@@ -1,19 +1,30 @@
 .gifts-inner {
-    margin: 6rem 0;
-    @extend %flex-center;
-    flex-direction: column;
-    gap: 2rem;
+	margin: 6rem 0;
+	@extend %flex-center;
+	flex-direction: column;
+	gap: 2rem;
 }
 
 .gifts__container {
-    @extend %flex-space;
-    align-items: start;
-    gap: 1.2rem;
+	@extend %flex-space;
+	align-items: start;
+	gap: 1.2rem;
 }
 
 @media (max-width: 900px) {
-    .gifts__container {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
+	.gifts__container {
+		justify-content: center;
+		flex-wrap: wrap;
+		.gift__card {
+			flex-basis: 48%;
+		}
+	}
+}
+
+@media (max-width: 568px) {
+	.gifts__container {
+		.gift__card {
+			flex-basis: 100%;
+		}
+	}
 }

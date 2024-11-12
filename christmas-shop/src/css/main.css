@@ -490,6 +490,14 @@ header {
     justify-content: center;
     flex-wrap: wrap;
   }
+  .gifts__container .gift__card {
+    flex-basis: 48%;
+  }
+}
+@media (max-width: 568px) {
+  .gifts__container .gift__card {
+    flex-basis: 100%;
+  }
 }
 .section-cta {
   position: relative;
@@ -712,7 +720,41 @@ header {
   flex-wrap: wrap;
   gap: 1.2rem;
 }
+.page-gifts__container .gift__card {
+  flex-basis: 25%;
+}
 
+@media (max-width: 1439.9px) {
+  .page-gifts__container .gift__card {
+    flex-basis: 24%;
+  }
+}
+@media (max-width: 915px) {
+  .page-gifts__container .gift__card {
+    flex-basis: 32%;
+  }
+}
+@media (max-width: 768px) {
+  .page-gifts__container .gift__card {
+    flex-basis: 48%;
+  }
+}
+@media (max-width: 568px) {
+  .page-gifts__tabs {
+    gap: 0rem;
+  }
+  .page-gifts__tabs-tab {
+    padding: 1.2rem 0.8rem;
+  }
+  .page-gifts__container .gift__card {
+    flex-basis: 100%;
+  }
+}
+@media (max-width: 400px) {
+  .page-gifts__inner .section__title {
+    letter-spacing: 0.19em;
+  }
+}
 body {
   font-family: "Montserrat-SemiBold", sans-serif;
   background: #fff;
@@ -727,7 +769,9 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 600;
 }
 
@@ -752,7 +796,7 @@ section {
   gap: 1.2rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1063px) {
   section {
     padding: 0 0.8rem;
   }
