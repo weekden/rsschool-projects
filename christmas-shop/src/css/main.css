@@ -265,17 +265,25 @@ header {
 .burger-btn {
   display: none;
 }
+.burger-btn .burger-btn__line {
+  height: 1px;
+  width: 20px;
+  background-color: #181c29;
+}
 .burger-btn:hover {
   cursor: pointer;
 }
 
-.burger-btn__rotate path:first-child {
-  transform: rotate(45deg) translate(0px, 5px);
+.burger-btn__rotate div:first-child {
+  transform: rotate(45deg) translate(3px, 2px);
   transform-origin: center;
 }
-.burger-btn__rotate path:last-child {
-  transform: rotate(-45deg) translate(-1px, -5px);
+.burger-btn__rotate div:last-child {
+  transform: rotate(-45deg) translate(4px, -3px);
   transform-origin: center;
+}
+.burger-btn__rotate div {
+  transition: transform 0.3s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -286,7 +294,12 @@ header {
     display: none;
   }
   .burger-btn {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1.5rem 1rem;
   }
 }
 .hero {
@@ -729,7 +742,7 @@ header {
     flex-basis: 24%;
   }
 }
-@media (max-width: 915px) {
+@media (max-width: 932px) {
   .page-gifts__container .gift__card {
     flex-basis: 32%;
   }
@@ -796,7 +809,7 @@ section {
   gap: 1.2rem;
 }
 
-@media (max-width: 1063px) {
+@media (max-width: 1080px) {
   section {
     padding: 0 0.8rem;
   }
