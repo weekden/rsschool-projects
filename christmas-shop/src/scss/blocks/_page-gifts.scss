@@ -52,8 +52,10 @@
 }
 
 .page-gifts__container {
-    @extend %flex-space;
+    @extend %flex-center;
     flex-wrap: wrap;
     gap: 1.2rem;
 }
+
+
 

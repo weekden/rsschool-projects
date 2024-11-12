@@ -152,13 +152,13 @@ section {
   background-position: center;
 }
 
-.section__title-container, section, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .header__menu-item, .section__btn, .gift__card {
+.section__title-container, section, .page-gifts__container, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .header__menu-item, .section__btn, .gift__card {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.page-gifts__container, .page-gifts__tabs, .footer__contacts, .gifts__container, .slider__item, .about-inner, .header__logo {
+.page-gifts__tabs, .footer__contacts, .gifts__container, .slider__item, .about-inner, .header__logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -376,6 +376,14 @@ header {
      object-fit: cover;
 }
 
+@media (max-width: 654px) {
+  .about-inner {
+    flex-direction: column;
+  }
+  .about__left {
+    padding: 0 2rem;
+  }
+}
 .section-slider {
   flex-direction: column;
   gap: 0;
@@ -458,6 +466,12 @@ header {
 @media (max-width: 1060px) {
   .slider__controls {
     padding-right: 0.8rem;
+  }
+  .slider-inner .section__title {
+    margin-right: 0.8rem;
+  }
+  .slider-inner .section__subtitle {
+    margin-right: 0.8rem;
   }
 }
 .gifts-inner {
@@ -738,7 +752,7 @@ section {
   gap: 1.2rem;
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 900px) {
   section {
     padding: 0 0.8rem;
   }
