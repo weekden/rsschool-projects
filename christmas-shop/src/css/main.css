@@ -224,6 +224,7 @@ header {
   height: 6.4rem;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .header__inner {
@@ -241,6 +242,7 @@ header {
 
 .header__menu {
   height: 100%;
+  background-color: #fff;
 }
 
 .header__menu-list {
@@ -275,17 +277,52 @@ header {
   cursor: pointer;
 }
 
+.burger-btn__rotate div:first-child {
+  transform: rotate(45deg) translate(3px, 2px);
+  transform-origin: center;
+}
+.burger-btn__rotate div:last-child {
+  transform: rotate(-45deg) translate(4px, -3px);
+  transform-origin: center;
+}
+
 @media (max-width: 768px) {
   .header__inner {
     margin: 0 0.8rem;
   }
   .header__menu {
-    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 6.4rem;
+    height: 100vh;
+    width: 100%;
+    right: -100%;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header__menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    position: relative;
+    bottom: 3.2rem;
+  }
+  .header__menu-list .header__menu-link {
+    font-size: 2.4rem;
+    line-height: 152%;
+    letter-spacing: 0.16em;
   }
   .burger-btn {
     display: flex;
   }
 }
+.header__menu-active {
+  display: flex;
+  right: 0;
+}
+
 .hero {
   flex-direction: column;
   align-items: stretch;
@@ -779,6 +816,7 @@ h3 {
   width: 100%;
   margin: 0 auto;
   background: #fff;
+  overflow: hidden;
 }
 
 main {
