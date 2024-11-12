@@ -38,25 +38,21 @@ header {
 	@extend %menu-item;
 }
 .header__menu {
-	height: inherit;
- 
+	height: 100%;
 }
 
 .header__menu-list {
 	display: flex;
 	flex-direction: row;
 	gap: 0.8rem;
-	height: inherit;
 }
 
 .header__menu-item {
     @extend %flex-center;
-    height: inherit;
 }
 
 .header__menu-link {
     display: block;
-    height: inherit;
     @extend %menu-item;
     &:hover {
         @extend %menu-item__active;
