@@ -446,6 +446,8 @@ header {
   gap: 2rem;
   flex-wrap: nowrap;
   align-self: flex-start;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
 }
 
 .slider__item {
@@ -849,6 +851,9 @@ main {
 
 section {
   padding: 0 8.2rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .section__title-container {

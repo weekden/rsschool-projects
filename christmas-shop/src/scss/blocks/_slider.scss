@@ -26,6 +26,8 @@
 	gap: 2rem;
 	flex-wrap: nowrap;
 	align-self: flex-start;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
 }
 
 .slider__item {

@@ -3,3 +3,4 @@ import './giftspage.js';
 import './bm.js';
 import './cyrcle.js';
 import './timer.js';
+import './slider.js';

@@ -52,6 +52,7 @@ section {
 	@extend %bg-section;
 	@extend %flex-center;
 	padding: 0 8.2rem;
+    user-select: none;
 }
 
 .section__title-container {
