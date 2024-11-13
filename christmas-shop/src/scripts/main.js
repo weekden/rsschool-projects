@@ -1,3 +1,4 @@
+import './data.js';
 import './homepage.js';
 import './giftspage.js';
 import './bm.js';
