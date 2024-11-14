@@ -2,7 +2,7 @@ export const getGifts = async () => {
   try {
     const response = await fetch('.././src/jsons/gifts.json');
     const data = await response.json();
-    addAtrobuteAndCategryForCard(data)
+    addAtrobuteAndCategryForCard(data);
     return data
   }
   catch (error) {

@@ -1,4 +1,4 @@
-const renderCard = (_item, _route) => {
+export const renderCard = (_item, _route, _popup = 0) => {
 	const giftCard = document.createElement('div');
 	const giftDescriptionContainer = document.createElement('div');
 	const giftImg = document.createElement('img');
@@ -10,6 +10,7 @@ const renderCard = (_item, _route) => {
 	giftDescriptionContainer.classList.add('gift__description');
 	giftType.classList.add('gift__type');
 	giftName.classList.add('gift__name');
+  giftCard.setAttribute('data-index-card', `${_item.atribute}`);
 
 	giftImg.src = `${_route}gift-${_item.category}.png`;
   giftImg.alt = 'gift-img'
@@ -17,7 +18,17 @@ const renderCard = (_item, _route) => {
 	giftType.style.color = _item.color;
 	giftName.textContent = _item.name;
 
-	giftDescriptionContainer.append(giftType, giftName);
+  giftDescriptionContainer.append(giftType, giftName);
+
+  if (_popup) {
+    giftCard.classList.add('popup')
+    const popupParagraph = document.createElement('p');
+    popupParagraph.classList.add('popup-paragraph');
+    popupParagraph.textContent = _item.description;
+    giftDescriptionContainer.append(giftType, giftName, popupParagraph);
+  } 
+  
+	
 
 	giftCard.append(giftImg, giftDescriptionContainer);
 	return giftCard;
@@ -26,7 +37,7 @@ const renderCard = (_item, _route) => {
 export const appendCardInGiftsContainer = (_gifts, _container, _route) => {
   _container.innerHTML = '';
 	_gifts.forEach(item => {
-		addColorForTypeGift(item, item.category);
+  addColorForTypeGift(item, item.category);
 		_container.append(renderCard(item, _route));
 	});
 };
