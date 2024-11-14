@@ -33,14 +33,10 @@
 	@extend %transition-color;
 	padding: 1.2rem 2rem;
 	border-radius: 1.2rem;
-	background-color: transparent;
-	&:first-child {
-		background-color: $static-white-20;
-		pointer-events: none;
-	}
+	background: transparent;
 	&:hover {
 		cursor: pointer;
-		background-color: $static-white-20;
+		background: $static-white-20;
 	}
 	p {
 		font-size: 1.2rem;
@@ -49,6 +45,10 @@
 		text-transform: uppercase;
 		color: $static-white;
 	}
+}
+
+.active-tab {
+    background: $static-white-20;
 }
 
 .return-circle {
@@ -103,10 +103,6 @@
 			flex-basis: 48%;
 		}
 	}
-
-    // .return-circle {
-    //     display: block;
-    // }
 }
 
 @media (max-width: 568px) {

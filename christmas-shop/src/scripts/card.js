@@ -11,7 +11,7 @@ const renderCard = (_item, _route) => {
 	giftType.classList.add('gift__type');
 	giftName.classList.add('gift__name');
 
-	giftImg.src = `${_route}gift-${_item.category.toLowerCase().split(' ').join('-')}.png`;
+	giftImg.src = `${_route}gift-${_item.category}.png`;
   giftImg.alt = 'gift-img'
 	giftType.textContent = _item.category;
 	giftType.style.color = _item.color;
@@ -24,6 +24,7 @@ const renderCard = (_item, _route) => {
 };
 
 export const appendCardInGiftsContainer = (_gifts, _container, _route) => {
+  _container.innerHTML = '';
 	_gifts.forEach(item => {
 		addColorForTypeGift(item, item.category);
 		_container.append(renderCard(item, _route));
@@ -32,13 +33,13 @@ export const appendCardInGiftsContainer = (_gifts, _container, _route) => {
 
 const addColorForTypeGift = (obj, str) => {
 	switch (str) {
-		case 'For Work':
+		case 'for-work':
 			obj.color = '#4361ff';
 			break;
-		case 'For Harmony':
+		case 'for-harmony':
 			obj.color = '#ff43f7';
 			break;
-		case 'For Health':
+		case 'for-health':
 			obj.color = '#06a44f';
 			break;
 		default:
