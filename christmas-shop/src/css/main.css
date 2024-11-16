@@ -288,6 +288,11 @@ section {
   z-index: 5;
 }
 
+@media (max-width: 420px) {
+  .popup {
+    width: 36.4rem;
+  }
+}
 .header__menu-link, .header__logo {
   color: #181c29;
   font-size: 1.2rem;

@@ -91,3 +91,9 @@
 .overlay.overlay-show {
 	@extend %flex-center;
 }
+
+@media (max-width: 420px) {
+	.popup {
+        width: 36.4rem;
+    }
+}
