@@ -1,5 +1,6 @@
 import { getGifts, getRandomArray } from './data.js';
 import { appendCardInGiftsContainer } from './card.js';
+import { renderPopup } from './popup.js';
 
 const gifts = await getGifts();
 const routeGiftsImg = `../src/img/`;
@@ -14,16 +15,23 @@ const filterCardCategory = (_arr, _category) => {
 };
 
 tabListContainer.addEventListener('click', event => {
-  const tabList = document.querySelectorAll('.page-gifts__tabs-tab')
+	const tabList = document.querySelectorAll('.page-gifts__tabs-tab');
 	const clickedTab = event.target.closest('.page-gifts__tabs-tab');
 
-  tabList.forEach((item) => {
-    item.classList.remove('active-tab');
-  });
-  clickedTab.classList.add('active-tab');
+	tabList.forEach(item => {
+		item.classList.remove('active-tab');
+	});
+	clickedTab.classList.add('active-tab');
 
 	if (clickedTab.id === 'all') {
-    appendCardInGiftsContainer(getRandomArray(gifts), pageGiftsContainer, routeGiftsImg);
-  }
-	else appendCardInGiftsContainer(filterCardCategory(gifts, clickedTab.id), pageGiftsContainer, routeGiftsImg);
+		appendCardInGiftsContainer(getRandomArray(gifts), pageGiftsContainer, routeGiftsImg);
+	} else appendCardInGiftsContainer(filterCardCategory(gifts, clickedTab.id), pageGiftsContainer, routeGiftsImg);
+});
+
+pageGiftsContainer.addEventListener('click', event => {
+	const isPopup = true;
+	const clickedCard = event.target.closest('.gift__card');
+	const cardIndex = +clickedCard.getAttribute('data-index-card');
+	const findIndex = gifts.findIndex(item => item.atribute === cardIndex);
+	renderPopup(gifts[findIndex], routeGiftsImg, isPopup);
 });

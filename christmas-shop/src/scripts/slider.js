@@ -16,16 +16,16 @@ const updateControlBtn = () => {
 };
 
 const calculationSlideWidth = () => {
-	const pageWrapperWidth = document.querySelector('.page-wrapper').offsetWidth;
+	const sliderWrapperWidth = document.querySelector('.slider-inner').offsetWidth;
   const sliderWidth = slider.offsetWidth;
-  const slideWidth = (sliderWidth - pageWrapperWidth) / maxCount;
+  const slideWidth = (sliderWidth - sliderWrapperWidth) / maxCount;
 	return slideWidth;
 };
 
 const updateMaxCountAndSlideWidth  = () => {
   maxCount = window.innerWidth <= 768 ? 6 : 3;
-  updateControlBtn();
-  calculationSlideWidth();
+  counter = 0;
+  changeSliderPosition(counter);
 }
 
 
@@ -33,11 +33,11 @@ window.addEventListener('load', updateMaxCountAndSlideWidth );
 window.addEventListener('resize', updateMaxCountAndSlideWidth );
 
 btnRight.addEventListener('click', () => {
-	counter++;
-	changeSliderPosition(-calculationSlideWidth() * counter);
+		counter++;
+		changeSliderPosition(-calculationSlideWidth() * counter);
 });
 
 btnLeft.addEventListener('click', () => {
-	counter--;
-	changeSliderPosition(calculationSlideWidth() * -counter);
+		counter--;
+		changeSliderPosition(-calculationSlideWidth() * counter);
 });
