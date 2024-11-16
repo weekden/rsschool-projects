@@ -1,4 +1,4 @@
-export const renderCard = (_item, _route, _popup = 0) => {
+export const renderCard = (_item, _route, _popup = false) => {
 	const giftCard = document.createElement('div');
 	const giftDescriptionContainer = document.createElement('div');
 	const giftDescription = document.createElement('div');
@@ -23,10 +23,9 @@ export const renderCard = (_item, _route, _popup = 0) => {
 	giftDescription.append(giftType, giftName);
 
 	if (_popup) {
-		// giftCard.classList.add('popup');
-
 		const mark = document.createElement('div');
-    mark.classList.add('popup-mark')
+		mark.classList.add('popup-mark');
+
 		mark.innerHTML = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M30 10L10 30" stroke="#181C29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
       <path d="M10 10L30 30" stroke="#181C29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -40,7 +39,7 @@ export const renderCard = (_item, _route, _popup = 0) => {
 		giftReitingContainer.classList.add('gift-container__reiting', 'gift-container__description');
 
 		const giftReitingTitle = document.createElement('p');
-		giftReitingTitle.classList.add('gift__type');
+		giftReitingTitle.classList.add('reiting__title');
 		giftReitingTitle.textContent = 'Adds superpowers to:';
 
 		giftCard.append(mark);
@@ -82,7 +81,7 @@ const createGiftReiting = elem => {
 	const giftReitingDescription = document.createElement('div');
 	giftReitingDescription.classList.add('reiting__items');
 
-	const defaultCoinStars = 6;
+	const defaultCoinStars = 5;
 
 	Object.keys(elem).forEach(key => {
 		const giftReitingItemContainer = document.createElement('div');

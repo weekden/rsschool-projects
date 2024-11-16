@@ -17,6 +17,7 @@
 @import './blocks/page-gifts';
 
 body {
+    position: relative;
 	font-family: $font-family;
 	background: $static-white;
 }

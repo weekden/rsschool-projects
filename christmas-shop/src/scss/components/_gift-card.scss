@@ -27,7 +27,7 @@
 		background: $static-white;
 		width: 100%;
 		padding: 2rem;
-		gap: 0.9rem;
+		gap: 0.8rem;
 		min-height: 11.2rem;
 
 		p {
@@ -54,55 +54,6 @@
 		cursor: pointer;
 		h3 {
 			color: $primary;
-		}
-	}
-}
-
-.popup {
-    position: relative;
-	max-width: 40rem;
-    &:hover {
-		cursor: default;
-		h3 {
-			color: $dark;
-		}
-	}
-    .popup-mark {
-        position: absolute;
-        top: 1.2rem;
-        right: 1.2rem;
-        &:hover {
-            cursor: pointer;
-        };
-    }
-	.gift-container {
-		flex-direction: column-reverse;
-		background: $static-white;
-		border-radius: 2rem;
-	}
-}
-
-.reiting__items {
-	@extend %flex-center;
-	flex-direction: column;
-	gap: 0;
-	.reiting__items-item {
-		@extend %flex-space;
-		justify-content: flex-start;
-		width: 100%;
-		gap: 1.2rem;
-		span {
-			font-family: $font-family-regular;
-			font-size: 1.6rem;
-			line-height: 148%;
-			color: $dark;
-		}
-		span:first-child {
-			flex-basis: 50%;
-		}
-		.reiting__items-item-stars {
-			@extend %flex-center;
-			gap: 0.8rem;
 		}
 	}
 }
