@@ -6,3 +6,4 @@ import './bm.js';
 import './cyrcle.js';
 import './timer.js';
 import './slider.js';
+import './check.js';
