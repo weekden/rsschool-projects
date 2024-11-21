@@ -45,10 +45,18 @@
             
         }
 	}
-    &:hover {
-        cursor: pointer;
-        h3 {
+    // &:hover {
+    //     cursor: pointer;
+    //     h3 {
+    //         color: $primary;
+    //     }
+    // }
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          cursor: pointer;
+          h3 {
             color: $primary;
+          }
         }
     }
 }

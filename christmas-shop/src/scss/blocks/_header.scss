@@ -54,8 +54,14 @@ header {
 .header__menu-link {
 	display: block;
 	@extend %menu-item;
-	&:hover {
-		@extend %menu-item__active;
+	// &:hover {
+	// 	@extend %menu-item__active;
+	// }
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			background-color: $primary-10;
+			color: $primary;
+		}
 	}
 }
 
@@ -79,8 +85,8 @@ header {
 	gap: 0.8rem;
 	padding: 1.5rem 1rem;
 	.burger-btn__line {
-		height: 1px;
-		width: 20px;
+		height: 0.07rem;
+		width: 2rem;
 		background-color: $dark;
 		transition: transform 0.3s ease-in-out;
 	}

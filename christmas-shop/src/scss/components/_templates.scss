@@ -46,10 +46,16 @@
 	text-transform: uppercase;
 	text-align: center;
 	color: $static-white;
-	&:hover {
-		background-color: $static-white;
-		color: $dark;
-	}
+	// &:hover {
+	// 	background-color: $static-white;
+	// 	color: $dark;
+	// }
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: $static-white;
+            color: $dark;
+        }
+    }
 }
 
 %transition-color {
