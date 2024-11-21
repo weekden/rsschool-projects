@@ -1,59 +1,134 @@
 .page-gifts__section {
 	background-image: url('.././img/bg-garland.png');
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: contain;
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 .page-gifts__inner {
 	@extend %flex-center;
 	flex-direction: column;
 	padding: 6rem 0;
-    gap: 2rem;
-    .section__title {
-        font-size: 3.2rem;
-        max-width: 42.6rem;
-        width: 100%;
-        text-align: center;
-        font-weight: 600;
-        letter-spacing: 0.18em;
-    }
+	gap: 2rem;
+	.section__title {
+		font-size: 3.2rem;
+		max-width: 42.6rem;
+		width: 100%;
+		text-align: center;
+		font-weight: 600;
+		letter-spacing: 0.18em;
+        @media (max-width: 400px) {
+            letter-spacing: 0.19em;
+        }
+	}
 }
 
 .page-gifts__tabs {
 	@extend %flex-space;
 	gap: 0.8rem;
+    @media (max-width: 568px) {
+        gap: 0;
+    }
 }
 
 .page-gifts__tabs-tab {
 	@extend %flex-center;
-    @extend %transition-color;
+	@extend %transition-color;
 	padding: 1.2rem 2rem;
 	border-radius: 1.2rem;
-    background-color: transparent;
-    &:first-child {
-        background-color: $static-white-20;
-        pointer-events: none;
-    }
-    &:hover {
+	background-color: transparent;
+	&:first-child {
+		background-color: $static-white-20;
+		pointer-events: none;
+	}
 
-        cursor: pointer;
-        background-color: $static-white-20;
-    }
 	p {
 		font-size: 1.2rem;
 		line-height: 130%;
 		letter-spacing: 0.05em;
 		text-transform: uppercase;
 		color: $static-white;
-        
-       
 	}
+
+    @media (hover: hover) and (pointer: fine) {
+		&:hover {
+			cursor: pointer;
+		    background-color: $static-white-20;
+		}
+	}
+
+    @media (max-width: 568px) {
+        padding: 1.2rem 0.8rem;
+    }
 }
 
 .page-gifts__container {
-    @extend %flex-space;
-    flex-wrap: wrap;
-    gap: 1.2rem;
+	@extend %flex-center;
+	flex-wrap: wrap;
+	gap: 1.2rem;
+
+	.gift__card {
+		flex-basis: 25%;
+        @media (max-width: 1439.9px) {
+            flex-basis: 24%;
+          }
+      
+          @media (max-width: 932px) {
+            flex-basis: 32%;
+          }
+      
+          @media (max-width: 768px) {
+            flex-basis: 48%;
+          }
+      
+          @media (max-width: 568px) {
+            flex-basis: 100%;
+          }
+	}
 }
 
+// @media (max-width: 1439.9px) {
+// 	.page-gifts__container {
+// 		.gift__card {
+// 			flex-basis: 24%;
+// 		}
+// 	}
+// }
+
+// @media (max-width: 932px) {
+// 	.page-gifts__container {
+// 		.gift__card {
+// 			flex-basis: 32%;
+// 		}
+// 	}
+// }
+
+// @media (max-width: 768px) {
+// 	.page-gifts__container {
+// 		.gift__card {
+// 			flex-basis: 48%;
+// 		}
+// 	}
+// }
+
+// @media (max-width: 568px) {
+// 	.page-gifts__tabs {
+// 		gap: 0rem;
+// 	}
+// 	.page-gifts__tabs-tab {
+// 		padding: 1.2rem 0.8rem;
+// 	}
+// 	.page-gifts__container {
+// 		.gift__card {
+// 			flex-basis: 100%;
+// 		}
+// 	}
+// }
+
+// @media (max-width: 400px) {
+// 	.page-gifts__inner {
+// 		.section__title {
+// 			letter-spacing: 0.19em;
+// 		}
+// 	}
+// }

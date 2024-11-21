@@ -1,5 +1,5 @@
 %menu-item {
-    @extend %transition-color;
+	@extend %transition-color;
 	color: $dark;
 	font-size: 1.2rem;
 	padding: 1.2rem 2rem;
@@ -10,8 +10,8 @@
 }
 
 %menu-item__active {
-    background-color: $primary-10;
-    color: $primary;
+	background-color: $primary-10;
+	color: $primary;
 }
 
 header {
@@ -48,23 +48,63 @@ header {
 }
 
 .header__menu-item {
-    @extend %flex-center;
+	@extend %flex-center;
 }
 
 .header__menu-link {
-    display: block;
-    @extend %menu-item;
-    &:hover {
-        @extend %menu-item__active;
-    }
+	display: block;
+	@extend %menu-item;
+	// &:hover {
+	// 	@extend %menu-item__active;
+	// }
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			background-color: $primary-10;
+			color: $primary;
+		}
+	}
 }
 
 .gifts__menu-list {
-    li:first-child {
-        pointer-events: none;
-    } 
+	li:first-child {
+		pointer-events: none;
+	}
 }
 
 .menu-item__active {
-    @extend %menu-item__active;
+	@extend %menu-item__active;
+}
+
+.burger-btn {
+	display: none;
+}
+
+.burger-btn {
+	@extend %flex-center;
+	flex-direction: column;
+	gap: 0.8rem;
+	padding: 1.5rem 1rem;
+	.burger-btn__line {
+		height: 0.07rem;
+		width: 2rem;
+		background-color: $dark;
+		transition: transform 0.3s ease-in-out;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+@media (max-width: 768px) {
+	.header__inner {
+		margin: 0 0.8rem;
+	}
+
+	.header__menu {
+		display: none;
+	}
+
+	.burger-btn {
+		display: flex;
+	}
 }

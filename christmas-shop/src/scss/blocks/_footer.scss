@@ -8,23 +8,27 @@
 .footer__contacts {
 	@extend %flex-space;
 	width: 100%;
+	gap: 1.2rem;
 	.footer__contact {
 		border-radius: 2rem;
 		background: $content-background;
-		max-width: 41.7rem;
-		flex-basis: 100%;
+		width: 33%;
 		padding: 2rem;
 		a {
 			@extend %flex-center;
 			flex-direction: column;
 			gap: 1.2rem;
 		}
-		&:hover {
-			p {
-                @extend %transition-color;
-				color: $primary;
+		p {
+			@extend %transition-color;
+		}
+
+		@media (hover: hover) and (pointer: fine) {
+			&:hover {
+				p {
+					color: $primary;
+				}
 			}
-			cursor: pointer;
 		}
 	}
 	.footer__contact-title {
@@ -58,8 +62,10 @@
 		path {
 			transition: stroke 0.2s ease-in-out;
 		}
-		&:hover path {
-			stroke: $primary;
+		@media (hover: hover) and (pointer: fine) {
+			&:hover path {
+				stroke: $primary;
+			}
 		}
 	}
 }
@@ -72,9 +78,26 @@
 	color: $dark;
 }
 .footer__items-subtitle a {
-    @extend %transition-color;
+	@extend %transition-color;
 	color: $dark;
-	&:hover {
-		color: $primary;
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			color: $primary;
+		}
+	}
+}
+
+@media (max-width: 1205px) {
+	.footer__contacts {
+		flex-direction: column;
+		.footer__contact {
+			width: 100%;
+		}
+	}
+}
+
+@media (max-width: 1060px) {
+	.footer__inner {
+		margin: 6rem 0.8rem;
 	}
 }
