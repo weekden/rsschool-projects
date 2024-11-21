@@ -34,7 +34,7 @@
 
 %section-btn {
 	@extend %flex-center;
-	@extend %transition-color;
+    @extend %transition-color;
 	border-radius: 2rem;
 	padding: 2rem 3.2rem;
 	width: 23.5rem;
@@ -47,18 +47,18 @@
 	text-align: center;
 	color: $static-white;
 
-	@media (hover: hover) and (pointer: fine) {
-		&:hover {
-			background-color: $static-white;
-			color: $dark;
-		}
-	}
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: $static-white;
+            color: $dark;
+        }
+    }
 }
 
 %transition-color {
-	transition: color 0.3s ease-in-out, background 0.3s ease-in-out, stroke 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out, background 0.3s ease-in-out, stroke 0.3s ease-in-out;
 }
 
 %noteractive {
-	pointer-events: none;
+    pointer-events: none;
 }
