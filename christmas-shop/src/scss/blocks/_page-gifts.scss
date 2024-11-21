@@ -90,6 +90,26 @@
 	}
 }
 
+.return-circle {
+    display: none;
+    div {
+    @extend %flex-center;
+    border-radius: 50%;
+    width: 5.6rem;
+    height: 5.6rem;
+    border: 1px solid $primary;
+    background: $static-white;
+    cursor: pointer;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0.8rem;
+    a {
+        padding: 1.8rem;
+    }
+    }
+}
+
 // @media (max-width: 1439.9px) {
 // 	.page-gifts__container {
 // 		.gift__card {
