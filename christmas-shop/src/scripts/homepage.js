@@ -5,7 +5,7 @@ import { renderPopup } from './popup.js';
 const gifts = await getGifts();
 const giftsContainer = document.querySelector('.gifts__container');
 const routeHomePage = `././src/img/`;
-
+if (window.location.pathname.includes('index.html')) {
 appendCardInGiftsContainer(getRandomArray(gifts).slice(0, 4), giftsContainer, routeHomePage);
 
 giftsContainer.addEventListener('click', event => {
@@ -15,3 +15,4 @@ giftsContainer.addEventListener('click', event => {
 	const findIndex = gifts.findIndex(item => item.atribute === cardIndex);
 	renderPopup(gifts[findIndex], routeHomePage, isPopup);
 });
+}

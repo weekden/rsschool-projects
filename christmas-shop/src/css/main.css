@@ -99,6 +99,7 @@ select {
   flex-direction: column;
   background: #ecf3f8;
   border-radius: 2rem;
+  max-width: 31rem;
   width: 100%;
   height: 100%;
   gap: 0;
@@ -210,7 +211,10 @@ section {
 
 .popup {
   position: absolute;
+}
+.popup .gift__card {
   max-width: 40rem;
+  width: 100%;
 }
 .popup .gift__card img {
   height: 23rem;
@@ -289,8 +293,9 @@ section {
 }
 
 @media (max-width: 420px) {
-  .popup {
-    width: 36.4rem;
+  .popup .gift__card {
+    max-width: 36.4rem;
+    width: 100%;
   }
 }
 .header__menu-link, .header__logo {

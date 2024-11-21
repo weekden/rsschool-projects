@@ -4,6 +4,8 @@ import { renderPopup } from './popup.js';
 
 const gifts = await getGifts();
 const routeGiftsImg = `../src/img/`;
+
+if (window.location.pathname.includes('gifts.html')) {
 const pageGiftsContainer = document.querySelector('.page-gifts__container');
 const tabListContainer = document.querySelector('.page-gifts__tabs');
 tabListContainer.firstElementChild.classList.add('active-tab');
@@ -35,3 +37,4 @@ pageGiftsContainer.addEventListener('click', event => {
 	const findIndex = gifts.findIndex(item => item.atribute === cardIndex);
 	renderPopup(gifts[findIndex], routeGiftsImg, isPopup);
 });
+}

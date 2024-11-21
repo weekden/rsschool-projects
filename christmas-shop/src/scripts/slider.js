@@ -28,10 +28,10 @@ const updateMaxCountAndSlideWidth  = () => {
   changeSliderPosition(counter);
 }
 
-
+if (window.location.pathname.includes('index.html')) {
 window.addEventListener('load', updateMaxCountAndSlideWidth );
 window.addEventListener('resize', updateMaxCountAndSlideWidth );
-
+}
 btnRight.addEventListener('click', () => {
 		counter++;
 		changeSliderPosition(-calculationSlideWidth() * counter);
