@@ -54,9 +54,6 @@ header {
 .header__menu-link {
 	display: block;
 	@extend %menu-item;
-	// &:hover {
-	// 	@extend %menu-item__active;
-	// }
 	@media (hover: hover) and (pointer: fine) {
 		&:hover {
 			background-color: $primary-10;
