@@ -101,13 +101,13 @@ section {
   background-position: center;
 }
 
-.section__title-container, section, .page-gifts__container, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .burger-btn, .header__menu-item, .gift__card, .section__btn {
+.section__title-container, section, .page-gifts__container, .page-gifts__tabs-tab, .page-gifts__inner, .footer__items-social, .footer__items, .footer__contacts .footer__contact a, .footer__inner, .timer__section, .timer-container, .timer-inner, .cta-container, .cta-inner, .gifts__container, .gifts-inner, .slider__controls-btn, .slider__controls-container, .slider, .slider-inner, .section-slider, .hero-inner__container, .hero-inner, .burger-btn, .header__menu-item, .gift__card, .section__btn {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.page-gifts__tabs, .footer__contacts, .gifts__container, .slider__item, .about-inner, .header__logo {
+.page-gifts__tabs, .footer__contacts, .slider__item, .about-inner, .header__logo {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -494,23 +494,14 @@ header {
 
 .gifts__container {
   align-items: start;
+  flex-wrap: wrap;
   gap: 1.2rem;
 }
 
-@media (max-width: 900px) {
-  .gifts__container {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .gifts__container .gift__card {
-    flex-basis: 48%;
-  }
+.gifts-section {
+  padding: 0 0.8rem;
 }
-@media (max-width: 568px) {
-  .gifts__container .gift__card {
-    flex-basis: 100%;
-  }
-}
+
 .section-cta {
   position: relative;
 }
@@ -690,6 +681,7 @@ header {
   background-position: top;
   background-repeat: no-repeat;
   background-size: contain;
+  padding: 0 0.8rem;
 }
 
 .page-gifts__inner {
@@ -751,29 +743,6 @@ header {
 .page-gifts__container {
   flex-wrap: wrap;
   gap: 1.2rem;
-}
-.page-gifts__container .gift__card {
-  flex-basis: 25%;
-}
-@media (max-width: 1439.9px) {
-  .page-gifts__container .gift__card {
-    flex-basis: 24%;
-  }
-}
-@media (max-width: 932px) {
-  .page-gifts__container .gift__card {
-    flex-basis: 32%;
-  }
-}
-@media (max-width: 768px) {
-  .page-gifts__container .gift__card {
-    flex-basis: 48%;
-  }
-}
-@media (max-width: 568px) {
-  .page-gifts__container .gift__card {
-    flex-basis: 100%;
-  }
 }
 
 body {
