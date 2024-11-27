@@ -6,6 +6,7 @@
 	background-position: top;
 	background-repeat: no-repeat;
 	background-size: contain;
+    padding: 0 0.8rem;
 }
 
 .page-gifts__inner {
@@ -69,25 +70,6 @@
 	@extend %flex-center;
 	flex-wrap: wrap;
 	gap: 1.2rem;
-
-	.gift__card {
-		flex-basis: 25%;
-        @media (max-width: 1439.9px) {
-            flex-basis: 24%;
-          }
-      
-          @media (max-width: 932px) {
-            flex-basis: 32%;
-          }
-      
-          @media (max-width: 768px) {
-            flex-basis: 48%;
-          }
-      
-          @media (max-width: 568px) {
-            flex-basis: 100%;
-          }
-	}
 }
 
 .return-circle {
