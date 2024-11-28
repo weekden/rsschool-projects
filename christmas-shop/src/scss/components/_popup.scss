@@ -24,13 +24,7 @@
 				color: $dark;
 				line-height: 150%;
 				text-transform: none;
-			}
-		}
-
-		&:hover {
-			cursor: default;
-			h3 {
-				color: $dark;
+                letter-spacing: 0;
 			}
 		}
 	}
@@ -39,9 +33,11 @@
 		position: absolute;
 		top: 1.2rem;
 		right: 1.2rem;
-		&:hover {
-			cursor: pointer;
-		}
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                cursor: pointer;
+            }
+        }
 	}
 }
 

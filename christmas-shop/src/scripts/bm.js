@@ -1,15 +1,18 @@
 const burgerMenuBtn = document.querySelector('.burger-btn');
 const navMenuContainer = document.querySelector('.header__menu');
 const navMenuList = document.querySelector('.header__menu-list');
+const boby = document.querySelector('body');
 
 const burgerMenuToggle = () => {
 	burgerMenuBtn.classList.toggle('burger-btn__rotate');
 	navMenuContainer.classList.toggle('header__menu-active');
+  boby.classList.toggle('no-scroll');
 };
 
 const closeBurgerMenu = () => {
 	burgerMenuBtn.classList.remove('burger-btn__rotate');
 	navMenuContainer.classList.remove('header__menu-active');
+  boby.classList.remove('no-scroll');
 };
 
 const checkWindiwSize = () => {

@@ -41,10 +41,6 @@
 	padding: 1.2rem 2rem;
 	border-radius: 1.2rem;
 	background-color: transparent;
-	&:first-child {
-		background-color: $static-white-20;
-		pointer-events: none;
-	}
 
 	p {
 		font-size: 1.2rem;
@@ -64,6 +60,10 @@
     @media (max-width: 568px) {
         padding: 1.2rem 0.8rem;
     }
+}
+
+.active-tab {
+    background: $static-white-20;
 }
 
 .page-gifts__container {
