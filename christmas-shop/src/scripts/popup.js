@@ -82,13 +82,17 @@ const createGiftReiting = elem => {
 };
 
 const showPopup = () => {
+  const scrollYWidth = `${window.innerWidth - documentBody.offsetWidth}px`;
+
 	overlay.classList.add('overlay-show');
+  documentBody.style.paddingRight = scrollYWidth;
 	documentBody.classList.add('no-scroll');
 	mark.addEventListener('click', closePopup);
 };
 
 const closePopup = () => {
 	documentBody.classList.remove('no-scroll');
+  documentBody.style.paddingRight = 0;
 	overlay.classList.remove('overlay-show');
 	mark.removeEventListener('click', closePopup);
 };
