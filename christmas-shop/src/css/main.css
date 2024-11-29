@@ -244,6 +244,14 @@ section {
   text-transform: none;
   letter-spacing: 0;
 }
+@media (hover: hover) and (pointer: fine) {
+  .popup .gift__card:hover {
+    cursor: default;
+  }
+  .popup .gift__card:hover h3 {
+    color: inherit;
+  }
+}
 .popup .popup-mark {
   position: absolute;
   top: 1.2rem;

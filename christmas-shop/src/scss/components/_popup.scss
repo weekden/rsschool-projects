@@ -27,6 +27,14 @@
                 letter-spacing: 0;
 			}
 		}
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+              cursor:default;
+              h3 {
+                color: inherit;
+              }
+            }
+        }
 	}
 
 	.popup-mark {
