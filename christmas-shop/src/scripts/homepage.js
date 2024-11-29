@@ -4,7 +4,7 @@ import { renderPopup } from './popup.js';
 
 const gifts = await getGifts();
 const giftsContainer = document.querySelector('.gifts__container');
-const routeHomePage = `../src/img/`;
+const routeHomePage = `./src/img/`;
 if (window.location.pathname.includes('index.html')) {
 appendCardInGiftsContainer(getRandomArray(gifts).slice(0, 4), giftsContainer, routeHomePage);
 
