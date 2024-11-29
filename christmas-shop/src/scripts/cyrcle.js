@@ -8,5 +8,5 @@ const showCircle = () => {
 	}
 };
 window.addEventListener('scroll', () => {
-	if (window.location.pathname === '/pages/gifts.html') showCircle();
+	if (window.location.pathname.includes('gifts.html')) showCircle();
 });
