@@ -528,21 +528,13 @@ header {
 .section-slider {
   flex-direction: column;
   gap: 0;
-  padding-right: 0;
 }
 
 .slider-inner {
   flex-direction: column;
   gap: 2rem;
   margin: 6rem 0;
-  overflow: hidden;
   width: 100%;
-}
-.slider-inner .section__title {
-  margin-right: 8.2rem;
-}
-.slider-inner .section__subtitle {
-  margin-right: 8.2rem;
 }
 
 .slider {
