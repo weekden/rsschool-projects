@@ -1,52 +1,52 @@
 const check = `
-1. The layout of the pages aligns the design at a screen width of 1440px: +16
-  + <header> on each page: +2
-  + Hero section on Home page: +2
-  + About section on Home page: +2
-  + Slider section on Home page: +2
-  + Best Gifts section on Home page: +2
-  + CTA section on Home page: +2
-  + Gifts section on Gifts page: +2
-  + <footer> on each page: +2
+1. Implementation of the burger menu on both pages: +22
+  + At a page width of 768px and less, the navigation panel hides, and the burger icon appears: +2
+  + When clicking the burger icon, the burger menu slides out from the right, and the burger icon smoothly transforms into a cross: +2
+  + The burger menu occupies the entire available screen area below the <header> block: +2
+  + When clicking the cross, the burger menu smoothly hides, moving to the right of the screen, and the cross smoothly transforms into a burger icon: +2
+  + The burger icon is created using HTML and CSS without the use of images/svg: +2
+  + Links in the burger menu work, providing smooth scrolling to anchor points: +2
+  + When clicking on any link (interactive or non-interactive) in the menu, the burger menu hides, and the cross transforms into a burger icon: +2
+  + When clicking on any link (interactive or non-interactive) in the menu, the burger menu smoothly hides to the right, and the cross smoothly transforms into a burger icon if a user stays on the same page: +2
+  + The placement and sizes of elements in the burger menu correspond to the layout (horizontal and vertical centering of menu items): +2
+  + The page behind the open menu does not scroll: +2
+  + When the page width increases to more than 768px, the burger icon and the open burger menu hide, and the navigation panel appears: +2
 
-2. The layout of the pages aligns the design at a screen width of 768px: +16
-  + <header> on each page: +2
-  + Hero section on Home page: +2
-  + About section on Home page: +2
-  + Slider section on Home page: +2
-  + Best Gifts section on Home page: +2
-  + CTA section on Home page: +2
-  + Gifts section on Gifts page: +2
-  + <footer> on each page: +2
+2. Implementation of the Slider on the home page: +18
+  + Scrolling the slider in the corresponding direction is implemented by pressing left arrow button and right arrow button: +2
+  + The left arrow button is inactive at the far left position of the slider: +2
+  + The right arrow button is inactive at the far right position of the slider: +2
+  + Scrolling the slider is accompanied by the carousel-like animation (the method of animation execution is not evaluated): +4
+  + The slider is fully scrolled with 3 presses of the arrow button in one direction for screen widths more than 768px, and with 6 presses of the arrow button in one direction for screen widths of 768px and less: +4
+  + When the screen width changes, the slider returns to its initial position, and the slider can be fully scrolled with the correct number of the relevant arrow button clicks (it works without reloading the page): +4
 
-3. The layout of the pages aligns the design at a screen width of 380px: +16
-  + <header> on each page: +2
-  + Hero section on Home page: +2
-  + About section on Home page: +2
-  + Slider section on Home page: +2
-  + Best Gifts section on Home page: +2
-  + CTA section on Home page: +2
-  + Gifts section on Gifts page: +2
-  + <footer> on each page: +2
+3. Implementation of the Timer on the home page: +8
+  + The timer shows the correct value of the remaining days, hours, minutes, and seconds until the New Year in UTC+0: +2
+  + Leading zeros are not displayed for single-digit numbers: +2
+  + The timer updates every second, displaying the current remaining time with the labels days, hours, minutes, seconds (the labels must not change): +4
 
-4. There is no horizontal scrollbar at all screen width up to 380px inclusive. All page content remains as per the design: it is not cropped, removed, or shifted to the side: +24
-  + Home page: no horizontal scroll bar between 1440px and 768px widths: +6
-  + Home page: no horizontal scroll bar between 768px and 380px widths: +6
-  + Gifts page: no horizontal scroll bar between 1440px and 768px widths: +6
-  + Gifts page: no horizontal scroll bar between 768px and 380px widths: +6
+4. When both opening or refreshing the page, 4 random cards are displayed in the block Best Gifts on the home page: +4
 
-5. During smooth resizing of the browser window from 1440px to 380px, the layout occupies the full width of the window (including specified margins), elements adjust their sizes and positions appropriately without full scaling, no elements overlap, and images maintain their correct aspect ratios: +8
-  + On Home page: +4
-  + On Gifts page: +4
+5. Implementation of the Category switching for products on the gifts page: +8
+  + The ALL category is active and all 36 gifts are displayed when both opening or reloading the gifts page. The order of sorting gifts does not matter: +2
+  + When switching categories, the gifts of the selected category are displayed. The order of sorting gifts does not matter: +4
+  + Only the selected category tab is active: +2
 
-6. At screen widths of 768px, the menu and navigation links in <header> are concealed on both pages, and a burger menu icon is displayed: +4
-(Note: Activation of the burger menu icon is not evaluated at this stage.)
+6. Implementation of the Scroll-to-Top button on the gifts page: +12
+  + The button can only appear at a screen width of 768px and less: +2
+  + At the top of the page, the button is not displayed: +4
+  + The button appears after scrolling the page down by 300px: +4
+  + When the button is clicked, the page scrolls to the top: +2
 
-7. Hover effects are active on desktop devices (as per the Desktop device type in DevTools) and are disabled for mobile devices (as per the Mobile device type in DevTools) on both pages: +4
+7. Implementation of the Modal for selected gift on both pages: +18
+  + The Modal with the description of a specific gift opens when clicking on any part of a card of gift: +4
+  + The description and superpowers in the Modal corresponds to the selected gift: +4
+  + The part of the page outside the Modal is darkened: +2
+  + When the Modal is open, the vertical scroll of the page becomes inactive; when closed, it becomes active again: +4
+  + Clicking on the area around the Modal and Close button closes it: +2
+  + The Modal is centered on both axes, sizes of modal elements and their layout match the design: +2
 
-8. The layout for both pages is validated and error-free according to the W3C Validator (https://validator.w3.org/): +12
-
-score 100 / 100;
+score 90 / 90;
 
 thanks for checking...
 `
