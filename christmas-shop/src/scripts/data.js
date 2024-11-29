@@ -1,6 +1,6 @@
-export const getGifts = async () => {
+export const getGifts = async (route) => {
   try {
-    const response = await fetch('.././src/jsons/gifts.json');
+    const response = await fetch(`${route}src/jsons/gifts.json`);
     const data = await response.json();
     addAtrobuteAndCategryForCard(data);
     return data
