@@ -4,8 +4,10 @@ const navMenuList = document.querySelector('.header__menu-list');
 const boby = document.querySelector('body');
 
 const burgerMenuToggle = () => {
+  const scrollYWidth = `${window.innerWidth - boby.offsetWidth}px`;
 	burgerMenuBtn.classList.toggle('burger-btn__rotate');
 	navMenuContainer.classList.toggle('header__menu-active');
+  boby.style.paddingRight = scrollYWidth;
   boby.classList.toggle('no-scroll');
 };
 
@@ -13,6 +15,7 @@ const closeBurgerMenu = () => {
 	burgerMenuBtn.classList.remove('burger-btn__rotate');
 	navMenuContainer.classList.remove('header__menu-active');
   boby.classList.remove('no-scroll');
+  boby.style.paddingRight = 0;
 };
 
 const checkWindiwSize = () => {
