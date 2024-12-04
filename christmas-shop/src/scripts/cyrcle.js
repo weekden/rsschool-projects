@@ -1,7 +1,9 @@
 const cyrcle = document.querySelector('.return-circle');
 const scrollPositionForShowCircle = 300;
 const showCircle = () => {
-	if (window.scrollY >= scrollPositionForShowCircle) {
+	if (window.scrollY >= scrollPositionForShowCircle &&
+      window.innerWidth <= 768
+  ) {
 		cyrcle.classList.add('show-item');
 	} else {
 		cyrcle.classList.remove('show-item');
