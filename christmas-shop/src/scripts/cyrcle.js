@@ -12,3 +12,7 @@ const showCircle = () => {
 window.addEventListener('scroll', () => {
 	if (window.location.pathname.includes('gifts.html')) showCircle();
 });
+
+window.addEventListener('resize', () => {
+	if (window.location.pathname.includes('gifts.html')) showCircle();
+});
