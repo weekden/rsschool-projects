@@ -16,11 +16,16 @@
   align-items: center;
 }
 
-.levels {
+.levels-container {
   display: flex;
   justify-content: center;
   align-items: center;
   max-width: 360px;
+}
+
+.levels.inactive {
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .level {
@@ -30,6 +35,13 @@
   cursor: pointer;
   width: 120px;
   height: 50px;
+}
+
+.input {
+  max-width: 500px;
+  width: 100%;
+  height: 50px;
+  border: 1px solid black;
 }
 
 .keyboard-container {
@@ -51,4 +63,6 @@
   align-items: center;
   cursor: pointer;
 }
+
+
 
