@@ -1,7 +1,7 @@
 import { initApp } from '../main.js';
-import { GameArrControl } from './logic/create-game-arr.js';
+import { GameArrControl } from '../logic/create-game-arr.js';
 import { highlightKeys } from './keyboard.js';
-import { generationQueue } from './logic/generation.js';
+import { generationQueue } from '../logic/generation.js';
 import keyboardContainer from './keyboard.js';
 
 export const stargame = (

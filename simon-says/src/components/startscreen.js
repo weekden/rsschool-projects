@@ -1,6 +1,6 @@
 import { createKeyboard } from './keyboard.js';
 import { stargame } from './startgame.js';
-import { generationQueue } from './logic/generation.js';
+import { generationQueue } from '../logic/generation.js';
 
 import keyboardContainer from './keyboard.js';
 

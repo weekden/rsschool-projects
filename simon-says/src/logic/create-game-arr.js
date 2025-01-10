@@ -24,13 +24,3 @@ export class GameArrControl {
 		}
 	}
 }
-const stack = new GameArrControl(
-	'1234567890QWERTYUIOPASDFGHJKLZXCVBNM'.split('')
-);
-console.log(stack.getStack());
-stack.addElements();
-stack.addElements();
-stack.addElements();
-stack.addElements();
-stack.clear();
-console.log(stack.getStack());
