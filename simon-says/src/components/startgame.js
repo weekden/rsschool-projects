@@ -1,5 +1,9 @@
 import { initApp } from '../main.js';
+import { GameArrControl } from './logic/create-game-arr.js';
+import { highlightKeys } from './keyboard.js';
+import { generationQueue } from './logic/generation.js';
 import keyboardContainer from './keyboard.js';
+
 export const stargame = (
 	headerContainer,
 	levelsContainer,
@@ -32,6 +36,10 @@ export const stargame = (
 	optionContainer.append(repeatBtn, counterContainer);
 	headerContainer.append(optionContainer);
 
+	const stackControl = new GameArrControl(generationQueue(selectedLevel));
+	stackControl.addElements();
+	highlightKeys(stackControl.getStack(), keyboardContainer);
+
 	keyboardContainer.addEventListener('click', (event) => {
 		const clickedKey = event.target.closest('.key-container');
 		inputContainer.append(clickedKey.innerText);
@@ -40,5 +48,9 @@ export const stargame = (
 	newGameBtn.addEventListener('click', () => {
 		levelsContainer.classList.remove('inactive');
 		initApp();
+	});
+
+	repeatBtn.addEventListener('click', () => {
+		highlightKeys(stackControl.getStack(), keyboardContainer);
 	});
 };

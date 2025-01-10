@@ -48,5 +48,6 @@ export const renderStartScreen = () => {
 		createKeyboard(generationQueue(selectedLevel)),
 		startBtn
 	);
+
 	return appContainer;
 };
