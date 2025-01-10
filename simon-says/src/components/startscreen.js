@@ -1,5 +1,8 @@
 import { createKeyboard } from './keyboard.js';
 import { stargame } from './startgame.js';
+import { generationQueue } from './logic/generation.js';
+
+import keyboardContainer from './keyboard.js';
 
 export const renderStartScreen = () => {
 	const appContainer = document.createElement('div');
@@ -33,12 +36,17 @@ export const renderStartScreen = () => {
 		const clickedItem = event.target.closest('.level');
 		if (clickedItem) {
 			selectedLevel = clickedItem.innerText;
-			createKeyboard(selectedLevel);
+			const newKeyboard = createKeyboard(generationQueue(selectedLevel));
+			keyboardContainer.replaceWith(newKeyboard);
 		}
 	});
 	startBtn.addEventListener('click', () =>
 		stargame(headerContainer, levelsContainer, selectedLevel, startBtn)
 	);
-	appContainer.append(headerContainer, createKeyboard(), startBtn);
+	appContainer.append(
+		headerContainer,
+		createKeyboard(generationQueue(selectedLevel)),
+		startBtn
+	);
 	return appContainer;
 };

@@ -23,7 +23,7 @@
   max-width: 360px;
 }
 
-.levels.inactive {
+.levels-container.inactive {
   pointer-events: none;
   opacity: 0.5;
 }
