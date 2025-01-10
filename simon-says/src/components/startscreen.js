@@ -1,10 +1,10 @@
 import { createKeyboard } from './keyboard.js';
-import { stargame } from './startgame.js';
+import { startGame } from '../start.js';
 import { generationQueue } from '../logic/generation.js';
 
 import keyboardContainer from './keyboard.js';
 
-export const renderStartScreen = () => {
+export const renderStartScreen = (phar = 0) => {
 	const appContainer = document.createElement('div');
 	appContainer.className = 'app';
 
@@ -41,13 +41,46 @@ export const renderStartScreen = () => {
 		}
 	});
 	startBtn.addEventListener('click', () =>
-		stargame(headerContainer, levelsContainer, selectedLevel, startBtn)
+		startGame(headerContainer, levelsContainer, selectedLevel, startBtn)
 	);
 	appContainer.append(
 		headerContainer,
-		createKeyboard(generationQueue(selectedLevel)),
+		createKeyboard(generationQueue(selectedLevel || phar)),
 		startBtn
 	);
 
 	return appContainer;
+};
+
+export const createOptionContainer = () => {
+	const optionContainer = document.createElement('div');
+	optionContainer.className = 'option-container';
+	return optionContainer;
+};
+
+export const createCounterContainer = () => {
+	const counterContainer = document.createElement('div');
+	counterContainer.className = 'counter-container';
+	counterContainer.innerText = 'Round: 1';
+	return counterContainer;
+};
+
+export const createInputContainer = () => {
+	const inputContainer = document.createElement('div');
+	inputContainer.className = 'input';
+	return inputContainer;
+};
+
+export const createNewGameBtn = () => {
+	const newGameBtn = document.createElement('div');
+	newGameBtn.className = 'btn new-game-btn';
+	newGameBtn.innerText = 'NEW GAME';
+	return newGameBtn;
+};
+
+export const createRepeatBtn = () => {
+	const repeatBtn = document.createElement('div');
+	repeatBtn.className = 'btn repeat-btn';
+	repeatBtn.innerText = 'Repeat Sequence';
+	return repeatBtn;
 };
