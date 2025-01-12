@@ -86,6 +86,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 	if (entry.getStack().length === stack.getStack().length) {
 		if (roundCount === MAX_ROUNDS) {
 			console.log('end game');
+			repeatBtn.disabled = true;
 			removeHandlers();
 		} else {
 			console.log('end round');
@@ -115,7 +116,13 @@ export const addHendlers = () => {
 	newGameBtn.addEventListener('click', () =>
 		newGame(stackControl, entryControl)
 	);
-	repeatBtn.addEventListener('click', repeatSequence, { once: true });
+	repeatBtn.addEventListener(
+		'click',
+		() => {
+			repeatSequence(entryControl, inputContainer);
+		},
+		{ once: true }
+	);
 	newRoundBtn.addEventListener('click', newRoundBtnclickHandler);
 };
 
@@ -148,16 +155,13 @@ const newGame = (stack, entry) => {
 	entry.clearEntry();
 	const level = getSelectedLevel();
 	initApp(level);
-	console.log(level);
 };
 
-const repeatSequence = () => {
-	if (isClickedRepeatBtn)
-		highlightKeys(
-			stackControl.getStack(),
-			keyboardContainer,
-			isClickedRepeatBtn
-		);
+const repeatSequence = (entry, _inputContainer) => {
+	if (!isClickedRepeatBtn) return;
+	entry.clearEntry();
+	_inputContainer.innerHTML = '';
+	highlightKeys(stackControl.getStack(), keyboardContainer, isClickedRepeatBtn);
 	repeatBtn.disabled = true;
 	isClickedRepeatBtn = false;
 };
