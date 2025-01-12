@@ -11,7 +11,10 @@ let roundCount = 1;
 let inputContainer = null;
 let counterContainer = null;
 let newGameBtn = null;
+let repeatBtn = null;
+
 let isKeyProcessing = false;
+let isClickedRepeatBtn = true;
 
 export const startGame = (selectedLevel) => {
 	console.log(selectedLevel);
@@ -20,6 +23,7 @@ export const startGame = (selectedLevel) => {
 	inputContainer = document.getElementById(inputContainerId);
 	counterContainer = document.querySelector('.counter-container');
 	newGameBtn = document.querySelector('.new-game-btn');
+	repeatBtn = document.querySelector('.repeat-btn');
 
 	updateRoundCount(roundCount);
 	round(stackControl, keyboardContainer, inputContainer);
@@ -27,6 +31,7 @@ export const startGame = (selectedLevel) => {
 
 const round = (stack, _keyboardContainer, _inputContainer) => {
 	stack.addElements();
+	isClickedRepeatBtn = true;
 	console.log(stack.getStack());
 	highlightKeys(stack.getStack(), _keyboardContainer);
 };
@@ -90,6 +95,7 @@ export const removeHandlers = () => {
 	newGameBtn.removeEventListener('click', () =>
 		newGame(stackControl, entryControl)
 	);
+	repeatBtn.removeEventListener('click', repeatSequence, { once: true });
 };
 
 export const addHendlers = () => {
@@ -98,6 +104,7 @@ export const addHendlers = () => {
 	newGameBtn.addEventListener('click', () =>
 		newGame(stackControl, entryControl)
 	);
+	repeatBtn.addEventListener('click', repeatSequence, { once: true });
 };
 
 export const checkSequence = (clickedItem, stack, entry) => {
@@ -128,4 +135,15 @@ const newGame = (stack, entry) => {
 	stack.clear();
 	entry.clear();
 	initApp();
+};
+
+const repeatSequence = () => {
+	if (isClickedRepeatBtn)
+		highlightKeys(
+			stackControl.getStack(),
+			keyboardContainer,
+			isClickedRepeatBtn
+		);
+	repeatBtn.disabled = true;
+	isClickedRepeatBtn = false;
 };
