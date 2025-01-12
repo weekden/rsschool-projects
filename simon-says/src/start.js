@@ -28,8 +28,4 @@ export const createComponents = (
 	optionContainer.append(counterContainer, repeatBtn);
 
 	headerContainer.append(optionContainer);
-
-	newGameBtn.addEventListener('click', () => {
-		initApp();
-	});
 };

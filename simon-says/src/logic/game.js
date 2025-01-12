@@ -1,3 +1,4 @@
+import { initApp } from '../main.js';
 import { highlightKeys } from '../components/keyboard.js';
 import { GameArrControl } from './create-game-arr.js';
 import { inputContainerId } from '../start.js';
@@ -9,6 +10,7 @@ let entryControl = null;
 let roundCount = 1;
 let inputContainer = null;
 let counterContainer = null;
+let newGameBtn = null;
 let isKeyProcessing = false;
 
 export const startGame = (selectedLevel) => {
@@ -17,7 +19,9 @@ export const startGame = (selectedLevel) => {
 	entryControl = new GameArrControl();
 	inputContainer = document.getElementById(inputContainerId);
 	counterContainer = document.querySelector('.counter-container');
-	counterContainer.innerText = `Round: ${roundCount++}`;
+	newGameBtn = document.querySelector('.new-game-btn');
+
+	updateRoundCount(roundCount);
 	round(stackControl, keyboardContainer, inputContainer);
 };
 
@@ -72,7 +76,8 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			console.log('end game');
 		} else {
 			console.log('end round');
-			counterContainer.innerText = `Round: ${roundCount++}`;
+			roundCount++;
+			updateRoundCount(roundCount);
 			newRound(entry, _inputContainer);
 			round(stack, keyboardContainer, _inputContainer);
 		}
@@ -82,11 +87,17 @@ const processInput = (key, stack, entry, _inputContainer) => {
 export const removeHandlers = () => {
 	keyboardContainer.removeEventListener('click', onKeyHandler);
 	document.removeEventListener('keydown', onKeyboardHandler);
+	newGameBtn.removeEventListener('click', () =>
+		newGame(stackControl, entryControl)
+	);
 };
 
 export const addHendlers = () => {
 	keyboardContainer.addEventListener('click', onKeyHandler);
 	document.addEventListener('keydown', onKeyboardHandler);
+	newGameBtn.addEventListener('click', () =>
+		newGame(stackControl, entryControl)
+	);
 };
 
 export const checkSequence = (clickedItem, stack, entry) => {
@@ -106,4 +117,15 @@ const highlightKey = (key) => {
 const newRound = (entry, _inputContainer) => {
 	entry.clear();
 	_inputContainer.innerHTML = '';
+};
+
+const updateRoundCount = (count) => {
+	counterContainer.innerText = `Round: ${count}`;
+};
+
+const newGame = (stack, entry) => {
+	roundCount = 1;
+	stack.clear();
+	entry.clear();
+	initApp();
 };
