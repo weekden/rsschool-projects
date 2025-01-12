@@ -30,6 +30,7 @@ const round = (stack, _keyboardContainer, _inputContainer) => {
 export const onKeyHandler = (event) => {
 	const clickedKey = event.target.closest('.key-container');
 	if (clickedKey) {
+		highlightKey(clickedKey);
 		processInput(
 			clickedKey.innerText,
 			stackControl,
@@ -45,6 +46,7 @@ export const onKeyboardHandler = (event) => {
 	const virtualKey = keyboardContainer.querySelector(
 		`.key-container[data-key="${pressedKey}"]`
 	);
+	highlightKey(virtualKey);
 	if (virtualKey) {
 		isKeyProcessing = true;
 		processInput(pressedKey, stackControl, entryControl, inputContainer);
@@ -92,6 +94,13 @@ export const checkSequence = (clickedItem, stack, entry) => {
 	const stackCorrectIndex = stack.getStack()[currentIndex];
 
 	return clickedItem === stackCorrectIndex;
+};
+
+const highlightKey = (key) => {
+	key.classList.add('highlight-key');
+	setTimeout(() => {
+		key.classList.remove('highlight-key');
+	}, 300);
 };
 
 const newRound = (entry, _inputContainer) => {
