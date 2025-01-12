@@ -1,5 +1,9 @@
+import { addHendlers } from '../logic/game.js';
+import { removeHandlers } from '../logic/game.js';
+
 const keyboardContainer = document.createElement('div');
 export const createKeyboard = (keysForRender) => {
+	keyboardContainer.id = 'keyboardContainer';
 	keyboardContainer.className = 'keyboard-container';
 	keyboardContainer.innerHTML = '';
 	keysForRender.forEach((item) => {
@@ -14,18 +18,30 @@ export const createKeyboard = (keysForRender) => {
 };
 export default keyboardContainer;
 
-export function highlightKeys(stack, keyboardContainer) {
+export function highlightKeys(stack, _keyboardContainer) {
+	removeHandlers();
+	document.querySelector('.new-game-btn').disabled = true;
+	console.log(_keyboardContainer);
+	console.log('removed');
 	stack.forEach((key, index) => {
 		setTimeout(() => {
-			const keyElement = keyboardContainer.querySelector(
+			const keyElement = _keyboardContainer.querySelector(
 				`.key-container[data-key="${key}"]`
 			);
 			if (keyElement) {
 				keyElement.classList.add('highlight');
 				setTimeout(() => {
 					keyElement.classList.remove('highlight');
-				}, 500);
+				}, 1000);
 			}
-		}, index * 500);
+			if (index === stack.length - 1) {
+				console.log(stack);
+				console.log('add');
+				setTimeout(() => {
+					addHendlers();
+					document.querySelector('.new-game-btn').disabled = false;
+				}, 1000);
+			}
+		}, index * 1000);
 	});
 }

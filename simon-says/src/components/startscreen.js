@@ -2,7 +2,6 @@ import { createKeyboard } from './keyboard.js';
 import { createComponents } from '../start.js';
 import { generationQueue } from '../logic/generation.js';
 import { startGame } from '../logic/game.js';
-import keyboardContainer from './keyboard.js';
 
 export const renderStartScreen = () => {
 	const appContainer = document.createElement('div');
@@ -14,7 +13,7 @@ export const renderStartScreen = () => {
 	const levelsContainer = document.createElement('div');
 	levelsContainer.classList.add('levels-container');
 
-	const startBtn = document.createElement('div');
+	const startBtn = document.createElement('button');
 	startBtn.classList.add('btn', 'start-btn');
 	startBtn.innerText = 'START';
 
@@ -76,14 +75,14 @@ export const createInputContainer = (containerId) => {
 };
 
 export const createNewGameBtn = () => {
-	const newGameBtn = document.createElement('div');
+	const newGameBtn = document.createElement('button');
 	newGameBtn.className = 'btn new-game-btn';
 	newGameBtn.innerText = 'NEW GAME';
 	return newGameBtn;
 };
 
 export const createRepeatBtn = () => {
-	const repeatBtn = document.createElement('div');
+	const repeatBtn = document.createElement('button');
 	repeatBtn.className = 'btn repeat-btn';
 	repeatBtn.innerText = 'Repeat Sequence';
 	return repeatBtn;

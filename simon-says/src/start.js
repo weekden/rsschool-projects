@@ -6,6 +6,7 @@ import { createInputContainer } from './components/startscreen.js';
 import { createNewGameBtn } from './components/startscreen.js';
 
 import keyboardContainer from './components/keyboard.js';
+
 export const inputContainerId = 'inputContainer';
 export const createComponents = (
 	headerContainer,
