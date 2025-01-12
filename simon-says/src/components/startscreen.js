@@ -63,7 +63,6 @@ export const createOptionContainer = () => {
 export const createCounterContainer = () => {
 	const counterContainer = document.createElement('div');
 	counterContainer.className = 'counter-container';
-	counterContainer.innerText = 'Round: 1';
 	return counterContainer;
 };
 

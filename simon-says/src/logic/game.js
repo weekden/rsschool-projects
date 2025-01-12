@@ -3,19 +3,21 @@ import { GameArrControl } from './create-game-arr.js';
 import { inputContainerId } from '../start.js';
 import keyboardContainer from '../components/keyboard.js';
 
-let roundCount = 1;
 const MAX_ROUNDS = 5;
-let inputContainer = null;
-let isKeyProcessing = false;
 let stackControl = null;
 let entryControl = null;
+let roundCount = 1;
+let inputContainer = null;
+let counterContainer = null;
+let isKeyProcessing = false;
 
 export const startGame = (selectedLevel) => {
 	console.log(selectedLevel);
 	stackControl = new GameArrControl(selectedLevel);
 	entryControl = new GameArrControl();
 	inputContainer = document.getElementById(inputContainerId);
-
+	counterContainer = document.querySelector('.counter-container');
+	counterContainer.innerText = `Round: ${roundCount++}`;
 	round(stackControl, keyboardContainer, inputContainer);
 };
 
@@ -68,7 +70,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			console.log('end game');
 		} else {
 			console.log('end round');
-			roundCount++;
+			counterContainer.innerText = `Round: ${roundCount++}`;
 			newRound(entry, _inputContainer);
 			round(stack, keyboardContainer, _inputContainer);
 		}

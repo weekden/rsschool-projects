@@ -20,7 +20,7 @@ export const createComponents = (
 	const inputContainer = createInputContainer(inputContainerId);
 	const newGameBtn = createNewGameBtn();
 	const repeatBtn = createRepeatBtn();
-	console.log('createComponents');
+
 	levelsContainer.classList.add('inactive');
 	headerContainer.insertAdjacentElement('afterend', inputContainer);
 
@@ -29,9 +29,6 @@ export const createComponents = (
 
 	headerContainer.append(optionContainer);
 
-	// repeatBtn.addEventListener('click', () => {
-	// 	highlightKeys(stackControl.getStack(), keyboardContainer);
-	// });
 	newGameBtn.addEventListener('click', () => {
 		initApp();
 	});
