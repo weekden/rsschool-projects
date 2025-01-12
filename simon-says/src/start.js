@@ -4,26 +4,22 @@ import { createCounterContainer } from './components/startscreen.js';
 import { createRepeatBtn } from './components/startscreen.js';
 import { createInputContainer } from './components/startscreen.js';
 import { createNewGameBtn } from './components/startscreen.js';
-import { GameArrControl } from './logic/create-game-arr.js';
-import { highlightKeys } from './components/keyboard.js';
-import { generationQueue } from './logic/generation.js';
 
 import keyboardContainer from './components/keyboard.js';
-
-export const startGame = (
+export const inputContainerId = 'inputContainer';
+export const createComponents = (
 	headerContainer,
 	levelsContainer,
-	selectedLevel,
 	startBtn
 ) => {
 	startBtn.remove();
 
 	const optionContainer = createOptionContainer();
 	const counterContainer = createCounterContainer();
-	const inputContainer = createInputContainer();
+	const inputContainer = createInputContainer(inputContainerId);
 	const newGameBtn = createNewGameBtn();
 	const repeatBtn = createRepeatBtn();
-
+	console.log('createComponents');
 	levelsContainer.classList.add('inactive');
 	headerContainer.insertAdjacentElement('afterend', inputContainer);
 
@@ -32,21 +28,10 @@ export const startGame = (
 
 	headerContainer.append(optionContainer);
 
-	const stackControl = new GameArrControl(generationQueue(selectedLevel));
-	stackControl.addElements();
-	highlightKeys(stackControl.getStack(), keyboardContainer);
-
-	keyboardContainer.addEventListener('click', (event) => {
-		const clickedKey = event.target.closest('.key-container');
-		if (clickedKey) inputContainer.append(clickedKey.innerText);
-	});
-
+	// repeatBtn.addEventListener('click', () => {
+	// 	highlightKeys(stackControl.getStack(), keyboardContainer);
+	// });
 	newGameBtn.addEventListener('click', () => {
-		levelsContainer.classList.remove('inactive');
 		initApp();
-	});
-
-	repeatBtn.addEventListener('click', () => {
-		highlightKeys(stackControl.getStack(), keyboardContainer);
 	});
 };

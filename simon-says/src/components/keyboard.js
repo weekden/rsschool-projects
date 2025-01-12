@@ -17,17 +17,15 @@ export default keyboardContainer;
 export function highlightKeys(stack, keyboardContainer) {
 	stack.forEach((key, index) => {
 		setTimeout(() => {
-			setTimeout(() => {
-				const keyElement = keyboardContainer.querySelector(
-					`.key-container[data-key="${key}"]`
-				);
-				if (keyElement) {
-					keyElement.classList.add('highlight');
-					setTimeout(() => {
-						keyElement.classList.remove('highlight');
-					}, 500);
-				}
-			}, index * 500);
-		}, 2000);
+			const keyElement = keyboardContainer.querySelector(
+				`.key-container[data-key="${key}"]`
+			);
+			if (keyElement) {
+				keyElement.classList.add('highlight');
+				setTimeout(() => {
+					keyElement.classList.remove('highlight');
+				}, 500);
+			}
+		}, index * 500);
 	});
 }

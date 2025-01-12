@@ -1,10 +1,10 @@
 import { createKeyboard } from './keyboard.js';
-import { startGame } from '../start.js';
+import { createComponents } from '../start.js';
 import { generationQueue } from '../logic/generation.js';
-
+import { startGame } from '../logic/game.js';
 import keyboardContainer from './keyboard.js';
 
-export const renderStartScreen = (phar = 0) => {
+export const renderStartScreen = () => {
 	const appContainer = document.createElement('div');
 	appContainer.className = 'app';
 
@@ -40,12 +40,15 @@ export const renderStartScreen = (phar = 0) => {
 			keyboardContainer.replaceWith(newKeyboard);
 		}
 	});
-	startBtn.addEventListener('click', () =>
-		startGame(headerContainer, levelsContainer, selectedLevel, startBtn)
-	);
+
+	startBtn.addEventListener('click', () => {
+		createComponents(headerContainer, levelsContainer, startBtn);
+		startGame(generationQueue(selectedLevel));
+	});
+
 	appContainer.append(
 		headerContainer,
-		createKeyboard(generationQueue(selectedLevel || phar)),
+		createKeyboard(generationQueue(selectedLevel)),
 		startBtn
 	);
 
@@ -65,9 +68,10 @@ export const createCounterContainer = () => {
 	return counterContainer;
 };
 
-export const createInputContainer = () => {
+export const createInputContainer = (containerId) => {
 	const inputContainer = document.createElement('div');
 	inputContainer.className = 'input';
+	inputContainer.id = containerId;
 	return inputContainer;
 };
 
