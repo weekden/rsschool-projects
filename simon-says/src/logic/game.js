@@ -18,6 +18,7 @@ let newRoundBtn = null;
 
 let isKeyProcessing = false;
 let isClickedRepeatBtn = true;
+let isMistake = false;
 
 export const startGame = (selectedLevel) => {
 	stackControl = new GameArrControl(selectedLevel);
@@ -77,10 +78,16 @@ const processInput = (key, stack, entry, _inputContainer) => {
 	console.log(entry.getStack());
 	const isCorrect = checkSequence(key, stack, entry);
 	if (!isCorrect) {
-		removeHandlers();
-		clearInputAndEntryStack(entry, _inputContainer);
-		console.log('error');
-		return;
+		if (isMistake) {
+			console.log('game over');
+			return;
+		} else {
+			isMistake = true;
+			restartRound(stack, entry, _inputContainer);
+			removeHandlers();
+			console.log('error');
+			return;
+		}
 	}
 
 	if (entry.getStack().length === stack.getStack().length) {
@@ -89,6 +96,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			repeatBtn.disabled = true;
 			removeHandlers();
 		} else {
+			isMistake = false;
 			console.log('end round');
 			removeHandlers();
 			roundCount++;
@@ -168,4 +176,11 @@ const repeatSequence = (entry, _inputContainer) => {
 
 const newRoundBtnclickHandler = () => {
 	round(stackControl, keyboardContainer, inputContainer);
+};
+
+const restartRound = (stack, entry, _inputContainer) => {
+	console.log('was mistake');
+	clearInputAndEntryStack(entry, _inputContainer);
+	isMistake = false;
+	highlightKeys(stack.getStack(), keyboardContainer);
 };
