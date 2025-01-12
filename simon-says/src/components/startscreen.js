@@ -3,7 +3,9 @@ import { createComponents } from '../start.js';
 import { generationQueue } from '../logic/generation.js';
 import { startGame } from '../logic/game.js';
 
-export const renderStartScreen = () => {
+let selectedLevel = null;
+export const getSelectedLevel = () => selectedLevel;
+export const renderStartScreen = (newGamePhar) => {
 	const appContainer = document.createElement('div');
 	appContainer.className = 'app';
 
@@ -29,7 +31,9 @@ export const renderStartScreen = () => {
 	};
 
 	headerContainer.append(chahgeDifficulty());
-	let selectedLevel = levelsArray[0];
+	if (newGamePhar) {
+		selectedLevel = newGamePhar;
+	} else selectedLevel = levelsArray[0];
 
 	levelsContainer.addEventListener('click', (event) => {
 		const clickedItem = event.target.closest('.level');
@@ -85,4 +89,11 @@ export const createRepeatBtn = () => {
 	repeatBtn.className = 'btn repeat-btn';
 	repeatBtn.innerText = 'Repeat Sequence';
 	return repeatBtn;
+};
+
+export const createNewRoundBtn = () => {
+	const newRoundBtn = document.createElement('button');
+	newRoundBtn.className = 'btn next-btn';
+	newRoundBtn.innerText = 'Next Round';
+	return newRoundBtn;
 };

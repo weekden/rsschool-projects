@@ -1,7 +1,7 @@
 import { renderStartScreen } from './components/startscreen.js';
 
-export const initApp = () => {
+export const initApp = (newGamePhar) => {
 	document.body.innerHTML = '';
-	document.body.append(renderStartScreen());
+	document.body.append(renderStartScreen(newGamePhar));
 };
 initApp();
