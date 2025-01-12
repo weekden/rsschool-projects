@@ -1,10 +1,11 @@
 import { initApp } from '../main.js';
-import { renderStartScreen } from '../components/startscreen.js';
 import { highlightKeys } from '../components/keyboard.js';
 import { GameArrControl } from './create-game-arr.js';
 import { inputContainerId } from '../start.js';
-import keyboardContainer from '../components/keyboard.js';
 import { getSelectedLevel } from '../components/startscreen.js';
+
+import keyboardContainer from '../components/keyboard.js';
+
 const MAX_ROUNDS = 5;
 let stackControl = null;
 let entryControl = null;
@@ -80,10 +81,12 @@ const processInput = (key, stack, entry, _inputContainer) => {
 	if (!isCorrect) {
 		if (isMistake) {
 			console.log('game over');
+			repeatBtn.disabled = true;
+			clearInputAndEntryStack(entry, _inputContainer);
+			removeHandlers();
 			return;
 		} else {
-			isMistake = true;
-			restartRound(stack, entry, _inputContainer);
+			restartRound(entry, _inputContainer);
 			removeHandlers();
 			console.log('error');
 			return;
@@ -159,6 +162,7 @@ const updateRoundCount = (count) => {
 
 const newGame = (stack, entry) => {
 	roundCount = 1;
+	isMistake = false;
 	stack.clearStack();
 	entry.clearEntry();
 	const level = getSelectedLevel();
@@ -178,9 +182,9 @@ const newRoundBtnclickHandler = () => {
 	round(stackControl, keyboardContainer, inputContainer);
 };
 
-const restartRound = (stack, entry, _inputContainer) => {
+const restartRound = (entry, _inputContainer) => {
 	console.log('was mistake');
 	clearInputAndEntryStack(entry, _inputContainer);
-	isMistake = false;
-	highlightKeys(stack.getStack(), keyboardContainer);
+	isMistake = true;
+	highlightKeys(stackControl.getStack(), keyboardContainer);
 };
