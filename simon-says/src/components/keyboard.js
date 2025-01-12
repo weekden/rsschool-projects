@@ -41,6 +41,6 @@ export function highlightKeys(stack, _keyboardContainer, repeat) {
 					if (repeat) document.querySelector('.repeat-btn').disabled = true;
 				}, 1000);
 			}
-		}, index * 1000);
+		}, index * 1300);
 	});
 }
