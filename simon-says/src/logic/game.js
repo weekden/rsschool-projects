@@ -95,7 +95,6 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			clearInputAndEntryStack(entry, _inputContainer);
 			repeatBtn.style.display = 'none';
 			newRoundBtn.style.display = 'block';
-			// round(stack, keyboardContainer, _inputContainer);
 		}
 	}
 };
@@ -106,7 +105,7 @@ export const removeHandlers = () => {
 	newGameBtn.removeEventListener('click', () =>
 		newGame(stackControl, entryControl)
 	);
-	repeatBtn.removeEventListener('click', repeatSequence, { once: true });
+	// repeatBtn.removeEventListener('click', repeatSequence, { once: true });
 	newRoundBtn.addEventListener('click', newRoundBtnclickHandler);
 };
 
@@ -135,7 +134,7 @@ const highlightKey = (key) => {
 };
 
 const clearInputAndEntryStack = (entry, _inputContainer) => {
-	entry.clear();
+	entry.clearEntry();
 	_inputContainer.innerHTML = '';
 };
 
@@ -145,8 +144,8 @@ const updateRoundCount = (count) => {
 
 const newGame = (stack, entry) => {
 	roundCount = 1;
-	stack.clear();
-	entry.clear();
+	stack.clearStack();
+	entry.clearEntry();
 	const level = getSelectedLevel();
 	initApp(level);
 	console.log(level);

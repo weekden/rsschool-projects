@@ -9,8 +9,13 @@ export class GameArrControl {
 		return this.stack.push(item);
 	}
 
-	clear() {
+	clearEntry() {
 		this.stack = [];
+	}
+
+	clearStack() {
+		this.stack = [];
+		this.coinKeys = 2;
 	}
 
 	getStack() {
@@ -18,9 +23,11 @@ export class GameArrControl {
 	}
 
 	addElements() {
+		this.clearEntry();
 		for (let i = 0; i < this.coinKeys; i++) {
 			const randomIndex = Math.floor(Math.random() * this.phar.length);
 			this.push(this.phar[randomIndex]);
 		}
+		this.coinKeys += 2;
 	}
 }
