@@ -23,8 +23,9 @@ let isKeyProcessing = false;
 let isClickedRepeatBtn = true;
 let isMistake = false;
 
-const soundMistake = new Audio('../assets/sounds/error.mp3');
-const soundEndRound = new Audio('../assets/sounds/round.mp3');
+const soundMistake = new Audio('../.././assets/sounds/error.mp3');
+const soundEndRound = new Audio('../.././assets/sounds/round.mp3');
+const soundGameOver = new Audio('../.././assets/sounds/game-over.mp3');
 
 export const startGame = (selectedLevel) => {
 	stackControl = new GameArrControl(selectedLevel);
@@ -90,6 +91,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			repeatBtn.disabled = true;
 			removeHandlers();
 			clearInputAndEntryStack(entry, _inputContainer);
+			playSound(soundGameOver);
 			modal = createModal('Game Over');
 			showModal(modal);
 			return;
