@@ -1,11 +1,11 @@
-import { createOptionContainer } from './components/startscreen.js';
-import { createCounterContainer } from './components/startscreen.js';
-import { createRepeatBtn } from './components/startscreen.js';
-import { createInputContainer } from './components/startscreen.js';
-import { createNewGameBtn } from './components/startscreen.js';
-import { createNewRoundBtn } from './components/startscreen.js';
+import { createOptionContainer } from './startscreen.js';
+import { createCounterContainer } from './startscreen.js';
+import { createRepeatBtn } from './startscreen.js';
+import { createInputContainer } from './startscreen.js';
+import { createNewGameBtn } from './startscreen.js';
+import { createNewRoundBtn } from './startscreen.js';
 
-import keyboardContainer from './components/keyboard.js';
+import keyboardContainer from './keyboard.js';
 
 export const inputContainerId = 'inputContainer';
 export const createComponents = (

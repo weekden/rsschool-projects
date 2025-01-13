@@ -1,7 +1,7 @@
 import { initApp } from '../main.js';
 import { highlightKeys } from '../components/keyboard.js';
 import { GameArrControl } from './create-game-arr.js';
-import { inputContainerId } from '../start.js';
+import { inputContainerId } from '../components/start.js';
 import { getSelectedLevel } from '../components/startscreen.js';
 import { createModal } from '../components/modal.js';
 import { showModal } from '../components/modal.js';
@@ -47,7 +47,8 @@ const round = (stack, _keyboardContainer, _inputContainer) => {
 	newRoundBtn.style.display = 'none';
 	stack.addElements();
 	isClickedRepeatBtn = true;
-	console.log(stack.getStack());
+	// console.log(stack.getStack());
+	console.log(`GameStack ${stack.getStack()}`);
 	updateRoundCount(roundCount);
 	highlightKeys(stack.getStack(), _keyboardContainer);
 };
@@ -84,7 +85,7 @@ export const onKeyboardHandler = (event) => {
 const processInput = (key, stack, entry, _inputContainer) => {
 	_inputContainer.append(key);
 	entry.push(key);
-	console.log(entry.getStack());
+	console.log(`CurrentStack ${entry.getStack()}`);
 	const isCorrect = checkSequence(key, stack, entry);
 	if (!isCorrect) {
 		if (isMistake) {
@@ -122,7 +123,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			modal = createModal('The round is over');
 			showModal(modal);
 			playSound(soundEndRound);
-			clearInputAndEntryStack(entry, _inputContainer);
+			setTimeout(() => clearInputAndEntryStack(entry, _inputContainer), 300);
 			repeatBtn.style.display = 'none';
 			newRoundBtn.style.display = 'block';
 		}
