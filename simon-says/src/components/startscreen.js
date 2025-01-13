@@ -20,27 +20,34 @@ export const renderStartScreen = (newGamePhar) => {
 	startBtn.innerText = 'START';
 
 	const levelsArray = ['easy', 'medium', 'hard'];
-	const chahgeDifficulty = () => {
+	const chahgeDifficulty = (level) => {
 		levelsArray.forEach((item) => {
 			const levelContainer = document.createElement('div');
 			levelContainer.className = 'level';
+			levelContainer.setAttribute('data-currentLevel', item);
+			if (item === level) levelContainer.classList.add('level-current');
 			levelContainer.innerText = item;
 			levelsContainer.append(levelContainer);
 		});
 		return levelsContainer;
 	};
 
-	headerContainer.append(chahgeDifficulty());
 	if (newGamePhar) {
 		selectedLevel = newGamePhar;
 	} else selectedLevel = levelsArray[0];
 
+	headerContainer.append(chahgeDifficulty(selectedLevel));
 	levelsContainer.addEventListener('click', (event) => {
 		const clickedItem = event.target.closest('.level');
 		if (clickedItem) {
 			selectedLevel = clickedItem.innerText;
 			const newKeyboard = createKeyboard(generationQueue(selectedLevel));
 			keyboardContainer.replaceWith(newKeyboard);
+
+			const allLevels = document.querySelectorAll('.level');
+			allLevels.forEach((level) => level.classList.remove('level-current'));
+
+			clickedItem.classList.add('level-current');
 		}
 	});
 

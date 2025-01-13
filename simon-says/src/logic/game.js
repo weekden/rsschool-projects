@@ -86,9 +86,11 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			removeHandlers();
 			return;
 		} else {
-			restartRound(entry, _inputContainer);
-			removeHandlers();
-			console.log('error');
+			setTimeout(() => {
+				restartRound(entry, _inputContainer);
+				removeHandlers();
+				console.log('error');
+			}, 1000);
 			return;
 		}
 	}
@@ -103,8 +105,10 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			console.log('end round');
 			removeHandlers();
 			roundCount++;
-			updateRoundCount(roundCount);
-			clearInputAndEntryStack(entry, _inputContainer);
+			setTimeout(() => {
+				updateRoundCount(roundCount);
+				clearInputAndEntryStack(entry, _inputContainer);
+			}, 500);
 			repeatBtn.style.display = 'none';
 			newRoundBtn.style.display = 'block';
 		}
@@ -185,6 +189,7 @@ const newRoundBtnclickHandler = () => {
 const restartRound = (entry, _inputContainer) => {
 	console.log('was mistake');
 	clearInputAndEntryStack(entry, _inputContainer);
-	isMistake = true;
+
 	highlightKeys(stackControl.getStack(), keyboardContainer);
+	isMistake = true;
 };
