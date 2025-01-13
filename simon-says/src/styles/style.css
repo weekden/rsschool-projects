@@ -3,9 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   font-size: 62.5%;
 }
+
 .body {
   background-color: #516383;
   display: flex;
@@ -184,7 +186,6 @@ html {
   cursor:default;
 }
 
-
 .modal {
   position: fixed;
   top: 50%;
@@ -200,7 +201,6 @@ html {
   text-align: center; 
   visibility: hidden;
 }
-
 
 .btn-close-modal {
   display: block;
@@ -224,17 +224,6 @@ html {
 .visible {
   visibility:visible;
 }
-
-.overlay {
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: 4; 
-}
-
 
 @media (max-width: 768px) {
   .app {
