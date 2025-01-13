@@ -47,6 +47,7 @@ const round = (stack, _keyboardContainer, _inputContainer) => {
 	stack.addElements();
 	isClickedRepeatBtn = true;
 	console.log(stack.getStack());
+	updateRoundCount(roundCount);
 	highlightKeys(stack.getStack(), _keyboardContainer);
 };
 
@@ -94,6 +95,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			return;
 		} else {
 			removeHandlers();
+			clearInputAndEntryStack(entry, _inputContainer);
 			playSound(soundMistake);
 			modal = createModal('First Error');
 			closeModalBtn = document.querySelector('.btn-close-modal');
@@ -114,16 +116,11 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			showModal(modal);
 		} else {
 			isMistake = false;
-			console.log('end round');
 			removeHandlers();
 			modal = createModal('The round is over');
 			showModal(modal);
 			playSound(soundEndRound);
-			roundCount++;
-			setTimeout(() => {
-				updateRoundCount(roundCount);
-				clearInputAndEntryStack(entry, _inputContainer);
-			}, 500);
+			clearInputAndEntryStack(entry, _inputContainer);
 			repeatBtn.style.display = 'none';
 			newRoundBtn.style.display = 'block';
 		}
@@ -198,6 +195,7 @@ const repeatSequence = (entry, _inputContainer) => {
 };
 
 const newRoundBtnclickHandler = () => {
+	roundCount++;
 	round(stackControl, keyboardContainer, inputContainer);
 };
 
