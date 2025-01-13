@@ -22,6 +22,9 @@ export function highlightKeys(stack, _keyboardContainer, repeat) {
 	removeHandlers();
 	document.querySelector('.new-game-btn').disabled = true;
 	document.querySelector('.repeat-btn').disabled = true;
+	document
+		.querySelectorAll('.key-container')
+		.forEach((key) => key.classList.remove('key-container-hover'));
 	stack.forEach((key, index) => {
 		setTimeout(() => {
 			const keyElement = _keyboardContainer.querySelector(
@@ -38,6 +41,9 @@ export function highlightKeys(stack, _keyboardContainer, repeat) {
 					addHendlers();
 					document.querySelector('.new-game-btn').disabled = false;
 					document.querySelector('.repeat-btn').disabled = false;
+					document
+						.querySelectorAll('.key-container')
+						.forEach((key) => key.classList.add('key-container-hover'));
 					if (repeat) document.querySelector('.repeat-btn').disabled = true;
 				}, 1000);
 			}
