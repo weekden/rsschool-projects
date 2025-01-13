@@ -22,7 +22,6 @@ export const createModal = (text) => {
 	};
 
 	closeModalBtn.addEventListener('click', closeModal);
-	overlay.addEventListener('click', closeModal);
 
 	return modal;
 };
@@ -31,7 +30,7 @@ export const showModal = (modal) => {
 	modal.classList.add('visible');
 };
 
-export const createOverlay = () => {
+const createOverlay = () => {
 	const overlay = document.createElement('div');
 	overlay.className = 'overlay';
 	document.body.append(overlay);
