@@ -3,7 +3,8 @@ import { highlightKeys } from '../components/keyboard.js';
 import { GameArrControl } from './create-game-arr.js';
 import { inputContainerId } from '../start.js';
 import { getSelectedLevel } from '../components/startscreen.js';
-
+import { createModal } from '../components/modal.js';
+import { showModal } from '../components/modal.js';
 import keyboardContainer from '../components/keyboard.js';
 
 const MAX_ROUNDS = 5;
@@ -16,7 +17,8 @@ let counterContainer = null;
 let newGameBtn = null;
 let repeatBtn = null;
 let newRoundBtn = null;
-
+let closeModalBtn = null;
+let modal = null;
 let isKeyProcessing = false;
 let isClickedRepeatBtn = true;
 let isMistake = false;
@@ -29,6 +31,7 @@ export const startGame = (selectedLevel) => {
 	newGameBtn = document.querySelector('.new-game-btn');
 	repeatBtn = document.querySelector('.repeat-btn');
 	newRoundBtn = document.querySelector('.next-btn');
+
 	newRoundBtn.style.display = 'none';
 
 	updateRoundCount(roundCount);
@@ -80,17 +83,21 @@ const processInput = (key, stack, entry, _inputContainer) => {
 	const isCorrect = checkSequence(key, stack, entry);
 	if (!isCorrect) {
 		if (isMistake) {
-			console.log('game over');
 			repeatBtn.disabled = true;
-			clearInputAndEntryStack(entry, _inputContainer);
+			playSound(soundEndRound);
 			removeHandlers();
+			clearInputAndEntryStack(entry, _inputContainer);
+			modal = createModal('Game Over');
+			showModal(modal);
 			return;
 		} else {
-			setTimeout(() => {
+			removeHandlers();
+			modal = createModal('First Error');
+			closeModalBtn = document.querySelector('.btn-close-modal');
+			showModal(modal);
+			closeModalBtn.addEventListener('click', () => {
 				restartRound(entry, _inputContainer);
-				removeHandlers();
-				console.log('error');
-			}, 1000);
+			});
 			return;
 		}
 	}
@@ -100,10 +107,14 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			console.log('end game');
 			repeatBtn.disabled = true;
 			removeHandlers();
+			modal = createModal('YOU ARE A WINNER');
+			showModal(modal);
 		} else {
 			isMistake = false;
 			console.log('end round');
 			removeHandlers();
+			modal = createModal('The round is over');
+			showModal(modal);
 			roundCount++;
 			setTimeout(() => {
 				updateRoundCount(roundCount);
