@@ -103,7 +103,7 @@ html {
 .keyboard-container {
   position: absolute;
   padding: 0 2rem;
-  top: 25%;
+  top: 40%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -170,7 +170,7 @@ html {
 .start-btn,
 .new-game-btn {
   position: absolute;
-  bottom: 25%;
+  bottom: 20%;
   z-index: 3;
 }
 
@@ -237,6 +237,9 @@ html {
 
 
 @media (max-width: 768px) {
+  .app {
+    width: 100%;
+  }
   .header-container {
    flex-direction: column;
   }
@@ -246,15 +249,6 @@ html {
     margin-top: 2rem;
     gap: 1rem;
   }
-
-  .keyboard-container {
-    top: 40%;
-  }
-
-  .start-btn,
-  .new-game-btn {
-  bottom: 20%;
-}
 }
 
 @media (max-width: 530px) {
@@ -287,7 +281,6 @@ html {
   .key-container {
     width:3.2rem;
     height: 3.2rem;
-    font-size: 1rem;
   }
   .keyboard-container {
     column-gap: 0.5rem;

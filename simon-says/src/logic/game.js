@@ -23,9 +23,9 @@ let isKeyProcessing = false;
 let isClickedRepeatBtn = true;
 let isMistake = false;
 
-const soundMistake = new Audio('../.././assets/sounds/error.mp3');
-const soundEndRound = new Audio('../.././assets/sounds/round.mp3');
-const soundGameOver = new Audio('../.././assets/sounds/game-over.mp3');
+const soundMistake = new Audio('../../assets/sounds/error.mp3');
+const soundEndRound = new Audio('../../assets/sounds/round.mp3');
+const soundGameOver = new Audio('../../assets/sounds/game-over.mp3');
 
 export const startGame = (selectedLevel) => {
 	stackControl = new GameArrControl(selectedLevel);
