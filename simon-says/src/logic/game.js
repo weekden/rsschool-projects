@@ -23,6 +23,9 @@ let isKeyProcessing = false;
 let isClickedRepeatBtn = true;
 let isMistake = false;
 
+const soundMistake = new Audio('../assets/sounds/error.mp3');
+const soundEndRound = new Audio('../assets/sounds/round.mp3');
+
 export const startGame = (selectedLevel) => {
 	stackControl = new GameArrControl(selectedLevel);
 	entryControl = new GameArrControl();
@@ -84,7 +87,6 @@ const processInput = (key, stack, entry, _inputContainer) => {
 	if (!isCorrect) {
 		if (isMistake) {
 			repeatBtn.disabled = true;
-			playSound(soundEndRound);
 			removeHandlers();
 			clearInputAndEntryStack(entry, _inputContainer);
 			modal = createModal('Game Over');
@@ -92,6 +94,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			return;
 		} else {
 			removeHandlers();
+			playSound(soundMistake);
 			modal = createModal('First Error');
 			closeModalBtn = document.querySelector('.btn-close-modal');
 			showModal(modal);
@@ -104,9 +107,9 @@ const processInput = (key, stack, entry, _inputContainer) => {
 
 	if (entry.getStack().length === stack.getStack().length) {
 		if (roundCount === MAX_ROUNDS) {
-			console.log('end game');
 			repeatBtn.disabled = true;
 			removeHandlers();
+			playSound(soundEndRound);
 			modal = createModal('YOU ARE A WINNER');
 			showModal(modal);
 		} else {
@@ -115,6 +118,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			removeHandlers();
 			modal = createModal('The round is over');
 			showModal(modal);
+			playSound(soundEndRound);
 			roundCount++;
 			setTimeout(() => {
 				updateRoundCount(roundCount);
@@ -203,4 +207,8 @@ const restartRound = (entry, _inputContainer) => {
 
 	highlightKeys(stackControl.getStack(), keyboardContainer);
 	isMistake = true;
+};
+
+const playSound = (sound) => {
+	sound.play();
 };
