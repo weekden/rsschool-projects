@@ -1,5 +1,5 @@
 import { createKeyboard } from './keyboard.js';
-import { createComponents } from './start.js';
+import { createComponents } from './startElements.js';
 import { generationQueue } from '../logic/generation.js';
 import { startGame } from '../logic/game.js';
 

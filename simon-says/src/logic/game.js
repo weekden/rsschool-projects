@@ -1,7 +1,7 @@
 import { initApp } from '../main.js';
 import { highlightKeys } from '../components/keyboard.js';
-import { GameArrControl } from './create-game-arr.js';
-import { inputContainerId } from '../components/start.js';
+import { GameArrControl } from './createGameStack.js';
+import { inputContainerId } from '../components/startElements.js';
 import { getSelectedLevel } from '../components/startscreen.js';
 import { createModal } from '../components/modal.js';
 import { showModal } from '../components/modal.js';
@@ -47,7 +47,6 @@ const round = (stack, _keyboardContainer, _inputContainer) => {
 	newRoundBtn.style.display = 'none';
 	stack.addElements();
 	isClickedRepeatBtn = true;
-	// console.log(stack.getStack());
 	console.log(`GameStack ${stack.getStack()}`);
 	updateRoundCount(roundCount);
 	highlightKeys(stack.getStack(), _keyboardContainer);
