@@ -20,7 +20,8 @@ let repeatBtn = null;
 let newRoundBtn = null;
 let closeModalBtn = null;
 let modal = null;
-let isKeyProcessing = false;
+
+let currentKey = null;
 let isClickedRepeatBtn = true;
 let isMistake = false;
 
@@ -66,19 +67,24 @@ export const onKeyHandler = (event) => {
 	}
 };
 
-export const onKeyboardHandler = (event) => {
-	if (isKeyProcessing) return;
+export const onKeyDownHandler = (event) => {
+	// if (isKeyProcessing) return;
 	const pressedKey = event.key.toUpperCase();
 	const virtualKey = keyboardContainer.querySelector(
 		`.key-container[data-key="${pressedKey}"]`
 	);
-	highlightKey(virtualKey);
+	if (currentKey === pressedKey) return;
 	if (virtualKey) {
-		isKeyProcessing = true;
+		currentKey = pressedKey;
+		highlightKey(virtualKey);
 		processInput(pressedKey, stackControl, entryControl, inputContainer);
-		setTimeout(() => {
-			isKeyProcessing = false;
-		}, 100);
+	}
+};
+
+const onKeyUpHandler = (event) => {
+	const uppenedKey = event.key.toUpperCase();
+	if (currentKey === uppenedKey) {
+		currentKey = null;
 	}
 };
 
@@ -131,8 +137,9 @@ const processInput = (key, stack, entry, _inputContainer) => {
 };
 
 export const removeHandlers = () => {
+	document.removeEventListener('keyup', onKeyUpHandler);
 	keyboardContainer.removeEventListener('click', onKeyHandler);
-	document.removeEventListener('keyup', onKeyboardHandler);
+	document.removeEventListener('keydown', onKeyDownHandler);
 	newGameBtn.removeEventListener('click', () =>
 		newGame(stackControl, entryControl)
 	);
@@ -141,8 +148,9 @@ export const removeHandlers = () => {
 };
 
 export const addHendlers = () => {
+	document.addEventListener('keyup', onKeyUpHandler);
 	keyboardContainer.addEventListener('click', onKeyHandler);
-	document.addEventListener('keyup', onKeyboardHandler);
+	document.addEventListener('keydown', onKeyDownHandler);
 	newGameBtn.addEventListener('click', () =>
 		newGame(stackControl, entryControl)
 	);
@@ -203,9 +211,7 @@ const newRoundBtnclickHandler = () => {
 	round(stackControl, keyboardContainer, inputContainer);
 };
 
-const restartRound = (entry, _inputContainer) => {
-	clearInputAndEntryStack(entry, _inputContainer);
-
+const restartRound = (_inputContainer) => {
 	highlightKeys(stackControl.getStack(), keyboardContainer);
 	isMistake = true;
 };
