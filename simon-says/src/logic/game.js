@@ -193,6 +193,7 @@ const newGame = (stack, entry) => {
 	stack.clearStack();
 	entry.clearEntry();
 	const level = getSelectedLevel();
+	removeHandlers();
 	initApp(level);
 };
 
