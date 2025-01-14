@@ -68,7 +68,6 @@ export const onKeyHandler = (event) => {
 };
 
 export const onKeyDownHandler = (event) => {
-	// if (isKeyProcessing) return;
 	const pressedKey = event.key.toUpperCase();
 	const virtualKey = keyboardContainer.querySelector(
 		`.key-container[data-key="${pressedKey}"]`
