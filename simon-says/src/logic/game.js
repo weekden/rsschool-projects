@@ -132,7 +132,7 @@ const processInput = (key, stack, entry, _inputContainer) => {
 
 export const removeHandlers = () => {
 	keyboardContainer.removeEventListener('click', onKeyHandler);
-	document.removeEventListener('keydown', onKeyboardHandler);
+	document.removeEventListener('keyup', onKeyboardHandler);
 	newGameBtn.removeEventListener('click', () =>
 		newGame(stackControl, entryControl)
 	);
@@ -142,7 +142,7 @@ export const removeHandlers = () => {
 
 export const addHendlers = () => {
 	keyboardContainer.addEventListener('click', onKeyHandler);
-	document.addEventListener('keydown', onKeyboardHandler);
+	document.addEventListener('keyup', onKeyboardHandler);
 	newGameBtn.addEventListener('click', () =>
 		newGame(stackControl, entryControl)
 	);
