@@ -5,7 +5,6 @@ import { inputContainerId } from '../components/startElements.js';
 import { getSelectedLevel } from '../components/startscreen.js';
 import { createModal } from '../components/modal.js';
 import { showModal } from '../components/modal.js';
-import { closeModal } from '../components/modal.js';
 
 import keyboardContainer from '../components/keyboard.js';
 
@@ -193,7 +192,6 @@ const newGame = (stack, entry) => {
 const repeatSequence = (entry, _inputContainer) => {
 	if (!isClickedRepeatBtn) return;
 	entry.clearEntry();
-	closeModal(modal);
 	_inputContainer.innerHTML = '';
 	highlightKeys(stackControl.getStack(), keyboardContainer, isClickedRepeatBtn);
 	repeatBtn.disabled = true;
@@ -202,7 +200,6 @@ const repeatSequence = (entry, _inputContainer) => {
 
 const newRoundBtnclickHandler = () => {
 	roundCount++;
-	closeModal(modal);
 	round(stackControl, keyboardContainer, inputContainer);
 };
 
