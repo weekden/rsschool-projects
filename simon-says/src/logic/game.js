@@ -24,6 +24,7 @@ let modal = null;
 let currentKey = null;
 let isClickedRepeatBtn = true;
 let isMistake = false;
+let isKeyDown = false;
 
 const soundMistake = new Audio('./assets/sounds/error.mp3');
 const soundEndRound = new Audio('./assets/sounds/round.mp3');
@@ -68,12 +69,14 @@ export const onKeyHandler = (event) => {
 };
 
 export const onKeyDownHandler = (event) => {
+	if (isKeyDown) return;
 	const pressedKey = event.key.toUpperCase();
 	const virtualKey = keyboardContainer.querySelector(
 		`.key-container[data-key="${pressedKey}"]`
 	);
 	if (currentKey === pressedKey) return;
 	if (virtualKey) {
+		isKeyDown = true;
 		currentKey = pressedKey;
 		highlightKey(virtualKey);
 		processInput(pressedKey, stackControl, entryControl, inputContainer);
@@ -84,6 +87,7 @@ const onKeyUpHandler = (event) => {
 	const uppenedKey = event.key.toUpperCase();
 	if (currentKey === uppenedKey) {
 		currentKey = null;
+		isKeyDown = false;
 	}
 };
 
