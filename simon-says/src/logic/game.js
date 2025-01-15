@@ -42,17 +42,19 @@ export const startGame = (selectedLevel) => {
 	newRoundBtn.style.display = 'none';
 
 	updateRoundCount(roundCount);
-	round(stackControl, keyboardContainer, inputContainer);
+	round(stackControl, keyboardContainer);
 };
 
-const round = (stack, _keyboardContainer, _inputContainer) => {
+const round = (stack) => {
+	isKeyDown = false;
+	currentKey = null;
 	repeatBtn.style.display = 'block';
 	newRoundBtn.style.display = 'none';
 	stack.addElements();
 	isClickedRepeatBtn = true;
 	console.log(`GameStack ${stack.getStack()}`);
 	updateRoundCount(roundCount);
-	highlightKeys(stack.getStack(), _keyboardContainer);
+	highlightKeys(stack.getStack(), keyboardContainer);
 };
 
 export const onKeyHandler = (event) => {
@@ -69,12 +71,11 @@ export const onKeyHandler = (event) => {
 };
 
 export const onKeyDownHandler = (event) => {
-	if (isKeyDown) return;
 	const pressedKey = event.key.toUpperCase();
 	const virtualKey = keyboardContainer.querySelector(
 		`.key-container[data-key="${pressedKey}"]`
 	);
-	if (currentKey === pressedKey) return;
+	if (isKeyDown || currentKey === pressedKey) return;
 	if (virtualKey) {
 		isKeyDown = true;
 		currentKey = pressedKey;
@@ -197,7 +198,6 @@ const newGame = (stack, entry) => {
 	stack.clearStack();
 	entry.clearEntry();
 	const level = getSelectedLevel();
-	removeHandlers();
 	initApp(level);
 };
 
@@ -208,16 +208,20 @@ const repeatSequence = (entry, _inputContainer) => {
 	highlightKeys(stackControl.getStack(), keyboardContainer, isClickedRepeatBtn);
 	repeatBtn.disabled = true;
 	isClickedRepeatBtn = false;
+	isKeyDown = false;
+	currentKey = null;
 };
 
 const newRoundBtnclickHandler = () => {
 	roundCount++;
-	round(stackControl, keyboardContainer, inputContainer);
+	round(stackControl, keyboardContainer);
 };
 
-const restartRound = (_inputContainer) => {
+const restartRound = () => {
 	highlightKeys(stackControl.getStack(), keyboardContainer);
 	isMistake = true;
+	isKeyDown = false;
+	currentKey = null;
 };
 
 const playSound = (sound) => {
