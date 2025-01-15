@@ -107,14 +107,14 @@ const processInput = (key, stack, entry, _inputContainer) => {
 			showModal(modal);
 			return;
 		} else {
-			removeHandlers();
+			// removeHandlers();
 			clearInputAndEntryStack(entry, _inputContainer);
 			playSound(soundMistake);
 			modal = createModal('First Error');
 			closeModalBtn = document.querySelector('.btn-close-modal');
 			showModal(modal);
 			closeModalBtn.addEventListener('click', () => {
-				restartRound(entry, _inputContainer);
+				restartRound();
 			});
 			return;
 		}
@@ -218,10 +218,12 @@ const newRoundBtnclickHandler = () => {
 };
 
 const restartRound = () => {
-	highlightKeys(stackControl.getStack(), keyboardContainer);
+	// highlightKeys(stackControl.getStack(), keyboardContainer);
 	isMistake = true;
 	isKeyDown = false;
 	currentKey = null;
+	// inputContainer.innerHTML = '';
+	// entryControl.clear();
 };
 
 const playSound = (sound) => {
