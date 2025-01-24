@@ -18,6 +18,5 @@ export function createBoard(data) {
 
 		table.appendChild(rowElement);
 	}
-
 	return table;
 }
