@@ -35,8 +35,8 @@ export class matrixControl {
 		return helpArray;
 	}
 	// Метод поворота матрицы (для построения массива подсказок по вертикали)
-	rotateArr() {
-		const inputMatrix = JSON.parse(JSON.stringify(this.data));
+	rotateArr(arr) {
+		const inputMatrix = arr || JSON.parse(JSON.stringify(this.data));
 		const len = inputMatrix.length;
 
 		for (let i = 0; i < len; i += 1) {
@@ -58,29 +58,45 @@ export class matrixControl {
 	}
 	// создание таблиц
 	createBoard(options) {
-		const { data = [], _class, flag } = options;
-		console.log(data);
+		const { data = [], _class, flag, vertical } = options;
+		// console.log(data);
 		const maxWidth = data.reduce((acc, item) => Math.max(acc, item.length), 0);
+		let height = data.length;
+		let _data = data;
+		if (vertical) {
+			_data = data.filter((item) =>
+				item.some((elem) => typeof elem === 'number')
+			);
+			console.log(_data);
+			const minHeight = _data.length;
+			height = minHeight;
+		}
+
 		const table = createElement({
 			tag: 'table',
 			classes: ['game-board', _class],
 		});
 		let count = 0;
-		for (let i = 0; i < data.length; i++) {
+		for (let i = 0; i < height; i++) {
 			const rowElement = createElement({ tag: 'tr' });
 
 			for (let j = 0; j < maxWidth; j++) {
+				const cellClasses = ['cell'];
+
+				if ((i + 1) % 5 === 0) cellClasses.push('border-bottom');
+				if ((j + 1) % 5 === 0) cellClasses.push('border-right');
 				const cellElement = createElement({
 					tag: 'td',
-					text: data[i][j] !== undefined ? data[i][j] : '',
-					classes: ['cell'],
+					text: _data[i][j] !== undefined ? _data[i][j] : '',
+					classes: cellClasses,
 				});
 				cellElement.setAttribute('data-cell', count);
 				count++;
 				flag ? rowElement.prepend(cellElement) : rowElement.append(cellElement);
+				if (flag && vertical) rowElement.append(cellElement);
 			}
-
-			table.append(rowElement);
+			vertical ? table.prepend(rowElement) : table.append(rowElement);
+			// table.append(rowElement);
 		}
 		return table;
 	}
