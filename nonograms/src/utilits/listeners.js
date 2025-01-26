@@ -1,7 +1,10 @@
 import { dataEasy } from '../data/data';
 import { checkFinishGame } from '../logic/checkFinishGame';
-export const addListeners = (board) => {
+export const addListeners = (board, gameBoard) => {
 	board.addEventListener('click', (event) => handleCellClick(event));
+	gameBoard.addEventListener('contextmenu', (event) =>
+		handleCellRightClick(event)
+	);
 };
 const gameArr = [];
 function handleCellClick(event) {
@@ -17,4 +20,11 @@ function handleCellClick(event) {
 	}
 
 	checkFinishGame(dataEasy.house, gameArr);
+}
+
+function handleCellRightClick(event) {
+	event.preventDefault();
+	const clickedCell = event.target.closest('.cell');
+	if (!clickedCell) return;
+	clickedCell.classList.toggle('cell-cross');
 }

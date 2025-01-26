@@ -27,6 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	topApp.append(gameInfo, topBoardHelp);
 	bottomApp.append(leftBoardHelp, gameBoard);
 	app.append(topApp, bottomApp);
-	addListeners(gameBoard);
+	addListeners(gameBoard, app);
 	document.body.append(app);
 });
