@@ -1,10 +1,11 @@
 import { dataEasy } from '../data/data';
 import { checkFinishGame } from '../logic/checkFinishGame';
-export const addListeners = (board, gameBoard) => {
+export const addGameListeners = (board, gameBoard, menu) => {
 	board.addEventListener('click', (event) => handleCellClick(event));
 	gameBoard.addEventListener('contextmenu', (event) =>
 		handleCellRightClick(event)
 	);
+	menu.addEventListener('click', (event) => handelMenuClick(event, menu));
 };
 const gameArr = [];
 function handleCellClick(event) {
@@ -27,4 +28,13 @@ function handleCellRightClick(event) {
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
 	clickedCell.classList.toggle('cell-cross');
+}
+
+function handelMenuClick(event, menu) {
+	const clickedMenuItem = event.target.closest('.menu-item');
+	if (!clickedMenuItem) return;
+	console.log(clickedMenuItem);
+	if (clickedMenuItem.innerText === 'New Game') {
+		menu.classList.add('hide');
+	}
 }

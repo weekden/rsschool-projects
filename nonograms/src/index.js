@@ -1,7 +1,8 @@
 import { dataEasy } from './data/data.js';
 import { createElement } from './utilits/createElem.js';
 import { matrixControl } from './utilits/gameClass.js';
-import { addListeners } from './utilits/listeners.js';
+import { addGameListeners } from './utilits/listeners.js';
+import { createMenu } from './components/menu.js';
 import './styles/style.css';
 document.addEventListener('DOMContentLoaded', () => {
 	const game = new matrixControl(dataEasy.house);
@@ -21,12 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		vertical: true,
 	});
 	const app = createElement({ tag: 'div', classes: ['app'] });
+	const gameContainer = createElement({
+		tag: 'div',
+		classes: ['game-container'],
+	});
 	const topApp = createElement({ tag: 'div', classes: ['top-app'] });
 	const bottomApp = createElement({ tag: 'div', classes: ['bottom-app'] });
 	const gameInfo = createElement({ tag: 'div', classes: ['info-app'] });
+	const mainMenu = createMenu();
 	topApp.append(gameInfo, topBoardHelp);
 	bottomApp.append(leftBoardHelp, gameBoard);
-	app.append(topApp, bottomApp);
-	addListeners(gameBoard, app);
+	gameContainer.append(topApp, bottomApp);
+	app.append(mainMenu, gameContainer);
+	addGameListeners(gameBoard, gameContainer, mainMenu);
 	document.body.append(app);
 });
