@@ -17,6 +17,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 2px solid black;
 } 
 
 .top-app {
@@ -30,22 +31,36 @@ body {
   justify-content: end;
 }
 
-/* .info-app {
-  min-width: 200px;
-  width: 100%;
-} */
+.info-app {
+  flex-grow: 1;
+  border: 2px solid black;
+}
 
 .game-board {
   border: 2px solid black;
   border-collapse: collapse; 
+
+}
+
+.help-board {
+  border-collapse: collapse;
+  border: 2px solid black;
+}
+
+.top-help {
+  width: auto;
 }
 
 .cell {
   width: 40px; 
   height: 40px;
-  border: 1px solid #686666; 
+  border: 1px solid #c6c6c6; 
   text-align: center;
   font-size: 18px;
+}
+
+.cell-active {
+  background-color: black;
 }
 
 .cell.border-right {
@@ -55,8 +70,3 @@ body {
 .cell.border-bottom {
   border-bottom: 2px solid black; 
 }
-
-
-
-
-

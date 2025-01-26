@@ -59,25 +59,24 @@ export class matrixControl {
 	// создание таблиц
 	createBoard(options) {
 		const { data = [], _class, flag, vertical } = options;
-		// console.log(data);
+		console.log(_class);
 		const maxWidth = data.reduce((acc, item) => Math.max(acc, item.length), 0);
-		let height = data.length;
+		let maxHight = data.length;
 		let _data = data;
 		if (vertical) {
 			_data = data.filter((item) =>
 				item.some((elem) => typeof elem === 'number')
 			);
-			console.log(_data);
 			const minHeight = _data.length;
-			height = minHeight;
+			maxHight = minHeight;
 		}
 
 		const table = createElement({
 			tag: 'table',
-			classes: ['game-board', _class],
+			classes: _class,
 		});
-		let count = 0;
-		for (let i = 0; i < height; i++) {
+		let count = 1;
+		for (let i = 0; i < maxHight; i++) {
 			const rowElement = createElement({ tag: 'tr' });
 
 			for (let j = 0; j < maxWidth; j++) {
@@ -96,35 +95,9 @@ export class matrixControl {
 				if (flag && vertical) rowElement.append(cellElement);
 			}
 			vertical ? table.prepend(rowElement) : table.append(rowElement);
-			// table.append(rowElement);
 		}
 		return table;
 	}
-
-	// createHelpBoard(data, _class) {
-	// 	const maxWidth = data.reduce((acc, item) => Math.max(acc, item.length), 0);
-
-	// 	const table = createElement({
-	// 		tag: 'table',
-	// 		classes: ['help-board', _class],
-	// 	});
-
-	// 	for (let i = 0; i < data.length; i++) {
-	// 		const rowElement = createElement({ tag: 'tr' });
-	// 		for (let j = 0; j < maxWidth; j++) {
-	// 			const cellElement = createElement({
-	// 				tag: 'td',
-	// 				text: data[i][j],
-	// 				classes: ['cell'],
-	// 			});
-
-	// 			rowElement.prepend(cellElement);
-	// 		}
-	// 		table.append(rowElement);
-	// 	}
-
-	// 	return table;
-	// }
 }
 
 // const game = new matrixControl([
