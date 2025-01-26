@@ -58,8 +58,8 @@ export class matrixControl {
 	}
 	// создание таблиц
 	createBoard(options) {
-		const { data = [], _class, flag, vertical } = options;
-		console.log(_class);
+		const { data = [], _class, flag, vertical, maket } = options;
+		// console.log(_class);
 		const maxWidth = data.reduce((acc, item) => Math.max(acc, item.length), 0);
 		let maxHight = data.length;
 		let _data = data;
@@ -81,12 +81,20 @@ export class matrixControl {
 
 			for (let j = 0; j < maxWidth; j++) {
 				const cellClasses = ['cell'];
-
-				if ((i + 1) % 5 === 0) cellClasses.push('border-bottom');
-				if ((j + 1) % 5 === 0) cellClasses.push('border-right');
+				if (!maket) {
+					if ((i + 1) % 5 === 0) cellClasses.push('border-bottom');
+					if ((j + 1) % 5 === 0) cellClasses.push('border-right');
+				}
+				if (maket) {
+					if (maket === 'easy') cellClasses.push('cell-easy-size');
+					if (maket === 'medium') cellClasses.push('cell-medium-size');
+					if (maket === 'hard') cellClasses.push('cell-hard-size');
+					if (_data[i][j]) cellClasses.push('cell-active');
+				}
 				const cellElement = createElement({
 					tag: 'td',
-					text: _data[i][j] !== undefined ? _data[i][j] : '',
+					// text: _data[i][j] !== undefined ? _data[i][j] : '',
+					text: flag && _data[i][j] !== undefined ? _data[i][j] : '',
 					classes: cellClasses,
 				});
 				cellElement.setAttribute('data-cell', count);

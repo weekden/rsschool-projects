@@ -5,13 +5,17 @@ export const addGameListeners = (board, gameBoard, menu) => {
 	gameBoard.addEventListener('contextmenu', (event) =>
 		handleCellRightClick(event)
 	);
-	menu.addEventListener('click', (event) => handelMenuClick(event, menu));
+	// menu.addEventListener('click', (event) => handelMenuClick(event, menu));
 };
 const gameArr = [];
 function handleCellClick(event) {
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
 	clickedCell.classList.toggle('cell-active');
+	if (clickedCell.closest('.cell-cross')) {
+		clickedCell.classList.toggle('cell-cross');
+		gameArr.splice(index, 1);
+	}
 	const cellData = clickedCell.getAttribute('data-cell');
 	const index = gameArr.indexOf(cellData);
 	if (index !== -1) {
@@ -27,6 +31,9 @@ function handleCellRightClick(event) {
 	event.preventDefault();
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
+	if (clickedCell.closest('.cell-active')) {
+		clickedCell.classList.toggle('cell-active');
+	}
 	clickedCell.classList.toggle('cell-cross');
 }
 
