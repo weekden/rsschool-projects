@@ -147,6 +147,8 @@ body {
 .info-app {
   flex-grow: 1;
   border: 2px solid black;
+  max-width: 200px;
+  width: 100%;
 }
 
 .game-board {
@@ -161,14 +163,18 @@ body {
 }
 
 .top-help {
-  width: auto;
+  width: 100%;
+}
+
+.help-board__cell {
+  background-color: #bcbcbc;
 }
 
 .cell {
   position: relative;
   width: 40px; 
   height: 40px;
-  border: 1px solid #808080; 
+  border: 1px solid #6b6b6b; 
   text-align: center;
   font-size: 18px;
 }
@@ -185,6 +191,7 @@ body {
   border-bottom: 2px solid black; 
 }
 
+/* Cross */
 .cell-cross::before,
 .cell-cross::after {
   content: '';
@@ -205,7 +212,7 @@ body {
   transform: translateY(-50%) rotate(-45deg);
 }
 
-
+/* States */
 .hide {
   display: none;
 }

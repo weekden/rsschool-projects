@@ -53,7 +53,7 @@ export function createLevelsMenu() {
 		levelsContainer.append(levelItem);
 	});
 
-	levelsContainer.addEventListener('click', (event) => hendelLevelClick(event));
+	// levelsContainer.addEventListener('click', (event) => hendelLevelClick(event));
 
 	return levelsContainer;
 }

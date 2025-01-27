@@ -58,32 +58,44 @@ export class matrixControl {
 	}
 	// создание таблиц
 	createBoard(options) {
-		const { data = [], _class, flag, vertical, maket } = options;
+		const { data = [], _class, flag, vertical, gorizontal, maket } = options;
 		// console.log(_class);
-		const maxWidth = data.reduce((acc, item) => Math.max(acc, item.length), 0);
-		let maxHight = data.length;
+		// const maxWidth = data.reduce((acc, item) => Math.max(acc, item.length), 0);
+		// let maxHight = data.length;
+		// let _data = data;
+		// if (vertical) {
+		// 	_data = data.filter((item) =>
+		// 		item.some((elem) => typeof elem === 'number')
+		// 	);
+		// 	maxHight = _data.length;
+		// }
 		let _data = data;
-		if (vertical) {
-			_data = data.filter((item) =>
-				item.some((elem) => typeof elem === 'number')
-			);
-			const minHeight = _data.length;
-			maxHight = minHeight;
-		}
+		let maxHeight = _data.length;
+		let maxWidth = _data.length;
+		if (vertical) maxHeight = 5;
+		if (gorizontal) maxWidth = 5;
 
 		const table = createElement({
 			tag: 'table',
 			classes: _class,
 		});
 		let count = 1;
-		for (let i = 0; i < maxHight; i++) {
+		for (let i = 0; i < maxHeight; i++) {
 			const rowElement = createElement({ tag: 'tr' });
 
 			for (let j = 0; j < maxWidth; j++) {
 				const cellClasses = ['cell'];
-				if (!maket) {
+				if (!maket && !flag) {
 					if ((i + 1) % 5 === 0) cellClasses.push('border-bottom');
 					if ((j + 1) % 5 === 0) cellClasses.push('border-right');
+				}
+				if (gorizontal) {
+					if ((i + 1) % 5 === 0) cellClasses.push('border-bottom');
+					if (_data[i][j]) cellClasses.push('help-board__cell');
+				}
+				if (vertical) {
+					if ((j + 1) % 5 === 0) cellClasses.push('border-right');
+					if (_data[i][j]) cellClasses.push('help-board__cell');
 				}
 				if (maket) {
 					if (maket === 'easy') cellClasses.push('cell-easy-size');
@@ -93,11 +105,10 @@ export class matrixControl {
 				}
 				const cellElement = createElement({
 					tag: 'td',
-					// text: _data[i][j] !== undefined ? _data[i][j] : '',
 					text: flag && _data[i][j] !== undefined ? _data[i][j] : '',
 					classes: cellClasses,
 				});
-				cellElement.setAttribute('data-cell', count);
+				if (!flag && !maket) cellElement.setAttribute('data-cell', count);
 				count++;
 				flag ? rowElement.prepend(cellElement) : rowElement.append(cellElement);
 				if (flag && vertical) rowElement.append(cellElement);

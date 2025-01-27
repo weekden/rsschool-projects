@@ -6,15 +6,16 @@ import { createMenu } from './components/menu.js';
 import { createLevelsMenu } from './components/levels.js';
 import './styles/style.css';
 // document.addEventListener('DOMContentLoaded', () => {
-const game = new matrixControl(dataEasy.house);
+const game = new matrixControl(dataEasy.mediumStar);
 const gameBoard = game.createBoard({
-	data: dataEasy.house,
+	data: dataEasy.mediumStar,
 	_class: ['game-board'],
 });
 const leftBoardHelp = game.createBoard({
-	data: game.getHelpArray(dataEasy.house),
+	data: game.getHelpArray(dataEasy.mediumStar),
 	_class: ['help-board', 'left-help'],
 	flag: 'helpTable',
+	gorizontal: true,
 });
 const topBoardHelp = game.createBoard({
 	data: game.rotateArr(game.getHelpArray(game.rotateArr().reverse())),
