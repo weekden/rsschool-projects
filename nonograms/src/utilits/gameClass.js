@@ -120,10 +120,28 @@ export class matrixControl {
 	getMatrix(name) {
 		for (const level in this.data) {
 			if (this.data[level][name]) {
-				return this.data[level][name];
+				const matrixObj = {
+					_level: level,
+					_name: name,
+					_matrix: this.data[level][name],
+				};
+				return matrixObj;
 			}
 		}
-		return null;
+	}
+
+	getRandomMatrix() {
+		const levels = Object.keys(this.data);
+		const randomLevel = levels[Math.floor(Math.random() * levels.length)];
+		const matrixes = Object.keys(this.data[randomLevel]);
+		const randomMatrixName =
+			matrixes[Math.floor(Math.random() * matrixes.length)];
+		const matrixObj = {
+			_level: randomLevel,
+			_name: randomMatrixName,
+			_matrix: this.data[randomLevel][randomMatrixName],
+		};
+		return matrixObj;
 	}
 }
 

@@ -102,6 +102,7 @@ body {
 .levels-items__item-container:active {
   border: 4px solid #c64b17;
 }
+
 .levels-items__item {
   display: flex;
   flex-direction: column;
@@ -227,4 +228,8 @@ body {
 /* States */
 .hide {
   display: none;
+}
+
+.levels-items__item-selected {
+  border: 4px solid #c64b17;
 }
