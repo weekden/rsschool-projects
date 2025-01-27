@@ -58,7 +58,7 @@ export class matrixControl {
 	}
 	// создание таблиц
 	createBoard(options) {
-		const { data = [], _class, flag, vertical, gorizontal, maket } = options;
+		const { data = [], _class, flag, vertical, horizontal, maket } = options;
 		// console.log(_class);
 		// const maxWidth = data.reduce((acc, item) => Math.max(acc, item.length), 0);
 		// let maxHight = data.length;
@@ -73,7 +73,7 @@ export class matrixControl {
 		let maxHeight = _data.length;
 		let maxWidth = _data.length;
 		if (vertical) maxHeight = 5;
-		if (gorizontal) maxWidth = 5;
+		if (horizontal) maxWidth = 5;
 
 		const table = createElement({
 			tag: 'table',
@@ -89,7 +89,7 @@ export class matrixControl {
 					if ((i + 1) % 5 === 0) cellClasses.push('border-bottom');
 					if ((j + 1) % 5 === 0) cellClasses.push('border-right');
 				}
-				if (gorizontal) {
+				if (horizontal) {
 					if ((i + 1) % 5 === 0) cellClasses.push('border-bottom');
 					if (_data[i][j]) cellClasses.push('help-board__cell');
 				}
@@ -116,6 +116,14 @@ export class matrixControl {
 			vertical ? table.prepend(rowElement) : table.append(rowElement);
 		}
 		return table;
+	}
+	getMatrix(name) {
+		for (const level in this.data) {
+			if (this.data[level][name]) {
+				return this.data[level][name];
+			}
+		}
+		return null;
 	}
 }
 

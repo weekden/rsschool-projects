@@ -2,9 +2,10 @@ import { createElement } from '../utilits/createElem';
 import { matrixControl } from '../utilits/gameClass';
 import { data } from '../data/data';
 
-export function createLevelsMenu(onBack) {
+export function createLevelsMenu(onBack, startLevel) {
 	let selectedLevel = null;
-	const board = new matrixControl();
+	const board = new matrixControl(data);
+	console.log(board);
 	const levelsContainer = createElement({
 		tag: 'div',
 		classes: ['levels-items'],
@@ -83,7 +84,8 @@ export function createLevelsMenu(onBack) {
 		const clickedMaket = event.target.closest('.levels-items__item-container');
 		if (!clickedMaket) return;
 		const clickedMaketName = clickedMaket.getAttribute('data-game');
-		console.log(clickedMaketName);
+		selectedLevel = board.getMatrix(clickedMaketName);
+		startLevel(selectedLevel);
 	});
 
 	levelsContainer.append(controlContainer, changlevelsContainer);

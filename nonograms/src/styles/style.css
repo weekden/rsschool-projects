@@ -159,7 +159,7 @@ body {
 .info-app {
   flex-grow: 1;
   border: 2px solid black;
-  max-width: 200px;
+  max-width: 150px;
   width: 100%;
 }
 
@@ -184,8 +184,8 @@ body {
 
 .cell {
   position: relative;
-  width: 40px; 
-  height: 40px;
+  width: 30px; 
+  height: 30px;
   border: 1px solid #6b6b6b; 
   text-align: center;
   font-size: 18px;

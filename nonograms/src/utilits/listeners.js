@@ -1,14 +1,14 @@
-import { dataEasy } from '../data/data';
 import { checkFinishGame } from '../logic/checkFinishGame';
-export const addGameListeners = (board, gameBoard, menu) => {
-	board.addEventListener('click', (event) => handleCellClick(event));
+const gameArr = [];
+export const addGameListeners = (board, gameBoard, currentGameArr) => {
+	board.addEventListener('click', (event) =>
+		handleCellClick(event, currentGameArr)
+	);
 	gameBoard.addEventListener('contextmenu', (event) =>
 		handleCellRightClick(event)
 	);
-	// menu.addEventListener('click', (event) => handelMenuClick(event, menu));
 };
-const gameArr = [];
-function handleCellClick(event) {
+function handleCellClick(event, currentGameArr) {
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
 	clickedCell.classList.toggle('cell-active');
@@ -24,7 +24,7 @@ function handleCellClick(event) {
 		gameArr.push(cellData);
 	}
 
-	checkFinishGame(dataEasy.house, gameArr);
+	checkFinishGame(currentGameArr, gameArr);
 }
 
 function handleCellRightClick(event) {
@@ -35,13 +35,4 @@ function handleCellRightClick(event) {
 		clickedCell.classList.toggle('cell-active');
 	}
 	clickedCell.classList.toggle('cell-cross');
-}
-
-function handelMenuClick(event, menu) {
-	const clickedMenuItem = event.target.closest('.menu-item');
-	if (!clickedMenuItem) return;
-	console.log(clickedMenuItem);
-	if (clickedMenuItem.innerText === 'New Game') {
-		menu.classList.add('hide');
-	}
 }
