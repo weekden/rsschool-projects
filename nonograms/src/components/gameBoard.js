@@ -10,6 +10,23 @@ export function createGameBoard(selectedGame) {
 		tag: 'div',
 		classes: ['game-container'],
 	});
+	const controlAppItemsArr = ['Menu', 'Show Solution', 'Reset Game'];
+	const controlApp = createElement({ tag: 'div', classes: ['app-control'] });
+	const controlAppItems = createElement({
+		tag: 'div',
+		classes: ['app-control__items'],
+	});
+	controlAppItems.append(
+		...controlAppItemsArr.map((item) => {
+			const controlAppItem = createElement({
+				tag: 'button',
+				classes: ['app-control__item', 'btn'],
+				text: item,
+			});
+			return controlAppItem;
+		})
+	);
+
 	// верхняя часть
 	const topApp = createElement({ tag: 'div', classes: ['top-app'] });
 	// нижняя часть
@@ -69,29 +86,32 @@ export function createGameBoard(selectedGame) {
 		gameInfoCurrentGameMaket,
 		gameInfoTimer
 	);
-
+	controlApp.append(controlAppItems);
 	topApp.append(gameInfo, topBoardHelp);
 	bottomApp.append(leftBoardHelp, gameBoard);
-	gameContainer.append(topApp, bottomApp);
+	gameContainer.append(controlApp, topApp, bottomApp);
 
-	addEventListeners(
-		gameBoard,
-		gameContainer,
-		selectedGame.matrix,
-		playerGameArr,
-		gameInfoTimer,
-		isTimerRunning
-	);
+	// addEventListeners(
+	// 	gameBoard,
+	// 	gameContainer,
+	// 	selectedGame.matrix,
+	// 	playerGameArr,
+	// 	gameInfoTimer,
+	// 	isTimerRunning
+	// );
+	addEventListeners({
+		board: gameBoard,
+		gameBoard: gameContainer,
+		currentGameArr: selectedGame.matrix,
+		_playerGameArr: playerGameArr,
+		_gameInfoTimer: gameInfoTimer,
+	});
 	return gameContainer;
 }
 
-const addEventListeners = (
-	board,
-	gameBoard,
-	currentGameArr,
-	_playerGameArr,
-	_gameInfoTimer
-) => {
+const addEventListeners = (values) => {
+	const { board, gameBoard, currentGameArr, _playerGameArr, _gameInfoTimer } =
+		values;
 	board.addEventListener('click', (event) =>
 		handleCellClick(event, currentGameArr, _playerGameArr, _gameInfoTimer)
 	);
@@ -99,6 +119,21 @@ const addEventListeners = (
 		handleCellRightClick(event, _playerGameArr)
 	);
 };
+
+// const addEventListeners = (
+// 	board,
+// 	gameBoard,
+// 	currentGameArr,
+// 	_playerGameArr,
+// 	_gameInfoTimer
+// ) => {
+// 	board.addEventListener('click', (event) =>
+// 		handleCellClick(event, currentGameArr, _playerGameArr, _gameInfoTimer)
+// 	);
+// 	gameBoard.addEventListener('contextmenu', (event) =>
+// 		handleCellRightClick(event, _playerGameArr)
+// 	);
+// };
 
 function handleCellClick(
 	event,
@@ -113,7 +148,6 @@ function handleCellClick(
 	clickedCell.classList.toggle('cell-active');
 	if (clickedCell.closest('.cell-cross')) {
 		clickedCell.classList.toggle('cell-cross');
-		_playerGameArr.splice(index, 1);
 	}
 
 	if (index !== -1) {
@@ -135,7 +169,7 @@ function handleCellRightClick(event, _playerGameArr) {
 	if (!clickedCell) return;
 	const cellData = clickedCell.getAttribute('data-cell');
 	const index = _playerGameArr.indexOf(cellData);
-	if (clickedCell.closest('.cell-active')) {
+	if (event.target.closest('.cell-active')) {
 		clickedCell.classList.toggle('cell-active');
 		_playerGameArr.splice(index, 1);
 	}

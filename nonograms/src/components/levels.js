@@ -16,7 +16,7 @@ export function createLevelsMenu(onBack, startLevel) {
 		children: [
 			createElement({
 				tag: 'button',
-				text: 'Back',
+				text: 'Menu',
 				classes: ['btn', 'btn-back'],
 			}),
 			createElement({

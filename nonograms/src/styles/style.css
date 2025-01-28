@@ -1,6 +1,5 @@
 :root{
-  --cell-size: 30px;
-  --main-board-size: 300px;
+  --main-board-size: 350px;
   --maket-size: 100px;
   --info-maket-size: 80px;
 }
@@ -12,8 +11,7 @@
 }
 body {
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
+  display: flex;  justify-content: center;
   align-items: center;
   height: 100vh;
   flex-direction: column;
@@ -49,21 +47,21 @@ body {
 }
 
 .btn {
-  font-size: 24px;
+  font-size: 16px;
   color: #ffffff;
   text-align: center;
-  padding: 15px 30px;
+  padding: 5px 10px;
   background-color: #efb751; 
   border: none;
   border-radius: 5px; 
   cursor: pointer;
 }
 
-.menu-item:hover {
+.btn:hover {
   background-color: #e8a221;
 }
 
-.menu-item:active {
+.btn-item:active {
   background-color: #c64b17;
 }
 
@@ -153,6 +151,22 @@ body {
   border: 2px solid black;
 } 
 
+.app-control {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+.app-control__items {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .top-app {
   width: 100%;
   display: flex;
@@ -167,6 +181,11 @@ body {
 .info-app {
   border: 2px solid black;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 .info-app__maket {

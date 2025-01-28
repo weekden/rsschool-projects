@@ -74,6 +74,10 @@ export class matrixControl {
 		if (vertical) maxHeight = 5;
 		if (horizontal) maxWidth = 5;
 
+		function setTableSize(table, size) {
+			document.documentElement.style.setProperty(`${table}`, `${size}px`);
+		}
+
 		const table = createElement({
 			tag: 'table',
 			classes: _class,
@@ -101,12 +105,15 @@ export class matrixControl {
 				if (mainBoard) {
 					if (mainBoard === 'easy') {
 						cellClasses.push('cell-main-board-easy-size');
+						setTableSize('--main-board-size', 300);
 					}
 					if (mainBoard === 'medium') {
 						cellClasses.push('cell-main-board-medium-size');
+						setTableSize('--main-board-size', 350);
 					}
 					if (mainBoard === 'hard') {
 						cellClasses.push('cell-main-board-hard-size');
+						setTableSize('--main-board-size', 400);
 					}
 				}
 				if (maket) {
@@ -117,12 +124,18 @@ export class matrixControl {
 				}
 
 				if (infoBlock) {
-					if (infoBlock === 'easy')
+					if (infoBlock === 'easy') {
 						cellClasses.push('cell-info-maket-easy-size');
-					if (infoBlock === 'medium')
+						setTableSize('--info-maket-size', 200);
+					}
+					if (infoBlock === 'medium') {
 						cellClasses.push('cell-info-maket-medium-size');
-					if (infoBlock === 'hard')
+						setTableSize('--info-maket-size', 100);
+					}
+					if (infoBlock === 'hard') {
 						cellClasses.push('cell-info-maket-hard-size');
+						setTableSize('--info-maket-size', 75);
+					}
 					if (_data[i][j]) cellClasses.push('cell-active');
 				}
 
