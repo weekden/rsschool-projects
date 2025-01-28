@@ -5,7 +5,6 @@ import { data } from '../data/data';
 export function createLevelsMenu(onBack, startLevel) {
 	let selectedLevel = null;
 	const board = new matrixControl(data);
-	console.log(board);
 	const levelsContainer = createElement({
 		tag: 'div',
 		classes: ['levels-items'],
@@ -51,7 +50,6 @@ export function createLevelsMenu(onBack, startLevel) {
 		});
 
 		Object.entries(games).forEach((game) => {
-			// console.log(game);
 			const gameName = game[0];
 			const gameMatrix = game[1];
 			const gameImageWrapper = createElement({

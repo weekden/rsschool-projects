@@ -3,7 +3,7 @@ export class matrixControl {
 	constructor(data) {
 		this.data = data;
 	}
-
+	// Создание массива для полей с подсказками
 	getHelpArray(arr) {
 		const helpArray = [];
 
@@ -59,16 +59,6 @@ export class matrixControl {
 	// создание таблиц
 	createBoard(options) {
 		const { data = [], _class, flag, vertical, horizontal, maket } = options;
-		// console.log(_class);
-		// const maxWidth = data.reduce((acc, item) => Math.max(acc, item.length), 0);
-		// let maxHight = data.length;
-		// let _data = data;
-		// if (vertical) {
-		// 	_data = data.filter((item) =>
-		// 		item.some((elem) => typeof elem === 'number')
-		// 	);
-		// 	maxHight = _data.length;
-		// }
 		let _data = data;
 		let maxHeight = _data.length;
 		let maxWidth = _data.length;
@@ -117,6 +107,7 @@ export class matrixControl {
 		}
 		return table;
 	}
+
 	getMatrix(name) {
 		for (const level in this.data) {
 			if (this.data[level][name]) {
@@ -144,14 +135,3 @@ export class matrixControl {
 		return matrixObj;
 	}
 }
-
-// const game = new matrixControl([
-// 	[0, 0, 1, 0, 0],
-// 	[0, 1, 1, 1, 0],
-// 	[1, 0, 1, 0, 1],
-// 	[0, 1, 1, 1, 0],
-// 	[0, 1, 1, 1, 0],
-// ]);
-// console.log(game.getHelpArray());
-// console.log(game.getHelpArray(game.rotateArr()));
-// console.log(game.getHelpArray());

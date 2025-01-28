@@ -18,12 +18,3 @@ export function createMenu(onMenuSelect) {
 	blockMenu.append(blockMenuItems);
 	return blockMenu;
 }
-
-function handelMenuClick(event, menu) {
-	const clickedMenuItem = event.target.closest('.menu-item');
-	if (!clickedMenuItem) return;
-	console.log(clickedMenuItem);
-	if (clickedMenuItem.innerText === 'New Game') {
-		menu.classList.add('hide');
-	}
-}
