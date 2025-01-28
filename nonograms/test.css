@@ -179,9 +179,9 @@ body {
   border: 2px solid black;
 }
 
-/* .top-help {
+.top-help {
   width: 100%;
-} */
+}
 
 .help-board__cell {
   background-color: #bcbcbc;

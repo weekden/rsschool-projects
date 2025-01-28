@@ -82,7 +82,7 @@ export function createLevelsMenu(onBack, startLevel) {
 		.querySelector('.btn-random-game')
 		.addEventListener('click', () => {
 			const randomMatrix = board.getRandomMatrix();
-			selectedLevel = randomMatrix._matrix;
+			selectedLevel = randomMatrix;
 			const containers = Array.from(
 				changlevelsContainer.querySelectorAll('.levels-items__item-container')
 			);
@@ -91,7 +91,7 @@ export function createLevelsMenu(onBack, startLevel) {
 			);
 
 			const selectedMaket = containers.find(
-				(item) => item.getAttribute('data-game') === randomMatrix._name
+				(item) => item.getAttribute('data-game') === randomMatrix.name
 			);
 
 			if (selectedMaket) {
@@ -106,7 +106,7 @@ export function createLevelsMenu(onBack, startLevel) {
 		const clickedMaket = event.target.closest('.levels-items__item-container');
 		if (!clickedMaket) return;
 		const clickedMaketName = clickedMaket.getAttribute('data-game');
-		selectedLevel = board.getMatrix(clickedMaketName)._matrix;
+		selectedLevel = board.getMatrix(clickedMaketName);
 		startLevel(selectedLevel);
 	});
 	levelsContainer.append(controlContainer, changlevelsContainer);
