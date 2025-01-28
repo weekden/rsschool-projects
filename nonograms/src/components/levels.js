@@ -61,7 +61,7 @@ export function createLevelsMenu(onBack, startLevel) {
 				board.createBoard({
 					data: gameMatrix,
 					tag: 'table',
-					_class: ['maket-image', 'game-board'],
+					_class: ['maket-image', 'table-boarder'],
 					maket: level,
 				})
 			);

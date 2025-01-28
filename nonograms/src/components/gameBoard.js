@@ -20,7 +20,8 @@ export function createGameBoard(selectedGame) {
 	// игровое поле
 	const gameBoard = game.createBoard({
 		data: selectedGame.matrix,
-		_class: ['game-board'],
+		_class: ['game-board', 'table-boarder'],
+		mainBoard: selectedGame.level,
 	});
 	// поле подсказок левое
 	const leftBoardHelp = game.createBoard({
@@ -28,6 +29,7 @@ export function createGameBoard(selectedGame) {
 		_class: ['help-board', 'left-help'],
 		flag: 'helpTable',
 		horizontal: true,
+		mainBoard: selectedGame.level,
 	});
 	// поле подсказок верхнее
 	const topBoardHelp = game.createBoard({
@@ -35,6 +37,7 @@ export function createGameBoard(selectedGame) {
 		_class: ['help-board', 'top-help'],
 		flag: 'helpTable',
 		vertical: true,
+		mainBoard: selectedGame.level,
 	});
 	// информационное поле
 	const gameInfo = createElement({
@@ -51,9 +54,8 @@ export function createGameBoard(selectedGame) {
 	const gameInfoCurrentGameMaket = game.createBoard({
 		data: selectedGame.matrix,
 		tag: 'table',
-		_class: ['maket-image', 'game-board', 'info-app__maket'],
-		maket: selectedGame.level,
-		infoBlock: true,
+		_class: ['maket-image', 'table-boarder', 'info-app__maket'],
+		infoBlock: selectedGame.level,
 	});
 
 	const gameInfoTimer = createElement({
@@ -94,7 +96,7 @@ const addEventListeners = (
 		handleCellClick(event, currentGameArr, _playerGameArr, _gameInfoTimer)
 	);
 	gameBoard.addEventListener('contextmenu', (event) =>
-		handleCellRightClick(event)
+		handleCellRightClick(event, _playerGameArr)
 	);
 };
 
@@ -106,13 +108,14 @@ function handleCellClick(
 ) {
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
+	const cellData = clickedCell.getAttribute('data-cell');
+	const index = _playerGameArr.indexOf(cellData);
 	clickedCell.classList.toggle('cell-active');
 	if (clickedCell.closest('.cell-cross')) {
 		clickedCell.classList.toggle('cell-cross');
 		_playerGameArr.splice(index, 1);
 	}
-	const cellData = clickedCell.getAttribute('data-cell');
-	const index = _playerGameArr.indexOf(cellData);
+
 	if (index !== -1) {
 		_playerGameArr.splice(index, 1);
 	} else {
@@ -126,12 +129,15 @@ function handleCellClick(
 	checkFinishGame(currentGameArr, _playerGameArr);
 }
 
-function handleCellRightClick(event) {
+function handleCellRightClick(event, _playerGameArr) {
 	event.preventDefault();
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
+	const cellData = clickedCell.getAttribute('data-cell');
+	const index = _playerGameArr.indexOf(cellData);
 	if (clickedCell.closest('.cell-active')) {
 		clickedCell.classList.toggle('cell-active');
+		_playerGameArr.splice(index, 1);
 	}
 	clickedCell.classList.toggle('cell-cross');
 }

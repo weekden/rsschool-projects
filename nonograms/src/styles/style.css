@@ -1,3 +1,10 @@
+:root{
+  --cell-size: 30px;
+  --main-board-size: 300px;
+  --maket-size: 100px;
+  --info-maket-size: 80px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -119,21 +126,21 @@ body {
   padding: 10px 0;
 }
 .maket-image {
-  width: 100px;
-  height: 100px;
+  width: var(--maket-size);
+  height: var(--maket-size);
   border-collapse: collapse;
 }
-.cell.cell-easy-size {
-  width: calc(100px / 5); 
-  height: calc(100px / 5);
+.cell.cell-maket-easy-size {
+  width: calc(var(--maket-size) / 5); 
+  height: calc(var(--maket-size) / 5);
 }
-.cell.cell-medium-size {
-  width: calc(100px / 10); 
-  height: calc(100px / 10);
+.cell.cell-maket-medium-size {
+  width: calc(var(--maket-size) / 10); 
+  height: calc(var(--maket-size) / 10);
 }
-.cell.cell-hard-size {
-  width: calc(100px / 15); 
-  height: calc(100px / 15);
+.cell.cell-maket-hard-size {
+  width: calc(var(--maket-size) / 15); 
+  height: calc(var(--maket-size) / 15);
 }
 
 /* Game Board */
@@ -149,51 +156,69 @@ body {
 .top-app {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 .bottom-app {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 .info-app {
-  flex-grow: 1;
   border: 2px solid black;
-  max-width: 150px;
-  width: 100%;
+  flex-grow: 1;
 }
 
 .info-app__maket {
-  width: 50px;
-  height: 50px;
+  width: var(--info-maket-size);
+  height: var(--info-maket-size);
+}
+
+.cell.cell-info-maket-easy-size {
+  width: calc(var(--info-maket-size) / 5); 
+  height: calc(var(--info-maket-size) / 5);
+}
+.cell.cell-info-maket-medium-size {
+  width: calc(var(--info-maket-size) / 10); 
+  height: calc(var(--info-maket-size) / 10);
+}
+.cell.cell-info-maket-hard-size {
+  width: calc(var(--info-maket-size) / 15); 
+  height: calc(var(--info-maket-size) / 15);
 }
 
 .game-board {
-  border: 2px solid black;
-  border-collapse: collapse; 
+  width: var(--main-board-size);
+  height: var(--main-board-size);
 }
-
-.help-board {
+.table-boarder, .help-board {
   border-collapse: collapse;
   border: 2px solid black;
 }
 
-/* .top-help {
-  width: 100%;
-} */
-
-.help-board__cell {
-  background-color: #bcbcbc;
+.cell.help-board__cell {
+  background-color: #dcdbdb;
 }
 
 .cell {
   position: relative;
-  width: 30px; 
-  height: 30px;
-  border: 1px solid #6b6b6b; 
+  background-color: #ffffff;
+  border: 1px solid #939292; 
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
+}
+
+.cell.cell-main-board-easy-size {
+  width: calc(var(--main-board-size) / 5); 
+  height: calc(var(--main-board-size) / 5);
+}
+.cell.cell-main-board-medium-size {
+  width: calc(var(--main-board-size) / 10); 
+  height: calc(var(--main-board-size) / 10);
+}
+.cell.cell-main-board-hard-size {
+  width: calc(var(--main-board-size) / 15); 
+  height: calc(var(--main-board-size) / 15);
 }
 
 .cell-active {
