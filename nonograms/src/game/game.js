@@ -6,8 +6,9 @@ import { render } from '../index';
 export class Game {
 	constructor(app) {
 		this.app = app;
+		this.matix = null;
 	}
-
+	// matix;
 	start() {
 		const mainMenu = createMenu((selectMenu) => {
 			if (selectMenu === 'New Game') {
@@ -32,8 +33,30 @@ export class Game {
 		render(levelsMenu);
 	}
 
-	renderGameBorder(level) {
-		const gameBoard = createGameBoard(level);
+	renderGameBorder(matix) {
+		this.matix = matix;
+		const gameBoard = createGameBoard(matix, this.callback);
 		render(gameBoard);
 	}
+
+	showSolution(matix, solution) {
+		this.matix = matix;
+		const solutonGame = createGameBoard(
+			matix,
+			this.callback,
+			(solution = true)
+		);
+		render(solutonGame);
+	}
+
+	handleClikItems;
+	callback = (controlMenuItem) => {
+		if (controlMenuItem === 'Menu') {
+			this.start();
+		} else if (controlMenuItem === 'Show Solution') {
+			this.showSolution(this.matix);
+		} else if (controlMenuItem === 'Reset Game') {
+			this.renderGameBorder(this.matix);
+		}
+	};
 }

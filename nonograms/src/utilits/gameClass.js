@@ -67,6 +67,7 @@ export class matrixControl {
 			mainBoard,
 			maket,
 			infoBlock,
+			_solution,
 		} = options;
 		let _data = data;
 		let maxHeight = _data.length;
@@ -103,6 +104,7 @@ export class matrixControl {
 				}
 
 				if (mainBoard) {
+					if (_solution && _data[i][j]) cellClasses.push('cell-active');
 					if (mainBoard === 'easy') {
 						cellClasses.push('cell-main-board-easy-size');
 						setTableSize('--main-board-size', 300);
@@ -144,7 +146,8 @@ export class matrixControl {
 					text: flag && _data[i][j] !== undefined ? _data[i][j] : '',
 					classes: cellClasses,
 				});
-				if (!flag && !maket) cellElement.setAttribute('data-cell', count);
+				if (!flag && !maket && !infoBlock)
+					cellElement.setAttribute('data-cell', count);
 				count++;
 				flag ? rowElement.prepend(cellElement) : rowElement.append(cellElement);
 				if (flag && vertical) rowElement.append(cellElement);
