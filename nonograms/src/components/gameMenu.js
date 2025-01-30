@@ -1,7 +1,12 @@
 import { createElement } from '../utilits/createElem';
 
 export function createGameControlMenu() {
-	const controlAppItemsArr = ['Menu', 'Show Solution', 'Reset Game'];
+	const controlAppItemsArr = [
+		'Menu',
+		'Show Solution',
+		'Save Game',
+		'Reset Game',
+	];
 	const controlApp = createElement({ tag: 'div', classes: ['app-control'] });
 	const controlAppItems = createElement({
 		tag: 'div',

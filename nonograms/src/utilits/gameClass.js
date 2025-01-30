@@ -104,6 +104,7 @@ export class matrixControl {
 				}
 
 				if (mainBoard) {
+					cellClasses.push('cell-main-board');
 					if (_solution && _data[i][j]) cellClasses.push('cell-active');
 					if (mainBoard === 'easy') {
 						cellClasses.push('cell-main-board-easy-size');
@@ -143,11 +144,13 @@ export class matrixControl {
 
 				const cellElement = createElement({
 					tag: 'td',
-					text: flag && _data[i][j] !== undefined ? _data[i][j] : '',
+					text: flag && _data[i][j] ? _data[i][j] : '',
 					classes: cellClasses,
 				});
 				if (!flag && !maket && !infoBlock)
 					cellElement.setAttribute('data-cell', count);
+				cellElement.setAttribute('data-row', i);
+				cellElement.setAttribute('data-coll', j);
 				count++;
 				flag ? rowElement.prepend(cellElement) : rowElement.append(cellElement);
 				if (flag && vertical) rowElement.append(cellElement);

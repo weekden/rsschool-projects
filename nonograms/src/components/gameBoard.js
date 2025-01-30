@@ -3,13 +3,25 @@ import { createElement } from '../utilits/createElem';
 import { checkFinishGame } from '../logic/checkFinishGame';
 import { createGameControlMenu } from './gameMenu';
 let isTimerRunning = false;
+// let resumeGame = false;
 export function createGameBoard(
 	selectedGame,
 	onHeaderMenuItemSelect,
-	solution = false
+	solution = false,
+	resumeGame = false
 ) {
-	const playerGameArr = [];
+	console.log(resumeGame);
+	let playerGameArr = selectedGame._playerGameArr || [];
+
 	const game = new matrixControl(selectedGame.matrix);
+	const saveMatrixObj = {
+		level: selectedGame.level,
+		name: selectedGame.name,
+		matrix: selectedGame.matrix,
+		_playerGameArr: playerGameArr,
+	};
+
+	console.log(playerGameArr);
 	// контейнер игрового поля
 	const gameContainer = createElement({
 		tag: 'div',
@@ -76,6 +88,16 @@ export function createGameBoard(
 		text: '00 : 00',
 	});
 
+	if (resumeGame) {
+		setTimeout(() => {
+			addClassToElements(
+				'.game-board',
+				'data-cell',
+				'cell-active',
+				playerGameArr
+			);
+		}, 0);
+	}
 	gameInfo.append(
 		gameInfoCurrentGameName,
 		gameInfoCurrentGameMaket,
@@ -90,8 +112,8 @@ export function createGameBoard(
 	headerAppWrapper.addEventListener('click', (event) => {
 		const clickedCell = event.target.closest('.app-control__item');
 		if (!clickedCell) return;
-		const clickedItemType = clickedCell.innerText;
-		onHeaderMenuItemSelect(clickedItemType);
+		let clickedItemType = clickedCell.innerText;
+		onHeaderMenuItemSelect(clickedItemType, saveMatrixObj);
 		isTimerRunning = false;
 	});
 
@@ -141,7 +163,6 @@ function handleCellClick(
 			startTimer(_gameInfoTimer, isTimerRunning);
 		}
 	}
-
 	checkFinishGame(currentGameArr, _playerGameArr);
 }
 
@@ -174,4 +195,22 @@ function startTimer(container, _isTimerRunning) {
 		setTimeout(updateTimer, 1000);
 	};
 	updateTimer();
+}
+
+function addClassToElements(
+	parentContainerSelector,
+	attribute,
+	className,
+	valuesArray
+) {
+	const parentContainer = document.querySelector(parentContainerSelector);
+	if (!parentContainer) return;
+	const elementsList = parentContainer.querySelectorAll('.cell-main-board');
+	elementsList.forEach((elem) => {
+		const elAttribute = elem.getAttribute(attribute);
+
+		if (valuesArray.includes(elAttribute)) {
+			elem.classList.add(className);
+		}
+	});
 }
