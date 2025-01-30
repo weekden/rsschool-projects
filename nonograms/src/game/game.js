@@ -55,14 +55,14 @@ export class Game {
 		render(solutonGame);
 	}
 
-	callback = (controlMenuItem, saveMatrixObj) => {
-		if (controlMenuItem === 'Menu') {
+	callback = (controlMenuItemId, saveMatrixObj) => {
+		if (controlMenuItemId === 'menu') {
 			this.start();
-		} else if (controlMenuItem === 'Show Solution') {
+		} else if (controlMenuItemId === 'show-solution') {
 			this.showSolution(this.matix);
-		} else if (controlMenuItem === 'Reset Game') {
+		} else if (controlMenuItemId === 'reset-game') {
 			this.renderGameBorder(this.matix);
-		} else if (controlMenuItem === 'Save Game') {
+		} else if (controlMenuItemId === 'save-game') {
 			this.lsControl.saveLastGame(saveMatrixObj);
 		}
 	};

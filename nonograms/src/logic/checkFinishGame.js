@@ -5,8 +5,8 @@ export function checkFinishGame(inputArr, outputArr) {
 	}, 0);
 	const outputArrSum = outputArr.reduce((acc, item) => acc + +item, 0);
 
-	console.log('inputArrSum:', inputArrSum);
-	console.log('outputArrSum:', outputArrSum);
+	// console.log('inputArrSum:', inputArrSum);
+	// console.log('outputArrSum:', outputArrSum);
 	if (inputArrSum === outputArrSum) {
 		console.log('finishGame');
 	}

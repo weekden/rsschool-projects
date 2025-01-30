@@ -10,8 +10,10 @@ export function createGameBoard(
 	solution = false,
 	resumeGame = false
 ) {
-	console.log(resumeGame);
 	let playerGameArr = selectedGame._playerGameArr || [];
+	let playerCrossArrTop = selectedGame._playerCrossArrTop || [];
+	let playerCrossArrLeft = selectedGame._playerCrossArrLeft || [];
+	let playerCrossArrMain = selectedGame._playerCrossArrMain || [];
 
 	const game = new matrixControl(selectedGame.matrix);
 	const saveMatrixObj = {
@@ -19,9 +21,11 @@ export function createGameBoard(
 		name: selectedGame.name,
 		matrix: selectedGame.matrix,
 		_playerGameArr: playerGameArr,
+		_playerCrossArrTop: playerCrossArrTop,
+		_playerCrossArrLeft: playerCrossArrLeft,
+		_playerCrossArrMain: playerCrossArrMain,
 	};
 
-	console.log(playerGameArr);
 	// контейнер игрового поля
 	const gameContainer = createElement({
 		tag: 'div',
@@ -97,7 +101,32 @@ export function createGameBoard(
 				playerGameArr
 			);
 		}, 0);
+		setTimeout(() => {
+			addClassToElements(
+				'.game-board',
+				'data-cell',
+				'cell-cross',
+				playerCrossArrMain
+			);
+		}, 0);
+		setTimeout(() => {
+			addClassToElements(
+				'.top-help',
+				'data-cell',
+				'cell-cross',
+				playerCrossArrTop
+			);
+		}, 0);
+		setTimeout(() => {
+			addClassToElements(
+				'.left-help',
+				'data-cell',
+				'cell-cross',
+				playerCrossArrLeft
+			);
+		}, 0);
 	}
+
 	gameInfo.append(
 		gameInfoCurrentGameName,
 		gameInfoCurrentGameMaket,
@@ -112,8 +141,20 @@ export function createGameBoard(
 	headerAppWrapper.addEventListener('click', (event) => {
 		const clickedCell = event.target.closest('.app-control__item');
 		if (!clickedCell) return;
-		let clickedItemType = clickedCell.innerText;
-		onHeaderMenuItemSelect(clickedItemType, saveMatrixObj);
+		const clickedItemTypeId = clickedCell.id;
+		if (clickedItemTypeId === 'reset-game') {
+			playerGameArr = [];
+			playerCrossArrLeft = [];
+			playerCrossArrTop = [];
+			playerCrossArrMain = [];
+		}
+		if (clickedItemTypeId === 'show-solution') {
+			const saveGameBtn = document.querySelector('#save-game');
+			saveGameBtn.disabled = true;
+			saveGameBtn.classList.add('disabled');
+			console.log(saveGameBtn);
+		}
+		onHeaderMenuItemSelect(clickedItemTypeId, saveMatrixObj);
 		isTimerRunning = false;
 	});
 
@@ -124,18 +165,34 @@ export function createGameBoard(
 			currentGameArr: selectedGame.matrix,
 			_playerGameArr: playerGameArr,
 			_gameInfoTimer: gameInfoTimer,
+			_playerCrossArrTop: playerCrossArrTop,
+			_playerCrossArrLeft: playerCrossArrLeft,
+			_playerCrossArrMain: playerCrossArrMain,
 		});
 	return gameContainer;
 }
 
 const addEventListeners = (values) => {
-	const { board, gameBoard, currentGameArr, _playerGameArr, _gameInfoTimer } =
-		values;
+	const {
+		board,
+		gameBoard,
+		currentGameArr,
+		_playerGameArr,
+		_gameInfoTimer,
+		_playerCrossArrTop,
+		_playerCrossArrLeft,
+		_playerCrossArrMain,
+	} = values;
 	board.addEventListener('click', (event) =>
 		handleCellClick(event, currentGameArr, _playerGameArr, _gameInfoTimer)
 	);
 	gameBoard.addEventListener('contextmenu', (event) =>
-		handleCellRightClick(event, _playerGameArr)
+		handleCellRightClick(
+			event,
+			_playerCrossArrTop,
+			_playerCrossArrLeft,
+			_playerCrossArrMain
+		)
 	);
 };
 
@@ -163,20 +220,63 @@ function handleCellClick(
 			startTimer(_gameInfoTimer, isTimerRunning);
 		}
 	}
+	console.log(_playerGameArr);
 	checkFinishGame(currentGameArr, _playerGameArr);
 }
 
-function handleCellRightClick(event, _playerGameArr) {
+function handleCellRightClick(
+	event,
+	_playerCrossArrTop,
+	_playerCrossArrLeft,
+	_playerCrossArrMain
+) {
 	event.preventDefault();
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
 	const cellData = clickedCell.getAttribute('data-cell');
-	const index = _playerGameArr.indexOf(cellData);
-	if (event.target.closest('.cell-active')) {
-		clickedCell.classList.toggle('cell-active');
-		_playerGameArr.splice(index, 1);
+	const indexMain = _playerCrossArrMain.indexOf(cellData);
+	const indexTop = _playerCrossArrTop.indexOf(cellData);
+	const indexLeft = _playerCrossArrLeft.indexOf(cellData);
+
+	const parentBoard = event.target.closest('.game-board');
+	const parentTop = event.target.closest('.top-help');
+	const parentLeft = event.target.closest('.left-help');
+
+	if (parentBoard) {
+		clickedCell.classList.toggle('cell-cross');
+		if (clickedCell.closest('cell-active')) {
+			clickedCell.classList.toggle('cell-active');
+		}
+
+		if (indexMain !== -1) {
+			_playerCrossArrMain.splice(indexMain, 1);
+		} else {
+			_playerCrossArrMain.push(cellData);
+		}
+		console.log(_playerCrossArrMain);
 	}
-	clickedCell.classList.toggle('cell-cross');
+
+	// Если клик был в верхней подсказке
+	if (parentTop) {
+		clickedCell.classList.toggle('cell-cross');
+		if (indexTop !== -1) {
+			_playerCrossArrTop.splice(indexTop, 1);
+		} else {
+			_playerCrossArrTop.push(cellData);
+		}
+		console.log(_playerCrossArrTop);
+	}
+
+	// Если клик был в левой подсказке
+	if (parentLeft) {
+		clickedCell.classList.toggle('cell-cross');
+		if (indexLeft !== -1) {
+			_playerCrossArrLeft.splice(indexLeft, 1);
+		} else {
+			_playerCrossArrLeft.push(cellData);
+		}
+		console.log(_playerCrossArrLeft);
+	}
 }
 
 function startTimer(container, _isTimerRunning) {

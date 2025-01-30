@@ -147,10 +147,7 @@ export class matrixControl {
 					text: flag && _data[i][j] ? _data[i][j] : '',
 					classes: cellClasses,
 				});
-				if (!flag && !maket && !infoBlock)
-					cellElement.setAttribute('data-cell', count);
-				cellElement.setAttribute('data-row', i);
-				cellElement.setAttribute('data-coll', j);
+				if (!maket && !infoBlock) cellElement.setAttribute('data-cell', count);
 				count++;
 				flag ? rowElement.prepend(cellElement) : rowElement.append(cellElement);
 				if (flag && vertical) rowElement.append(cellElement);

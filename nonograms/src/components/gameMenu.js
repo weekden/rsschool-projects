@@ -18,6 +18,7 @@ export function createGameControlMenu() {
 				tag: 'button',
 				classes: ['app-control__item', 'btn'],
 				text: item,
+				id: item.toLowerCase().split(' ').join('-'),
 			});
 			return controlAppItem;
 		})
