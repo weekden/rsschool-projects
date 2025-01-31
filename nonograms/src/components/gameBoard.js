@@ -2,7 +2,8 @@ import { matrixControl } from '../utilits/gameClass';
 import { createElement } from '../utilits/createElem';
 import { checkFinishGame } from '../logic/checkFinishGame';
 import { LSControl } from '../utilits/lsControl';
-export let isTimerRunning = false;
+import { formatTime } from '../utilits/timer';
+import { startTimer } from '../utilits/timer';
 
 export function createGameBoard(
 	selectedGame,
@@ -13,6 +14,8 @@ export function createGameBoard(
 	let playerCrossArrTop = resumeGame ? selectedGame._playerCrossArrTop : [];
 	let playerCrossArrLeft = resumeGame ? selectedGame._playerCrossArrLeft : [];
 	let playerCrossArrMain = resumeGame ? selectedGame._playerCrossArrMain : [];
+	let minuts = resumeGame ? selectedGame._minuts : 0;
+	let seconds = resumeGame ? selectedGame._seconds : 0;
 
 	const game = new matrixControl(selectedGame.matrix);
 
@@ -24,6 +27,8 @@ export function createGameBoard(
 		_playerCrossArrTop: playerCrossArrTop,
 		_playerCrossArrLeft: playerCrossArrLeft,
 		_playerCrossArrMain: playerCrossArrMain,
+		_minuts: minuts,
+		_seconds: seconds,
 	};
 
 	// контейнер игрового поля
@@ -83,7 +88,8 @@ export function createGameBoard(
 	const gameInfoTimer = createElement({
 		tag: 'div',
 		classes: ['info-app__level'],
-		text: '00 : 00',
+		text: `${formatTime(minuts)} : ${formatTime(seconds)}`,
+		// text: '00 : 00',
 	});
 
 	if (resumeGame) {
@@ -142,6 +148,8 @@ export function createGameBoard(
 			_playerCrossArrLeft: playerCrossArrLeft,
 			_playerCrossArrMain: playerCrossArrMain,
 			_selectedGame: selectedGame,
+			_minuts: minuts,
+			_seconds: seconds,
 		});
 	return { gameContainer, saveMatrixObj };
 }
@@ -157,15 +165,11 @@ const addEventListeners = (values) => {
 		_playerCrossArrLeft,
 		_playerCrossArrMain,
 		_selectedGame,
+		_minuts,
+		_seconds,
 	} = values;
 	board.addEventListener('click', (event) =>
-		handleCellClick(
-			event,
-			currentGameArr,
-			_playerGameArr,
-			_gameInfoTimer,
-			_selectedGame
-		)
+		handleCellClick(event, currentGameArr, _playerGameArr, _selectedGame)
 	);
 	gameBoard.addEventListener('contextmenu', (event) =>
 		handleCellRightClick(
@@ -174,6 +178,14 @@ const addEventListeners = (values) => {
 			_playerCrossArrLeft,
 			_playerCrossArrMain
 		)
+	);
+	board.addEventListener(
+		'click',
+		() => {
+			console.log(_gameInfoTimer);
+			startTimer(_gameInfoTimer, _minuts, _seconds);
+		},
+		{ once: true }
 	);
 };
 
@@ -197,10 +209,6 @@ function handleCellClick(
 		_playerGameArr.splice(index, 1);
 	} else {
 		_playerGameArr.push(cellData);
-		if (!isTimerRunning && _playerGameArr.length > 0) {
-			isTimerRunning = true;
-			startTimer(_gameInfoTimer, isTimerRunning);
-		}
 	}
 	console.log(_playerGameArr);
 	const finishGame = checkFinishGame(currentGameArr, _playerGameArr);
@@ -269,24 +277,6 @@ function handleCellRightClick(
 		}
 		console.log(_playerCrossArrLeft);
 	}
-}
-
-function startTimer(container, _isTimerRunning) {
-	let minuts = 0;
-	let seconds = 0;
-	const formatTime = (value) => (value < 10 ? `0${value}` : value);
-	const updateTimer = () => {
-		if (!_isTimerRunning) return;
-		seconds++;
-		if (seconds === 60) {
-			seconds = 0;
-			minuts++;
-		}
-		const time = `${formatTime(minuts)} : ${formatTime(seconds)}`;
-		container.textContent = time;
-		setTimeout(updateTimer, 1000);
-	};
-	updateTimer();
 }
 
 function addClassToElements(
