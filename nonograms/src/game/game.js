@@ -5,6 +5,7 @@ import { LSControl } from '../utilits/lsControl';
 import { render } from '../index';
 import { createElement } from '../utilits/createElem';
 import { createGameControlMenu } from '../components/gameMenu';
+import { createRecordTable } from '../components/createTableRecords';
 
 export class Game {
 	constructor(app) {
@@ -24,9 +25,18 @@ export class Game {
 			} else if (selectMenu === 'Resume Game') {
 				const resumeGameObj = this.lsControl.getLastGame();
 				this.renderGameBorder(resumeGameObj, false, true);
+			} else if (selectMenu === 'Records') {
+				this.renderRecordTable();
 			}
 		});
 		render(mainMenu);
+	}
+
+	renderRecordTable() {
+		this.app.innerHTML = '';
+		const saveGameArr = this.lsControl.getGameResults();
+		const recordTable = createRecordTable(saveGameArr);
+		render(recordTable);
 	}
 
 	renderLevelsMenu() {

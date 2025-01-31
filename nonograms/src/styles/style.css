@@ -273,6 +273,53 @@ body {
   transform: translateY(-50%) rotate(-45deg);
 }
 
+/* Record Table */
+.record-table-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  width: 80%;
+  height: 95%;
+  background-color: #6a6a6a;
+  border-radius: 10px;
+}
+
+.record-table {
+	width: 90%;
+	background-color: #d6d4d4;
+  border-collapse:collapse;
+}
+
+thead tr th {
+  border: 1px solid #727272;;
+}
+
+.record-header {
+	background: #efb751;
+	color: black;
+	font-weight: bold;
+	padding: 12px;
+	text-align: center;
+
+}
+
+/* .record-row {
+	height:60px; 
+} */
+
+.record-row__cell {
+	border-bottom: 1px solid #959595;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.record-row__cell-maket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 /* States */
 .hide {
   display: none;
