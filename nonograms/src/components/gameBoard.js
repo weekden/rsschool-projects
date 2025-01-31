@@ -1,9 +1,9 @@
 import { matrixControl } from '../utilits/gameClass';
 import { createElement } from '../utilits/createElem';
-import { checkFinishGame } from '../logic/checkFinishGame';
-import { LSControl } from '../utilits/lsControl';
 import { formatTime } from '../utilits/timer';
 import { startTimer } from '../utilits/timer';
+import { handleCellClick } from '../utilits/listeners';
+import { handleCellRightClick } from '../utilits/listeners';
 
 export function createGameBoard(
 	selectedGame,
@@ -127,6 +127,29 @@ export function createGameBoard(
 		}, 0);
 	}
 
+	function onCellClick(event) {
+		handleCellClick(
+			event,
+			selectedGame.matrix,
+			playerGameArr,
+			selectedGame,
+			gameInfoTimer
+		);
+	}
+
+	function onCellRightClick(event) {
+		handleCellRightClick(
+			event,
+			playerCrossArrTop,
+			playerCrossArrLeft,
+			playerCrossArrMain
+		);
+	}
+
+	function onStartTimer() {
+		startTimer(gameInfoTimer, minuts, seconds);
+	}
+
 	gameInfo.append(
 		gameInfoCurrentGameName,
 		gameInfoCurrentGameMaket,
@@ -137,146 +160,16 @@ export function createGameBoard(
 	bottomApp.append(leftBoardHelp, gameBoard);
 	gameContainer.append(topApp, bottomApp);
 
-	if (!solution)
-		addEventListeners({
-			board: gameBoard,
-			gameBoard: gameContainer,
-			currentGameArr: selectedGame.matrix,
-			_playerGameArr: playerGameArr,
-			_gameInfoTimer: gameInfoTimer,
-			_playerCrossArrTop: playerCrossArrTop,
-			_playerCrossArrLeft: playerCrossArrLeft,
-			_playerCrossArrMain: playerCrossArrMain,
-			_selectedGame: selectedGame,
-			_minuts: minuts,
-			_seconds: seconds,
-		});
+	gameBoard.removeEventListener('click', onCellClick);
+	gameContainer.removeEventListener('contextmenu', onCellRightClick);
+	gameBoard.removeEventListener('click', onStartTimer, { once: true });
+
+	if (!solution) {
+		gameBoard.addEventListener('click', onCellClick);
+		gameContainer.addEventListener('contextmenu', onCellRightClick);
+		gameBoard.addEventListener('click', onStartTimer, { once: true });
+	}
 	return { gameContainer, saveMatrixObj };
-}
-
-const addEventListeners = (values) => {
-	const {
-		board,
-		gameBoard,
-		currentGameArr,
-		_playerGameArr,
-		_gameInfoTimer,
-		_playerCrossArrTop,
-		_playerCrossArrLeft,
-		_playerCrossArrMain,
-		_selectedGame,
-		_minuts,
-		_seconds,
-	} = values;
-	board.addEventListener('click', (event) =>
-		handleCellClick(event, currentGameArr, _playerGameArr, _selectedGame)
-	);
-	gameBoard.addEventListener('contextmenu', (event) =>
-		handleCellRightClick(
-			event,
-			_playerCrossArrTop,
-			_playerCrossArrLeft,
-			_playerCrossArrMain
-		)
-	);
-	board.addEventListener(
-		'click',
-		() => {
-			console.log(_gameInfoTimer);
-			startTimer(_gameInfoTimer, _minuts, _seconds);
-		},
-		{ once: true }
-	);
-};
-
-function handleCellClick(
-	event,
-	currentGameArr,
-	_playerGameArr,
-	_gameInfoTimer,
-	_selectedGame
-) {
-	const clickedCell = event.target.closest('.cell');
-	if (!clickedCell) return;
-	const cellData = clickedCell.getAttribute('data-cell');
-	const index = _playerGameArr.indexOf(cellData);
-	clickedCell.classList.toggle('cell-active');
-	if (clickedCell.closest('.cell-cross')) {
-		clickedCell.classList.toggle('cell-cross');
-	}
-
-	if (index !== -1) {
-		_playerGameArr.splice(index, 1);
-	} else {
-		_playerGameArr.push(cellData);
-	}
-	console.log(_playerGameArr);
-	const finishGame = checkFinishGame(currentGameArr, _playerGameArr);
-	if (finishGame) {
-		const finishGameObj = {
-			name: _selectedGame.name.slice(_selectedGame.name.search(/[A-Z]/)),
-			level: _selectedGame.level.toUpperCase(),
-			maket: _selectedGame.matrix,
-			time: 'Time',
-		};
-		const lsControl = new LSControl();
-		lsControl.saveGameResult(finishGameObj);
-	}
-}
-
-function handleCellRightClick(
-	event,
-	_playerCrossArrTop,
-	_playerCrossArrLeft,
-	_playerCrossArrMain
-) {
-	event.preventDefault();
-	const clickedCell = event.target.closest('.cell');
-	if (!clickedCell) return;
-	const cellData = clickedCell.getAttribute('data-cell');
-	const indexMain = _playerCrossArrMain.indexOf(cellData);
-	const indexTop = _playerCrossArrTop.indexOf(cellData);
-	const indexLeft = _playerCrossArrLeft.indexOf(cellData);
-
-	const parentBoard = event.target.closest('.game-board');
-	const parentTop = event.target.closest('.top-help');
-	const parentLeft = event.target.closest('.left-help');
-
-	if (parentBoard) {
-		clickedCell.classList.toggle('cell-cross');
-		if (clickedCell.closest('cell-active')) {
-			clickedCell.classList.toggle('cell-active');
-		}
-
-		if (indexMain !== -1) {
-			_playerCrossArrMain.splice(indexMain, 1);
-		} else {
-			_playerCrossArrMain.push(cellData);
-		}
-		console.log(_playerCrossArrMain);
-	}
-
-	// Если клик был в верхней подсказке
-	if (parentTop) {
-		clickedCell.classList.toggle('cell-cross');
-		if (indexTop !== -1) {
-			_playerCrossArrTop.splice(indexTop, 1);
-		} else {
-			_playerCrossArrTop.push(cellData);
-		}
-		console.log(_playerCrossArrTop);
-	}
-
-	// Если клик был в левой подсказке
-	if (parentLeft) {
-		clickedCell.classList.toggle('cell-cross');
-		if (indexLeft !== -1) {
-			_playerCrossArrLeft.splice(indexLeft, 1);
-		} else {
-			_playerCrossArrLeft.push(cellData);
-		}
-		console.log(_playerCrossArrLeft);
-	}
 }
 
 function addClassToElements(
