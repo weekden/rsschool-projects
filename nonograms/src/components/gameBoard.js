@@ -1,21 +1,21 @@
 import { matrixControl } from '../utilits/gameClass';
 import { createElement } from '../utilits/createElem';
 import { checkFinishGame } from '../logic/checkFinishGame';
-import { createGameControlMenu } from './gameMenu';
-let isTimerRunning = false;
-// let resumeGame = false;
+import { LSControl } from '../utilits/lsControl';
+export let isTimerRunning = false;
+
 export function createGameBoard(
 	selectedGame,
-	onHeaderMenuItemSelect,
 	solution = false,
 	resumeGame = false
 ) {
-	let playerGameArr = selectedGame._playerGameArr || [];
-	let playerCrossArrTop = selectedGame._playerCrossArrTop || [];
-	let playerCrossArrLeft = selectedGame._playerCrossArrLeft || [];
-	let playerCrossArrMain = selectedGame._playerCrossArrMain || [];
+	let playerGameArr = resumeGame ? selectedGame._playerGameArr : [];
+	let playerCrossArrTop = resumeGame ? selectedGame._playerCrossArrTop : [];
+	let playerCrossArrLeft = resumeGame ? selectedGame._playerCrossArrLeft : [];
+	let playerCrossArrMain = resumeGame ? selectedGame._playerCrossArrMain : [];
 
 	const game = new matrixControl(selectedGame.matrix);
+
 	const saveMatrixObj = {
 		level: selectedGame.level,
 		name: selectedGame.name,
@@ -29,14 +29,8 @@ export function createGameBoard(
 	// контейнер игрового поля
 	const gameContainer = createElement({
 		tag: 'div',
-		classes: ['game-container'],
+		classes: ['table-container'],
 	});
-	// блок кнопок
-	const headerAppWrapper = createElement({
-		tag: 'div',
-		classes: ['app-control'],
-	});
-	const headerApp = createGameControlMenu();
 	// верхняя часть
 	const topApp = createElement({ tag: 'div', classes: ['top-app'] });
 	// нижняя часть
@@ -76,7 +70,7 @@ export function createGameBoard(
 	const gameInfoCurrentGameName = createElement({
 		tag: 'div',
 		classes: ['info-app__level'],
-		text: `${selectedGame.name.slice(selectedGame.name.search(/[A-Z]/))}`,
+		text: `${selectedGame.name.slice(selectedGame.name.search(/[A-Z]/)).toUpperCase()}`,
 	});
 
 	const gameInfoCurrentGameMaket = game.createBoard({
@@ -133,30 +127,9 @@ export function createGameBoard(
 		gameInfoTimer
 	);
 
-	headerAppWrapper.append(headerApp);
 	topApp.append(gameInfo, topBoardHelp);
 	bottomApp.append(leftBoardHelp, gameBoard);
-	gameContainer.append(headerAppWrapper, topApp, bottomApp);
-
-	headerAppWrapper.addEventListener('click', (event) => {
-		const clickedCell = event.target.closest('.app-control__item');
-		if (!clickedCell) return;
-		const clickedItemTypeId = clickedCell.id;
-		if (clickedItemTypeId === 'reset-game') {
-			playerGameArr = [];
-			playerCrossArrLeft = [];
-			playerCrossArrTop = [];
-			playerCrossArrMain = [];
-		}
-		if (clickedItemTypeId === 'show-solution') {
-			const saveGameBtn = document.querySelector('#save-game');
-			saveGameBtn.disabled = true;
-			saveGameBtn.classList.add('disabled');
-			console.log(saveGameBtn);
-		}
-		onHeaderMenuItemSelect(clickedItemTypeId, saveMatrixObj);
-		isTimerRunning = false;
-	});
+	gameContainer.append(topApp, bottomApp);
 
 	if (!solution)
 		addEventListeners({
@@ -168,8 +141,9 @@ export function createGameBoard(
 			_playerCrossArrTop: playerCrossArrTop,
 			_playerCrossArrLeft: playerCrossArrLeft,
 			_playerCrossArrMain: playerCrossArrMain,
+			_selectedGame: selectedGame,
 		});
-	return gameContainer;
+	return { gameContainer, saveMatrixObj };
 }
 
 const addEventListeners = (values) => {
@@ -182,9 +156,16 @@ const addEventListeners = (values) => {
 		_playerCrossArrTop,
 		_playerCrossArrLeft,
 		_playerCrossArrMain,
+		_selectedGame,
 	} = values;
 	board.addEventListener('click', (event) =>
-		handleCellClick(event, currentGameArr, _playerGameArr, _gameInfoTimer)
+		handleCellClick(
+			event,
+			currentGameArr,
+			_playerGameArr,
+			_gameInfoTimer,
+			_selectedGame
+		)
 	);
 	gameBoard.addEventListener('contextmenu', (event) =>
 		handleCellRightClick(
@@ -200,7 +181,8 @@ function handleCellClick(
 	event,
 	currentGameArr,
 	_playerGameArr,
-	_gameInfoTimer
+	_gameInfoTimer,
+	_selectedGame
 ) {
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
@@ -221,7 +203,17 @@ function handleCellClick(
 		}
 	}
 	console.log(_playerGameArr);
-	checkFinishGame(currentGameArr, _playerGameArr);
+	const finishGame = checkFinishGame(currentGameArr, _playerGameArr);
+	if (finishGame) {
+		const finishGameObj = {
+			name: _selectedGame.name.slice(_selectedGame.name.search(/[A-Z]/)),
+			level: _selectedGame.level.toUpperCase(),
+			maket: _selectedGame.matrix,
+			time: 'Time',
+		};
+		const lsControl = new LSControl();
+		lsControl.saveGameResult(finishGameObj);
+	}
 }
 
 function handleCellRightClick(

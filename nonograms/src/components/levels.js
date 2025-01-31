@@ -40,7 +40,7 @@ export function createLevelsMenu(onBack, startLevel) {
 
 		const levelType = createElement({
 			tag: 'div',
-			text: level,
+			text: level.toUpperCase(),
 			classes: ['levels-items__item-type'],
 		});
 

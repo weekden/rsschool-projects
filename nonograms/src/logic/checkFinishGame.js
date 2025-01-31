@@ -9,5 +9,6 @@ export function checkFinishGame(inputArr, outputArr) {
 	// console.log('outputArrSum:', outputArrSum);
 	if (inputArrSum === outputArrSum) {
 		console.log('finishGame');
+		return true;
 	}
 }

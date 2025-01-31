@@ -282,7 +282,7 @@ body {
   border: 4px solid #c64b17;
 }
 
-.btn .disabled {
+.btn[disabled] {
   opacity: 0.5;
   
 }

@@ -1,6 +1,6 @@
 import { createElement } from '../utilits/createElem';
 
-export function createGameControlMenu() {
+export function createGameControlMenu(selectedItem) {
 	const controlAppItemsArr = [
 		'Menu',
 		'Show Solution',
@@ -12,6 +12,7 @@ export function createGameControlMenu() {
 		tag: 'div',
 		classes: ['app-control__items'],
 	});
+	console.log('buttons render');
 	controlAppItems.append(
 		...controlAppItemsArr.map((item) => {
 			const controlAppItem = createElement({
@@ -24,5 +25,15 @@ export function createGameControlMenu() {
 		})
 	);
 	controlApp.append(controlAppItems);
-	return controlAppItems;
+	controlApp.addEventListener('click', (event) =>
+		handleClickGameMenu(event, selectedItem)
+	);
+	return controlApp;
+}
+
+function handleClickGameMenu(event, _selectedItem) {
+	const clickedCell = event.target.closest('.app-control__item');
+	if (!clickedCell) return;
+	const clickedItemTypeId = clickedCell.id;
+	_selectedItem(clickedItemTypeId);
 }
