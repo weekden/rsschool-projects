@@ -6,6 +6,7 @@ import { render } from '../index';
 import { createElement } from '../utilits/createElem';
 import { createGameControlMenu } from '../components/gameMenu';
 import { createRecordTable } from '../components/createTableRecords';
+import { createModal } from '../components/modal';
 
 export class Game {
 	constructor(app) {
@@ -14,22 +15,31 @@ export class Game {
 		this.saveMatrixObj = null;
 		this.lsControl = new LSControl();
 		this.gameContainer = null;
-		this.saveBtn = null;
 	}
 
 	start() {
 		this.app.innerHTML = '';
 		const mainMenu = createMenu((selectMenu) => {
-			if (selectMenu === 'New Game') {
+			if (selectMenu === 'new-game') {
 				this.renderLevelsMenu();
-			} else if (selectMenu === 'Resume Game') {
+			} else if (selectMenu === 'resume-game') {
 				const resumeGameObj = this.lsControl.getLastGame();
 				this.renderGameBorder(resumeGameObj, false, true);
-			} else if (selectMenu === 'Records') {
+			} else if (selectMenu === 'records') {
 				this.renderRecordTable();
 			}
 		});
 		render(mainMenu);
+
+		const resumedBtn = this.app.querySelector('#resume-game');
+		const recordsBtn = this.app.querySelector('#records');
+
+		if (this.lsControl.getGameResults().length === 0) {
+			recordsBtn.disabled = true;
+		}
+		if (!this.lsControl.getLastGame() && resumedBtn) {
+			resumedBtn.disabled = true;
+		}
 	}
 
 	renderRecordTable() {
@@ -63,8 +73,8 @@ export class Game {
 		const gameMenu = createGameControlMenu((selectedItem) => {
 			if (selectedItem === 'menu') this.start();
 			if (selectedItem === 'show-solution') {
-				this.saveBtn = this.app.querySelector('#save-game');
-				this.saveBtn.disabled = true;
+				const saveBtn = this.app.querySelector('#save-game');
+				saveBtn.disabled = true;
 				this.showSolution(this.matix);
 			}
 			if (selectedItem === 'save-game') {
@@ -89,13 +99,12 @@ export class Game {
 		const { gameContainer: board, saveMatrixObj } = createGameBoard(
 			matix,
 			solution,
-			resumeGame
+			resumeGame,
+			() => this.showFinishModal(saveMatrixObj._minuts, saveMatrixObj._seconds)
 		);
 
 		this.saveMatrixObj = saveMatrixObj;
-
 		const gameMenu = this.renderGameMenu();
-
 		gameContainer.append(board, gameMenu);
 		render(gameContainer);
 	}
@@ -106,5 +115,14 @@ export class Game {
 		this.matix = matix;
 		const { gameContainer: solutonGame } = createGameBoard(matix, true, false);
 		this.gameContainer.append(solutonGame);
+	}
+
+	showFinishModal(minutes, seconds) {
+		const modal = createModal(minutes, seconds, (onClose) => {
+			if (onClose);
+			this.start();
+		});
+
+		this.app.append(modal);
 	}
 }

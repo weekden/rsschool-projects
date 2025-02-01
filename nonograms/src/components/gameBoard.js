@@ -8,7 +8,8 @@ import { handleCellRightClick } from '../utilits/listeners';
 export function createGameBoard(
 	selectedGame,
 	solution = false,
-	resumeGame = false
+	resumeGame = false,
+	onFinishGame
 ) {
 	let playerGameArr = resumeGame ? selectedGame._playerGameArr : [];
 	let playerCrossArrTop = resumeGame ? selectedGame._playerCrossArrTop : [];
@@ -132,7 +133,8 @@ export function createGameBoard(
 			selectedGame.matrix,
 			playerGameArr,
 			selectedGame,
-			gameInfoTimer
+			gameInfoTimer,
+			onFinishGame
 		);
 	}
 

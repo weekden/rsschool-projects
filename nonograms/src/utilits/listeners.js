@@ -1,11 +1,14 @@
 import { LSControl } from './lsControl';
 import { checkFinishGame } from '../logic/checkFinishGame';
+import { stopTimer } from './timer';
+
 export function handleCellClick(
 	event,
 	currentGameArr,
 	_playerGameArr,
 	_selectedGame,
-	timerContainer
+	timerContainer,
+	onFinishGame
 ) {
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
@@ -24,6 +27,7 @@ export function handleCellClick(
 	console.log(_playerGameArr);
 	const finishGame = checkFinishGame(currentGameArr, _playerGameArr);
 	if (finishGame) {
+		stopTimer();
 		const finishGameObj = {
 			name: _selectedGame.name.slice(_selectedGame.name.search(/[A-Z]/)),
 			level: _selectedGame.level,
@@ -32,6 +36,8 @@ export function handleCellClick(
 		};
 		const lsControl = new LSControl();
 		lsControl.saveGameResult(finishGameObj);
+
+		if (onFinishGame) onFinishGame();
 	}
 }
 

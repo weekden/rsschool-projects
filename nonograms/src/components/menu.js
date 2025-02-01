@@ -6,12 +6,14 @@ export function createMenu(onMenuSelect) {
 	const blockMenuItems = createElement({ tag: 'div', classes: ['menu-items'] });
 	blockMenuItems.append(
 		...menuItemsArr.map((item) => {
+			const itemId = item.toLowerCase().split(' ').join('-');
 			const menuElement = createElement({
 				tag: 'button',
 				classes: ['menu-item', 'btn'],
 				text: item,
+				id: itemId,
 			});
-			menuElement.addEventListener('click', () => onMenuSelect(item));
+			menuElement.addEventListener('click', () => onMenuSelect(itemId));
 			return menuElement;
 		})
 	);
