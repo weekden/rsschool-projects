@@ -89,7 +89,6 @@ export function createGameBoard(
 		tag: 'div',
 		classes: ['info-app__level'],
 		text: `${formatTime(minuts)} : ${formatTime(seconds)}`,
-		// text: '00 : 00',
 	});
 
 	if (resumeGame) {
@@ -147,7 +146,7 @@ export function createGameBoard(
 	}
 
 	function onStartTimer() {
-		startTimer(gameInfoTimer, minuts, seconds);
+		startTimer(gameInfoTimer, minuts, seconds, saveMatrixObj);
 	}
 
 	gameInfo.append(

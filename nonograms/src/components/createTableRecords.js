@@ -43,12 +43,13 @@ export function createRecordTable(obj, onBack) {
 	const tbody = createElement({ tag: 'tbody' });
 
 	obj.forEach((item, index) => {
+		console.log(item.level);
 		const tableRow = createElement({ tag: 'tr', classes: ['record-row'] });
 		const maket = game.createBoard({
 			data: item.maket,
 			tag: 'table',
-			_class: ['maket-image', 'table-boarder', 'info-app__maket'],
-			infoBlock: item.level.toLowerCase(),
+			_class: ['table-boarder', 'maket-image'],
+			maket: item.level,
 		});
 		const numberCell = createElement({
 			tag: 'td',
@@ -63,7 +64,7 @@ export function createRecordTable(obj, onBack) {
 		const levelCell = createElement({
 			tag: 'td',
 			classes: ['record-row__cell'],
-			text: item.level,
+			text: item.level.toUpperCase(),
 		});
 		const gameCell = createElement({
 			tag: 'td',
