@@ -35,7 +35,10 @@ export class Game {
 	renderRecordTable() {
 		this.app.innerHTML = '';
 		const saveGameArr = this.lsControl.getGameResults();
-		const recordTable = createRecordTable(saveGameArr);
+		const recordTable = createRecordTable(saveGameArr, (onBack) => {
+			if (onBack);
+			this.start();
+		});
 		render(recordTable);
 	}
 

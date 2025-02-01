@@ -26,7 +26,7 @@ export function handleCellClick(
 	if (finishGame) {
 		const finishGameObj = {
 			name: _selectedGame.name.slice(_selectedGame.name.search(/[A-Z]/)),
-			level: _selectedGame.level.toUpperCase(),
+			level: _selectedGame.level,
 			maket: _selectedGame.matrix,
 			time: timerContainer.innerText,
 		};

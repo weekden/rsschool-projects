@@ -276,12 +276,20 @@ body {
 /* Record Table */
 .record-table-container {
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
+  flex-direction: column;
   width: 80%;
   height: 95%;
   background-color: #6a6a6a;
   border-radius: 10px;
+}
+
+.record-table-container__buttons {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 90%;
 }
 
 .record-table {

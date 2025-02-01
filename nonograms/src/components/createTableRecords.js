@@ -1,17 +1,29 @@
 import { createElement } from '../utilits/createElem';
 import { matrixControl } from '../utilits/gameClass';
 
-export function createRecordTable(obj) {
+export function createRecordTable(obj, onBack) {
 	const game = new matrixControl();
 	const tableHeaderArr = ['#', 'Name', 'Level', 'Maket', 'Time'];
 	const tableContainer = createElement({
 		tag: 'div',
-		classes: ['record-table-container', 'table-boarder'],
+		classes: ['record-table-container'],
+	});
+
+	const controlContainer = createElement({
+		tag: 'div',
+		classes: ['record-table-container__buttons'],
+		children: [
+			createElement({
+				tag: 'button',
+				text: 'Menu',
+				classes: ['btn', 'btn-back'],
+			}),
+		],
 	});
 
 	const recordTable = createElement({
 		tag: 'table',
-		classes: ['record-table'],
+		classes: ['record-table', 'table-boarder'],
 	});
 
 	const thead = createElement({ tag: 'thead' });
@@ -36,7 +48,7 @@ export function createRecordTable(obj) {
 			data: item.maket,
 			tag: 'table',
 			_class: ['maket-image', 'table-boarder', 'info-app__maket'],
-			infoBlock: item.level,
+			infoBlock: item.level.toLowerCase(),
 		});
 		const numberCell = createElement({
 			tag: 'td',
@@ -68,7 +80,11 @@ export function createRecordTable(obj) {
 	});
 
 	recordTable.append(thead, tbody);
-	tableContainer.append(recordTable);
+	tableContainer.append(controlContainer, recordTable);
+
+	tableContainer.querySelector('.btn-back').addEventListener('click', () => {
+		onBack();
+	});
 
 	return tableContainer;
 }
