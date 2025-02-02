@@ -10,8 +10,10 @@ export function handleCellClick(
 	timerContainer,
 	onFinishGame
 ) {
+	const soundClick = new Audio('./assets/sounds/left-btn-click.mp3');
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
+	soundClick.play();
 	const cellData = clickedCell.getAttribute('data-cell');
 	const index = _playerGameArr.indexOf(cellData);
 	clickedCell.classList.toggle('cell-active');
@@ -47,9 +49,11 @@ export function handleCellRightClick(
 	_playerCrossArrLeft,
 	_playerCrossArrMain
 ) {
+	const soundClick = new Audio('./assets/sounds/right-btn-click.mp3');
 	event.preventDefault();
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
+	soundClick.play();
 	const cellData = clickedCell.getAttribute('data-cell');
 	const indexMain = _playerCrossArrMain.indexOf(cellData);
 	const indexTop = _playerCrossArrTop.indexOf(cellData);
