@@ -11,6 +11,7 @@ export function handleCellClick(
 	onFinishGame
 ) {
 	const soundClick = new Audio('./assets/sounds/left-btn-click.mp3');
+	const soundCompletedGame = new Audio('./assets/sounds/game-completed.mp3');
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
 	soundClick.play();
@@ -29,6 +30,7 @@ export function handleCellClick(
 	console.log(_playerGameArr);
 	const finishGame = checkFinishGame(currentGameArr, _playerGameArr);
 	if (finishGame) {
+		soundCompletedGame.play();
 		stopTimer();
 		const finishGameObj = {
 			name: _selectedGame.name.slice(_selectedGame.name.search(/[A-Z]/)),
