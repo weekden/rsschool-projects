@@ -2,6 +2,7 @@ export class LSControl {
 	constructor() {
 		this.lastGameKey = 'saveGame';
 		this.resultsKey = 'gameResults';
+		this.currenGameKey = 'currentGame';
 	}
 
 	saveLastGame(saveGameObj) {
@@ -25,6 +26,19 @@ export class LSControl {
 	getGameResults() {
 		const data = localStorage.getItem(this.resultsKey);
 		return data ? JSON.parse(data) : [];
+	}
+
+	saveCurrentGame(saveGameObj) {
+		localStorage.setItem(this.currenGameKey, JSON.stringify(saveGameObj));
+	}
+
+	getCurrentGame() {
+		const data = localStorage.getItem(this.currenGameKey);
+		return data ? JSON.parse(data) : null;
+	}
+
+	clearCurrentGame() {
+		localStorage.removeItem(this.currenGameKey);
 	}
 
 	sortSaveGameResults(arr) {

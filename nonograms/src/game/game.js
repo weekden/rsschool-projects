@@ -24,13 +24,14 @@ export class Game {
 	start(firstLoad) {
 		this.app.innerHTML = '';
 		const mainMenu = createMenu((selectMenu) => {
-			if (selectMenu === 'new-game') {
-				const randomEasyMatrix = this.matrixControl.getRandomMatrix(0);
-				this.renderGameBorder(randomEasyMatrix, false, false);
-			} else if (selectMenu === 'resume-game') {
+			if (selectMenu === 'continue') {
+				const currentGame = this.lsControl.getCurrentGame();
+				if (!currentGame) continueBtn.disabled = true;
+				this.renderGameBorder(currentGame, false, true);
+			} else if (selectMenu === 'resume-save-game') {
 				const resumeGameObj = this.lsControl.getLastGame();
 				this.renderGameBorder(resumeGameObj, false, true);
-			} else if (selectMenu === 'select-level') {
+			} else if (selectMenu === 'change-level') {
 				this.renderLevelsMenu();
 			} else if (selectMenu === 'records') {
 				this.renderRecordTable();
@@ -40,7 +41,7 @@ export class Game {
 		});
 		render(mainMenu);
 
-		const resumedBtn = this.app.querySelector('#resume-game');
+		const resumedBtn = this.app.querySelector('#resume-save-game');
 		const recordsBtn = this.app.querySelector('#records');
 
 		if (this.lsControl.getGameResults().length === 0) {
@@ -84,7 +85,10 @@ export class Game {
 
 	renderGameMenu() {
 		const gameMenu = createGameControlMenu((selectedItem) => {
-			if (selectedItem === 'menu') this.start();
+			if (selectedItem === 'menu') {
+				this.lsControl.saveCurrentGame(this.saveMatrixObj);
+				this.start();
+			}
 			if (selectedItem === 'show-solution') {
 				const saveBtn = this.app.querySelector('#save-game');
 				saveBtn.disabled = true;
@@ -133,7 +137,8 @@ export class Game {
 	showFinishModal(minutes, seconds) {
 		const modal = createModal(minutes, seconds, (onClose) => {
 			if (onClose);
-			this.start();
+			this.lsControl.clearCurrentGame();
+			this.start(true);
 		});
 
 		this.app.append(modal);
