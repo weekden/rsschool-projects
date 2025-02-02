@@ -21,7 +21,7 @@ export class Game {
 		this.gameContainer = null;
 	}
 
-	start() {
+	start(firstLoad) {
 		this.app.innerHTML = '';
 		const mainMenu = createMenu((selectMenu) => {
 			if (selectMenu === 'new-game') {
@@ -48,6 +48,10 @@ export class Game {
 		}
 		if (!this.lsControl.getLastGame() && resumedBtn) {
 			resumedBtn.disabled = true;
+		}
+		if (firstLoad) {
+			const randomEasyMatrix = this.matrixControl.getRandomMatrix(0);
+			this.renderGameBorder(randomEasyMatrix, false, false);
 		}
 	}
 

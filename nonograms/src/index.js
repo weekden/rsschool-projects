@@ -9,4 +9,4 @@ export const render = (elem) => {
 	app.append(elem);
 	document.body.append(app);
 };
-game.start();
+game.start(true);
