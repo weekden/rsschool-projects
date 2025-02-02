@@ -9,8 +9,10 @@ export function createGameBoard(
 	selectedGame,
 	solution = false,
 	resumeGame = false,
-	onFinishGame
+	onFinishGame,
+	sound
 ) {
+	console.log(sound);
 	let playerGameArr = resumeGame ? selectedGame._playerGameArr : [];
 	let playerCrossArrTop = resumeGame ? selectedGame._playerCrossArrTop : [];
 	let playerCrossArrLeft = resumeGame ? selectedGame._playerCrossArrLeft : [];
@@ -134,7 +136,8 @@ export function createGameBoard(
 			playerGameArr,
 			selectedGame,
 			gameInfoTimer,
-			onFinishGame
+			onFinishGame,
+			sound
 		);
 	}
 
@@ -143,7 +146,8 @@ export function createGameBoard(
 			event,
 			playerCrossArrTop,
 			playerCrossArrLeft,
-			playerCrossArrMain
+			playerCrossArrMain,
+			sound
 		);
 	}
 

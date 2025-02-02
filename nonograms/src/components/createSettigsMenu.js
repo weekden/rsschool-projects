@@ -2,12 +2,11 @@ import { createElement } from '../utilits/createElem';
 
 export function createSettingsMenu(onBack, setSettingsBtn) {
 	const settingsAppItemsArr = [
-		{ name: 'Sound', button1: 'Off', button2: 'On', default: 'On' },
+		{ name: 'Sound', button1: 'Off', button2: 'On' },
 		{
 			name: 'Screen Theme',
 			button1: 'Dark',
 			button2: 'Light',
-			default: 'Light',
 		},
 	];
 
@@ -51,7 +50,7 @@ export function createSettingsMenu(onBack, setSettingsBtn) {
 			const itemButton1 = createElement({
 				tag: 'button',
 				text: item.button1,
-				id: `${buttonId}-btn1`,
+				id: `${buttonId}-${item.button1.toLowerCase()}`,
 				classes: ['btn', 'settings-menu__btn'],
 				disabled: item.default === item.button1,
 			});
@@ -59,7 +58,7 @@ export function createSettingsMenu(onBack, setSettingsBtn) {
 			const itemButton2 = createElement({
 				tag: 'button',
 				text: item.button2,
-				id: `${buttonId}-btn2`,
+				id: `${buttonId}-${item.button2.toLowerCase()}`,
 				classes: ['btn', 'settings-menu__btn'],
 				disabled: item.default === item.button2,
 			});
@@ -73,12 +72,12 @@ export function createSettingsMenu(onBack, setSettingsBtn) {
 		const clickedButton = event.target.closest('.settings-menu__btn');
 		if (!clickedButton) return;
 
-		const buttonsContainer = clickedButton.closest('.settings-menu__buttons');
-		const btn1 = buttonsContainer.children[0];
-		const btn2 = buttonsContainer.children[1];
+		// const buttonsContainer = clickedButton.closest('.settings-menu__buttons');
+		// const btn1 = buttonsContainer.children[0];
+		// const btn2 = buttonsContainer.children[1];
 
-		btn1.disabled = !btn1.disabled;
-		btn2.disabled = !btn2.disabled;
+		// btn1.disabled = !btn1.disabled;
+		// btn2.disabled = !btn2.disabled;
 
 		setSettingsBtn(clickedButton.id);
 	});

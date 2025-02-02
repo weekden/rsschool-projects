@@ -19,6 +19,8 @@ export class Game {
 		this.lsControl = new LSControl();
 		this.matrixControl = new matrixControl(data);
 		this.gameContainer = null;
+		this.sound = true;
+		this.light = true;
 	}
 
 	start(firstLoad) {
@@ -26,11 +28,10 @@ export class Game {
 		const mainMenu = createMenu((selectMenu) => {
 			if (selectMenu === 'continue') {
 				const currentGame = this.lsControl.getCurrentGame();
-				if (!currentGame) continueBtn.disabled = true;
-				this.renderGameBorder(currentGame, false, true);
+				this.renderGameBorder(currentGame, false, true, this.sound);
 			} else if (selectMenu === 'resume-save-game') {
 				const resumeGameObj = this.lsControl.getLastGame();
-				this.renderGameBorder(resumeGameObj, false, true);
+				this.renderGameBorder(resumeGameObj, false, true, this.sound);
 			} else if (selectMenu === 'change-level') {
 				this.renderLevelsMenu();
 			} else if (selectMenu === 'records') {
@@ -76,7 +77,7 @@ export class Game {
 			},
 			(startLevel) => {
 				if (startLevel) {
-					this.renderGameBorder(startLevel);
+					this.renderGameBorder(startLevel, false, false, this.sound);
 				}
 			}
 		);
@@ -98,13 +99,13 @@ export class Game {
 				this.lsControl.saveLastGame(this.saveMatrixObj);
 			}
 			if (selectedItem === 'reset-game') {
-				this.renderGameBorder(this.matix, false, false);
+				this.renderGameBorder(this.matix, false, false, this.sound);
 			}
 		});
 		return gameMenu;
 	}
 
-	renderGameBorder(matix, solution = false, resumeGame = false) {
+	renderGameBorder(matix, solution = false, resumeGame = false, sound = true) {
 		this.app.innerHTML = '';
 		this.matix = matix;
 
@@ -117,7 +118,8 @@ export class Game {
 			matix,
 			solution,
 			resumeGame,
-			() => this.showFinishModal(saveMatrixObj._minuts, saveMatrixObj._seconds)
+			() => this.showFinishModal(saveMatrixObj._minuts, saveMatrixObj._seconds),
+			sound
 		);
 
 		this.saveMatrixObj = saveMatrixObj;
@@ -152,8 +154,14 @@ export class Game {
 				this.start();
 			},
 			(setSettingsBtn) => {
-				if (setSettingsBtn.includes('screen-theme')) {
-					document.body.classList.toggle('dark-theme');
+				if (setSettingsBtn === 'screen-theme-light') {
+					document.body.classList.remove('dark-theme');
+				} else if (setSettingsBtn === 'screen-theme-dark') {
+					document.body.classList.add('dark-theme');
+				} else if (setSettingsBtn === 'sound-off') {
+					this.sound = false;
+				} else if (setSettingsBtn === 'sound-on') {
+					this.sound = true;
 				}
 			}
 		);

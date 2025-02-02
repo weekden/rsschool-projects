@@ -8,13 +8,14 @@ export function handleCellClick(
 	_playerGameArr,
 	_selectedGame,
 	timerContainer,
-	onFinishGame
+	onFinishGame,
+	sound
 ) {
-	const soundClick = new Audio('./assets/sounds/left-btn-click.mp3');
+	const soundClick = new Audio('./assets/sounds/left-btn-active.mp3');
 	const soundCompletedGame = new Audio('./assets/sounds/game-completed.mp3');
+	const soundClickOff = new Audio('./assets/sounds/left-btn-active-off.mp3');
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
-	soundClick.play();
 	const cellData = clickedCell.getAttribute('data-cell');
 	const index = _playerGameArr.indexOf(cellData);
 	clickedCell.classList.toggle('cell-active');
@@ -23,14 +24,16 @@ export function handleCellClick(
 	}
 
 	if (index !== -1) {
+		if (sound) soundClickOff.play();
 		_playerGameArr.splice(index, 1);
 	} else {
+		if (sound) soundClick.play();
 		_playerGameArr.push(cellData);
 	}
 	console.log(_playerGameArr);
 	const finishGame = checkFinishGame(currentGameArr, _playerGameArr);
 	if (finishGame) {
-		soundCompletedGame.play();
+		if (sound) soundCompletedGame.play();
 		stopTimer();
 		const finishGameObj = {
 			name: _selectedGame.name.slice(_selectedGame.name.search(/[A-Z]/)),
@@ -49,13 +52,14 @@ export function handleCellRightClick(
 	event,
 	_playerCrossArrTop,
 	_playerCrossArrLeft,
-	_playerCrossArrMain
+	_playerCrossArrMain,
+	sound
 ) {
 	const soundClick = new Audio('./assets/sounds/right-btn-click.mp3');
 	event.preventDefault();
 	const clickedCell = event.target.closest('.cell');
 	if (!clickedCell) return;
-	soundClick.play();
+	if (sound) soundClick.play();
 	const cellData = clickedCell.getAttribute('data-cell');
 	const indexMain = _playerCrossArrMain.indexOf(cellData);
 	const indexTop = _playerCrossArrTop.indexOf(cellData);

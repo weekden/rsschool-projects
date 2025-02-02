@@ -129,7 +129,7 @@ export class matrixControl {
 				if (infoBlock) {
 					if (infoBlock === 'easy') {
 						cellClasses.push('cell-info-maket-easy-size');
-						setTableSize('--info-maket-size', 200);
+						setTableSize('--info-maket-size', 150);
 					}
 					if (infoBlock === 'medium') {
 						cellClasses.push('cell-info-maket-medium-size');
