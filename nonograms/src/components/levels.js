@@ -18,11 +18,19 @@ export function createLevelsMenu(onBack, startLevel) {
 				tag: 'button',
 				text: 'Menu',
 				classes: ['btn', 'btn-back'],
+				id: 'levels__menu-btn',
 			}),
+			// createElement({
+			// 	tag: 'button',
+			// 	text: 'Fast Game',
+			// 	classes: ['btn', 'btn-random-game'],
+			// 	id: 'levels__fast-game-btn',
+			// }),
 			createElement({
 				tag: 'button',
 				text: 'Random Game',
 				classes: ['btn', 'btn-random-game'],
+				id: 'levels__random-game-btn',
 			}),
 		],
 	});

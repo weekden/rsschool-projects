@@ -1,12 +1,14 @@
+import { createElement } from '../utilits/createElem';
 import { createMenu } from '../components/menu';
 import { createLevelsMenu } from '../components/levels';
 import { createGameBoard } from '../components/gameBoard';
-import { LSControl } from '../utilits/lsControl';
-import { render } from '../index';
-import { createElement } from '../utilits/createElem';
 import { createGameControlMenu } from '../components/gameMenu';
 import { createRecordTable } from '../components/createTableRecords';
 import { createModal } from '../components/modal';
+import { data } from '../data/data';
+import { matrixControl } from '../utilits/gameClass';
+import { LSControl } from '../utilits/lsControl';
+import { render } from '../index';
 
 export class Game {
 	constructor(app) {
@@ -14,6 +16,7 @@ export class Game {
 		this.matix = null;
 		this.saveMatrixObj = null;
 		this.lsControl = new LSControl();
+		this.matrixControl = new matrixControl(data);
 		this.gameContainer = null;
 	}
 
@@ -21,10 +24,13 @@ export class Game {
 		this.app.innerHTML = '';
 		const mainMenu = createMenu((selectMenu) => {
 			if (selectMenu === 'new-game') {
-				this.renderLevelsMenu();
+				const randomEasyMatrix = this.matrixControl.getRandomMatrix(0);
+				this.renderGameBorder(randomEasyMatrix, false, false);
 			} else if (selectMenu === 'resume-game') {
 				const resumeGameObj = this.lsControl.getLastGame();
 				this.renderGameBorder(resumeGameObj, false, true);
+			} else if (selectMenu === 'select-level') {
+				this.renderLevelsMenu();
 			} else if (selectMenu === 'records') {
 				this.renderRecordTable();
 			}

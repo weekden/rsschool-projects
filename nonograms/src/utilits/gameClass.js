@@ -108,15 +108,15 @@ export class matrixControl {
 					if (_solution && _data[i][j]) cellClasses.push('cell-active');
 					if (mainBoard === 'easy') {
 						cellClasses.push('cell-main-board-easy-size');
-						setTableSize('--main-board-size', 300);
+						setTableSize('--main-board-size', 220);
 					}
 					if (mainBoard === 'medium') {
 						cellClasses.push('cell-main-board-medium-size');
-						setTableSize('--main-board-size', 350);
+						setTableSize('--main-board-size', 300);
 					}
 					if (mainBoard === 'hard') {
 						cellClasses.push('cell-main-board-hard-size');
-						setTableSize('--main-board-size', 400);
+						setTableSize('--main-board-size', 350);
 					}
 				}
 				if (maket) {
@@ -170,9 +170,10 @@ export class matrixControl {
 		}
 	}
 
-	getRandomMatrix() {
+	getRandomMatrix(setLevel) {
 		const levels = Object.keys(this.data);
-		const randomLevel = levels[Math.floor(Math.random() * levels.length)];
+		const randomLevel =
+			levels[setLevel] || levels[Math.floor(Math.random() * levels.length)];
 		const matrixes = Object.keys(this.data[randomLevel]);
 		const randomMatrixName =
 			matrixes[Math.floor(Math.random() * matrixes.length)];
