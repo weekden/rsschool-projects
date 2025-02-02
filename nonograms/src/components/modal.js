@@ -9,7 +9,7 @@ export function createModal(minutes, seconds, onClose) {
 	const modalFinishGame = createElement({
 		tag: 'div',
 		text: `Congratulations, your time is ${minutes} minutes and ${seconds} seconds`,
-		classes: ['modal'],
+		classes: ['modal', 'bg'],
 	});
 	const closeModalBtn = createElement({
 		tag: 'button',

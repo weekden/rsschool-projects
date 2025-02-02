@@ -7,7 +7,7 @@ export function createLevelsMenu(onBack, startLevel) {
 	const board = new matrixControl(data);
 	const levelsContainer = createElement({
 		tag: 'div',
-		classes: ['levels-items'],
+		classes: ['levels-items', 'bg'],
 	});
 
 	const controlContainer = createElement({

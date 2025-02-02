@@ -116,7 +116,7 @@ export class matrixControl {
 					}
 					if (mainBoard === 'hard') {
 						cellClasses.push('cell-main-board-hard-size');
-						setTableSize('--main-board-size', 350);
+						setTableSize('--main-board-size', 330);
 					}
 				}
 				if (maket) {

@@ -8,7 +8,7 @@ export function createMenu(onMenuSelect) {
 		'Records',
 		'Settings',
 	];
-	const blockMenu = createElement({ tag: 'div', classes: ['menu'] });
+	const blockMenu = createElement({ tag: 'div', classes: ['menu', 'bg'] });
 	const blockMenuItems = createElement({ tag: 'div', classes: ['menu-items'] });
 	blockMenuItems.append(
 		...menuItemsArr.map((item) => {

@@ -13,7 +13,7 @@ export function createSettingsMenu(onBack, setSettingsBtn) {
 
 	const settingsContainer = createElement({
 		tag: 'div',
-		classes: ['menu', 'settings-menu'],
+		classes: ['menu', 'settings-menu', 'bg'],
 	});
 
 	const controlContainer = createElement({

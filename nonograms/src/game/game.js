@@ -151,7 +151,11 @@ export class Game {
 				if (onBack);
 				this.start();
 			},
-			(setSettingsBtn) => {}
+			(setSettingsBtn) => {
+				if (setSettingsBtn.includes('screen-theme')) {
+					document.body.classList.toggle('dark-theme');
+				}
+			}
 		);
 		render(settingsMenu);
 	}
