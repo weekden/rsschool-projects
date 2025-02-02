@@ -4,6 +4,7 @@ import { createLevelsMenu } from '../components/levels';
 import { createGameBoard } from '../components/gameBoard';
 import { createGameControlMenu } from '../components/gameMenu';
 import { createRecordTable } from '../components/createTableRecords';
+import { createSettingsMenu } from '../components/createSettigsMenu';
 import { createModal } from '../components/modal';
 import { data } from '../data/data';
 import { matrixControl } from '../utilits/gameClass';
@@ -33,6 +34,8 @@ export class Game {
 				this.renderLevelsMenu();
 			} else if (selectMenu === 'records') {
 				this.renderRecordTable();
+			} else if (selectMenu === 'settings') {
+				this.renderSettingsMenu();
 			}
 		});
 		render(mainMenu);
@@ -111,7 +114,7 @@ export class Game {
 
 		this.saveMatrixObj = saveMatrixObj;
 		const gameMenu = this.renderGameMenu();
-		gameContainer.append(board, gameMenu);
+		gameContainer.append(gameMenu, board);
 		render(gameContainer);
 	}
 
@@ -130,5 +133,17 @@ export class Game {
 		});
 
 		this.app.append(modal);
+	}
+
+	renderSettingsMenu() {
+		this.app.innerHTML = '';
+		const settingsMenu = createSettingsMenu(
+			(onBack) => {
+				if (onBack);
+				this.start();
+			},
+			(setSettingsBtn) => {}
+		);
+		render(settingsMenu);
 	}
 }

@@ -1,7 +1,13 @@
 import { createElement } from '../utilits/createElem.js';
 
 export function createMenu(onMenuSelect) {
-	const menuItemsArr = ['New Game', 'Resume Game', 'Select Level', 'Records'];
+	const menuItemsArr = [
+		'New Game',
+		'Resume Game',
+		'Select Level',
+		'Records',
+		'Settings',
+	];
 	const blockMenu = createElement({ tag: 'div', classes: ['menu'] });
 	const blockMenuItems = createElement({ tag: 'div', classes: ['menu-items'] });
 	blockMenuItems.append(

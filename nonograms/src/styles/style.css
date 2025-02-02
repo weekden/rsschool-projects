@@ -377,6 +377,34 @@ thead tr th {
   z-index: 4; 
 }
 
+/* Settings Menu */
+
+.settings-menu {
+  flex-direction: column;
+  gap: 40px
+}
+
+.settings-menu__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.settings-menu__label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.settings-menu__buttons {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
 /* @media (max-width: 600px) {
   :root {
     --maket-size: 40px;
