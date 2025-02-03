@@ -101,7 +101,7 @@ body {
 .levels-items {
   max-width: 600px;
   width: 100%;
-  height: 80%;
+  height: 90%;
   padding: 20px 0;
   display: flex;
   flex-direction: column;
@@ -352,7 +352,7 @@ thead tr th {
 
 .record-header {
 	background: #efb751;
-	color: black;
+	color: var(--text);
 	font-weight: bold;
 	padding: 12px;
 	text-align: center;
@@ -363,6 +363,7 @@ thead tr th {
 	border-bottom: 1px solid var(--border);
   text-align: center;
   padding: 5px 0;
+  color: var(--text);
 }
 
 .record-row__cell-maket {
