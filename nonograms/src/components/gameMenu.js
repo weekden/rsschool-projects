@@ -12,7 +12,6 @@ export function createGameControlMenu(selectedItem) {
 		tag: 'div',
 		classes: ['app-control__items'],
 	});
-	console.log('buttons render');
 	controlAppItems.append(
 		...controlAppItemsArr.map((item) => {
 			const controlAppItem = createElement({

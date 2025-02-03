@@ -449,8 +449,9 @@ thead tr th {
 }
 
 
-/* @media (max-width: 600px) {
-  :root {
-    --maket-size: 40px;
-  }
-} */
+@media (max-width: 600px) {
+ .app {
+  width: 100%;
+  height: 100%;
+ }
+}

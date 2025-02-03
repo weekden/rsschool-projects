@@ -12,7 +12,6 @@ export function createGameBoard(
 	onFinishGame,
 	sound
 ) {
-	console.log(sound);
 	let playerGameArr = resumeGame ? selectedGame._playerGameArr : [];
 	let playerCrossArrTop = resumeGame ? selectedGame._playerCrossArrTop : [];
 	let playerCrossArrLeft = resumeGame ? selectedGame._playerCrossArrLeft : [];

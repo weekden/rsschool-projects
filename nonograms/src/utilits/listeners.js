@@ -30,7 +30,6 @@ export function handleCellClick(
 		if (sound) soundClick.play();
 		_playerGameArr.push(cellData);
 	}
-	console.log(_playerGameArr);
 	const finishGame = checkFinishGame(currentGameArr, _playerGameArr);
 	if (finishGame) {
 		if (sound) soundCompletedGame.play();
@@ -80,7 +79,6 @@ export function handleCellRightClick(
 		} else {
 			_playerCrossArrMain.push(cellData);
 		}
-		console.log(_playerCrossArrMain);
 	}
 
 	// Если клик был в верхней подсказке
@@ -91,7 +89,6 @@ export function handleCellRightClick(
 		} else {
 			_playerCrossArrTop.push(cellData);
 		}
-		console.log(_playerCrossArrTop);
 	}
 
 	// Если клик был в левой подсказке
@@ -102,6 +99,5 @@ export function handleCellRightClick(
 		} else {
 			_playerCrossArrLeft.push(cellData);
 		}
-		console.log(_playerCrossArrLeft);
 	}
 }
