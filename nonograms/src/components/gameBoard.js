@@ -2,8 +2,8 @@ import { matrixControl } from '../utilits/gameClass';
 import { createElement } from '../utilits/createElem';
 import { formatTime } from '../utilits/timer';
 import { startTimer } from '../utilits/timer';
-import { handleCellClick } from '../utilits/listeners';
-import { handleCellRightClick } from '../utilits/listeners';
+import { handleCellClick } from '../game/listeners';
+import { handleCellRightClick } from '../game/listeners';
 
 export function createGameBoard(
 	selectedGame,

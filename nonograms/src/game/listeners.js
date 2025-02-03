@@ -1,6 +1,6 @@
-import { LSControl } from './lsControl';
+import { LSControl } from '../utilits/lsControl';
 import { checkFinishGame } from '../logic/checkFinishGame';
-import { stopTimer } from './timer';
+import { stopTimer } from '../utilits/timer';
 
 export function handleCellClick(
 	event,

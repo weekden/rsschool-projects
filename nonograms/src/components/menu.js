@@ -3,7 +3,7 @@ import { createElement } from '../utilits/createElem.js';
 export function createMenu(onMenuSelect) {
 	const menuItemsArr = [
 		'Continue',
-		'Resume Save Game',
+		'Resume Saved Game',
 		'Change Level',
 		'Records',
 		'Settings',
