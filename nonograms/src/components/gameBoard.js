@@ -76,8 +76,8 @@ export function createGameBoard(
 
 	const gameInfoCurrentGameName = createElement({
 		tag: 'div',
-		classes: ['info-app__level'],
-		text: `${selectedGame.name.slice(selectedGame.name.search(/[A-Z]/)).toUpperCase()}`,
+		classes: ['info-app__level', 'info-app__level-name'],
+		text: `${selectedGame.name.slice(0, selectedGame.name.search(/[A-Z]/)).toUpperCase()} - ${selectedGame.name.slice(selectedGame.name.search(/[A-Z]/)).toUpperCase()}`,
 	});
 
 	const gameInfoCurrentGameMaket = game.createBoard({
