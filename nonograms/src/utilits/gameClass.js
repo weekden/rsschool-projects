@@ -4,7 +4,7 @@ export class matrixControl {
 		this.data = data;
 	}
 	// Создание массива для полей с подсказками
-	getHelpArray(arr) {
+	getHelpArray(arr, reverse) {
 		const helpArray = [];
 
 		for (let i = 0; i < arr.length; i++) {
@@ -30,7 +30,8 @@ export class matrixControl {
 			if (currenArr.length > 0) {
 				rowHint.push(currenArr.length);
 			}
-			helpArray.push(rowHint);
+			// Для левого поля подсказок разварачиваем подмасивы а для верхнего нет
+			helpArray.push(reverse ? rowHint.reverse() : rowHint);
 		}
 		return helpArray;
 	}

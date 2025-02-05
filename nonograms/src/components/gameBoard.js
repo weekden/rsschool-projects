@@ -54,7 +54,7 @@ export function createGameBoard(
 	});
 	// поле подсказок левое
 	const leftBoardHelp = game.createBoard({
-		data: game.getHelpArray(selectedGame.matrix),
+		data: game.getHelpArray(selectedGame.matrix, true),
 		_class: ['help-board', 'left-help'],
 		flag: 'helpTable',
 		horizontal: true,
@@ -62,7 +62,7 @@ export function createGameBoard(
 	});
 	// поле подсказок верхнее
 	const topBoardHelp = game.createBoard({
-		data: game.rotateArr(game.getHelpArray(game.rotateArr().reverse())),
+		data: game.rotateArr(game.getHelpArray(game.rotateArr().reverse(), false)),
 		_class: ['help-board', 'top-help'],
 		flag: 'helpTable',
 		vertical: true,
