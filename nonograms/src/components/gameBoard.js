@@ -146,7 +146,8 @@ export function createGameBoard(
 			playerCrossArrTop,
 			playerCrossArrLeft,
 			playerCrossArrMain,
-			sound
+			sound,
+			playerGameArr
 		);
 	}
 

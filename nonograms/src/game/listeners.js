@@ -52,7 +52,8 @@ export function handleCellRightClick(
 	_playerCrossArrTop,
 	_playerCrossArrLeft,
 	_playerCrossArrMain,
-	sound
+	sound,
+	_playerGameArr
 ) {
 	const soundClick = new Audio('./assets/sounds/right-btn-click.mp3');
 	event.preventDefault();
@@ -63,19 +64,23 @@ export function handleCellRightClick(
 	const indexMain = _playerCrossArrMain.indexOf(cellData);
 	const indexTop = _playerCrossArrTop.indexOf(cellData);
 	const indexLeft = _playerCrossArrLeft.indexOf(cellData);
+	const indexGame = _playerGameArr.indexOf(cellData);
 
 	const parentBoard = event.target.closest('.game-board');
 	const parentTop = event.target.closest('.top-help');
 	const parentLeft = event.target.closest('.left-help');
 
 	if (parentBoard) {
-		clickedCell.classList.toggle('cell-cross');
-		if (clickedCell.closest('cell-active')) {
+		if (clickedCell.closest('.cell-active')) {
 			clickedCell.classList.toggle('cell-active');
+			if (indexGame !== -1) {
+				_playerGameArr.splice(indexGame, 1);
+			}
 		}
+		clickedCell.classList.toggle('cell-cross');
 
 		if (indexMain !== -1) {
-			_playerCrossArrMain.splice(indexMain, 1);
+			_playerGameArr.splice(indexMain, 1);
 		} else {
 			_playerCrossArrMain.push(cellData);
 		}
