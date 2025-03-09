@@ -10,10 +10,10 @@ module.exports = (env) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: '[name].[contenthash].js',
-      clean: true, 
+      clean: true,
     },
     resolve: {
-      extensions: ['.ts', '.js'], 
+      extensions: ['.ts', '.js'],
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -32,7 +32,7 @@ module.exports = (env) => {
     module: {
       rules: [
         {
-          test: /\.ts$/, 
+          test: /\.ts$/,
           use: 'ts-loader',
           exclude: /node_modules/,
         },
@@ -42,7 +42,7 @@ module.exports = (env) => {
         },
       ],
     },
-    devtool: env.mode === 'development' ? 'source-map' : false, 
+    devtool: env.mode === 'development' ? 'source-map' : false,
     devServer: {
       port: 5500,
       open: true,
