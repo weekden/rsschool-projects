@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "ES6",
+    "strict": true,
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipDefaultLibCheck": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
+}
