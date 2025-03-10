@@ -1,15 +1,21 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import unicorn from 'eslint-plugin-unicorn';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
-import prettier from 'eslint-plugin-prettier';
+import prettierPlugin from 'eslint-plugin-prettier';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default [
   {
     ignores: ['node_modules/', 'dist/', 'public/', 'webpack.config.js', 'eslint.config.js'],
   },
   {
-    plugins: { unicorn, '@typescript-eslint': tseslint, import: importPlugin, prettier },
+    plugins: { unicorn, '@typescript-eslint': tseslint, import: importPlugin, prettier: prettierPlugin },
+  },
+  {
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -20,16 +26,20 @@ export default [
         tsconfigRootDir: __dirname,
       },
     },
+  },
+  {
+    files: ['**/*.ts'],
+
     rules: {
       'import/extensions': 'off',
       'prettier/prettier': 'error',
       'import/prefer-default-export': 'off',
-      '@typescript-eslint/no-inferrable-types': 'off',
       'no-debugger': 'off',
       'no-console': 'off',
+      'class-methods-use-this': 'off',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/member-ordering': 'error',
-      'class-methods-use-this': 'off',
+      '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
@@ -51,7 +61,7 @@ export default [
       '@typescript-eslint/no-non-null-assertion': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       'unicorn/no-array-callback-reference': 'off',
-      'unicorn/no-array-for-each': 'off',
+      'unicorn/no-array-for-each': 'error',
       'unicorn/no-array-reduce': 'off',
       'unicorn/no-null': 'off',
       'unicorn/number-literal-case': 'off',

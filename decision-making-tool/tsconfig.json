@@ -7,7 +7,6 @@
     "module": "ESNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipDefaultLibCheck": true
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules"]
