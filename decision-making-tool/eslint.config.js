@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default [
   {
-    ignores: ['node_modules/', 'dist/', 'public/', 'webpack.config.js', 'eslint.config.js'],
+    ignores: ['node_modules/', 'dist/', 'public/', 'webpack.config.js', 'eslint.config.js', 'commitlintrc.js'],
   },
   {
     plugins: { unicorn, '@typescript-eslint': tseslint, import: importPlugin, prettier: prettierPlugin },

@@ -48,16 +48,16 @@
     "eslint": "^9.22.0"
   },
   "lint-staged": {
-  "*.ts": [
-    "npm run lint", 
-    "npm run format"
-  ],
-  "*.js": [
-    "npm run lint",
-    "npm run format"
-  ],
-  "*.css": [
-    "npm run lint:css"
-  ]
-}
+    "*.ts": [
+      "npm run lint",
+      "npm run format"
+    ],
+    "*.js": [
+      "npm run lint",
+      "npm run format"
+    ],
+    "*.css": [
+      "npm run lint:css"
+    ]
+  }
 }
