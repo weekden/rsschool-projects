@@ -15,7 +15,7 @@ export class App {
 
     this.header = new Header();
     this.list = new TodoList();
-    this.buttonsContainer = new Buttons();
+    this.buttonsContainer = new Buttons(this.list);
 
     this.render();
   }

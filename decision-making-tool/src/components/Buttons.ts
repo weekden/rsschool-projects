@@ -1,15 +1,18 @@
 import { createButton } from '../utils/createButton';
+import type { TodoList } from './List';
 
 export class Buttons {
   private readonly buttonsContainer: HTMLDivElement;
 
-  constructor() {
+  constructor(private readonly todoList: TodoList) {
     this.buttonsContainer = document.createElement('div');
     this.buttonsContainer.classList.add('buttons-container');
   }
 
   public render(): HTMLDivElement {
-    const addButton = createButton('Add Option', () => {});
+    const addButton = createButton('Add Option', () => {
+      this.todoList.addTodo();
+    });
     const pasteButton = createButton('Paste List', () => {});
     const clearButton = createButton('Clear List', () => {});
     const saveButton = createButton('Save List to File', () => {});
