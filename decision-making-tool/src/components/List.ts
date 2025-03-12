@@ -13,9 +13,18 @@ export class TodoList {
     this.ulElement.classList.add('list');
 
     if (this.items.length === 0) {
-      this.addTodo();
+      this.render();
     } else {
-      this.items.forEach((item) => this.ulElement.appendChild(createTodoItem(item, () => this.deleteTodo(item.id))));
+      this.items.forEach((item) =>
+        this.ulElement.appendChild(
+          createTodoItem(
+            item,
+            () => this.deleteTodo(item.id),
+            (id, value) => this.changeTodoItem(id, value),
+            (id, value) => this.changeTodoWeight(id, value)
+          )
+        )
+      );
     }
   }
 
@@ -23,12 +32,18 @@ export class TodoList {
     const newItem: Todo = item ?? { id: `#${++this.idCounter}`, title: '', weight: '' };
     this.items.push(newItem);
 
-    const li = createTodoItem(newItem, () => this.deleteTodo(newItem.id));
+    const li = createTodoItem(
+      newItem,
+      () => this.deleteTodo(newItem.id),
+      (id, value) => this.changeTodoItem(id, value),
+      (id, value) => this.changeTodoWeight(id, value)
+    );
     this.saveTodos();
     this.ulElement.appendChild(li);
   }
 
   public render(): HTMLUListElement {
+    this.idCounter = 0;
     return this.ulElement;
   }
 
@@ -37,8 +52,28 @@ export class TodoList {
     this.saveTodos();
   }
 
+  public changeTodoItem(id: string, value: string): void {
+    const todo = this.findTodoById(id);
+    if (todo) {
+      todo.title = value;
+      this.saveTodos();
+    }
+  }
+
+  public changeTodoWeight(id: string, value: string): void {
+    const todo = this.findTodoById(id);
+    if (todo) {
+      todo.weight = value;
+      this.saveTodos();
+    }
+  }
+
   private saveTodos(): void {
     localStorage.setItem('items', JSON.stringify(this.items));
     localStorage.setItem('idCounter', this.idCounter.toString());
+  }
+
+  private findTodoById(id: string): Todo | undefined {
+    return this.items.find((item) => item.id === id);
   }
 }

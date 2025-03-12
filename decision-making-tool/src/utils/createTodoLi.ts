@@ -1,6 +1,11 @@
 import type { Todo } from '../types/todo-type';
 
-export function createTodoItem(todo: Todo, deleteCallback: (id: string) => void): HTMLLIElement {
+export function createTodoItem(
+  todo: Todo,
+  deleteCallback: (id: string) => void,
+  changeTitleCallback: (id: string, value: string) => void,
+  changeWeightCallback: (id: string, value: string) => void
+): HTMLLIElement {
   const li = document.createElement('li');
   li.classList.add('todo-item');
   li.setAttribute('data-id', todo.id);
@@ -12,11 +17,17 @@ export function createTodoItem(todo: Todo, deleteCallback: (id: string) => void)
   titleInput.type = 'text';
   titleInput.value = todo.title;
   titleInput.placeholder = 'Title';
+  titleInput.addEventListener('input', () => {
+    changeTitleCallback(todo.id, titleInput.value);
+  });
 
   const weightInput = document.createElement('input');
   weightInput.type = 'number';
   weightInput.value = `${todo.weight}`;
   weightInput.placeholder = 'Weight';
+  weightInput.addEventListener('input', () => {
+    changeWeightCallback(todo.id, weightInput.value);
+  });
 
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete';
