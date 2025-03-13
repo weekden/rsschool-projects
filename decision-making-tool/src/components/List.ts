@@ -9,10 +9,6 @@ export class TodoList {
     private items: Todo[] = LSControl.getState().items,
     private idCounter: number = LSControl.getState().counter
   ) {
-    // const state = LSControl.getState();
-    // this.items = state.items;
-    // this.idCounter = state.counter;
-
     this.ulElement = document.createElement('ul');
     this.ulElement.classList.add('list');
 

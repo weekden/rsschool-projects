@@ -1,5 +1,6 @@
 import { createButton } from '../utils/createButton';
 import { LSControl } from '../utils/lsControl';
+import { createModal } from '../utils/createModal';
 import type { TodoList } from './List';
 
 export class Buttons {
@@ -14,7 +15,21 @@ export class Buttons {
     const addButton = createButton('Add Option', () => {
       this.todoList.addTodo();
     });
-    const pasteButton = createButton('Paste List', () => {});
+    const pasteButton = createButton('Paste List', () => {
+      createModal({
+        content: 'hello',
+        buttons: [
+          {
+            text: 'Cancel',
+            onClick: (modal): void => {
+              if (modal) {
+                modal.remove();
+              }
+            },
+          },
+        ],
+      });
+    });
     const clearButton = createButton('Clear List', () => {
       this.todoList.clearTodoList();
       LSControl.clearTodo();
