@@ -10,7 +10,7 @@ export const createModal = ({ content, buttons }: ModalOptions): HTMLDivElement 
 
   if (typeof content === 'string') {
     modalContent.textContent = content;
-  } else if (content instanceof HTMLElement) {
+  } else if (content instanceof HTMLTextAreaElement) {
     modalContent.appendChild(content);
   }
 
@@ -19,7 +19,9 @@ export const createModal = ({ content, buttons }: ModalOptions): HTMLDivElement 
 
   buttons.forEach(({ text, onClick }) => {
     const button = createButton(text, () => {
-      onClick(modal);
+      if (content instanceof HTMLTextAreaElement) {
+        onClick(modal, content);
+      }
     });
 
     buttonContainer.appendChild(button);

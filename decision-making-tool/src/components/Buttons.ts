@@ -1,6 +1,8 @@
 import { createButton } from '../utils/createButton';
 import { LSControl } from '../utils/lsControl';
 import { createModal } from '../utils/createModal';
+import { createTextArea } from '../utils/createTextArea';
+import { parseValueFromTextArea } from '../utils/createTextArea';
 import type { TodoList } from './List';
 
 export class Buttons {
@@ -17,12 +19,23 @@ export class Buttons {
     });
     const pasteButton = createButton('Paste List', () => {
       createModal({
-        content: 'hello',
+        content: createTextArea(),
         buttons: [
           {
             text: 'Cancel',
             onClick: (modal): void => {
               if (modal) {
+                modal.remove();
+              }
+            },
+          },
+          {
+            text: 'Confirm',
+            onClick: (modal, content): void => {
+              if (content instanceof HTMLTextAreaElement) {
+                const textValue = content.value;
+
+                console.log(parseValueFromTextArea(textValue));
                 modal.remove();
               }
             },
