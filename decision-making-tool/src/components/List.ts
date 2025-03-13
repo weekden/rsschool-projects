@@ -16,6 +16,7 @@ export class TodoList {
   }
 
   public addTodo(item?: Todo): void {
+    this.idCounter = LSControl.getState().counter;
     const newItem: Todo = item ?? { id: `#${++this.idCounter}`, title: '', weight: '' };
     this.items.push(newItem);
     LSControl.addTodo(newItem);
@@ -30,16 +31,6 @@ export class TodoList {
     this.ulElement.appendChild(li);
   }
 
-  public deleteTodo(id: string): void {
-    this.items = this.items.filter((item) => item.id !== id);
-
-    if (this.items.length === 0) {
-      this.idCounter = 0;
-    }
-
-    LSControl.deleteTodo(id);
-  }
-
   public updateTodo(id: string, updates: Partial<Todo>): void {
     LSControl.updateTodo(id, updates);
   }
@@ -52,6 +43,16 @@ export class TodoList {
 
   public render(): HTMLUListElement {
     return this.ulElement;
+  }
+
+  private deleteTodo(id: string): void {
+    this.items = this.items.filter((item) => item.id !== id);
+
+    if (this.items.length === 0) {
+      this.idCounter = 0;
+    }
+
+    LSControl.deleteTodo(id);
   }
 
   private renderFromStorage(): void {

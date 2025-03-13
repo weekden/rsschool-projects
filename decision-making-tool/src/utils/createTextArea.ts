@@ -1,3 +1,4 @@
+import type { TodoState } from '../types/todo-type';
 import type { Todo } from '../types/todo-type';
 export const createTextArea = (): HTMLTextAreaElement => {
   const textArea = document.createElement('textarea');
@@ -10,14 +11,15 @@ export const createTextArea = (): HTMLTextAreaElement => {
   return textArea;
 };
 
-export const parseValueFromTextArea = (text: string): Todo[] => {
+export const parseValueFromTextArea = (text: string, currentCounter: number): TodoState => {
   const inputTextArray = text.trim().split('\n');
   const items: Todo[] = [];
+  const counter = currentCounter + items.length;
   inputTextArray.forEach((item, index) => {
-    const id = `#${index}`;
+    const id = `#${currentCounter + index + 1}`;
     const weight = item.slice(item.lastIndexOf(',') + 1).trim();
     const title = item.slice(0, item.lastIndexOf(','));
     items.push({ id, title, weight });
   });
-  return items;
+  return { items, counter };
 };

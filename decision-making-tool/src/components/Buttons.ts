@@ -34,8 +34,9 @@ export class Buttons {
             onClick: (modal, content): void => {
               if (content instanceof HTMLTextAreaElement) {
                 const textValue = content.value;
+                const listItemObject = parseValueFromTextArea(textValue, LSControl.getState().counter);
+                listItemObject.items.forEach((item) => this.todoList.addTodo(item));
 
-                console.log(parseValueFromTextArea(textValue));
                 modal.remove();
               }
             },
