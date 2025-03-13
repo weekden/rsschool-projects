@@ -1,5 +1,6 @@
 import type { ModalOptions } from '../types/modal-types';
 import { createButton } from './createButton';
+import { onElementRemoved } from './helpers/elementRemoves';
 
 export const createModal = ({ content, buttons }: ModalOptions): HTMLDivElement => {
   const modal = document.createElement('div');
@@ -30,5 +31,15 @@ export const createModal = ({ content, buttons }: ModalOptions): HTMLDivElement 
   modal.append(modalContent, buttonContainer);
   document.body.appendChild(modal);
 
+  const handleEscape = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
+      modal.remove();
+    }
+  };
+  document.addEventListener('keydown', handleEscape);
+
+  onElementRemoved(modal, () => {
+    document.removeEventListener('keydown', handleEscape);
+  });
   return modal;
 };

@@ -4,6 +4,7 @@ import { createModal } from '../utils/createModal';
 import { createTextArea } from '../utils/createTextArea';
 import { parseValueFromTextArea } from '../utils/createTextArea';
 import type { TodoList } from './List';
+import { loadFile, saveFile } from '../utils/saveLoad';
 
 export class Buttons {
   private readonly buttonsContainer: HTMLDivElement;
@@ -48,8 +49,18 @@ export class Buttons {
       this.todoList.clearTodoList();
       LSControl.clearTodo();
     });
-    const saveButton = createButton('Save List to File', () => {});
-    const loadButton = createButton('Load List from File', () => {});
+    const saveButton = createButton('Save List to File', () => {
+      const fileToString = JSON.stringify(LSControl.getState());
+      saveFile(fileToString);
+    });
+    const loadButton = createButton('Load List from File', () => {
+      loadFile((data: string) => {
+        LSControl.saveState(JSON.parse(data));
+        this.todoList.items = LSControl.getState().items;
+        this.todoList.idCounter = LSControl.getState().counter;
+        this.todoList.renderFromStorage();
+      });
+    });
     const startButton = createButton('Start', () => {});
 
     const saveLoadContainer = document.createElement('div');

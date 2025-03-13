@@ -6,8 +6,8 @@ export class TodoList {
   private readonly ulElement: HTMLUListElement;
 
   constructor(
-    private items: Todo[] = LSControl.getState().items,
-    private idCounter: number = LSControl.getState().counter
+    public items: Todo[] = LSControl.getState().items,
+    public idCounter: number = LSControl.getState().counter
   ) {
     this.ulElement = document.createElement('ul');
     this.ulElement.classList.add('list');
@@ -45,6 +45,23 @@ export class TodoList {
     return this.ulElement;
   }
 
+  public renderFromStorage(): void {
+    if (!LSControl.getState()) {
+      this.addTodo();
+    } else {
+      this.items.forEach((item) =>
+        this.ulElement.appendChild(
+          createTodoItem(
+            item,
+            () => this.deleteTodo(item.id),
+            (id, value) => this.updateTodo(id, { title: value }),
+            (id, value) => this.updateTodo(id, { weight: value })
+          )
+        )
+      );
+    }
+  }
+
   private deleteTodo(id: string): void {
     this.items = this.items.filter((item) => item.id !== id);
 
@@ -53,20 +70,5 @@ export class TodoList {
     }
 
     LSControl.deleteTodo(id);
-  }
-
-  private renderFromStorage(): void {
-    if (!LSControl.getState()) return;
-
-    this.items.forEach((item) =>
-      this.ulElement.appendChild(
-        createTodoItem(
-          item,
-          () => this.deleteTodo(item.id),
-          (id, value) => this.updateTodo(id, { title: value }),
-          (id, value) => this.updateTodo(id, { weight: value })
-        )
-      )
-    );
   }
 }
