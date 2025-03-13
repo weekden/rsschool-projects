@@ -3,3 +3,8 @@ export type Todo = {
   title: string;
   weight: string;
 };
+
+export type TodoState = {
+  items: Todo[];
+  counter: number;
+};

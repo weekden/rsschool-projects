@@ -1,4 +1,5 @@
 import { createButton } from '../utils/createButton';
+import { LSControl } from '../utils/lsControl';
 import type { TodoList } from './List';
 
 export class Buttons {
@@ -14,7 +15,10 @@ export class Buttons {
       this.todoList.addTodo();
     });
     const pasteButton = createButton('Paste List', () => {});
-    const clearButton = createButton('Clear List', () => {});
+    const clearButton = createButton('Clear List', () => {
+      this.todoList.clearTodoList();
+      LSControl.clearTodo();
+    });
     const saveButton = createButton('Save List to File', () => {});
     const loadButton = createButton('Load List from File', () => {});
     const startButton = createButton('Start', () => {});

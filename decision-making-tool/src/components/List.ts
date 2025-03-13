@@ -1,79 +1,75 @@
 import { createTodoItem } from '../utils/createTodoLi';
-import { getParsedItem } from '../utils/getParsedItem';
+import { LSControl } from '../utils/lsControl';
 import type { Todo } from '../types/todo-type';
 
 export class TodoList {
   private readonly ulElement: HTMLUListElement;
 
   constructor(
-    private items: Todo[] = getParsedItem<Todo[]>('items', []),
-    private idCounter = getParsedItem<number>('idCounter', 0)
+    private items: Todo[] = LSControl.getState().items,
+    private idCounter: number = LSControl.getState().counter
   ) {
+    // const state = LSControl.getState();
+    // this.items = state.items;
+    // this.idCounter = state.counter;
+
     this.ulElement = document.createElement('ul');
     this.ulElement.classList.add('list');
 
-    if (this.items.length === 0) {
-      this.render();
-    } else {
-      this.items.forEach((item) =>
-        this.ulElement.appendChild(
-          createTodoItem(
-            item,
-            () => this.deleteTodo(item.id),
-            (id, value) => this.changeTodoItem(id, value),
-            (id, value) => this.changeTodoWeight(id, value)
-          )
-        )
-      );
-    }
+    this.renderFromStorage();
   }
 
   public addTodo(item?: Todo): void {
     const newItem: Todo = item ?? { id: `#${++this.idCounter}`, title: '', weight: '' };
     this.items.push(newItem);
+    LSControl.addTodo(newItem);
 
     const li = createTodoItem(
       newItem,
       () => this.deleteTodo(newItem.id),
-      (id, value) => this.changeTodoItem(id, value),
-      (id, value) => this.changeTodoWeight(id, value)
+      (id, value) => this.updateTodo(id, { title: value }),
+      (id, value) => this.updateTodo(id, { weight: value })
     );
-    this.saveTodos();
-    this.ulElement.appendChild(li);
-  }
 
-  public render(): HTMLUListElement {
-    this.idCounter = 0;
-    return this.ulElement;
+    this.ulElement.appendChild(li);
   }
 
   public deleteTodo(id: string): void {
     this.items = this.items.filter((item) => item.id !== id);
-    this.saveTodos();
-  }
 
-  public changeTodoItem(id: string, value: string): void {
-    const todo = this.findTodoById(id);
-    if (todo) {
-      todo.title = value;
-      this.saveTodos();
+    if (this.items.length === 0) {
+      this.idCounter = 0;
     }
+
+    LSControl.deleteTodo(id);
   }
 
-  public changeTodoWeight(id: string, value: string): void {
-    const todo = this.findTodoById(id);
-    if (todo) {
-      todo.weight = value;
-      this.saveTodos();
-    }
+  public updateTodo(id: string, updates: Partial<Todo>): void {
+    LSControl.updateTodo(id, updates);
   }
 
-  private saveTodos(): void {
-    localStorage.setItem('items', JSON.stringify(this.items));
-    localStorage.setItem('idCounter', this.idCounter.toString());
+  public clearTodoList(): void {
+    this.items.length = 0;
+    this.idCounter = 0;
+    this.ulElement.replaceChildren();
   }
 
-  private findTodoById(id: string): Todo | undefined {
-    return this.items.find((item) => item.id === id);
+  public render(): HTMLUListElement {
+    return this.ulElement;
+  }
+
+  private renderFromStorage(): void {
+    if (!LSControl.getState()) return;
+
+    this.items.forEach((item) =>
+      this.ulElement.appendChild(
+        createTodoItem(
+          item,
+          () => this.deleteTodo(item.id),
+          (id, value) => this.updateTodo(id, { title: value }),
+          (id, value) => this.updateTodo(id, { weight: value })
+        )
+      )
+    );
   }
 }
