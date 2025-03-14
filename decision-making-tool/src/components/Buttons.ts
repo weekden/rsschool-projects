@@ -37,7 +37,6 @@ export class Buttons {
                 const textValue = content.value;
                 const listItemObject = parseValueFromTextArea(textValue, LSControl.getState().counter);
                 listItemObject.items.forEach((item) => this.todoList.addTodo(item));
-
                 modal.remove();
               }
             },
@@ -62,7 +61,7 @@ export class Buttons {
       });
     });
     const startButton = createButton('Start', () => {
-      window.location.href = 'decision-picker';
+      location.href = '#/decision-picker';
     });
 
     const saveLoadContainer = document.createElement('div');

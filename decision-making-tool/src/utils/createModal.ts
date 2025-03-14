@@ -3,6 +3,9 @@ import { createButton } from './createButton';
 import { onElementRemoved } from './helpers/elementObserver';
 
 export const createModal = ({ content, buttons }: ModalOptions): HTMLDivElement => {
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+
   const modal = document.createElement('div');
   modal.classList.add('modal');
 

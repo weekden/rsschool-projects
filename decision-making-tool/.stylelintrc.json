@@ -9,7 +9,7 @@
     "color-hex-length": "short",
     "block-no-empty": true,
     "@stylistic/declaration-block-trailing-semicolon": "always",
-    "scss/dollar-variable-pattern": "^[_a-z]+", 
+    "scss/dollar-variable-pattern": "^[_a-z]+",
     "scss/load-no-partial-leading-underscore": true,
     "scss/selector-no-redundant-nesting-selector": true,
     "order/properties-alphabetical-order": true,
