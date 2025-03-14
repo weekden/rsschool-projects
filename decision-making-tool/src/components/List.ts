@@ -31,10 +31,6 @@ export class TodoList {
     this.ulElement.appendChild(li);
   }
 
-  public updateTodo(id: string, updates: Partial<Todo>): void {
-    LSControl.updateTodo(id, updates);
-  }
-
   public clearTodoList(): void {
     this.items.length = 0;
     this.idCounter = 0;
@@ -46,8 +42,9 @@ export class TodoList {
   }
 
   public renderFromStorage(): void {
-    if (!LSControl.getState()) {
-      this.addTodo();
+    if (this.items.length === 0) {
+      const firstItem: Todo = { id: `#${++this.idCounter}`, title: '', weight: '' };
+      this.items.push(firstItem);
     } else {
       this.items.forEach((item) =>
         this.ulElement.appendChild(
@@ -60,6 +57,10 @@ export class TodoList {
         )
       );
     }
+  }
+
+  private updateTodo(id: string, updates: Partial<Todo>): void {
+    LSControl.updateTodo(id, updates);
   }
 
   private deleteTodo(id: string): void {

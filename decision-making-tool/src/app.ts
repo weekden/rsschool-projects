@@ -1,26 +1,34 @@
-import { Header } from './components/Header';
-import { TodoList } from './components/List';
-import { Buttons } from './components/Buttons';
+import { MainPage } from './view/pageMain';
+import { NotFoundView } from './view/pageNotFound';
+import type { Routes } from './types/routes-type';
 
 export class App {
   private readonly container: HTMLElement;
-  private readonly header: Header;
-  private readonly list: TodoList;
-  private readonly buttonsContainer: Buttons;
+  private readonly routes: Routes;
 
   constructor() {
     this.container = document.createElement('div');
     this.container.classList.add('app-container');
     document.body.append(this.container);
 
-    this.header = new Header();
-    this.list = new TodoList();
-    this.buttonsContainer = new Buttons(this.list);
+    if (!location.hash) {
+      location.hash = '/';
+    }
 
-    this.render();
+    this.routes = {
+      '/': MainPage,
+      '/not-found': NotFoundView,
+    };
+
+    window.addEventListener('hashchange', () => this.loadRoute(this.routes));
+    this.loadRoute(this.routes);
   }
 
-  private render(): void {
-    this.container.append(this.header.render(), this.list.render(), this.buttonsContainer.render());
+  private loadRoute(routes: Routes): void {
+    const path = location.hash.slice(1) || '/';
+    const view = routes[path] || routes['/not-found'];
+    if (view) {
+      this.container.replaceChildren(new view().render());
+    }
   }
 }

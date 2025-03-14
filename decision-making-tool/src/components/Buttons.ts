@@ -61,7 +61,9 @@ export class Buttons {
         this.todoList.renderFromStorage();
       });
     });
-    const startButton = createButton('Start', () => {});
+    const startButton = createButton('Start', () => {
+      window.location.href = 'decision-picker';
+    });
 
     const saveLoadContainer = document.createElement('div');
     saveLoadContainer.append(saveButton, loadButton);

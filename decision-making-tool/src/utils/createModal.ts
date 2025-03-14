@@ -1,6 +1,6 @@
 import type { ModalOptions } from '../types/modal-types';
 import { createButton } from './createButton';
-import { onElementRemoved } from './helpers/elementRemoves';
+import { onElementRemoved } from './helpers/elementObserver';
 
 export const createModal = ({ content, buttons }: ModalOptions): HTMLDivElement => {
   const modal = document.createElement('div');
