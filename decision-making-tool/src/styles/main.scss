@@ -1,4 +1,10 @@
-.app-container {
-  width: 80%;
-  border: 2px solid black;
+@use "./components/vars" as *;
+@use "./components/templates" as *;
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: $page-background;
 }

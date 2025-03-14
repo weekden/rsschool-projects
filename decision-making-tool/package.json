@@ -10,7 +10,7 @@
     "check-format": "prettier --list-different . --ignore-unknown",
     "lint": "eslint . --ext .ts",
     "lint:css": "stylelint --fix **/*.css",
-    "lint:scss": "stylelint 'src/**/*.scss' --fix",
+    "lint:scss": "stylelint --fix **/*.scss",
     "prepare": "cd .. && husky decision-making-tool/.husky"
   },
   "keywords": [],
@@ -63,7 +63,7 @@
       "npm run lint:css"
     ],
     "*.scss": [
-      "npm run lint:css"
+      "npm run lint:scss"
     ]
   }
 }
