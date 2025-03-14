@@ -36,10 +36,18 @@ export const createModal = ({ content, buttons }: ModalOptions): HTMLDivElement 
       modal.remove();
     }
   };
+
+  const handleBodyClick = (event: MouseEvent): void => {
+    if (event.target instanceof HTMLDivElement && !modal.contains(event.target)) {
+      modal.remove();
+    }
+  };
   document.addEventListener('keydown', handleEscape);
+  document.addEventListener('click', handleBodyClick);
 
   onElementRemoved(modal, () => {
     document.removeEventListener('keydown', handleEscape);
+    document.removeEventListener('click', handleBodyClick);
   });
   return modal;
 };
