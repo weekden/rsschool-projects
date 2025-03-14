@@ -1,4 +1,4 @@
-@use './vars' as v;
+@use ".././utils/vars" as v;
 
 .button {
   cursor: pointer;
@@ -13,6 +13,7 @@
   color: v.$button-text;
 
   background-color: v.$button-primary;
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 10%);
 
   transition:
     background-color 0.3s,

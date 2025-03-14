@@ -1,0 +1,86 @@
+@use "../utils/vars" as v;
+@use "../utils/templates" as *;
+
+.todo-item {
+  @extend %flex-space;
+
+  gap: 1rem;
+
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: 0.1rem solid v.$input-border;
+  border-radius: 0.5rem;
+
+  background-color: v.$content-background;
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 10%);
+
+  .todo-item__id {
+    flex-shrink: 0;
+
+    width: 4.5rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+
+    font-size: 1.6rem;
+    line-height: 4rem;
+    color: v.$dark;
+    text-align: center;
+
+    background-color: v.$button-primary;
+  }
+
+  .todo-item__input {
+    padding: 1rem;
+    border: 2px solid v.$input-border;
+    border-radius: 0.5rem;
+
+    font-size: 1.6rem;
+    color: v.$input-text;
+
+    background-color: v.$input-background;
+
+    &::placeholder {
+      color: v.$input-placeholder;
+    }
+
+    &:focus {
+      border: 2px solid v.$button-primary;
+      outline: none;
+    }
+  }
+
+  .todo-item__input-type {
+    width: 70%;
+  }
+
+  .todo-item__input-weight {
+    width: 8rem;
+    text-align: center;
+  }
+
+  .todo-item__input-weight::-webkit-inner-spin-button,
+  .todo-item__input-weight::-webkit-outer-spin-button {
+    margin: 0;
+    appearance: none;
+  }
+
+  .todo-item__button {
+    cursor: pointer;
+
+    padding: 1.2rem;
+    border: none;
+    border-radius: 0.5rem;
+
+    color: v.$button-text;
+
+    background-color: v.$button-primary;
+
+    &:hover {
+      background-color: v.$button-primary-hover;
+    }
+
+    &:active {
+      background-color: v.$button-primary-active;
+    }
+  }
+}

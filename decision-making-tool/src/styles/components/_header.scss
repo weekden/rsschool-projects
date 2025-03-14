@@ -1,0 +1,11 @@
+@use "../utils/vars" as v;
+@use "../utils/templates" as t;
+
+.header {
+  margin: 1rem 0;
+  padding: 1rem;
+
+  font-size: 3rem;
+  color: v.$dark;
+  text-align: center;
+}
