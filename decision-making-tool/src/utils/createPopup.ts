@@ -48,10 +48,12 @@ export const createPopup = ({ content, buttons }: PopupOptions): HTMLDivElement 
   };
   document.addEventListener('keydown', handleEscape);
   document.addEventListener('click', handleBodyClick);
+  document.body.style.overflow = 'hidden';
 
   onElementRemoved(popupWrappew, () => {
     document.removeEventListener('keydown', handleEscape);
     document.removeEventListener('click', handleBodyClick);
+    document.body.style.overflow = '';
   });
   return popupWrappew;
 };

@@ -3,6 +3,7 @@
 @use './components/header' as *;
 @use './components/button' as *;
 @use './components/list' as *;
+@use './components/popup' as *;
 
 * {
   box-sizing: border-box;
@@ -17,6 +18,7 @@ html {
 body {
   @extend %flex-center;
 
+  position: relative;
   height: 100vh;
   background-color: v.$page-background;
 }
@@ -24,6 +26,7 @@ body {
 .app-container {
   width: 100%;
   max-width: 60rem;
+  margin: 0 1rem;
 }
 
 .buttons-container {
