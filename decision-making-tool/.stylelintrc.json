@@ -1,6 +1,6 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-clean-order"],
-  "plugins": ["@stylistic/stylelint-plugin"],
+  "plugins": ["stylelint-scss", "@stylistic/stylelint-plugin"],
   "rules": {
     "@stylistic/indentation": 2,
     "@stylistic/max-empty-lines": 1,
@@ -8,6 +8,12 @@
     "@stylistic/no-eol-whitespace": true,
     "color-hex-length": "short",
     "block-no-empty": true,
-    "@stylistic/declaration-block-trailing-semicolon": "always"
+    "@stylistic/declaration-block-trailing-semicolon": "always",
+    "scss/dollar-variable-pattern": "^[_a-z]+", 
+    "scss/at-import-no-partial-leading-underscore": true,
+    "scss/selector-no-redundant-nesting-selector": true,
+    "order/properties-alphabetical-order": true,
+    "declaration-no-important": true,
+    "max-nesting-depth": 3
   }
 }

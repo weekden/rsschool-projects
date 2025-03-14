@@ -2,6 +2,8 @@ import { MainPage } from './view/pageMain';
 import { NotFoundView } from './view/pageNotFound';
 import type { Routes } from './types/routes-type';
 
+import './styles/main.scss';
+
 export class App {
   private readonly container: HTMLElement;
   private readonly routes: Routes;

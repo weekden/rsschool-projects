@@ -10,6 +10,7 @@
     "check-format": "prettier --list-different . --ignore-unknown",
     "lint": "eslint . --ext .ts",
     "lint:css": "stylelint --fix **/*.css",
+    "lint:scss": "stylelint 'src/**/*.scss' --fix",
     "prepare": "cd .. && husky decision-making-tool/.husky"
   },
   "keywords": [],
@@ -33,10 +34,13 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "prettier": "^3.4.2",
+    "sass": "^1.85.1",
+    "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
     "stylelint": "^16.15.0",
     "stylelint-config-clean-order": "^7.0.0",
     "stylelint-config-standard": "^37.0.0",
+    "stylelint-scss": "^6.11.1",
     "ts-loader": "^9.5.2",
     "typescript": "^5.7.3",
     "webpack": "^5.97.1",
@@ -56,6 +60,9 @@
       "npm run format"
     ],
     "*.css": [
+      "npm run lint:css"
+    ],
+    "*.scss": [
       "npm run lint:css"
     ]
   }
