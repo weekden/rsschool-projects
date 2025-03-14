@@ -1,6 +1,6 @@
 import { createButton } from '../utils/createButton';
 import { LSControl } from '../utils/lsControl';
-import { createModal } from '../utils/createModal';
+import { createPopup } from '../utils/createModal';
 import { createTextArea } from '../utils/createTextArea';
 import { parseValueFromTextArea } from '../utils/createTextArea';
 import type { TodoList } from './List';
@@ -19,25 +19,25 @@ export class Buttons {
       this.todoList.addTodo();
     });
     const pasteButton = createButton('Paste List', () => {
-      createModal({
+      createPopup({
         content: createTextArea(),
         buttons: [
           {
             text: 'Cancel',
-            onClick: (modal): void => {
-              if (modal) {
-                modal.remove();
+            onClick: (popup): void => {
+              if (popup) {
+                popup.remove();
               }
             },
           },
           {
             text: 'Confirm',
-            onClick: (modal, content): void => {
+            onClick: (popup, content): void => {
               if (content instanceof HTMLTextAreaElement) {
                 const textValue = content.value;
                 const listItemObject = parseValueFromTextArea(textValue, LSControl.getState().counter);
                 listItemObject.items.forEach((item) => this.todoList.addTodo(item));
-                modal.remove();
+                popup.remove();
               }
             },
           },
