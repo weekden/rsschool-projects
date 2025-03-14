@@ -1,6 +1,6 @@
 import { createButton } from '../utils/createButton';
 import { LSControl } from '../utils/lsControl';
-import { createPopup } from '../utils/createModal';
+import { createPopup } from '../utils/createPopup';
 import { createTextArea } from '../utils/createTextArea';
 import { parseValueFromTextArea } from '../utils/createTextArea';
 import type { TodoList } from './List';

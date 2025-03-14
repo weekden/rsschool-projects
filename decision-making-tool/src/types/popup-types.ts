@@ -2,7 +2,7 @@ type ButtonOptions = {
   text: string;
   onClick: (modal: HTMLDivElement, textArea?: HTMLTextAreaElement) => void;
 };
-export type ModalOptions = {
+export type PopupOptions = {
   content: string | HTMLElement;
   buttons: ButtonOptions[];
 };
