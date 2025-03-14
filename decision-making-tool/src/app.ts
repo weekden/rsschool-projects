@@ -5,13 +5,13 @@ import type { Routes } from './types/routes-type';
 import './styles/main.scss';
 
 export class App {
-  private readonly container: HTMLElement;
+  // private readonly container: HTMLElement;
   private readonly routes: Routes;
 
   constructor() {
-    this.container = document.createElement('div');
-    this.container.classList.add('app-container');
-    document.body.append(this.container);
+    // this.container = document.createElement('div');
+    // this.container.classList.add('app-container');
+    // document.body.append(this.container);
 
     if (!location.hash) {
       location.hash = '/';
@@ -30,7 +30,7 @@ export class App {
     const path = location.hash.slice(1) || '/';
     const view = routes[path] || routes['/not-found'];
     if (view) {
-      this.container.replaceChildren(new view().render());
+      document.body.replaceChildren(new view().render());
     }
   }
 }

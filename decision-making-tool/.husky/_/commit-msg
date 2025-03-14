@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname -- "$0")/../_/husky.sh"
+
+cd decision-making-tool && npx --no -- commitlint --edit "$1"

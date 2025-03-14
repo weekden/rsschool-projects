@@ -1,10 +1,33 @@
-@use "./components/vars" as *;
-@use "./components/templates" as *;
+@use './components/vars' as v;
+@use './components/templates' as *;
+@use './components/button' as *;
 
 html {
   font-size: 62.5%;
 }
 
 body {
-  background-color: $page-background;
+  @extend %flex-center;
+
+  height: 100vh;
+  background-color: v.$page-background;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 60rem;
+}
+
+.buttons-container {
+  @extend %flex-center;
+
+  flex-direction: column;
+  gap: 1rem;
+
+  div {
+    @extend %flex-center;
+
+    gap: 1rem;
+    width: 100%;
+  }
 }

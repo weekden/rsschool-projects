@@ -1,0 +1,28 @@
+@use './vars' as v;
+
+.button {
+  cursor: pointer;
+
+  width: 100%;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.6rem;
+
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: v.$button-text;
+
+  background-color: v.$button-primary;
+
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+
+  &:hover {
+    background-color: v.$button-primary-hover;
+  }
+
+  &:active {
+    background-color: v.$button-primary-active;
+  }
+}

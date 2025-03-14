@@ -15,7 +15,7 @@ export class MainPage {
 
   public render(): HTMLDivElement {
     const container = document.createElement('div');
-    container.classList.add('app-container');
+    container.className = 'app-container';
     container.append(this.header.render(), this.list.render(), this.buttonsContainer.render());
     return container;
   }
