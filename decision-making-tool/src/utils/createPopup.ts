@@ -25,6 +25,8 @@ export const createPopup = ({ content, buttons }: PopupOptions): HTMLDivElement 
     const button = createButton(text, () => {
       if (content instanceof HTMLTextAreaElement) {
         onClick(popupWrappew, content);
+      } else {
+        onClick(popupWrappew);
       }
     });
 

@@ -61,7 +61,24 @@ export class Buttons {
       });
     });
     const startButton = createButton('Start', () => {
-      location.href = '#/decision-picker';
+      // location.href = '#/decision-picker';
+      createPopup({
+        content: `Please add at least 2 valid options.
+        
+        
+        An option is considered valid if its title is not empty and its weight is greater than 0
+        `,
+        buttons: [
+          {
+            text: 'Cancel',
+            onClick: (popup): void => {
+              if (popup) {
+                popup.remove();
+              }
+            },
+          },
+        ],
+      });
     });
 
     const saveLoadContainer = document.createElement('div');

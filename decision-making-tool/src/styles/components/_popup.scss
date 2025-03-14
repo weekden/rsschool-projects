@@ -34,6 +34,10 @@
     border: 1px solid v.$static-white;
     border-radius: 0.5rem;
 
+    font-size: 2rem;
+    color: v.$dark;
+    white-space: pre-line;
+
     background-color: v.$content-background;
 
     textarea {

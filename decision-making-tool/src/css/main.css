@@ -170,6 +170,10 @@ body,
   border: 1px solid #fff;
   border-radius: 0.5rem;
 
+  font-size: 2rem;
+  color: #4a4a4a;
+  white-space: pre-line;
+
   background-color: #f5f0e3;
 }
 
