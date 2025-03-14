@@ -47,7 +47,7 @@ module.exports = (env) => {
       port: 5500,
       open: true,
       static: path.resolve(__dirname, 'dist'),
-      // hot: true,
+      hot: true,
     },
   };
 };
