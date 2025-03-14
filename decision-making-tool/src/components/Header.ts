@@ -4,6 +4,7 @@ export class Header {
   constructor() {
     this.header = document.createElement('h1');
     this.header.textContent = 'Decision Making Tool';
+    this.header.classList = 'header';
   }
 
   public render(): HTMLHeadElement {
