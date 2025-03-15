@@ -20,7 +20,7 @@ export class LSControl {
     this.saveState(state);
   }
 
-  public static deleteTodo(id: string): void {
+  public static deleteItem(id: string): void {
     const state = this.getState();
     state.items = state.items.filter((item) => item.id !== id);
     if (state.items.length === 0) {
@@ -29,7 +29,7 @@ export class LSControl {
     this.saveState(state);
   }
 
-  public static updateTodo(id: string, updates: Partial<Todo>): void {
+  public static updateItems(id: string, updates: Partial<Todo>): void {
     const state = this.getState();
     const todo = state.items.find((item) => item.id === id);
     if (todo) {
@@ -38,7 +38,10 @@ export class LSControl {
     }
   }
 
-  public static clearTodo(): void {
-    localStorage.removeItem(this.STORAGE_KEY);
+  public static clearItems(): void {
+    const state = this.getState();
+    state.items = [];
+    state.counter = 0;
+    this.saveState(state);
   }
 }

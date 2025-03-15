@@ -1,4 +1,4 @@
-import { createTodoItem } from '../utils/createTodoLi';
+import { createLi } from '../utils/createTodoLi';
 import { LSControl } from '../utils/lsControl';
 import type { Todo } from '../types/todo-type';
 
@@ -15,23 +15,18 @@ export class TodoList {
     this.renderFromStorage();
   }
 
-  public addTodo(item?: Todo): void {
+  public addLi(item?: Todo): void {
     this.idCounter = LSControl.getState().counter;
     const newItem: Todo = item ?? { id: `#${++this.idCounter}`, title: '', weight: '' };
     this.items.push(newItem);
+
     LSControl.addTodo(newItem);
 
-    const li = createTodoItem(
-      newItem,
-      () => this.deleteTodo(newItem.id),
-      (id, value) => this.updateTodo(id, { title: value }),
-      (id, value) => this.updateTodo(id, { weight: value })
-    );
-
+    const li = this.createLiElement(newItem);
     this.ulElement.appendChild(li);
   }
 
-  public clearTodoList(): void {
+  public clearUl(): void {
     this.items.length = 0;
     this.idCounter = 0;
     this.ulElement.replaceChildren();
@@ -42,34 +37,33 @@ export class TodoList {
   }
 
   public renderFromStorage(): void {
-    if (this.items.length === 0) {
-      const firstItem: Todo = { id: `#${++this.idCounter}`, title: '', weight: '' };
-      this.items.push(firstItem);
+    if (!localStorage.getItem('todoState')) {
+      this.addLi();
     } else {
-      this.items.forEach((item) =>
-        this.ulElement.appendChild(
-          createTodoItem(
-            item,
-            () => this.deleteTodo(item.id),
-            (id, value) => this.updateTodo(id, { title: value }),
-            (id, value) => this.updateTodo(id, { weight: value })
-          )
-        )
-      );
+      this.items.forEach((item) => this.ulElement.appendChild(this.createLiElement(item)));
     }
   }
 
-  private updateTodo(id: string, updates: Partial<Todo>): void {
-    LSControl.updateTodo(id, updates);
+  private updateUl(id: string, updates: Partial<Todo>): void {
+    LSControl.updateItems(id, updates);
   }
 
-  private deleteTodo(id: string): void {
+  private deleteLi(id: string): void {
     this.items = this.items.filter((item) => item.id !== id);
 
     if (this.items.length === 0) {
       this.idCounter = 0;
     }
 
-    LSControl.deleteTodo(id);
+    LSControl.deleteItem(id);
+  }
+
+  private createLiElement(item: Todo): HTMLLIElement {
+    return createLi(
+      item,
+      () => this.deleteLi(item.id),
+      (id, value) => this.updateUl(id, { title: value }),
+      (id, value) => this.updateUl(id, { weight: value })
+    );
   }
 }

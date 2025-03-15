@@ -16,7 +16,7 @@ export class Buttons {
 
   public render(): HTMLDivElement {
     const addButton = createButton('Add Option', () => {
-      this.todoList.addTodo();
+      this.todoList.addLi();
     });
     const pasteButton = createButton('Paste List', () => {
       createPopup({
@@ -36,7 +36,7 @@ export class Buttons {
               if (content instanceof HTMLTextAreaElement) {
                 const textValue = content.value;
                 const listItemObject = parseValueFromTextArea(textValue, LSControl.getState().counter);
-                listItemObject.items.forEach((item) => this.todoList.addTodo(item));
+                listItemObject.items.forEach((item) => this.todoList.addLi(item));
                 popup.remove();
               }
             },
@@ -45,8 +45,8 @@ export class Buttons {
       });
     });
     const clearButton = createButton('Clear List', () => {
-      this.todoList.clearTodoList();
-      LSControl.clearTodo();
+      this.todoList.clearUl();
+      LSControl.clearItems();
     });
     const saveButton = createButton('Save List to File', () => {
       const fileToString = JSON.stringify(LSControl.getState());

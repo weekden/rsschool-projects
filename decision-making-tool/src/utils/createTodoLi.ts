@@ -1,6 +1,6 @@
 import type { Todo } from '../types/todo-type';
 
-export function createTodoItem(
+export function createLi(
   todo: Todo,
   deleteCallback: (id: string) => void,
   changeTitleCallback: (id: string, value: string) => void,
