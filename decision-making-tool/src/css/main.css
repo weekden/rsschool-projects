@@ -1,6 +1,8 @@
 body,
+.app-container,
 .buttons-container,
 .buttons-container div,
+.decision-control__wrapper-top .decision-control__item-timer-wrapper,
 .overlay,
 .popup .popup-buttons {
   display: flex;
@@ -8,6 +10,8 @@ body,
   justify-content: center;
 }
 
+.decision-control__wrapper,
+.decision-control__wrapper-top,
 .popup,
 .todo-item {
   display: flex;
@@ -204,6 +208,96 @@ body,
   padding: 1rem 2rem;
 }
 
+.decision-control__wrapper {
+  flex-direction: column;
+  gap: 2rem;
+
+  width: 60%;
+  max-width: 30rem;
+  height: auto;
+  padding: 1rem;
+  border: 2px solid #d0c1a1;
+  border-radius: 0.5rem;
+
+  background-color: #f5f0e3;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+}
+
+.decision-control__wrapper-top {
+  gap: 1rem;
+  width: 100%;
+}
+
+.decision-control__wrapper-top .decision-control__wrapper-top-button {
+  width: 8rem;
+}
+
+.decision-control__wrapper-top input[type='checkbox'] {
+  display: none;
+}
+
+.decision-control__wrapper-top .decision-control__item-label {
+  cursor: pointer;
+
+  display: block;
+
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+
+  background-color: #f7b75b;
+
+  transition: all 0.3s ease;
+}
+
+.decision-control__wrapper-top .decision-control__item-label:hover {
+  background-color: #e9a34d;
+}
+
+.decision-control__wrapper-top .decision-control__item-label-timer {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input {
+  width: 4rem;
+  height: 4rem;
+  padding: 0.5rem;
+  border: 2px solid #d0c1a1;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+
+  font-size: 1.4rem;
+  color: #4a4a4a;
+  text-align: center;
+
+  background-color: transparent;
+  outline: none;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input::placeholder {
+  color: #a5a5a5;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input::placeholder {
+  color: #a5a5a5;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input:focus {
+  border-bottom: 2px solid #f7b75b;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input::-webkit-inner-spin-button,
+.decision-control__wrapper-top .decision-control__item-timer-input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+  appearance: none;
+}
+
+.decision-control__wrapper-bottom {
+  width: 100%;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -221,6 +315,7 @@ body {
 }
 
 .app-container {
+  flex-direction: column;
   width: 100%;
   max-width: 60rem;
   margin: 0 1rem;
@@ -229,6 +324,7 @@ body {
 .buttons-container {
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
   margin-top: 2rem;
 }
 

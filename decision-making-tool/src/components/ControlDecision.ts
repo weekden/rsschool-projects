@@ -55,20 +55,25 @@ export class DecisionControl {
     const soundSwitch = createElement({
       tag: 'label',
       children: [checkbox],
+      classes: ['decision-control__item-label', 'decision-control__item-label-checkbox'],
     });
     return soundSwitch;
   }
 
   private createTimer(): HTMLElement {
     const timer = document.createElement('input');
+    timer.id = 'timer';
+    timer.classList.add('decision-control__item-timer-input');
     timer.type = 'number';
-    timer.placeholder = '10';
+    timer.min = '5';
+    timer.placeholder = 'sec';
     const timerContainer = createElement({
       tag: 'div',
-      classes: ['decision-control__item', 'decision-control__item-timer'],
+      classes: ['decision-control__item', 'decision-control__item-timer-wrapper'],
       children: [
         createElement({
           tag: 'label',
+          classes: ['decision-control__item-label', 'decision-control__item-label-timer'],
         }),
         timer,
       ],

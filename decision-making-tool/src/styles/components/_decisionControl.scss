@@ -1,0 +1,95 @@
+@use '.././utils/vars' as v;
+@use '.././utils/templates' as *;
+
+.decision-control__wrapper {
+  @extend %flex-space;
+
+  flex-direction: column;
+  gap: 2rem;
+
+  width: 60%;
+  max-width: 30rem;
+  height: auto;
+  padding: 1rem;
+  border: 2px solid v.$input-border;
+  border-radius: 0.5rem;
+
+  background-color: v.$content-background;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+}
+
+.decision-control__wrapper-top {
+  @extend %flex-space;
+
+  gap: 1rem;
+  width: 100%;
+
+  .decision-control__wrapper-top-button {
+    width: 8rem;
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  .decision-control__item-label {
+    cursor: pointer;
+
+    display: block;
+
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+
+    background-color: v.$button-primary;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: v.$button-primary-hover;
+    }
+  }
+
+  .decision-control__item-timer-wrapper {
+    @extend %flex-center;
+  }
+
+  .decision-control__item-label-timer {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .decision-control__item-timer-input {
+    width: 4rem;
+    height: 4rem;
+    padding: 0.5rem;
+    border: 2px solid v.$input-border;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+
+    font-size: 1.4rem;
+    color: v.$input-text;
+    text-align: center;
+
+    background-color: transparent;
+    outline: none;
+
+    &::placeholder {
+      color: v.$input-placeholder;
+    }
+
+    &:focus {
+      border-bottom: 2px solid v.$button-primary;
+    }
+  }
+
+  .decision-control__item-timer-input::-webkit-inner-spin-button,
+  .decision-control__item-timer-input::-webkit-outer-spin-button {
+    margin: 0;
+    appearance: none;
+  }
+}
+
+.decision-control__wrapper-bottom {
+  width: 100%;
+}

@@ -4,6 +4,7 @@
 @use './components/button' as *;
 @use './components/list' as *;
 @use './components/popup' as *;
+@use './components/decisionControl' as *;
 
 * {
   box-sizing: border-box;
@@ -24,6 +25,9 @@ body {
 }
 
 .app-container {
+  @extend %flex-center;
+
+  flex-direction: column;
   width: 100%;
   max-width: 60rem;
   margin: 0 1rem;
@@ -34,6 +38,7 @@ body {
 
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
   margin-top: 2rem;
 
   div {
