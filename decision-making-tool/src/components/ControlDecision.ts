@@ -11,7 +11,7 @@ export class DecisionControl {
         createElement({
           tag: 'div',
           classes: ['decision-control__wrapper-top'],
-          children: [this.createButtonBack(), this.createVolumeChecked(), this.createTimer()],
+          children: [this.createButtonBack(), this.createSoundChecked(), this.createTimer()],
         }),
 
         createElement({
@@ -49,34 +49,34 @@ export class DecisionControl {
     return buttonStart;
   }
 
-  private createVolumeChecked(): HTMLElement {
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    const soundSwitch = createElement({
-      tag: 'label',
-      children: [checkbox],
-      classes: ['decision-control__item-label', 'decision-control__item-label-checkbox'],
-    });
-    return soundSwitch;
+  private createSoundChecked(): HTMLElement {
+    const soundCheckbox = document.createElement('input');
+    soundCheckbox.id = 'sound-chekbox';
+    soundCheckbox.type = 'checkbox';
+
+    const soundCheckboxLabel = document.createElement('label');
+    soundCheckboxLabel.htmlFor = 'sound-chekbox';
+    soundCheckboxLabel.classList.add('decision-control__item-label', 'decision-control__item-label-checkbox');
+
+    soundCheckboxLabel.appendChild(soundCheckbox);
+    return soundCheckboxLabel;
   }
 
   private createTimer(): HTMLElement {
-    const timer = document.createElement('input');
-    timer.id = 'timer';
-    timer.classList.add('decision-control__item-timer-input');
-    timer.type = 'number';
-    timer.min = '5';
-    timer.placeholder = 'sec';
+    const timerInput = document.createElement('input');
+    timerInput.id = 'timer-input';
+    timerInput.classList.add('decision-control__item-timer-input');
+    timerInput.type = 'number';
+    timerInput.min = '5';
+    timerInput.placeholder = 'sec';
+
+    const timerLabel = document.createElement('label');
+    timerLabel.htmlFor = 'timer-input';
+    timerLabel.classList.add('decision-control__item-label', 'decision-control__item-label-timer');
     const timerContainer = createElement({
       tag: 'div',
       classes: ['decision-control__item', 'decision-control__item-timer-wrapper'],
-      children: [
-        createElement({
-          tag: 'label',
-          classes: ['decision-control__item-label', 'decision-control__item-label-timer'],
-        }),
-        timer,
-      ],
+      children: [timerLabel, timerInput],
     });
     return timerContainer;
   }
