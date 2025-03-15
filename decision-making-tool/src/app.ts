@@ -1,24 +1,22 @@
 import { MainPage } from './view/pageMain';
 import { NotFoundView } from './view/pageNotFound';
+
 import type { Routes } from './types/routes-type';
 
 import './styles/main.scss';
+import { Decision } from './view/decision-picker';
 
 export class App {
-  // private readonly container: HTMLElement;
   private readonly routes: Routes;
 
   constructor() {
-    // this.container = document.createElement('div');
-    // this.container.classList.add('app-container');
-    // document.body.append(this.container);
-
     if (!location.hash) {
       location.hash = '/';
     }
 
     this.routes = {
       '/': MainPage,
+      '/decision-picker': Decision,
       '/not-found': NotFoundView,
     };
 
