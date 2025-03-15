@@ -1,0 +1,17 @@
+@use '.././utils/vars' as v;
+
+.decision-option {
+  width: 100%;
+  max-width: 40rem;
+  padding: 1rem 2rem;
+  border: 2px solid v.$input-border;
+  border-radius: 0.5rem;
+
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: v.$dark;
+  text-align: center;
+
+  background-color: v.$primary;
+  box-shadow: 0 2px 2px rgb(0 0 0 / 10%);
+}

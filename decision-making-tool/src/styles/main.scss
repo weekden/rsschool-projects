@@ -5,6 +5,7 @@
 @use './components/list' as *;
 @use './components/popup' as *;
 @use './components/decisionControl' as *;
+@use './components/pickedOption' as *;
 
 * {
   box-sizing: border-box;
@@ -28,6 +29,8 @@ body {
   @extend %flex-center;
 
   flex-direction: column;
+  gap: 2rem;
+
   width: 100%;
   max-width: 60rem;
   margin: 0 1rem;
