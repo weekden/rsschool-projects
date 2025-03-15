@@ -53,12 +53,27 @@ export class DecisionControl {
     const soundCheckbox = document.createElement('input');
     soundCheckbox.id = 'sound-chekbox';
     soundCheckbox.type = 'checkbox';
+    soundCheckbox.checked = true;
 
     const soundCheckboxLabel = document.createElement('label');
     soundCheckboxLabel.htmlFor = 'sound-chekbox';
     soundCheckboxLabel.classList.add('decision-control__item-label', 'decision-control__item-label-checkbox');
 
-    soundCheckboxLabel.appendChild(soundCheckbox);
+    let soundCheckboxLabelContent = this.createIcon('soundOn');
+
+    soundCheckbox.addEventListener('change', () => {
+      soundCheckboxLabel.removeChild(soundCheckboxLabelContent);
+
+      if (soundCheckbox.checked) {
+        soundCheckboxLabelContent = this.createIcon('soundOn');
+      } else {
+        soundCheckboxLabelContent = this.createIcon('soundOff');
+      }
+
+      soundCheckboxLabel.appendChild(soundCheckboxLabelContent);
+    });
+
+    soundCheckboxLabel.append(soundCheckbox, soundCheckboxLabelContent);
     return soundCheckboxLabel;
   }
 
@@ -73,11 +88,21 @@ export class DecisionControl {
     const timerLabel = document.createElement('label');
     timerLabel.htmlFor = 'timer-input';
     timerLabel.classList.add('decision-control__item-label', 'decision-control__item-label-timer');
+    timerLabel.append(this.createIcon('time'));
+
     const timerContainer = createElement({
       tag: 'div',
       classes: ['decision-control__item', 'decision-control__item-timer-wrapper'],
       children: [timerLabel, timerInput],
     });
     return timerContainer;
+  }
+
+  private createIcon(iconType: string): HTMLImageElement {
+    const icon = document.createElement('img');
+    icon.className = 'icon';
+    icon.src = `./assets/icons/${iconType}.png`;
+    icon.alt = 'icon';
+    return icon;
   }
 }

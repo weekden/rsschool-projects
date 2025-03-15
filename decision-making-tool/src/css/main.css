@@ -212,8 +212,8 @@ body,
   flex-direction: column;
   gap: 2rem;
 
-  width: 60%;
-  max-width: 30rem;
+  width: 100%;
+  max-width: 40rem;
   height: auto;
   padding: 1rem;
   border: 2px solid #d0c1a1;
@@ -243,11 +243,17 @@ body,
 
   width: 4rem;
   height: 4rem;
+  padding: 0.2rem;
   border-radius: 0.5rem;
 
   background-color: #f7b75b;
 
   transition: all 0.3s ease;
+}
+
+.decision-control__wrapper-top .decision-control__item-label .icon {
+  width: 100%;
+  height: auto;
 }
 
 .decision-control__wrapper-top .decision-control__item-label:hover {

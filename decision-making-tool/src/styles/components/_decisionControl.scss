@@ -7,8 +7,8 @@
   flex-direction: column;
   gap: 2rem;
 
-  width: 60%;
-  max-width: 30rem;
+  width: 100%;
+  max-width: 40rem;
   height: auto;
   padding: 1rem;
   border: 2px solid v.$input-border;
@@ -39,11 +39,17 @@
 
     width: 4rem;
     height: 4rem;
+    padding: 0.2rem;
     border-radius: 0.5rem;
 
     background-color: v.$button-primary;
 
     transition: all 0.3s ease;
+
+    .icon {
+      width: 100%;
+      height: auto;
+    }
 
     &:hover {
       background-color: v.$button-primary-hover;
