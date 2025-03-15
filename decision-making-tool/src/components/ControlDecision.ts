@@ -11,7 +11,7 @@ export class DecisionControl {
         createElement({
           tag: 'div',
           classes: ['decision-control__wrapper-top'],
-          children: [this.createButtonBack(), this.createVolumeChecked()],
+          children: [this.createButtonBack(), this.createVolumeChecked(), this.createTimer()],
         }),
 
         createElement({
@@ -45,22 +45,34 @@ export class DecisionControl {
       text: 'start',
       classes: ['button', 'decision-control__item', 'decision-control__wrapper-bottom-button'],
     });
-    buttonStart.addEventListener('click', () => {
-      window.history.back();
-    });
+    buttonStart.addEventListener('click', () => {});
     return buttonStart;
   }
 
   private createVolumeChecked(): HTMLElement {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
     const soundSwitch = createElement({
       tag: 'label',
-      children: [
-        createElement({
-          tag: 'input',
-          classes: ['decision-control__item'],
-        }),
-      ],
+      children: [checkbox],
     });
     return soundSwitch;
+  }
+
+  private createTimer(): HTMLElement {
+    const timer = document.createElement('input');
+    timer.type = 'number';
+    timer.placeholder = '10';
+    const timerContainer = createElement({
+      tag: 'div',
+      classes: ['decision-control__item', 'decision-control__item-timer'],
+      children: [
+        createElement({
+          tag: 'label',
+        }),
+        timer,
+      ],
+    });
+    return timerContainer;
   }
 }
