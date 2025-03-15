@@ -5,7 +5,7 @@ export class DecisionControl {
 
   constructor() {
     this.controlContainer = createElement({
-      tag: 'div',
+      tag: 'form',
       classes: ['decision-control__wrapper'],
       children: [
         createElement({
@@ -83,7 +83,9 @@ export class DecisionControl {
     timerInput.classList.add('decision-control__item-timer-input');
     timerInput.type = 'number';
     timerInput.min = '5';
+    timerInput.max = '30';
     timerInput.placeholder = 'sec';
+    timerInput.required = true;
 
     const timerLabel = document.createElement('label');
     timerLabel.htmlFor = 'timer-input';
