@@ -31,13 +31,15 @@ export class Wheel {
 
   private getSegmentsArray(listArray: Todo[]): Todo[] {
     const totalWeight = listArray.reduce((acc, item) => acc + +item.weight, 0);
-    return listArray.map((item): Todo => {
-      return (item = {
-        id: item.id,
-        title: item.title,
-        weight: (+item.weight / totalWeight) * (2 * Math.PI),
-      });
-    });
+    return listArray
+      .map((item): Todo => {
+        return (item = {
+          id: item.id,
+          title: item.title,
+          weight: (+item.weight / totalWeight) * (2 * Math.PI),
+        });
+      })
+      .sort(() => Math.random() - 0.5);
   }
 
   private generateColor(): string {
@@ -66,7 +68,7 @@ export class Wheel {
 
     const items = LSControl.getListForRender();
     const angles = this.getSegmentsArray(items);
-    let startAngle = 0;
+    let startAngle = Math.PI / 2;
 
     // Segments
     angles.forEach((item) => {
@@ -82,7 +84,7 @@ export class Wheel {
       context.fillStyle = `${this.generateColor()}`;
       context.fill();
       context.lineWidth = 3;
-      context.strokeStyle = 'orange';
+      context.strokeStyle = '#ffffff';
       context.stroke();
       context.closePath();
 
@@ -93,6 +95,7 @@ export class Wheel {
       context.textAlign = 'start';
       context.font = `${fontSize}px Times New Roman`;
       context.fillStyle = '#ffffff';
+
       if (fontSize > segmentHeight * 0.85) {
         context.fillText(``, 0, 0);
       } else {
@@ -108,9 +111,9 @@ export class Wheel {
     // Center
     context.beginPath();
     context.arc(centerX, centerY, centerWheelRadius, 0, Math.PI * 2);
-    context.fillStyle = '#236C6A';
+    context.fillStyle = '#f7b75b';
     context.fill();
-    context.lineWidth = 1;
+    context.lineWidth = 3;
     context.stroke();
     context.closePath();
 
@@ -122,5 +125,8 @@ export class Wheel {
     context.closePath();
     context.fillStyle = '#f7b75b';
     context.fill();
+    context.lineWidth = 2;
+    context.strokeStyle = '#ffffff';
+    context.stroke();
   }
 }
