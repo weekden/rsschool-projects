@@ -73,11 +73,11 @@
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
 
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     color: v.$input-text;
     text-align: center;
 
-    background-color: transparent;
+    background-color: v.$input-background;
     outline: none;
 
     &::placeholder {

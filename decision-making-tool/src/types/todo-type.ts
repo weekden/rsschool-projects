@@ -1,7 +1,7 @@
 export type Todo = {
   id: string;
   title: string;
-  weight: string;
+  weight: string | number;
 };
 
 export type TodoState = {

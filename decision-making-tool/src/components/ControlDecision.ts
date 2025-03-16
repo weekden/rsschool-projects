@@ -84,6 +84,7 @@ export class DecisionControl {
     timerInput.type = 'number';
     timerInput.min = '5';
     timerInput.max = '30';
+    timerInput.value = '7';
     timerInput.placeholder = 'sec';
     timerInput.required = true;
 

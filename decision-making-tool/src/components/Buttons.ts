@@ -83,6 +83,7 @@ export class Buttons {
         });
       } else {
         location.href = '#/decision-picker';
+        // console.log(listForRender);
       }
     });
 
