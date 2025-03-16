@@ -54,6 +54,7 @@ export class Buttons {
     });
     const loadButton = createButton('Load List from File', () => {
       loadFile((data: string) => {
+        this.todoList.clearUl();
         LSControl.saveState(JSON.parse(data));
         this.todoList.items = LSControl.getState().items;
         this.todoList.idCounter = LSControl.getState().counter;
