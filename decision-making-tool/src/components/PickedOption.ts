@@ -10,7 +10,7 @@ export class ShowPickedOption {
     this.pickedOption.textContent = text;
   }
 
-  public render(): HTMLHeadElement {
+  public render(): HTMLElement {
     return this.pickedOption;
   }
 
