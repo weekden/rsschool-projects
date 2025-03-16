@@ -21,7 +21,7 @@ body {
   @extend %flex-center;
 
   position: relative;
-  height: 100vh;
+  height: 100%;
   background-color: v.$page-background;
 }
 
@@ -34,6 +34,7 @@ body {
   width: 100%;
   max-width: 60rem;
   margin: 0 1rem;
+  margin-top: 2%;
 }
 
 .buttons-container {

@@ -50,6 +50,11 @@ export class Wheel {
     return color;
   }
 
+  private getSlicedString(string: string): string {
+    const maxLengthString = 15;
+    return string.length > maxLengthString ? string.slice(0, maxLengthString) + ` ...` : string;
+  }
+
   private drawWheel(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void {
     const radius = (canvas.width / 2) * 0.95;
     const centerX = canvas.width / 2;
@@ -57,6 +62,7 @@ export class Wheel {
     const centerWheelRadius = radius * 0.1;
     const pointerHeight = radius * 0.2;
     const pointerWidth = radius * 0.15;
+    const fontSize = radius * 0.075;
 
     const items = LSControl.getListForRender();
     const angles = this.getSegmentsArray(items);
@@ -65,14 +71,36 @@ export class Wheel {
     // Segments
     angles.forEach((item) => {
       const endAngle = startAngle + +item.weight;
+      const textAngle = (startAngle + endAngle) / 2;
+      const textX = centerX + radius * 0.9 * Math.cos(textAngle);
+      const textY = centerY + radius * 0.9 * Math.sin(textAngle);
+      const segmentHeight = (radius * (endAngle - startAngle)) / Math.PI;
 
       context.beginPath();
       context.moveTo(centerX, centerY);
       context.arc(centerX, centerY, radius, startAngle, endAngle);
-      context.closePath();
       context.fillStyle = `${this.generateColor()}`;
       context.fill();
+      context.lineWidth = 3;
+      context.strokeStyle = 'orange';
       context.stroke();
+      context.closePath();
+
+      context.save();
+      context.beginPath();
+      context.translate(textX, textY);
+      context.rotate(textAngle + Math.PI);
+      context.textAlign = 'start';
+      context.font = `${fontSize}px Times New Roman`;
+      context.fillStyle = '#ffffff';
+      if (fontSize > segmentHeight * 0.85) {
+        context.fillText(``, 0, 0);
+      } else {
+        context.fillText(`${this.getSlicedString(item.title)}`, 0, fontSize / 6);
+      }
+
+      context.closePath();
+      context.restore();
 
       startAngle = endAngle;
     });
@@ -82,6 +110,7 @@ export class Wheel {
     context.arc(centerX, centerY, centerWheelRadius, 0, Math.PI * 2);
     context.fillStyle = '#236C6A';
     context.fill();
+    context.lineWidth = 1;
     context.stroke();
     context.closePath();
 
@@ -93,6 +122,5 @@ export class Wheel {
     context.closePath();
     context.fillStyle = '#f7b75b';
     context.fill();
-    context.stroke();
   }
 }
