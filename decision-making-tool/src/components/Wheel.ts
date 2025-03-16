@@ -68,7 +68,7 @@ export class Wheel {
 
     const items = LSControl.getListForRender();
     const angles = this.getSegmentsArray(items);
-    let startAngle = Math.PI / 2;
+    let startAngle = -Math.PI / 2;
 
     // Segments
     angles.forEach((item) => {
