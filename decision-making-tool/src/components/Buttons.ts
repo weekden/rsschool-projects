@@ -61,23 +61,28 @@ export class Buttons {
       });
     });
     const startButton = createButton('Start', () => {
-      location.href = '#/decision-picker';
-      // createPopup({
-      //   content: `Please add at least 2 valid options.
+      const listForRender = LSControl.getListForRender();
 
-      //   An option is considered valid if its title is not empty and its weight is greater than 0
-      //   `,
-      //   buttons: [
-      //     {
-      //       text: 'Cancel',
-      //       onClick: (popup): void => {
-      //         if (popup) {
-      //           popup.remove();
-      //         }
-      //       },
-      //     },
-      //   ],
-      // });
+      if (listForRender.length < 2) {
+        createPopup({
+          content: `Please add at least 2 valid options.
+
+        An option is considered valid if its title is not empty and its weight is greater than 0
+        `,
+          buttons: [
+            {
+              text: 'Cancel',
+              onClick: (popup): void => {
+                if (popup) {
+                  popup.remove();
+                }
+              },
+            },
+          ],
+        });
+      } else {
+        location.href = '#/decision-picker';
+      }
     });
 
     const saveLoadContainer = document.createElement('div');

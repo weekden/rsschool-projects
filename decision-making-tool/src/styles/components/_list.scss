@@ -1,14 +1,18 @@
 @use '.././utils/vars' as v;
 @use '.././utils/templates' as *;
 
+.list {
+  width: 100%;
+}
+
 .todo-item {
   @extend %flex-space;
 
   gap: 1rem;
 
-  margin: 0.5rem 0;
+  margin: 0.8rem 0;
   padding: 1rem;
-  border: 0.1rem solid v.$input-border;
+  border: 0.25rem solid v.$input-border;
   border-radius: 0.5rem;
 
   background-color: v.$content-background;
