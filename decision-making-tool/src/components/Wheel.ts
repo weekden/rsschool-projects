@@ -40,6 +40,16 @@ export class Wheel {
     });
   }
 
+  private generateColor(): string {
+    const letters = '0123456789ABCDEF';
+    const colorLength = 6;
+    let color = '#';
+    for (let i = 0; i < colorLength; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   private drawWheel(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void {
     const radius = (canvas.width / 2) * 0.95;
     const centerX = canvas.width / 2;
@@ -51,7 +61,6 @@ export class Wheel {
     const items = LSControl.getListForRender();
     const angles = this.getSegmentsArray(items);
     let startAngle = 0;
-    const colors = ['#FF5733', '#33FF57', '#3357FF', '#FFD700', '#FF33A1'];
 
     // Segments
     angles.forEach((item) => {
@@ -61,7 +70,7 @@ export class Wheel {
       context.moveTo(centerX, centerY);
       context.arc(centerX, centerY, radius, startAngle, endAngle);
       context.closePath();
-      context.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+      context.fillStyle = `${this.generateColor()}`;
       context.fill();
       context.stroke();
 
