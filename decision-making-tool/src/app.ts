@@ -1,5 +1,5 @@
 import { MainPage } from './view/pageMain';
-import { NotFoundView } from './view/pageNotFound';
+import { ErrorPage } from './view/pageError';
 
 import type { Routes } from './types/routes-type';
 
@@ -17,7 +17,7 @@ export class App {
     this.routes = {
       '/': MainPage,
       '/decision-picker': Decision,
-      '/not-found': NotFoundView,
+      '/not-found': ErrorPage,
     };
 
     window.addEventListener('hashchange', () => this.loadRoute(this.routes));

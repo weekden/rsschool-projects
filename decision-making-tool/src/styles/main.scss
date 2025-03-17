@@ -6,6 +6,7 @@
 @use './components/popup' as *;
 @use './components/decisionControl' as *;
 @use './components/pickedOption' as *;
+@use './components/error' as *;
 
 * {
   box-sizing: border-box;

@@ -50,6 +50,7 @@ export class Wheel {
 
   private animate(): void {
     this.startAngle += 0.01;
+
     if (this.startAngle >= Math.PI * 2) {
       this.startAngle = 0;
     }

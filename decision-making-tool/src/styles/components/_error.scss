@@ -1,0 +1,21 @@
+@use '.././utils/templates' as *;
+
+.page-error {
+  @extend %flex-center;
+
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2%;
+  padding: 1rem;
+
+  button {
+    width: 10rem;
+  }
+
+  .page-error__text {
+    width: 100%;
+    margin-top: 20rem;
+    font-size: 3rem;
+    text-align: center;
+  }
+}
