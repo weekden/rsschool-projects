@@ -2,8 +2,11 @@ import { createElement } from '../utils/helpers/createElement';
 
 export class DecisionControl {
   private readonly controlContainer: HTMLElement;
+  private readonly defaultDuration: number = 5;
+  private duration: number;
 
   constructor() {
+    this.duration = this.defaultDuration;
     this.controlContainer = createElement({
       tag: 'form',
       classes: ['decision-control__wrapper'],
@@ -21,6 +24,10 @@ export class DecisionControl {
         }),
       ],
     });
+  }
+
+  public setDuration(): number {
+    return this.duration || this.defaultDuration;
   }
 
   public render(): HTMLElement {
@@ -84,9 +91,12 @@ export class DecisionControl {
     timerInput.type = 'number';
     timerInput.min = '5';
     timerInput.max = '30';
-    timerInput.value = '7';
+    timerInput.value = `${this.defaultDuration}`;
     timerInput.placeholder = 'sec';
     timerInput.required = true;
+    timerInput.addEventListener('input', () => {
+      this.duration = +timerInput.value;
+    });
 
     const timerLabel = document.createElement('label');
     timerLabel.htmlFor = 'timer-input';

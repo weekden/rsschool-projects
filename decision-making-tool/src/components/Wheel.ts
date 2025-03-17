@@ -1,5 +1,6 @@
 import { createElement } from '../utils/helpers/createElement';
 import { LSControl } from '../utils/lsControl';
+import { DecisionControl } from './ControlDecision';
 import type { Todo } from '../types/todo-type';
 
 export class Wheel {
@@ -11,7 +12,8 @@ export class Wheel {
   private segmentColors: string[] = [];
   private animationId: number = 0;
 
-  constructor() {
+  constructor(private readonly decisionControl = new DecisionControl()) {
+    this.decisionControl = decisionControl;
     this.renderList = LSControl.getListForRender();
     this.canvas = document.createElement('canvas');
     this.canvas.className = 'decision-wheel';
@@ -35,11 +37,12 @@ export class Wheel {
   }
 
   public runAnimation(): void {
+    const duration = this.decisionControl.setDuration() * 1000;
     this.animate();
 
     setTimeout(() => {
       cancelAnimationFrame(this.animationId);
-    }, 3000);
+    }, duration);
   }
 
   private animate(): void {

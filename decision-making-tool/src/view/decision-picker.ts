@@ -13,7 +13,7 @@ export class Decision {
     this.header = new Header();
     this.control = new DecisionControl();
     this.pickedOption = new ShowPickedOption();
-    this.wheel = new Wheel();
+    this.wheel = new Wheel(this.control);
   }
 
   public render(): HTMLDivElement {
