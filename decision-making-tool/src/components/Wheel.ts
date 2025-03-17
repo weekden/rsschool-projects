@@ -9,6 +9,7 @@ export class Wheel {
   private readonly renderList: Todo[];
   private startAngle: number = -Math.PI / 2;
   private segmentColors: string[] = [];
+  private animationId: number = 0;
 
   constructor() {
     this.renderList = LSControl.getListForRender();
@@ -23,10 +24,32 @@ export class Wheel {
 
     this.generateInitialColors(this.renderList);
     this.drawWheel();
+
+    this.wheelContainer.addEventListener('click', () => {
+      this.runAnimation();
+    });
   }
 
   public render(): HTMLElement {
     return this.wheelContainer;
+  }
+
+  public runAnimation(): void {
+    this.animate();
+
+    setTimeout(() => {
+      cancelAnimationFrame(this.animationId);
+    }, 3000);
+  }
+
+  private animate(): void {
+    this.startAngle += 0.01;
+    if (this.startAngle >= Math.PI * 2) {
+      this.startAngle = 0;
+    }
+
+    this.drawWheel();
+    this.animationId = requestAnimationFrame(() => this.animate());
   }
 
   private getSegmentsArray(renderList: Todo[]): Todo[] {
