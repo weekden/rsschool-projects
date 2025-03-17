@@ -13,6 +13,8 @@ export class Wheel {
     return this.wheelContainer;
   }
 
+  public runAnimation(): void {}
+
   private createCanvas(): HTMLCanvasElement {
     const canvas = document.createElement('canvas');
     canvas.className = 'decision-wheel';

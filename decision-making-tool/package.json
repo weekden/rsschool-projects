@@ -1,7 +1,6 @@
 {
   "name": "decision-making-tool",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "build": "webpack",
     "build:dev": "webpack --env mode=development",
