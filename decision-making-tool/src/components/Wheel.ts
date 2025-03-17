@@ -1,6 +1,7 @@
 import { createElement } from '../utils/helpers/createElement';
 import { LSControl } from '../utils/lsControl';
 import type { Todo } from '../types/todo-type';
+import type { ControlCallback } from '../types/control-type';
 
 export class Wheel {
   private wheelContainer: HTMLElement;
@@ -39,12 +40,16 @@ export class Wheel {
     return this.wheelContainer;
   }
 
-  public runAnimation(duration: number): void {
-    this.animationTime = duration * 1000;
+  public runAnimation(controlObject: ControlCallback): void {
+    this.animationTime = controlObject.duration * 1000;
     this.animate();
 
     setTimeout(() => {
       cancelAnimationFrame(this.animationId);
+      if (controlObject.isSoundOn) {
+        const sound = new Audio('./assets/sounds/finish.mp3');
+        sound.play();
+      }
     }, this.animationTime);
   }
 

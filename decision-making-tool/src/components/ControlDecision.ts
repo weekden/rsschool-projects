@@ -1,14 +1,17 @@
 import { createElement } from '../utils/helpers/createElement';
+import type { ControlCallback } from '../types/control-type';
 
 export class DecisionControl {
   private readonly controlContainer: HTMLElement;
   private readonly defaultDuration: number = 5;
   private duration: number;
-  private onStart: (value: number) => void;
+  private isSoundOn: boolean;
+  private onStart: (controlObject: ControlCallback) => void;
 
-  constructor(onStart: (value: number) => void) {
+  constructor(onStart: (controlObject: ControlCallback) => void) {
     this.onStart = onStart;
     this.duration = this.defaultDuration;
+    this.isSoundOn = true;
     this.controlContainer = createElement({
       tag: 'form',
       classes: ['decision-control__wrapper'],
@@ -56,7 +59,11 @@ export class DecisionControl {
     });
     buttonStart.addEventListener('click', (event) => {
       event.preventDefault();
-      this.onStart(this.duration);
+      const controlObject = {
+        duration: this.duration,
+        isSoundOn: this.isSoundOn,
+      };
+      this.onStart(controlObject);
     });
     return buttonStart;
   }
@@ -78,7 +85,9 @@ export class DecisionControl {
 
       if (soundCheckbox.checked) {
         soundCheckboxLabelContent = this.createIcon('soundOn');
+        this.isSoundOn = true;
       } else {
+        this.isSoundOn = false;
         soundCheckboxLabelContent = this.createIcon('soundOff');
       }
 
