@@ -12,7 +12,7 @@ export class DecisionControl {
   constructor(onStart: (controlObject: ControlCallback) => void) {
     this.onStart = onStart;
     this.duration = this.defaultDuration;
-    this.isSoundOn = LSControl.getSoundState() || true;
+    this.isSoundOn = LSControl.getSoundState();
     this.controlContainer = createElement({
       tag: 'form',
       classes: ['decision-control__wrapper'],
@@ -82,6 +82,8 @@ export class DecisionControl {
     let soundCheckboxLabelContent = this.createIcon(this.isSoundOn ? 'soundOn' : 'soundOff');
 
     soundCheckbox.addEventListener('change', () => {
+      this.isSoundOn = soundCheckbox.checked;
+
       soundCheckboxLabel.removeChild(soundCheckboxLabelContent);
 
       if (this.isSoundOn) {
