@@ -4,6 +4,7 @@ import { getParsedItem } from './helpers/getParsedItem';
 
 export class LSControl {
   private static STORAGE_KEY = 'todoState';
+  private static SOUND_KEY = 'isSoundOn';
 
   public static getState(): TodoState {
     return getParsedItem<TodoState>(this.STORAGE_KEY, { items: [], counter: 0 });
@@ -49,5 +50,14 @@ export class LSControl {
     const state = this.getState();
     const renderTodo = state.items.filter((item) => item.title !== '' && item.weight !== '');
     return renderTodo;
+  }
+
+  public static getSoundState(): boolean {
+    const storedState = localStorage.getItem(this.SOUND_KEY);
+    return storedState ? JSON.parse(storedState) : true;
+  }
+
+  public static saveSoundState(isSoundOn: boolean): void {
+    localStorage.setItem(this.SOUND_KEY, JSON.stringify(isSoundOn));
   }
 }

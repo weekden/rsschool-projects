@@ -1,4 +1,5 @@
 import { createElement } from '../utils/helpers/createElement';
+import { LSControl } from '../utils/lsControl';
 import type { ControlCallback } from '../types/control-type';
 
 export class DecisionControl {
@@ -11,7 +12,7 @@ export class DecisionControl {
   constructor(onStart: (controlObject: ControlCallback) => void) {
     this.onStart = onStart;
     this.duration = this.defaultDuration;
-    this.isSoundOn = true;
+    this.isSoundOn = LSControl.getSoundState() || true;
     this.controlContainer = createElement({
       tag: 'form',
       classes: ['decision-control__wrapper'],
@@ -72,18 +73,18 @@ export class DecisionControl {
     const soundCheckbox = document.createElement('input');
     soundCheckbox.id = 'sound-chekbox';
     soundCheckbox.type = 'checkbox';
-    soundCheckbox.checked = true;
+    soundCheckbox.checked = this.isSoundOn;
 
     const soundCheckboxLabel = document.createElement('label');
     soundCheckboxLabel.htmlFor = 'sound-chekbox';
     soundCheckboxLabel.classList.add('decision-control__item-label', 'decision-control__item-label-checkbox');
 
-    let soundCheckboxLabelContent = this.createIcon('soundOn');
+    let soundCheckboxLabelContent = this.createIcon(this.isSoundOn ? 'soundOn' : 'soundOff');
 
     soundCheckbox.addEventListener('change', () => {
       soundCheckboxLabel.removeChild(soundCheckboxLabelContent);
 
-      if (soundCheckbox.checked) {
+      if (this.isSoundOn) {
         soundCheckboxLabelContent = this.createIcon('soundOn');
         this.isSoundOn = true;
       } else {
@@ -91,6 +92,7 @@ export class DecisionControl {
         soundCheckboxLabelContent = this.createIcon('soundOff');
       }
 
+      LSControl.saveSoundState(this.isSoundOn);
       soundCheckboxLabel.appendChild(soundCheckboxLabelContent);
     });
 
