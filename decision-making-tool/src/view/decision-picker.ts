@@ -11,9 +11,9 @@ export class Decision {
 
   constructor() {
     this.header = new Header();
-    this.control = new DecisionControl();
+    this.control = new DecisionControl((duration) => this.wheel.runAnimation(duration));
     this.pickedOption = new ShowPickedOption();
-    this.wheel = new Wheel(this.control);
+    this.wheel = new Wheel();
   }
 
   public render(): HTMLDivElement {

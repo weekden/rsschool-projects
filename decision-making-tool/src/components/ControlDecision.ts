@@ -4,8 +4,10 @@ export class DecisionControl {
   private readonly controlContainer: HTMLElement;
   private readonly defaultDuration: number = 5;
   private duration: number;
+  private onStart: (value: number) => void;
 
-  constructor() {
+  constructor(onStart: (value: number) => void) {
+    this.onStart = onStart;
     this.duration = this.defaultDuration;
     this.controlContainer = createElement({
       tag: 'form',
@@ -41,7 +43,7 @@ export class DecisionControl {
       classes: ['button', 'decision-control__item', 'decision-control__wrapper-top-button'],
     });
     buttonBack.addEventListener('click', () => {
-      window.history.back();
+      location.hash = '/';
     });
     return buttonBack;
   }
@@ -52,7 +54,10 @@ export class DecisionControl {
       text: 'start',
       classes: ['button', 'decision-control__item', 'decision-control__wrapper-bottom-button'],
     });
-    buttonStart.addEventListener('click', () => {});
+    buttonStart.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.onStart(this.duration);
+    });
     return buttonStart;
   }
 

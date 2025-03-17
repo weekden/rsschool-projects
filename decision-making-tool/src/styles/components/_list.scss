@@ -34,7 +34,9 @@
   }
 
   .todo-item__input {
-    padding: 1rem;
+    height: 4rem;
+    padding: 0.2rem;
+    padding-left: 0.5rem;
     border: 2px solid v.$input-border;
     border-radius: 0.5rem;
 
@@ -58,7 +60,7 @@
   }
 
   .todo-item__input-weight {
-    width: 8rem;
+    width: 15%;
     text-align: center;
   }
 

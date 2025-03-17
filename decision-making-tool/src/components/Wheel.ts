@@ -1,19 +1,18 @@
 import { createElement } from '../utils/helpers/createElement';
 import { LSControl } from '../utils/lsControl';
-import { DecisionControl } from './ControlDecision';
 import type { Todo } from '../types/todo-type';
 
 export class Wheel {
-  private readonly wheelContainer: HTMLElement;
-  private readonly canvas: HTMLCanvasElement;
-  private readonly context: CanvasRenderingContext2D | null;
-  private readonly renderList: Todo[];
-  private startAngle: number = -Math.PI / 2;
-  private segmentColors: string[] = [];
-  private animationId: number = 0;
+  private wheelContainer: HTMLElement;
+  private canvas: HTMLCanvasElement;
+  private context: CanvasRenderingContext2D | null;
+  private renderList: Todo[];
+  private startAngle: number;
+  private segmentColors: string[];
+  private animationId: number;
+  private animationTime: number;
 
-  constructor(private readonly decisionControl = new DecisionControl()) {
-    this.decisionControl = decisionControl;
+  constructor() {
     this.renderList = LSControl.getListForRender();
     this.canvas = document.createElement('canvas');
     this.canvas.className = 'decision-wheel';
@@ -21,28 +20,32 @@ export class Wheel {
     this.canvas.height = 500;
 
     this.context = this.canvas.getContext('2d');
-    this.wheelContainer = createElement({ tag: 'div', classes: ['decision-wheel__wrapper'] });
+    this.wheelContainer = createElement({
+      tag: 'div',
+      classes: ['decision-wheel__wrapper'],
+    });
     this.wheelContainer.append(this.canvas);
+
+    this.startAngle = -Math.PI / 2;
+    this.segmentColors = [];
+    this.animationId = 0;
+    this.animationTime = 5000;
 
     this.generateInitialColors(this.renderList);
     this.drawWheel();
-
-    this.wheelContainer.addEventListener('click', () => {
-      this.runAnimation();
-    });
   }
 
   public render(): HTMLElement {
     return this.wheelContainer;
   }
 
-  public runAnimation(): void {
-    const duration = this.decisionControl.setDuration() * 1000;
+  public runAnimation(duration: number): void {
+    this.animationTime = duration * 1000;
     this.animate();
 
     setTimeout(() => {
       cancelAnimationFrame(this.animationId);
-    }, duration);
+    }, this.animationTime);
   }
 
   private animate(): void {
@@ -68,8 +71,8 @@ export class Wheel {
       .sort(() => Math.random() - 0.5);
   }
 
-  private generateArryColor(length: number): string[] {
-    const collorArray: string[] = [];
+  private generateArrayColor(length: number): string[] {
+    const colorArray: string[] = [];
     const letters = '0123456789ABCDEF';
     const colorLength = 6;
 
@@ -78,19 +81,19 @@ export class Wheel {
       for (let j = 0; j < colorLength; j++) {
         color += letters[Math.floor(Math.random() * letters.length)];
       }
-      collorArray.push(color);
+      colorArray.push(color);
     }
 
-    return collorArray;
+    return colorArray;
   }
 
   private generateInitialColors(renderList: Todo[]): void {
-    this.segmentColors = this.generateArryColor(renderList.length);
+    this.segmentColors = this.generateArrayColor(renderList.length);
   }
 
   private getSlicedString(string: string): string {
     const maxLengthString = 15;
-    return string.length > maxLengthString ? string.slice(0, maxLengthString) + ` ...` : string;
+    return string.length > maxLengthString ? string.slice(0, maxLengthString) + ' ...' : string;
   }
 
   private drawWheel(): void {
@@ -138,7 +141,7 @@ export class Wheel {
       this.context.fillStyle = '#ffffff';
 
       if (fontSize > segmentHeight * 0.85) {
-        this.context.fillText(``, 0, 0);
+        this.context.fillText('', 0, 0);
       } else {
         this.context.fillText(`${this.getSlicedString(item.title)}`, 0, fontSize / 6);
       }
