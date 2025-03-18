@@ -1,5 +1,5 @@
-import type { TodoState } from '../types/todo-type';
-import type { Todo } from '../types/todo-type';
+import type { TodoState } from '../../types/todo-type';
+import type { Todo } from '../../types/todo-type';
 export const createTextArea = (): HTMLTextAreaElement => {
   const textArea = document.createElement('textarea');
   textArea.placeholder = `Paste a list of new options in a CSV-like format:

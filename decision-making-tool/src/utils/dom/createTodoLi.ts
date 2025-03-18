@@ -1,4 +1,4 @@
-import type { Todo } from '../types/todo-type';
+import type { Todo } from '../../types/todo-type';
 
 export function createLi(
   todo: Todo,

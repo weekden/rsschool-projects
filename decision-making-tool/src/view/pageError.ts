@@ -1,5 +1,5 @@
-import { createButton } from '../utils/createButton';
-import { createElement } from '../utils/helpers/createElement';
+import { createButton } from '../utils/dom/createButton';
+import { createElement } from '../utils/dom/createElement';
 export class ErrorPage {
   public render(): HTMLElement {
     const container = createElement({

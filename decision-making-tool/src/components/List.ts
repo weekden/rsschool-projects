@@ -1,4 +1,4 @@
-import { createLi } from '../utils/createTodoLi';
+import { createLi } from '../utils/dom/createTodoLi';
 import { LSControl } from '../utils/lsControl';
 import type { Todo } from '../types/todo-type';
 

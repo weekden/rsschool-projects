@@ -1,4 +1,4 @@
-import { createElement } from '../utils/helpers/createElement';
+import { createElement } from '../utils/dom/createElement';
 import { LSControl } from '../utils/lsControl';
 
 import { getSlicedString } from '../utils/slicedString';

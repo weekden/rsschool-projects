@@ -1,8 +1,8 @@
-import { createButton } from '../utils/createButton';
+import { createButton } from '../utils/dom/createButton';
 import { LSControl } from '../utils/lsControl';
-import { createPopup } from '../utils/createPopup';
-import { createTextArea } from '../utils/createTextArea';
-import { parseValueFromTextArea } from '../utils/createTextArea';
+import { createPopup } from '../utils/dom/createPopup';
+import { createTextArea } from '../utils/dom/createTextArea';
+import { parseValueFromTextArea } from '../utils/dom/createTextArea';
 import type { TodoList } from './List';
 import { loadFile, saveFile } from '../utils/saveLoad';
 
