@@ -100,10 +100,23 @@
   width: 100%;
 }
 
-.decision-wheel__wrapper {
-  text-align: center;
-}
-
 canvas {
   width: 100%;
+}
+
+.decision-wheel__wrapper {
+  max-width: 50rem;
+  width: 100%;
+  position: relative;
+}
+.decision-pointer {
+  transition: transform 5s ease-in-out;
+}
+
+.decision-pointer {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }

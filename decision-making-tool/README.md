@@ -11,7 +11,7 @@
   cd decision-making-tool && npx --no -- commitlint --edit "$1"
   ```
 
-  для файла `commit-msg`
+  для файла `pre-commit`
 
   ```
     #!/bin/sh
