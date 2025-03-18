@@ -1,6 +1,6 @@
-import type { TodoState } from '../types/todo-type';
-import type { Todo } from '../types/todo-type';
-import { getParsedItem } from './getParsedItem';
+import type { TodoState } from '../../types/todo-type';
+import type { Todo } from '../../types/todo-type';
+import { getParsedItem } from '../parser/getParsedItem';
 
 export class LSControl {
   private static STORAGE_KEY = 'todoState';

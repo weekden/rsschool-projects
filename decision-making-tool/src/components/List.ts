@@ -1,5 +1,5 @@
 import { createLi } from '../utils/dom/createTodoLi';
-import { LSControl } from '../utils/lsControl';
+import { LSControl } from '../utils/storage/lsControl';
 import type { Todo } from '../types/todo-type';
 
 export class TodoList {

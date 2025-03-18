@@ -1,5 +1,5 @@
 import { createElement } from '../utils/dom/createElement';
-import { LSControl } from '../utils/lsControl';
+import { LSControl } from '../utils/storage/lsControl';
 import type { ControlCallback } from '../types/control-type';
 
 export class DecisionControl {

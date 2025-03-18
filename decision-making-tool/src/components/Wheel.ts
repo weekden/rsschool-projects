@@ -1,5 +1,5 @@
 import { createElement } from '../utils/dom/createElement';
-import { LSControl } from '../utils/lsControl';
+import { LSControl } from '../utils/storage/lsControl';
 
 import { getSlicedString } from '../utils/slicedString';
 import { generateArrayColor } from '../utils/colorRandomize';
@@ -54,7 +54,6 @@ export class Wheel {
   }
 
   public render(): HTMLElement {
-    console.log('test2');
     return this.wheelContainer;
   }
 

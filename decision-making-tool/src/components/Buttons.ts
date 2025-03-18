@@ -1,10 +1,10 @@
 import { createButton } from '../utils/dom/createButton';
-import { LSControl } from '../utils/lsControl';
+import { LSControl } from '../utils/storage/lsControl';
 import { createPopup } from '../utils/dom/createPopup';
 import { createTextArea } from '../utils/dom/createTextArea';
 import { parseValueFromTextArea } from '../utils/dom/createTextArea';
 import type { TodoList } from './List';
-import { loadFile, saveFile } from '../utils/saveLoad';
+import { loadFile, saveFile } from '../utils/storage/saveLoad';
 
 export class Buttons {
   private readonly buttonsContainer: HTMLDivElement;
