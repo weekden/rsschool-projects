@@ -18,23 +18,22 @@ export class Wheel {
   private renderList: Todo[];
   private startAngle: number;
   private segmentColors: string[];
-  private animationId: number;
-  private animationTime: number;
+  private currentRotation: number = 0;
 
   constructor() {
     this.renderList = LSControl.getListForRender();
 
     this.canvas = document.createElement('canvas');
     this.canvas.className = 'decision-wheel';
-    this.canvas.width = 500;
-    this.canvas.height = 500;
+    this.canvas.width = 400;
+    this.canvas.height = 400;
     this.context = this.canvas.getContext('2d');
     this.centerX = this.canvas.width / 2;
     this.centerY = this.canvas.height / 2;
 
     this.pointerCanvas = document.createElement('canvas');
-    this.pointerCanvas.width = 500;
-    this.pointerCanvas.height = 500;
+    this.pointerCanvas.width = 400;
+    this.pointerCanvas.height = 400;
     this.pointerContext = this.pointerCanvas.getContext('2d');
     this.pointerCanvas.className = 'decision-pointer';
 
@@ -46,8 +45,6 @@ export class Wheel {
 
     this.startAngle = -Math.PI / 2;
     this.segmentColors = [];
-    this.animationId = 0;
-    this.animationTime = 5000;
 
     this.generateInitialColors(this.renderList);
     this.initialDrow();
@@ -58,34 +55,32 @@ export class Wheel {
   }
 
   public runAnimation(controlObject: ControlCallback): void {
-    this.animationTime = controlObject.duration * 1000;
+    const minTurn = 5;
+    const maxTurn = 30;
+
+    const randomTurn = Math.random() * (maxTurn - minTurn) + minTurn;
+    const randomDegrees = randomTurn * 360;
+    const targetRotation = this.currentRotation + randomDegrees;
+
     this.canvas.style.transition = `transform ${controlObject.duration}s ease-in-out`;
-    this.animate();
+    this.canvas.style.transform = `rotate(${targetRotation}deg)`;
 
     setTimeout(() => {
-      cancelAnimationFrame(this.animationId);
       if (controlObject.isSoundOn) {
-        const sound = new Audio('./assets/sounds/finish.mp3');
-        sound.play();
+        new Audio('./assets/sounds/finish.mp3').play();
       }
-    }, this.animationTime);
+
+      this.currentRotation = targetRotation % 360;
+
+      this.canvas.style.transition = 'none';
+      this.canvas.style.transform = `rotate(${this.currentRotation}deg)`;
+    }, controlObject.duration * 1000);
   }
 
   private initialDrow(): void {
     this.clearCanvas();
     this.drawWheel();
     this.drawPointer();
-  }
-
-  private animate(): void {
-    this.startAngle += 0.01;
-
-    if (this.startAngle >= Math.PI * 2) {
-      this.startAngle = 0;
-    }
-
-    this.drawWheel();
-    this.animationId = requestAnimationFrame(() => this.animate());
   }
 
   private getSegmentsArray(renderList: Todo[]): Todo[] {
