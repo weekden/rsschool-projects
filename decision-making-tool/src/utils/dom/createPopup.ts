@@ -1,6 +1,6 @@
 import type { PopupOptions } from '../../types/popup-types';
 import { createButton } from './createButton';
-import { onElementRemoved } from '../elementObserver';
+import { onElementRemoved } from '../observer/elementObserver';
 
 export const createPopup = ({ content, buttons }: PopupOptions): HTMLDivElement => {
   const popupWrappew = document.createElement('div');

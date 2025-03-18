@@ -59,6 +59,7 @@ export class Wheel {
 
   public runAnimation(controlObject: ControlCallback): void {
     this.animationTime = controlObject.duration * 1000;
+    this.canvas.style.transition = `transform ${controlObject.duration}s ease-in-out`;
     this.animate();
 
     setTimeout(() => {

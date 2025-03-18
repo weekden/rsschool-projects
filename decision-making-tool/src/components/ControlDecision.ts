@@ -3,7 +3,7 @@ import { LSControl } from '../utils/storage/lsControl';
 import type { ControlCallback } from '../types/control-type';
 
 export class DecisionControl {
-  private readonly controlContainer: HTMLElement;
+  private readonly controlContainer: HTMLFormElement;
   private readonly defaultDuration: number = 5;
   private duration: number;
   private isSoundOn: boolean;
@@ -14,23 +14,23 @@ export class DecisionControl {
     this.onStart = onStart;
     this.duration = this.defaultDuration;
     this.isSoundOn = LSControl.getSoundState();
-    this.controlContainer = createElement({
-      tag: 'form',
-      classes: ['decision-control__wrapper'],
-      children: [
-        createElement({
-          tag: 'div',
-          classes: ['decision-control__wrapper-top'],
-          children: [this.createButtonBack(), this.createSoundChecked(), this.createTimer()],
-        }),
 
-        createElement({
-          tag: 'div',
-          classes: ['decision-control__wrapper-bottom'],
-          children: [this.createButtonStart()],
-        }),
-      ],
+    this.controlContainer = document.createElement('form');
+    this.controlContainer.classList.add('decision-control__wrapper');
+
+    const topWrapper = createElement({
+      tag: 'div',
+      classes: ['decision-control__wrapper-top'],
+      children: [this.createButtonBack(), this.createSoundChecked(), this.createTimer()],
     });
+
+    const bottomWrapper = createElement({
+      tag: 'div',
+      classes: ['decision-control__wrapper-bottom'],
+      children: [this.createButtonStart()],
+    });
+
+    this.controlContainer.append(topWrapper, bottomWrapper);
   }
 
   public setDuration(): number {
@@ -59,18 +59,22 @@ export class DecisionControl {
       text: 'start',
       classes: ['button', 'decision-control__item', 'decision-control__wrapper-bottom-button'],
     });
-    buttonStart.addEventListener('click', (event) => {
-      event.preventDefault();
+    buttonStart.addEventListener('click', () => {
+      if (!this.controlContainer.checkValidity()) {
+        return;
+      }
+      this.setFormDisabled(true);
+      this.addDisabledBlock();
       const controlObject = {
         duration: this.duration,
         isSoundOn: this.isSoundOn,
       };
-      this.addDisabledBlock();
 
       this.onStart(controlObject);
 
       setTimeout(() => {
         this.removeDisabledBlock();
+        this.setFormDisabled(false);
       }, this.duration * 1000);
     });
     return buttonStart;
@@ -119,6 +123,7 @@ export class DecisionControl {
     timerInput.value = `${this.defaultDuration}`;
     timerInput.placeholder = 'sec';
     timerInput.required = true;
+
     timerInput.addEventListener('input', () => {
       this.duration = +timerInput.value;
     });
@@ -142,6 +147,14 @@ export class DecisionControl {
     icon.src = `./assets/icons/${iconType}.png`;
     icon.alt = 'icon';
     return icon;
+  }
+
+  private setFormDisabled(state: boolean): void {
+    Array.from(this.controlContainer.elements).forEach((item) => {
+      if (item instanceof HTMLInputElement || item instanceof HTMLButtonElement) {
+        item.disabled = state;
+      }
+    });
   }
 
   private createDisabledBlock(): HTMLElement {
