@@ -54,7 +54,7 @@ export class Wheel {
   }
 
   public render(): HTMLElement {
-    console.log('test');
+    console.log('test2');
     return this.wheelContainer;
   }
 
