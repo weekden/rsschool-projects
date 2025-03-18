@@ -7,6 +7,7 @@ export class DecisionControl {
   private readonly defaultDuration: number = 5;
   private duration: number;
   private isSoundOn: boolean;
+  private disabledBlock: HTMLElement | null = null;
   private onStart: (controlObject: ControlCallback) => void;
 
   constructor(onStart: (controlObject: ControlCallback) => void) {
@@ -64,7 +65,13 @@ export class DecisionControl {
         duration: this.duration,
         isSoundOn: this.isSoundOn,
       };
+      this.addDisabledBlock();
+
       this.onStart(controlObject);
+
+      setTimeout(() => {
+        this.removeDisabledBlock();
+      }, this.duration * 1000);
     });
     return buttonStart;
   }
@@ -135,5 +142,24 @@ export class DecisionControl {
     icon.src = `./assets/icons/${iconType}.png`;
     icon.alt = 'icon';
     return icon;
+  }
+
+  private createDisabledBlock(): HTMLElement {
+    const disabledBlock = createElement({ tag: 'div', classes: ['decision-control__disabled'] });
+    return disabledBlock;
+  }
+
+  private addDisabledBlock(): void {
+    if (!this.disabledBlock) {
+      this.disabledBlock = this.createDisabledBlock();
+      this.controlContainer.appendChild(this.disabledBlock);
+    }
+  }
+
+  private removeDisabledBlock(): void {
+    if (this.disabledBlock) {
+      this.controlContainer.removeChild(this.disabledBlock);
+      this.disabledBlock = null;
+    }
   }
 }
