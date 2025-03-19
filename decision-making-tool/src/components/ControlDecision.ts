@@ -49,7 +49,7 @@ export class DecisionControl {
     });
     buttonBack.addEventListener('click', (event) => {
       event.preventDefault();
-      window.location.href = '/';
+      window.location.href = '#/';
     });
     return buttonBack;
   }
