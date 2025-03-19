@@ -48,7 +48,7 @@ export class LSControl {
 
   public static getListForRender(): Todo[] {
     const state = this.getState();
-    const renderTodo = state.items.filter((item) => item.title !== '' && item.weight !== '');
+    const renderTodo = state.items.filter((item) => item.title !== '' && item.weight !== '' && item.weight !== '0');
     return renderTodo;
   }
 
