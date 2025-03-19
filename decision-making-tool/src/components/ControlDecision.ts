@@ -47,8 +47,9 @@ export class DecisionControl {
       text: 'back',
       classes: ['button', 'decision-control__item', 'decision-control__wrapper-top-button'],
     });
-    buttonBack.addEventListener('click', () => {
-      location.hash = '/';
+    buttonBack.addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = '/';
     });
     return buttonBack;
   }
