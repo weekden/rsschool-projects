@@ -1,22 +1,22 @@
 import type { NavController } from '../controller';
+import { createButton } from '../../../utils/dom/createButton';
+import { createElement } from '../../../utils/dom/createElement';
 
 export class NavView {
   private navContainer: HTMLElement;
 
   constructor(private controller: NavController) {
-    this.navContainer = document.createElement('nav');
+    this.navContainer = createElement({ tag: 'nav', classes: ['nav'] });
   }
 
   public render(): HTMLElement {
-    const button1 = document.createElement('button');
-    button1.textContent = 'to Garage';
-    button1.dataset.route = '/';
+    const buttonGarage = createButton({ text: 'to Garage', classes: ['nav_btn', 'button'] });
+    buttonGarage.dataset.route = '/';
 
-    const button2 = document.createElement('button');
-    button2.textContent = 'to Winners';
-    button2.dataset.route = '/records';
+    const buttonWinners = createButton({ text: 'to Winners', classes: ['nav_btn', 'button'] });
+    buttonWinners.dataset.route = '/records';
 
-    this.navContainer.append(button1, button2);
+    this.navContainer.append(buttonGarage, buttonWinners);
 
     Array.from(this.navContainer.children).forEach((item) => {
       if (item instanceof HTMLElement) {
