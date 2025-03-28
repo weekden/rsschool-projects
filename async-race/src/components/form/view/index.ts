@@ -1,38 +1,86 @@
-import { createItemForForm } from '../items/formItem';
 import { createButton } from '../../../utils/dom/createButton';
+import { createInputElement } from '../../../utils/dom/createInputElement';
 
 import { createElement } from '../../../utils/dom/createElement';
+
 export class FormView {
-  private formContainer: HTMLElement;
+  public createButton: HTMLButtonElement;
+  public updateButton: HTMLButtonElement;
+  public raceButton: HTMLButtonElement;
+  public resetButton: HTMLButtonElement;
+  public generateButton: HTMLButtonElement;
+  public textInputCreate: HTMLInputElement;
+  public colorInputCreate: HTMLInputElement;
+  public textInputUpdate: HTMLInputElement;
+  public colorInputUpdate: HTMLInputElement;
 
   constructor() {
-    this.formContainer = createElement({ tag: 'form', classes: ['form', 'controll-form'] });
+    this.createButton = createButton({
+      text: 'CREATE',
+      classes: ['controll-item', 'controll-item__btn', 'constro-item__btn-create'],
+    });
+
+    this.updateButton = createButton({
+      text: 'UPDATE',
+      classes: ['controll-item', 'controll-item__btn', 'constro-item__btn-update'],
+    });
+
+    this.textInputCreate = createInputElement({
+      type: 'text',
+      classes: ['controll-item', 'controll-item__input', 'constro-item__input-text'],
+    });
+
+    this.colorInputCreate = createInputElement({
+      type: 'color',
+      classes: ['controll-item', 'controll-item__input', 'constro-item__input-color'],
+    });
+
+    this.textInputUpdate = createInputElement({
+      type: 'text',
+      classes: ['controll-item', 'controll-item__input', 'constro-item__input-text'],
+    });
+
+    this.colorInputUpdate = createInputElement({
+      type: 'color',
+      classes: ['controll-item', 'controll-item__input', 'constro-item__input-color'],
+    });
+
+    this.raceButton = createButton({
+      text: 'RACE',
+      classes: ['controll-item', 'controll-item__btn', 'controll-item__btn-state'],
+    });
+
+    this.resetButton = createButton({
+      text: 'RESET',
+      classes: ['controll-item', 'controll-item__btn', 'controll-item__btn-state'],
+    });
+
+    this.generateButton = createButton({
+      text: 'GENERATE CAR',
+      classes: ['controll-item', 'controll-item__btn', 'controll-item__btn-state'],
+    });
   }
 
   public render(): HTMLElement {
-    const createItem = createItemForForm('CREATE');
-    const updateItem = createItemForForm('UPDATE');
+    const formContainer = createElement({ tag: 'div', classes: ['form'] });
+    const createItem = createElement({
+      tag: 'div',
+      classes: ['controll', 'controll-wrapper', 'controll-wrapper__create'],
+      children: [this.textInputCreate, this.colorInputCreate, this.createButton],
+    });
+
+    const updateItem = createElement({
+      tag: 'div',
+      classes: ['controll', 'controll-wrapper', 'controll-wrapper__update'],
+      children: [this.textInputUpdate, this.colorInputUpdate, this.updateButton],
+    });
+
     const stateItem = createElement({
       tag: 'div',
       classes: ['controll-item'],
-      children: [
-        createButton({
-          text: 'RACE',
-          classes: ['controll-item', 'controll-item__btn', 'controll-item__btn-state'],
-        }),
-        createButton({
-          text: 'RESET',
-          classes: ['controll-item', 'controll-item__btn', 'controll-item__btn-state'],
-        }),
-        createButton({
-          text: 'GENERATE CAR',
-          classes: ['controll-item', 'controll-item__btn', 'controll-item__btn-state'],
-        }),
-      ],
+      children: [this.raceButton, this.resetButton, this.generateButton],
     });
-
-    this.formContainer.append(createItem, updateItem, stateItem);
-
-    return this.formContainer;
+    formContainer.append(createItem, updateItem, stateItem);
+    return formContainer;
   }
 }
