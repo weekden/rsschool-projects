@@ -6,6 +6,7 @@ export class InitNav {
   public init(): HTMLElement {
     const model = new NavModel();
     const controller = new NavController(model);
-    return new NavView(controller).render();
+    const view = new NavView(controller);
+    return view.render();
   }
 }

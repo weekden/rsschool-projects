@@ -8,7 +8,7 @@ export function createGarageItem(car: Car): HTMLElement {
   const selectButton = createButton({ text: 'SELECT', classes: ['btn', 'btn-select'] });
   const removeButton = createButton({ text: 'REMOVE', classes: ['btn', 'btn-remove'] });
 
-  const modelLabel = createElement({ tag: 'span', classes: ['car-model'], text: car.model });
+  const modelLabel = createElement({ tag: 'span', classes: ['car-model'], text: car.name });
 
   const startButton = createButton({ text: 'A', classes: ['btn', 'btn-start'] });
   const stopButton = createButton({ text: 'B', classes: ['btn', 'btn-stop'] });

@@ -40,7 +40,7 @@ export default [
       'no-debugger': 'off',
       'no-console': 'off',
       'class-methods-use-this': 'off',
-      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/consistent-type-imports': 'off',
       '@typescript-eslint/member-ordering': 'error',
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/explicit-function-return-type': 'error',

@@ -1,47 +1,38 @@
-import type { FormView } from '../view';
-export class FormController {
-  private view: FormView;
+import { GarageModel } from '../../garage/model';
+import { FormView } from '../view';
 
-  constructor(view: FormView) {
-    this.view = view;
+export class FormController {
+  constructor(
+    private view: FormView,
+    private model: GarageModel
+  ) {
     this.initEventListeners();
   }
 
   private initEventListeners(): void {
     this.view.createButton.addEventListener('click', () => this.handleCreate());
-    this.view.updateButton.addEventListener('click', () => this.handleUpdate());
-    this.view.raceButton.addEventListener('click', () => this.startRace());
-    this.view.resetButton.addEventListener('click', () => this.resetRace());
-    this.view.generateButton.addEventListener('click', () => this.generateCars());
   }
 
-  private handleCreate(): void {
-    const model = this.view.textInputCreate.value;
+  private async handleCreate(): Promise<void> {
+    const name = this.view.textInputCreate.value;
     const color = this.view.colorInputCreate.value;
-    if (!model) return;
+    if (!name) return;
     const newCar = {
-      model: model,
+      name: name,
       color: color,
     };
-    this.view.textInputCreate.value = '';
+    try {
+      const response = await fetch('http://localhost:3000/garage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, color }),
+      });
+
+      const newCar = await response.json();
+      console.log(newCar);
+      this.model.addCar(newCar);
+    } catch {}
+
     console.log(newCar);
   }
-
-  private handleUpdate(): void {
-    const model = this.view.textInputUpdate.value;
-    const color = this.view.colorInputUpdate.value;
-    if (!model) return;
-    const updateCar = {
-      model: model,
-      color: color,
-    };
-    this.view.textInputUpdate.value = '';
-    console.log(updateCar);
-  }
-
-  private startRace(): void {}
-
-  private resetRace(): void {}
-
-  private generateCars(): void {}
 }

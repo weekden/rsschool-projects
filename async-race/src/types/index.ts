@@ -4,7 +4,13 @@ type Main = {
 
 export type Routes = Record<string, new () => Main>;
 
-export type Car = {
-  model: string;
+type BaseCar = {
+  name: string;
   color: string;
 };
+
+export type Car = BaseCar & {
+  id: number;
+};
+
+export type CreateCarParameters = BaseCar;
