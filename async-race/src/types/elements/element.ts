@@ -4,4 +4,5 @@ export type ElementOptions = {
   text?: string;
   children?: HTMLElement[];
   classes?: string[];
+  attributes?: Record<string, string>;
 };

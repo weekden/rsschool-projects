@@ -1,5 +1,6 @@
 import { GarageModel } from '../../garage/model';
 import { FormView } from '../view';
+import { Car, CreateCarParameters } from '../../../types';
 
 export class FormController {
   constructor(
@@ -17,22 +18,21 @@ export class FormController {
     const name = this.view.textInputCreate.value;
     const color = this.view.colorInputCreate.value;
     if (!name) return;
-    const newCar = {
-      name: name,
-      color: color,
-    };
+
+    const newCarData: CreateCarParameters = { name, color };
+
     try {
       const response = await fetch('http://localhost:3000/garage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, color }),
+        body: JSON.stringify(newCarData),
       });
 
-      const newCar = await response.json();
+      const newCar: Car = await response.json();
       console.log(newCar);
       this.model.addCar(newCar);
-    } catch {}
-
-    console.log(newCar);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

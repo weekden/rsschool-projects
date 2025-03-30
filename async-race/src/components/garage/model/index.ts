@@ -3,6 +3,7 @@ export class GarageModel {
   private cars: Car[] = [];
 
   public setCars(cars: Car[]): void {
+    console.log(cars);
     this.cars = cars;
   }
 

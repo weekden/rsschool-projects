@@ -3,7 +3,11 @@ import { createButton } from '../../../utils/dom/createButton';
 import type { Car } from '../../../types';
 
 export function createGarageItem(car: Car): HTMLElement {
-  const garageItem = createElement({ tag: 'div', classes: ['garage-item'] });
+  const garageItem = createElement({
+    tag: 'div',
+    classes: ['garage-item'],
+    attributes: { 'data-id': car.id.toString() },
+  });
 
   const selectButton = createButton({ text: 'SELECT', classes: ['btn', 'btn-select'] });
   const removeButton = createButton({ text: 'REMOVE', classes: ['btn', 'btn-remove'] });
