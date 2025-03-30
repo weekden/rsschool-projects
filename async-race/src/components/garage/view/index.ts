@@ -3,7 +3,7 @@ import { createGarageItem } from '../items/garageItem';
 import { GarageModel } from '../model';
 
 export class GarageView {
-  private garageContainer: HTMLElement;
+  public garageContainer: HTMLElement;
 
   constructor(private model: GarageModel) {
     this.garageContainer = createElement({ tag: 'div', classes: ['garage-wrapper'] });

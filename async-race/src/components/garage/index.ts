@@ -6,8 +6,8 @@ export class InitGarage {
   constructor(private model: GarageModel) {}
 
   public async init(): Promise<HTMLElement> {
-    const controller = new GarageController(this.model);
     const view = new GarageView(this.model);
+    const controller = new GarageController(view, this.model);
     await controller.getCars();
 
     return view.render();

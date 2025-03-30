@@ -14,4 +14,8 @@ export class GarageModel {
   public addCar(car: Car): void {
     this.cars.push(car);
   }
+
+  public removeCar(id: string): void {
+    this.cars = this.cars.filter((car) => car.id !== Number(id));
+  }
 }
