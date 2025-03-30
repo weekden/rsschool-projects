@@ -7,6 +7,7 @@ export class GarageController {
     private readonly model: GarageModel
   ) {
     this.initEventListeners();
+    this.model.subscribeCarsListener(() => this.handleModelUpdate());
   }
 
   public async getCars(): Promise<void> {
@@ -17,7 +18,6 @@ export class GarageController {
       }
       const cars = await response.json();
       this.model.setCars(cars);
-      console.log(cars);
     } catch (error) {
       console.error(error);
     }
@@ -33,10 +33,10 @@ export class GarageController {
         if (!carId) return;
 
         if (target.classList.contains('btn-select')) {
+          this.model.setCarToEdit(+carId);
         } else if (target.classList.contains('btn-remove')) {
           this.deleteCar(carId);
           this.model.removeCar(carId);
-          carItem?.remove();
         } else if (target.classList.contains('btn-start')) {
         } else if (target.classList.contains('btn-stop')) {
         }
@@ -55,5 +55,9 @@ export class GarageController {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  private handleModelUpdate(): void {
+    this.view.render();
   }
 }

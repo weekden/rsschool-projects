@@ -15,6 +15,7 @@ export class GarageView {
   }
 
   private renderCars(): void {
+    this.garageContainer.innerHTML = '';
     const cars = this.model.getCars();
     if (!cars) return;
     cars.forEach((car) => {

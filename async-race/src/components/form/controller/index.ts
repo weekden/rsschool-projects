@@ -8,10 +8,12 @@ export class FormController {
     private model: GarageModel
   ) {
     this.initEventListeners();
+    this.model.subscribeCarsToEditListener(() => this.handleModelUpdate());
   }
 
   private initEventListeners(): void {
     this.view.createButton.addEventListener('click', () => this.handleCreate());
+    this.view.updateButton;
   }
 
   private async handleCreate(): Promise<void> {
@@ -27,12 +29,14 @@ export class FormController {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newCarData),
       });
-
       const newCar: Car = await response.json();
-      console.log(newCar);
       this.model.addCar(newCar);
     } catch (error) {
       console.error(error);
     }
+  }
+
+  private handleModelUpdate(): void {
+    this.view.render();
   }
 }
