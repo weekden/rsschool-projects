@@ -37,6 +37,11 @@ export class GarageModel {
     this.notifyCarsListener();
   }
 
+  public updateCar(updatedCar: Car): void {
+    this.cars = this.cars.map((car) => (car.id === updatedCar.id ? updatedCar : car));
+    this.notifyCarsListener();
+  }
+
   public subscribeCarsListener(callback: () => void): void {
     this.carsListener = callback;
   }

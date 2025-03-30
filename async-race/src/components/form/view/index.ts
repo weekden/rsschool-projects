@@ -1,5 +1,6 @@
 import { createButton } from '../../../utils/dom/createButton';
 import { createInputElement } from '../../../utils/dom/createInputElement';
+import { GarageModel } from '../../garage/model';
 
 import { createElement } from '../../../utils/dom/createElement';
 
@@ -14,7 +15,7 @@ export class FormView {
   public textInputUpdate: HTMLInputElement;
   public colorInputUpdate: HTMLInputElement;
 
-  constructor() {
+  constructor(private model: GarageModel) {
     this.createButton = createButton({
       text: 'CREATE',
       classes: ['controll-item', 'controll-item__btn', 'constro-item__btn-create'],
@@ -59,6 +60,15 @@ export class FormView {
       text: 'GENERATE CAR',
       classes: ['controll-item', 'controll-item__btn', 'controll-item__btn-state'],
     });
+  }
+
+  public updateInputs(): void {
+    const car = this.model.getCarToEdit();
+    if (!car) return;
+    console.log(car);
+
+    this.textInputUpdate.value = car?.name;
+    this.colorInputUpdate.value = car?.color;
   }
 
   public render(): HTMLElement {

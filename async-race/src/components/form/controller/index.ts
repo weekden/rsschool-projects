@@ -13,7 +13,7 @@ export class FormController {
 
   private initEventListeners(): void {
     this.view.createButton.addEventListener('click', () => this.handleCreate());
-    this.view.updateButton;
+    this.view.updateButton.addEventListener('click', () => this.handleUpdate());
   }
 
   private async handleCreate(): Promise<void> {
@@ -31,12 +31,43 @@ export class FormController {
       });
       const newCar: Car = await response.json();
       this.model.addCar(newCar);
+      this.clearInputs();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  private async handleUpdate(): Promise<void> {
+    const name = this.view.textInputUpdate.value;
+    const color = this.view.colorInputUpdate.value;
+    const id = this.model.getCarToEdit()?.id;
+    if (!name || !id) return;
+
+    const updateCarData: CreateCarParameters = { name, color };
+
+    try {
+      const response = await fetch(`http://localhost:3000/garage/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updateCarData),
+      });
+      const updateCar: Car = await response.json();
+      this.model.updateCar(updateCar);
+      console.log(updateCar);
+      this.clearInputs();
     } catch (error) {
       console.error(error);
     }
   }
 
   private handleModelUpdate(): void {
-    this.view.render();
+    this.view.updateInputs();
+  }
+
+  private clearInputs(): void {
+    this.view.textInputCreate.value = '';
+    this.view.colorInputCreate.value = '#000000';
+    this.view.textInputUpdate.value = '';
+    this.view.colorInputUpdate.value = '#000000';
   }
 }
