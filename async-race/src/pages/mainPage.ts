@@ -1,5 +1,5 @@
 import { InitForm } from '../components/form';
-import { Count } from '../components/count';
+import { InitCount } from '../components/count';
 import { InitGarage } from '../components/garage';
 import { GarageModel } from '../components/garage/model';
 export class MainPage {
@@ -7,15 +7,14 @@ export class MainPage {
     const container = document.createElement('div');
     const model = new GarageModel();
 
-    const formContainer = new InitForm(model).init();
-    const viewCount = new Count().render();
+    new InitGarage(model).init().then((garage) => {
+      const formContainer = new InitForm(model).init();
+      const count = new InitCount(model).init();
+      container.append(formContainer, count, garage);
+    });
 
     container.textContent = 'Main';
-    container.append(formContainer, viewCount);
-
-    new InitGarage(model).init().then((garage) => {
-      container.append(garage);
-    });
+    container.append();
 
     return container;
   }

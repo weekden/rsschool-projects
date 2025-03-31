@@ -3,9 +3,10 @@ import type { Car } from '../../../types';
 export class GarageModel {
   private cars: Car[] = [];
   private carToEdit: Car | null = null;
+  private coinCars: number = 0;
 
-  private carsListener: (() => void) | null = null;
   private carsToEditListeners: (() => void) | null = null;
+  private carsListeners: (() => void)[] = [];
 
   public setCars(cars: Car[]): void {
     this.cars = cars;
@@ -29,11 +30,13 @@ export class GarageModel {
 
   public addCar(car: Car): void {
     this.cars.push(car);
+    this.coinCars++;
     this.notifyCarsListener();
   }
 
   public removeCar(id: string): void {
     this.cars = this.cars.filter((car) => car.id !== +id);
+    this.coinCars--;
     this.notifyCarsListener();
   }
 
@@ -42,8 +45,16 @@ export class GarageModel {
     this.notifyCarsListener();
   }
 
+  public setCarsCount(coin: number): void {
+    this.coinCars = coin;
+  }
+
+  public getCarsCount(): number {
+    return this.coinCars;
+  }
+
   public subscribeCarsListener(callback: () => void): void {
-    this.carsListener = callback;
+    this.carsListeners.push(callback);
   }
 
   public subscribeCarsToEditListener(callback: () => void): void {
@@ -51,9 +62,7 @@ export class GarageModel {
   }
 
   private notifyCarsListener(): void {
-    if (this.cars && this.carsListener) {
-      this.carsListener();
-    }
+    this.carsListeners.forEach((callback) => callback());
   }
 
   private notifyCarsToEditListener(): void {

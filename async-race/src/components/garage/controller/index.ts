@@ -10,7 +10,7 @@ export class GarageController {
     this.model.subscribeCarsListener(() => this.handleModelUpdate());
   }
 
-  public async getCars(): Promise<void> {
+  public async loadGarage(): Promise<void> {
     try {
       const response = await fetch('http://localhost:3000/garage');
       if (!response.ok) {
@@ -18,6 +18,7 @@ export class GarageController {
       }
       const cars = await response.json();
       this.model.setCars(cars);
+      this.model.setCarsCount(cars.length);
     } catch (error) {
       console.error(error);
     }

@@ -1,46 +1,13 @@
-import { createElement } from '../../utils/dom/createElement';
+import { CountView } from './view';
+import { CountController } from './controller';
+import { GarageModel } from '../garage/model';
 
-export class Count {
-  private countContainer: HTMLElement;
-  private countText: HTMLElement;
-  private pageText: HTMLElement;
-  private coinCars: number;
-  private currentPage: number;
+export class InitCount {
+  constructor(private model: GarageModel) {}
 
-  constructor(coinCars = 0, currentPage = 1) {
-    this.coinCars = coinCars;
-    this.currentPage = currentPage;
-
-    this.countText = createElement({
-      tag: 'span',
-      classes: ['count-item', 'count-item__cars'],
-      text: `Garage (${this.coinCars})`,
-    });
-
-    this.pageText = createElement({
-      tag: 'span',
-      classes: ['count-item', 'count-item__page'],
-      text: `Page: ${this.currentPage}`,
-    });
-
-    this.countContainer = createElement({
-      tag: 'div',
-      classes: ['count', 'counter-wrapper'],
-      children: [this.countText, this.pageText],
-    });
-  }
-
-  public updateCount(coinCars: number): void {
-    this.coinCars = coinCars;
-    this.countText.textContent = `Garage (${this.coinCars})`;
-  }
-
-  public updatePage(currentPage: number): void {
-    this.currentPage = currentPage;
-    this.pageText.textContent = `Page: ${this.currentPage}`;
-  }
-
-  public render(): HTMLElement {
-    return this.countContainer;
+  public init(): HTMLElement {
+    const view = new CountView(this.model);
+    new CountController(this.model, view);
+    return view.render();
   }
 }

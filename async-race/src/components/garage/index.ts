@@ -8,7 +8,7 @@ export class InitGarage {
   public async init(): Promise<HTMLElement> {
     const view = new GarageView(this.model);
     const controller = new GarageController(view, this.model);
-    await controller.getCars();
+    await controller.loadGarage();
 
     return view.render();
   }
