@@ -1,4 +1,4 @@
-import type { NavController } from '../controller';
+import { NavController } from '../controller';
 import { createButton } from '../../../utils/dom/createButton';
 import { createElement } from '../../../utils/dom/createElement';
 

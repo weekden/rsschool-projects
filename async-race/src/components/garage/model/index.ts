@@ -27,9 +27,11 @@ export class GarageModel {
   private cars: Car[] = [];
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
+  private page: number = 1;
 
   private carsToEditListeners: (() => void) | null = null;
   private carsListeners: (() => void)[] = [];
+  private pagesListener: (() => void)[] = [];
 
   public setCars(cars: Car[]): void {
     this.cars = cars;
@@ -78,6 +80,25 @@ export class GarageModel {
     return this.coinCars;
   }
 
+  public setPageNumber(_page: number): void {
+    this.page = _page;
+    this.notifyPagesListener();
+  }
+
+  public getPageNumber(): number {
+    return this.page;
+  }
+
+  public decreasePageCounter(): void {
+    this.page--;
+    this.notifyPagesListener();
+  }
+
+  public increasePageCounter(): void {
+    this.page++;
+    this.notifyPagesListener();
+  }
+
   public createHundredCars(): CreateCarParameters[] {
     const hudredCarsArray: CreateCarParameters[] = Array.from({ length: 100 }, () => ({
       name: this.carList[Math.floor(Math.random() * this.carList.length)],
@@ -94,6 +115,10 @@ export class GarageModel {
     this.carsToEditListeners = callback;
   }
 
+  public subscribePagesListener(callback: () => void): void {
+    this.pagesListener.push(callback);
+  }
+
   private notifyCarsListener(): void {
     this.carsListeners.forEach((callback) => callback());
   }
@@ -102,5 +127,9 @@ export class GarageModel {
     if (this.carToEdit && this.carsToEditListeners) {
       this.carsToEditListeners();
     }
+  }
+
+  private notifyPagesListener(): void {
+    this.pagesListener.forEach((callback) => callback());
   }
 }

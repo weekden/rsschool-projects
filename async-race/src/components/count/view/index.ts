@@ -5,11 +5,8 @@ export class CountView {
   private countContainer: HTMLElement;
   private countText: HTMLElement;
   private pageText: HTMLElement;
-  private currentPage: number;
 
   constructor(private readonly model: GarageModel) {
-    this.currentPage = 1;
-
     this.countText = createElement({
       tag: 'span',
       classes: ['count-item', 'count-item__cars'],
@@ -19,7 +16,7 @@ export class CountView {
     this.pageText = createElement({
       tag: 'span',
       classes: ['count-item', 'count-item__page'],
-      text: `Page: ${this.currentPage}`,
+      text: `Page: 1`,
     });
 
     this.countContainer = createElement({
@@ -34,9 +31,9 @@ export class CountView {
     this.countText.textContent = `Garage (${count})`;
   }
 
-  public updatePage(currentPage: number): void {
-    this.currentPage = currentPage;
-    this.pageText.textContent = `Page: ${this.currentPage}`;
+  public updatePage(): void {
+    const currentPage = this.model.getPageNumber();
+    this.pageText.textContent = `Page: ${currentPage}`;
   }
 
   public render(): HTMLElement {

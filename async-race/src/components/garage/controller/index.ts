@@ -1,5 +1,6 @@
 import { GarageModel } from '../model';
 import { GarageView } from '../view';
+import type { Car } from '../../../types';
 
 export class GarageController {
   constructor(
@@ -10,15 +11,28 @@ export class GarageController {
     this.model.subscribeCarsListener(() => this.handleModelUpdate());
   }
 
-  public async loadGarage(): Promise<void> {
+  // public async loadGarage(): Promise<void> {
+  //   try {
+  //     const response = await fetch('http://localhost:3000/garage');
+
+  //     const cars = await response.json();
+  //     this.model.setCars(cars);
+  //     this.model.setCarsCount(cars.length);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  public async loadGarage(page: number = 1, limit: number = 7): Promise<void> {
     try {
-      const response = await fetch('http://localhost:3000/garage');
-      if (!response.ok) {
-        throw new Error(`error ${response.status}`);
-      }
-      const cars = await response.json();
+      const response = await fetch(`http://localhost:3000/garage?_page=${page}&_limit=${limit}`);
+
+      const cars: Car[] = await response.json();
+      const totalCount = response.headers.get('X-Total-Count');
       this.model.setCars(cars);
-      this.model.setCarsCount(cars.length);
+      if (totalCount) {
+        this.model.setCarsCount(+totalCount);
+      }
     } catch (error) {
       console.error(error);
     }

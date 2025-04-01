@@ -32,6 +32,7 @@ export class FormController {
       });
       const newCar: Car = await response.json();
       this.model.addCar(newCar);
+
       this.clearInputs();
     } catch (error) {
       console.error(error);
@@ -76,6 +77,7 @@ export class FormController {
 
       this.model.setCars([...this.model.getCars(), ...newHundred]);
       this.model.setCarsCount(this.model.getCarsCount() + newHundred.length);
+      this.loadGarage();
     } catch (error) {
       console.error(error);
     }
@@ -90,5 +92,18 @@ export class FormController {
     this.view.colorInputCreate.value = '#ffffff';
     this.view.textInputUpdate.value = '';
     this.view.colorInputUpdate.value = '#ffffff';
+  }
+
+  private async loadGarage(): Promise<void> {
+    try {
+      const response = await fetch('http://localhost:3000/garage');
+
+      const cars = await response.json();
+      // this.model.setCars(cars);
+      // this.model.setCarsCount(cars.length);
+      console.log(cars);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
