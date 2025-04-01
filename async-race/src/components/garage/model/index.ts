@@ -1,4 +1,5 @@
 import type { Car } from '../../../types';
+import { generateColor } from '../../../utils/colorRandomizer';
 
 export class GarageModel {
   public carList: string[] = [
@@ -73,6 +74,17 @@ export class GarageModel {
 
   public getCarsCount(): number {
     return this.coinCars;
+  }
+
+  public addHundredCars(): void {
+    const hudredCarsArray: Car[] = Array.from({ length: 100 }, (_, index) => ({
+      name: this.carList[Math.floor(Math.random() * this.carList.length)],
+      color: generateColor(),
+      id: index,
+    }));
+    this.cars = [...this.getCars(), ...hudredCarsArray];
+    this.coinCars += 100;
+    this.notifyCarsListener();
   }
 
   public subscribeCarsListener(callback: () => void): void {

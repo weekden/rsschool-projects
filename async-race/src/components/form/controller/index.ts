@@ -14,7 +14,7 @@ export class FormController {
   private initEventListeners(): void {
     this.view.createButton.addEventListener('click', () => this.handleCreate());
     this.view.updateButton.addEventListener('click', () => this.handleUpdate());
-    // this.view.generateButton.addEventListener('click', () => this.handleGenerate());
+    this.view.generateButton.addEventListener('click', () => this.handleGenerate());
   }
 
   private async handleCreate(): Promise<void> {
@@ -59,6 +59,10 @@ export class FormController {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  private handleGenerate(): void {
+    this.model.addHundredCars();
   }
 
   private handleModelUpdate(): void {
