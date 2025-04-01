@@ -1,6 +1,28 @@
 import type { Car } from '../../../types';
 
 export class GarageModel {
+  public carList: string[] = [
+    'Toyota Camry',
+    'Honda Accord',
+    'Ford Mustang',
+    'Chevrolet Camaro',
+    'BMW M3',
+    'Mercedes-Benz C-Class',
+    'Audi A4',
+    'Lexus RX',
+    'Tesla Model S',
+    'Porsche 911',
+    'Volkswagen Golf',
+    'Nissan GT-R',
+    'Subaru Impreza',
+    'Mazda CX-5',
+    'Hyundai Sonata',
+    'Kia Sportage',
+    'Jeep Wrangler',
+    'Dodge Charger',
+    'Volvo XC90',
+    'Ferrari F8 Tributo',
+  ];
   private cars: Car[] = [];
   private carToEdit: Car | null = null;
   private coinCars: number = 0;

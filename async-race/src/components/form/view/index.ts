@@ -1,6 +1,7 @@
 import { createButton } from '../../../utils/dom/createButton';
 import { createInputElement } from '../../../utils/dom/createInputElement';
 import { GarageModel } from '../../garage/model';
+import { createDataList } from '../../../utils/dom/createDataList';
 
 import { createElement } from '../../../utils/dom/createElement';
 
@@ -28,11 +29,14 @@ export class FormView {
 
     this.textInputCreate = createInputElement({
       type: 'text',
+      id: 'createCar-input',
+      list: 'car-list',
       classes: ['controll-item', 'controll-item__input', 'constro-item__input-text'],
     });
 
     this.colorInputCreate = createInputElement({
       type: 'color',
+      value: '#ffffff',
       classes: ['controll-item', 'controll-item__input', 'constro-item__input-color'],
     });
 
@@ -43,6 +47,7 @@ export class FormView {
 
     this.colorInputUpdate = createInputElement({
       type: 'color',
+      value: '#ffffff',
       classes: ['controll-item', 'controll-item__input', 'constro-item__input-color'],
     });
 
@@ -73,11 +78,22 @@ export class FormView {
 
   public render(): HTMLElement {
     const formContainer = createElement({ tag: 'div', classes: ['form'] });
-    const createItem = createElement({
-      tag: 'div',
-      classes: ['controll', 'controll-wrapper', 'controll-wrapper__create'],
-      children: [this.textInputCreate, this.colorInputCreate, this.createButton],
-    });
+    const carList = this.model.carList;
+    const dataListId = this.textInputCreate.getAttribute('list');
+
+    let createItem: HTMLElement | null = null;
+
+    if (dataListId) {
+      const dataList = createDataList(carList, dataListId);
+
+      createItem = createElement({
+        tag: 'div',
+        classes: ['controll', 'controll-wrapper', 'controll-wrapper__create'],
+        children: [this.textInputCreate, this.colorInputCreate, this.createButton],
+      });
+
+      formContainer.append(dataList);
+    }
 
     const updateItem = createElement({
       tag: 'div',
@@ -90,7 +106,9 @@ export class FormView {
       classes: ['controll-item'],
       children: [this.raceButton, this.resetButton, this.generateButton],
     });
-    formContainer.append(createItem, updateItem, stateItem);
+    if (createItem instanceof HTMLElement) {
+      formContainer.append(createItem, updateItem, stateItem);
+    }
     return formContainer;
   }
 }

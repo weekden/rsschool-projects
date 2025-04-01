@@ -14,6 +14,7 @@ export class FormController {
   private initEventListeners(): void {
     this.view.createButton.addEventListener('click', () => this.handleCreate());
     this.view.updateButton.addEventListener('click', () => this.handleUpdate());
+    // this.view.generateButton.addEventListener('click', () => this.handleGenerate());
   }
 
   private async handleCreate(): Promise<void> {
@@ -66,8 +67,8 @@ export class FormController {
 
   private clearInputs(): void {
     this.view.textInputCreate.value = '';
-    this.view.colorInputCreate.value = '#000000';
+    this.view.colorInputCreate.value = '#ffffff';
     this.view.textInputUpdate.value = '';
-    this.view.colorInputUpdate.value = '#000000';
+    this.view.colorInputUpdate.value = '#ffffff';
   }
 }
