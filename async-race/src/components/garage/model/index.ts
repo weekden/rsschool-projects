@@ -24,7 +24,7 @@ export class GarageModel {
     'Volvo XC90',
     'Ferrari F8 Tributo',
   ];
-  private cars: Car[] = [];
+  private cars: Car[] = Array.from({ length: 7 });
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
   private page: number = 1;
@@ -55,7 +55,10 @@ export class GarageModel {
   }
 
   public addCar(car: Car): void {
-    this.cars.push(car);
+    if (this.cars.length < 7) {
+      this.cars.push(car);
+    }
+
     this.coinCars++;
     this.notifyCarsListener();
   }

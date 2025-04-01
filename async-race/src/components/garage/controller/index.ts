@@ -11,18 +11,6 @@ export class GarageController {
     this.model.subscribeCarsListener(() => this.handleModelUpdate());
   }
 
-  // public async loadGarage(): Promise<void> {
-  //   try {
-  //     const response = await fetch('http://localhost:3000/garage');
-
-  //     const cars = await response.json();
-  //     this.model.setCars(cars);
-  //     this.model.setCarsCount(cars.length);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
   public async loadGarage(page: number = 1, limit: number = 7): Promise<void> {
     try {
       const response = await fetch(`http://localhost:3000/garage?_page=${page}&_limit=${limit}`);
@@ -67,12 +55,13 @@ export class GarageController {
       if (!response.ok) {
         throw new Error(`error ${response.status}`);
       }
+      this.loadGarage();
     } catch (error) {
       console.error(error);
     }
   }
 
   private handleModelUpdate(): void {
-    this.view.render();
+    this.view.renderCars();
   }
 }

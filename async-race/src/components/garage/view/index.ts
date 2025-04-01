@@ -10,11 +10,11 @@ export class GarageView {
   }
 
   public render(): HTMLElement {
-    this.renderCars();
+    // this.renderCars();
     return this.garageContainer;
   }
 
-  private renderCars(): void {
+  public renderCars(): void {
     this.garageContainer.innerHTML = '';
     const cars = this.model.getCars();
     if (!cars) return;

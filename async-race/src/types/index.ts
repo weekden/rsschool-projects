@@ -14,3 +14,8 @@ export type Car = BaseCar & {
 };
 
 export type CreateCarParameters = BaseCar;
+
+export type GaragePage = {
+  cars: Car[];
+  totalCount: number;
+};

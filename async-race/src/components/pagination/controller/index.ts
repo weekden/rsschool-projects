@@ -8,6 +8,7 @@ export class PaginationController {
     private readonly model: GarageModel
   ) {
     this.model.subscribePagesListener(() => this.updateButtonState());
+    this.model.subscribeCarsListener(() => this.updateButtonState());
     this.initEventListeners();
     this.loadPage();
   }
