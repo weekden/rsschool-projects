@@ -54,15 +54,31 @@ export class FormController {
       });
       const updateCar: Car = await response.json();
       this.model.updateCar(updateCar);
-      console.log(updateCar);
       this.clearInputs();
     } catch (error) {
       console.error(error);
     }
   }
 
-  private handleGenerate(): void {
-    this.model.addHundredCars();
+  private async handleGenerate(): Promise<void> {
+    const oneHundredArray: CreateCarParameters[] = this.model.createHundredCars();
+    try {
+      const newHundred: Car[] = await Promise.all(
+        oneHundredArray.map(async (car) => {
+          const response = await fetch('http://localhost:3000/garage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(car),
+          });
+          return response.json();
+        })
+      );
+
+      this.model.setCars([...this.model.getCars(), ...newHundred]);
+      this.model.setCarsCount(this.model.getCarsCount() + newHundred.length);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   private handleModelUpdate(): void {

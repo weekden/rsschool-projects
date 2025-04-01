@@ -1,4 +1,4 @@
-import type { Car } from '../../../types';
+import type { Car, CreateCarParameters } from '../../../types';
 import { generateColor } from '../../../utils/colorRandomizer';
 
 export class GarageModel {
@@ -33,6 +33,7 @@ export class GarageModel {
 
   public setCars(cars: Car[]): void {
     this.cars = cars;
+    this.notifyCarsListener();
   }
 
   public getCarToEdit(): Car | null {
@@ -70,21 +71,19 @@ export class GarageModel {
 
   public setCarsCount(coin: number): void {
     this.coinCars = coin;
+    this.notifyCarsListener();
   }
 
   public getCarsCount(): number {
     return this.coinCars;
   }
 
-  public addHundredCars(): void {
-    const hudredCarsArray: Car[] = Array.from({ length: 100 }, (_, index) => ({
+  public createHundredCars(): CreateCarParameters[] {
+    const hudredCarsArray: CreateCarParameters[] = Array.from({ length: 100 }, () => ({
       name: this.carList[Math.floor(Math.random() * this.carList.length)],
       color: generateColor(),
-      id: index,
     }));
-    this.cars = [...this.getCars(), ...hudredCarsArray];
-    this.coinCars += 100;
-    this.notifyCarsListener();
+    return hudredCarsArray;
   }
 
   public subscribeCarsListener(callback: () => void): void {
