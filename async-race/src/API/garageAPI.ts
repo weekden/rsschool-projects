@@ -1,7 +1,5 @@
 import type { Car, CreateCarParameters, GaragePage } from '../types';
-
 const URL = 'http://localhost:3000/garage';
-
 export class GarageAPI {
   public static async loadGarage(page: number = 1, limit: number = 7): Promise<GaragePage> {
     try {
@@ -17,7 +15,7 @@ export class GarageAPI {
   }
 
   public static async createCar(car: CreateCarParameters): Promise<Car> {
-    const response = await fetch(URL, {
+    const response = await fetch(`${URL}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(car),
@@ -32,5 +30,26 @@ export class GarageAPI {
       body: JSON.stringify(car),
     });
     return response.json();
+  }
+
+  public static async deleteCar(id: string): Promise<string> {
+    const response = await fetch(`${URL}/${id}`, {
+      method: 'DELETE',
+    });
+    return response.json();
+  }
+
+  public static async generateCars(cars: CreateCarParameters[]): Promise<Car[]> {
+    const responses = await Promise.all(
+      cars.map(async (car) => {
+        const response = await fetch(URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(car),
+        });
+        return response.json();
+      })
+    );
+    return responses;
   }
 }

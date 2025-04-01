@@ -28,13 +28,18 @@ export class GarageModel {
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
   private page: number = 1;
+  private readonly coinCarsAtPage: number = 7;
 
   private carsToEditListeners: (() => void) | null = null;
   private carsListeners: (() => void)[] = [];
   private pagesListener: (() => void)[] = [];
 
   public setCars(cars: Car[]): void {
-    this.cars = cars;
+    if (cars.length > this.coinCarsAtPage) {
+      this.cars = cars.slice(0, this.coinCarsAtPage);
+    } else {
+      this.cars = cars;
+    }
     this.notifyCarsListener();
   }
 
@@ -55,7 +60,7 @@ export class GarageModel {
   }
 
   public addCar(car: Car): void {
-    if (this.cars.length < 7) {
+    if (this.cars.length < this.coinCarsAtPage) {
       this.cars.push(car);
     }
 
