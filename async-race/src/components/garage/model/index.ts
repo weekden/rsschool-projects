@@ -28,7 +28,9 @@ export class GarageModel {
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
   private page: number = 1;
+  private trackWidth: number = 0;
   private readonly coinCarsAtPage: number = 7;
+  private garageElement: HTMLElement | undefined;
 
   private carsToEditListeners: (() => void) | null = null;
   private carsListeners: (() => void)[] = [];
@@ -113,6 +115,22 @@ export class GarageModel {
       color: generateColor(),
     }));
     return hudredCarsArray;
+  }
+
+  public getTrackWidth(): number {
+    return this.trackWidth;
+  }
+
+  public setTrackWidth(width: number): void {
+    this.trackWidth = width;
+  }
+
+  public setGarage(element: HTMLElement): void {
+    this.garageElement = element;
+  }
+
+  public getGarage(): HTMLElement | null {
+    return this.garageElement instanceof HTMLElement ? this.garageElement : null;
   }
 
   public subscribeCarsListener(callback: () => void): void {

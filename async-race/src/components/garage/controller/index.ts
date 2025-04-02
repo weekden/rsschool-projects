@@ -8,6 +8,7 @@ export class GarageController {
     private readonly model: GarageModel
   ) {
     this.initEventListeners();
+    this.model.setGarage(this.view.garageContainer);
     this.model.subscribeCarsListener(() => this.handleModelUpdate());
   }
 
@@ -41,6 +42,14 @@ export class GarageController {
         } else if (target.classList.contains('btn-stop')) {
         }
       }
+    });
+    window.addEventListener('resize', () => {
+      const trackWidth = garageContainer.offsetWidth;
+      this.model.setTrackWidth(trackWidth);
+    });
+    window.addEventListener('load', () => {
+      const trackWidth = garageContainer.offsetWidth;
+      this.model.setTrackWidth(trackWidth);
     });
   }
 

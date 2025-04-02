@@ -10,7 +10,6 @@ export class GarageView {
   }
 
   public render(): HTMLElement {
-    // this.renderCars();
     return this.garageContainer;
   }
 
