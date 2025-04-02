@@ -16,6 +16,8 @@ export class FormController {
     this.view.createButton.addEventListener('click', () => this.handleCreate());
     this.view.updateButton.addEventListener('click', () => this.handleUpdate());
     this.view.generateButton.addEventListener('click', () => this.handleGenerate());
+    this.view.raceButton.addEventListener('click', () => this.handleRace());
+    this.view.resetButton.addEventListener('click', () => this.handleReset());
   }
 
   private async handleCreate(): Promise<void> {
@@ -72,23 +74,27 @@ export class FormController {
     this.view.updateInputs();
   }
 
+  private async handleRace(): Promise<void> {
+    try {
+      const cars = await GarageAPI.getCars();
+      const engineStates = await Promise.all(cars.map((car) => GarageAPI.toggleEngine(car.id, 'started')));
+      const carsSpeedsArray = engineStates.map((item) => item.distance / item.velocity);
+      console.log(carsSpeedsArray);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  private async handleReset(): Promise<void> {
+    const cars = await GarageAPI.getCars();
+    const engineStates = await Promise.all(cars.map((car) => GarageAPI.toggleEngine(car.id, 'stopped')));
+    console.log(engineStates);
+  }
+
   private clearInputs(): void {
     this.view.textInputCreate.value = '';
     this.view.colorInputCreate.value = '#ffffff';
     this.view.textInputUpdate.value = '';
     this.view.colorInputUpdate.value = '#ffffff';
   }
-
-  // private async loadGarage(): Promise<void> {
-  //   try {
-  //     const response = await fetch('http://localhost:3000/garage');
-
-  //     const cars = await response.json();
-  //     // this.model.setCars(cars);
-  //     // this.model.setCarsCount(cars.length);
-  //     console.log(cars);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 }

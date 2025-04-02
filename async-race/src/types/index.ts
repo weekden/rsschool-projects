@@ -15,7 +15,18 @@ export type Car = BaseCar & {
 
 export type CreateCarParameters = BaseCar;
 
-export type GaragePage = {
+export type GaragePageResponse = {
   cars: Car[];
   totalCount: number;
+};
+
+export type EngineState = 'started' | 'stopped' | 'drive';
+
+export type EngineResponse = {
+  velocity: number;
+  distance: number;
+};
+
+export type DriveResponse = {
+  success: boolean;
 };

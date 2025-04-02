@@ -9,4 +9,3 @@ export function generateColor(): string {
 
   return color;
 }
-console.log(generateColor());
