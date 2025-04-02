@@ -21,6 +21,7 @@ export class GarageAPI {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(car),
     });
+
     return response.json();
   }
 
@@ -30,6 +31,7 @@ export class GarageAPI {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(car),
     });
+
     return response.json();
   }
 
@@ -37,6 +39,7 @@ export class GarageAPI {
     const response = await fetch(`${GARAGE_URL}/${id}`, {
       method: 'DELETE',
     });
+
     return response.json();
   }
 
@@ -51,6 +54,7 @@ export class GarageAPI {
         return response.json();
       })
     );
+
     return responses;
   }
 
@@ -58,6 +62,7 @@ export class GarageAPI {
     const response = await fetch(GARAGE_URL, {
       method: 'GET',
     });
+
     return response.json();
   }
 
@@ -65,6 +70,7 @@ export class GarageAPI {
     const response = await fetch(`${GARAGE_URL}/${id}`, {
       method: 'GET',
     });
+
     return response.json();
   }
 

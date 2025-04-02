@@ -7,3 +7,11 @@ export function setCarsToStart(carElement: HTMLElement): void {
   carElement.style.transition = 'none';
   carElement.style.transform = `translateX(0px)`;
 }
+
+export function animateStopRaceCar(carElement: HTMLElement): void {
+  const computedStyle = getComputedStyle(carElement);
+  const currentTransform = computedStyle.transform;
+
+  carElement.style.transition = 'none';
+  carElement.style.transform = currentTransform;
+}
