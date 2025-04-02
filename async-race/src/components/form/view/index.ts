@@ -74,6 +74,7 @@ export class FormView {
 
     this.textInputUpdate.value = car?.name;
     this.colorInputUpdate.value = car?.color;
+    this.textInputUpdate.focus();
   }
 
   public render(): HTMLElement {
