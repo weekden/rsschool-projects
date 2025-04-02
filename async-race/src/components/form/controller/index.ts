@@ -79,9 +79,9 @@ export class FormController {
   private async handleRace(): Promise<void> {
     const distance = this.model.getTrackWidth();
     try {
-      const cars = await GarageAPI.getCars();
+      const cars = this.model.getCars();
       const engineStates = await Promise.all(cars.map((car) => GarageAPI.toggleEngine(car.id, 'started')));
-      const carsSpeedsArray = engineStates.map((item) => item.distance / item.velocity);
+      const carsTimesArray = engineStates.map((item) => item.distance / item.velocity);
       const garage = this.model.getGarage();
       if (garage) {
         const garageItems = Array.from(garage.children);
@@ -89,7 +89,7 @@ export class FormController {
 
         carsElements.forEach((carElement, index) => {
           if (carElement instanceof HTMLElement) {
-            animateRaceCar(carElement, carsSpeedsArray[index], distance);
+            animateRaceCar(carElement, carsTimesArray[index], distance);
           }
         });
       }
