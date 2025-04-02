@@ -1,6 +1,8 @@
 import { GarageModel } from '../model';
 import { GarageView } from '../view';
 import { GarageAPI } from '../../../API/garageAPI';
+import { getCarElements } from '../../../utils/dom/getCarElement';
+import { animateRaceCar } from '../../../utils/animation/animatioCar';
 
 export class GarageController {
   constructor(
@@ -39,6 +41,7 @@ export class GarageController {
           this.deleteCar(carId);
           this.model.removeCar(carId);
         } else if (target.classList.contains('btn-start')) {
+          this.runCar(carId);
         } else if (target.classList.contains('btn-stop')) {
         }
       }
@@ -57,6 +60,27 @@ export class GarageController {
     try {
       await GarageAPI.deleteCar(id);
       this.loadGarage();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  private async runCar(id: string): Promise<void> {
+    const distance = this.model.getTrackWidth();
+    try {
+      const engineStates = await GarageAPI.toggleEngine(+id, 'started');
+      const distanceTime = engineStates.distance / engineStates.velocity;
+      const garage = this.model.getGarage();
+
+      if (garage) {
+        const garageItems = Array.from(garage.children);
+        const carsElements = getCarElements(garageItems);
+        const targetCar = carsElements.find((car) => car.getAttribute('data-id') === id);
+
+        if (targetCar instanceof HTMLElement) {
+          animateRaceCar(targetCar, distanceTime, distance);
+        }
+      }
     } catch (error) {
       console.error(error);
     }

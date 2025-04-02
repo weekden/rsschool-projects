@@ -61,8 +61,8 @@ export class GarageAPI {
     return response.json();
   }
 
-  public static async getCar(car: Car): Promise<Car> {
-    const response = await fetch(`${GARAGE_URL}/${car.id}`, {
+  public static async getCar(id: number): Promise<Car> {
+    const response = await fetch(`${GARAGE_URL}/${id}`, {
       method: 'GET',
     });
     return response.json();
