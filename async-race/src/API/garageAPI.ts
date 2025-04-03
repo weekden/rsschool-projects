@@ -1,4 +1,11 @@
-import type { Car, CreateCarParameters, GaragePageResponse, EngineResponse, EngineState } from '../types';
+import type {
+  Car,
+  CreateCarParameters,
+  GaragePageResponse,
+  EngineResponse,
+  EngineState,
+  DriveResponse,
+} from '../types';
 const GARAGE_URL = 'http://localhost:3000/garage';
 const ENGINE_URL = 'http://localhost:3000/engine';
 export class GarageAPI {
@@ -75,6 +82,14 @@ export class GarageAPI {
   }
 
   public static async toggleEngine(carId: number, status: EngineState): Promise<EngineResponse> {
+    const response = await fetch(`${ENGINE_URL}?id=${carId}&status=${status}`, {
+      method: 'PATCH',
+    });
+
+    return response.json();
+  }
+
+  public static async switchToDriveMode(carId: number, status: EngineState): Promise<DriveResponse> {
     const response = await fetch(`${ENGINE_URL}?id=${carId}&status=${status}`, {
       method: 'PATCH',
     });

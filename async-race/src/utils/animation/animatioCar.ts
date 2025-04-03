@@ -1,5 +1,5 @@
 export function animateRaceCar(carElement: HTMLElement, duration: number, containerWidth: number): void {
-  carElement.style.transition = `transform ${duration}ms`;
+  carElement.style.transition = `transform ${duration}ms linear`;
   carElement.style.transform = `translateX(${containerWidth - carElement.clientWidth}px)`;
 }
 
@@ -8,7 +8,7 @@ export function setCarsToStart(carElement: HTMLElement): void {
   carElement.style.transform = `translateX(0px)`;
 }
 
-export function animateStopRaceCar(carElement: HTMLElement): void {
+export function animateStopCar(carElement: HTMLElement): void {
   const computedStyle = getComputedStyle(carElement);
   const currentTransform = computedStyle.transform;
 

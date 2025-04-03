@@ -2,7 +2,7 @@ import { GarageModel } from '../model';
 import { GarageView } from '../view';
 import { GarageAPI } from '../../../API/garageAPI';
 import { getCarElements } from '../../../utils/dom/getCarElement';
-import { animateRaceCar, animateStopRaceCar } from '../../../utils/animation/animatioCar';
+import { animateRaceCar, animateStopCar, setCarsToStart } from '../../../utils/animation/animatioCar';
 
 export class GarageController {
   constructor(
@@ -41,9 +41,9 @@ export class GarageController {
           this.deleteCar(carId);
           this.model.removeCar(carId);
         } else if (target.classList.contains('btn-start')) {
-          this.runStopCar(carId, 'started');
+          this.controlStateEngineCar(carId, 'started');
         } else if (target.classList.contains('btn-stop')) {
-          this.runStopCar(carId, 'stopped');
+          this.controlStateEngineCar(carId, 'stopped');
         }
       }
     });
@@ -66,7 +66,7 @@ export class GarageController {
     }
   }
 
-  private async runStopCar(id: string, engineState: string): Promise<void> {
+  private async controlStateEngineCar(id: string, engineState: string): Promise<void> {
     if (engineState !== 'started' && engineState !== 'stopped' && engineState !== 'drive') {
       return;
     }
@@ -74,6 +74,7 @@ export class GarageController {
     try {
       const engineStates = await GarageAPI.toggleEngine(+id, engineState);
       const distanceTime = engineStates.distance / engineStates.velocity;
+
       const garage = this.model.getGarage();
 
       if (garage) {
@@ -83,9 +84,20 @@ export class GarageController {
 
         if (targetCar instanceof HTMLElement) {
           if (engineState === 'started') {
+            setTimeout(async () => {
+              try {
+                const driveModeResponse = GarageAPI.switchToDriveMode(+id, 'drive');
+                if (!(await driveModeResponse).success) {
+                  animateStopCar(targetCar);
+                }
+              } catch (error) {
+                console.error(error);
+                animateStopCar(targetCar);
+              }
+            }, 0);
             animateRaceCar(targetCar, distanceTime, distance);
           } else if (engineState === 'stopped') {
-            animateStopRaceCar(targetCar);
+            setCarsToStart(targetCar);
           }
         }
       }
@@ -93,6 +105,43 @@ export class GarageController {
       console.error(error);
     }
   }
+
+  // private async controlStateEngineCar(id: string, engineState: string): Promise<void> {
+  //   if (engineState !== 'started' && engineState !== 'stopped' && engineState !== 'drive') {
+  //     return;
+  //   }
+  //   const distance = this.model.getTrackWidth();
+  //   try {
+  //     const engineStates = await GarageAPI.toggleEngine(+id, engineState);
+  //     const distanceTime = engineStates.distance / engineStates.velocity;
+
+  //     setTimeout(async () => {
+  //       try {
+  //         const driveModeResponse = GarageAPI.switchToDriveMode(+id, 'drive');
+  //         if (!driveModeResponse) {
+
+  //         }
+  //       } catch {}
+  //     }, distanceTime);
+  //     const garage = this.model.getGarage();
+
+  //     if (garage) {
+  //       const garageItems = Array.from(garage.children);
+  //       const carsElements = getCarElements(garageItems);
+  //       const targetCar = carsElements.find((car) => car.getAttribute('data-id') === id);
+
+  //       if (targetCar instanceof HTMLElement) {
+  //         if (engineState === 'started') {
+  //           animateRaceCar(targetCar, distanceTime, distance);
+  //         } else if (engineState === 'stopped') {
+  //           animateStopRaceCar(targetCar);
+  //         }
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   private handleModelUpdate(): void {
     this.view.renderCars();

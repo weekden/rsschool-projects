@@ -99,6 +99,8 @@ export class FormController {
   }
 
   private async handleReset(): Promise<void> {
+    const cars = this.model.getCars();
+    await Promise.all(cars.map((car) => GarageAPI.toggleEngine(car.id, 'stopped')));
     const garage = this.model.getGarage();
     if (garage) {
       const garageItems = Array.from(garage.children);
