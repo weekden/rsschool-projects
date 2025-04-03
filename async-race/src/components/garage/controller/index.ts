@@ -11,7 +11,8 @@ export class GarageController {
   ) {
     this.initEventListeners();
     this.model.setGarage(this.view.garageContainer);
-    this.model.subscribeCarsListener(() => this.handleModelUpdate());
+    this.model.subscribeCarsListener(() => this.handleModelUpdateCarsList());
+    this.model.subscribeRaceStateListener(() => this.handleModelUpdateCarsList());
   }
 
   public async loadGarage(page: number = 1, limit: number = 7): Promise<void> {
@@ -36,11 +37,13 @@ export class GarageController {
         }
 
         if (target.classList.contains('btn-select')) {
-          this.model.setCarToEdit(+carId);
+          this.model.setCarToEdit(carId);
         } else if (target.classList.contains('btn-remove')) {
           this.deleteCar(carId);
           this.model.removeCar(carId);
         } else if (target.classList.contains('btn-start')) {
+          this.model.setCarId(carId);
+          this.model.setRaceState(true);
           this.controlStateEngineCar(carId, 'started');
         } else if (target.classList.contains('btn-stop')) {
           this.controlStateEngineCar(carId, 'stopped');
@@ -72,7 +75,7 @@ export class GarageController {
     }
     const distance = this.model.getTrackWidth();
     try {
-      const engineStates = await GarageAPI.toggleEngine(+id, engineState);
+      const engineStates = await GarageAPI.toggleEngine(id, engineState);
       const distanceTime = engineStates.distance / engineStates.velocity;
 
       const garage = this.model.getGarage();
@@ -86,7 +89,7 @@ export class GarageController {
           if (engineState === 'started') {
             setTimeout(async () => {
               try {
-                const driveModeResponse = GarageAPI.switchToDriveMode(+id, 'drive');
+                const driveModeResponse = GarageAPI.switchToDriveMode(id, 'drive');
                 if (!(await driveModeResponse).success) {
                   animateStopCar(targetCar);
                 }
@@ -106,7 +109,7 @@ export class GarageController {
     }
   }
 
-  private handleModelUpdate(): void {
+  private handleModelUpdateCarsList(): void {
     this.view.renderCars();
   }
 }

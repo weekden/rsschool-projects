@@ -31,10 +31,13 @@ export class GarageModel {
   private trackWidth: number = 0;
   private readonly coinCarsAtPage: number = 7;
   private garageElement: HTMLElement | undefined;
+  private isRace: boolean = false;
+  private carId: string = '';
 
   private carsToEditListeners: (() => void) | null = null;
   private carsListeners: (() => void)[] = [];
   private pagesListener: (() => void)[] = [];
+  private raceStateListener: (() => void)[] = [];
 
   public setCars(cars: Car[]): void {
     if (cars.length > this.coinCarsAtPage) {
@@ -71,7 +74,7 @@ export class GarageModel {
   }
 
   public removeCar(id: string): void {
-    this.cars = this.cars.filter((car) => car.id !== +id);
+    this.cars = this.cars.filter((car) => car.id !== id);
     this.coinCars--;
     this.notifyCarsListener();
   }
@@ -133,6 +136,23 @@ export class GarageModel {
     return this.garageElement instanceof HTMLElement ? this.garageElement : null;
   }
 
+  public setRaceState(state: boolean): void {
+    this.isRace = state;
+    this.notifyRaceStateListener();
+  }
+
+  public getRaceState(): boolean {
+    return this.isRace;
+  }
+
+  public setCarId(id: string): void {
+    this.carId = id;
+  }
+
+  public getCarId(): string {
+    return this.carId;
+  }
+
   public subscribeCarsListener(callback: () => void): void {
     this.carsListeners.push(callback);
   }
@@ -143,6 +163,10 @@ export class GarageModel {
 
   public subscribePagesListener(callback: () => void): void {
     this.pagesListener.push(callback);
+  }
+
+  public subscribeRaceStateListener(callback: () => void): void {
+    this.raceStateListener.push(callback);
   }
 
   private notifyCarsListener(): void {
@@ -157,5 +181,9 @@ export class GarageModel {
 
   private notifyPagesListener(): void {
     this.pagesListener.forEach((callback) => callback());
+  }
+
+  private notifyRaceStateListener(): void {
+    this.raceStateListener.forEach((callback) => callback());
   }
 }

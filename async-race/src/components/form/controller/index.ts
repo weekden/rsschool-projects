@@ -11,7 +11,8 @@ export class FormController {
     private model: GarageModel
   ) {
     this.initEventListeners();
-    this.model.subscribeCarsToEditListener(() => this.handleModelUpdate());
+    this.model.subscribeCarsToEditListener(() => this.handleModelUpdateUpdateInputs());
+    this.model.subscribeRaceStateListener(() => this.handleModelUpdateControlButtons());
   }
 
   private initEventListeners(): void {
@@ -72,17 +73,24 @@ export class FormController {
     }
   }
 
-  private handleModelUpdate(): void {
-    this.view.updateInputs();
+  private handleModelUpdateUpdateInputs(): void {
+    this.view.updateUpdatesInputs();
+  }
+
+  private handleModelUpdateControlButtons(): void {
+    console.log(this.model.getRaceState());
+    this.view.updateControlButtons();
   }
 
   private async handleRace(): Promise<void> {
     const distance = this.model.getTrackWidth();
+    this.model.setRaceState(true);
     try {
       const cars = this.model.getCars();
       const engineStates = await Promise.all(cars.map((car) => GarageAPI.toggleEngine(car.id, 'started')));
       const carsTimesArray = engineStates.map((item) => item.distance / item.velocity);
       const garage = this.model.getGarage();
+      let finishedCars = 0;
       if (garage) {
         const garageItems = Array.from(garage.children);
         const carsElements = getCarElements(garageItems);
@@ -93,7 +101,7 @@ export class FormController {
             setTimeout(async () => {
               try {
                 if (carId) {
-                  const driveModeResponse = GarageAPI.switchToDriveMode(+carId, 'drive');
+                  const driveModeResponse = GarageAPI.switchToDriveMode(carId, 'drive');
 
                   if (!(await driveModeResponse).success) {
                     animateStopCar(carElement);
@@ -102,6 +110,11 @@ export class FormController {
               } catch (error) {
                 console.error(error);
                 animateStopCar(carElement);
+              } finally {
+                finishedCars++;
+                if (finishedCars === cars.length) {
+                  this.model.setRaceState(false);
+                }
               }
             }, 0);
             animateRaceCar(carElement, carsTimesArray[index], distance);

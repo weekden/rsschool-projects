@@ -73,7 +73,7 @@ export class GarageAPI {
     return response.json();
   }
 
-  public static async getCar(id: number): Promise<Car> {
+  public static async getCar(id: string): Promise<Car> {
     const response = await fetch(`${GARAGE_URL}/${id}`, {
       method: 'GET',
     });
@@ -81,7 +81,7 @@ export class GarageAPI {
     return response.json();
   }
 
-  public static async toggleEngine(carId: number, status: EngineState): Promise<EngineResponse> {
+  public static async toggleEngine(carId: string, status: EngineState): Promise<EngineResponse> {
     const response = await fetch(`${ENGINE_URL}?id=${carId}&status=${status}`, {
       method: 'PATCH',
     });
@@ -89,7 +89,7 @@ export class GarageAPI {
     return response.json();
   }
 
-  public static async switchToDriveMode(carId: number, status: EngineState): Promise<DriveResponse> {
+  public static async switchToDriveMode(carId: string, status: EngineState): Promise<DriveResponse> {
     const response = await fetch(`${ENGINE_URL}?id=${carId}&status=${status}`, {
       method: 'PATCH',
     });

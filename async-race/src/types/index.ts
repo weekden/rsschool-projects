@@ -10,7 +10,7 @@ type BaseCar = {
 };
 
 export type Car = BaseCar & {
-  id: number;
+  id: string;
 };
 
 export type CreateCarParameters = BaseCar;

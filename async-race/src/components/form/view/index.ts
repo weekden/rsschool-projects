@@ -67,7 +67,7 @@ export class FormView {
     });
   }
 
-  public updateInputs(): void {
+  public updateUpdatesInputs(): void {
     const car = this.model.getCarToEdit();
     if (!car) return;
     console.log(car);
@@ -75,6 +75,17 @@ export class FormView {
     this.textInputUpdate.value = car?.name;
     this.colorInputUpdate.value = car?.color;
     this.textInputUpdate.focus();
+  }
+
+  public updateControlButtons(): void {
+    const raceState = this.model.getRaceState();
+    if (raceState) {
+      this.raceButton.disabled = true;
+      this.resetButton.disabled = true;
+    } else {
+      this.raceButton.disabled = false;
+      this.resetButton.disabled = false;
+    }
   }
 
   public render(): HTMLElement {
