@@ -15,22 +15,32 @@ export class GarageView {
 
   public renderCars(): void {
     this.garageContainer.innerHTML = '';
-    const stateRace = this.model.getRaceState();
-    const selectedCarId = this.model.getCarId();
     const cars = this.model.getCars();
     if (!cars) return;
     cars.forEach((car) => {
-      const carItem = selectedCarId ? createGarageItem(car, stateRace, selectedCarId) : createGarageItem(car);
+      const carItem = createGarageItem(car);
       this.garageContainer.append(carItem);
     });
   }
 
-  public removeCar(id: string): void {
-    const removedElement = Array.from(this.garageContainer.children).find(
-      (item) => item.getAttribute('data-id') === id
-    );
-    if (removedElement) {
-      removedElement.remove();
+  public updateControllButtons(): void {
+    // const stateRace = this.model.getSingleRaceState();
+
+    const selectedCarId = this.model.getCarId();
+    const stateRace = this.model.getSingleRaceState(selectedCarId);
+    const targetItemControllWrapper = Array.from(this.garageContainer.children).find(
+      (item) => item.getAttribute('data-id') === selectedCarId
+    )?.children[1];
+    const buttonStart = targetItemControllWrapper?.children[0];
+    const buttonStop = targetItemControllWrapper?.children[1];
+    if (buttonStart instanceof HTMLButtonElement && buttonStop instanceof HTMLButtonElement) {
+      if (stateRace) {
+        buttonStart.disabled = true;
+        buttonStop.disabled = false;
+      } else {
+        buttonStart.disabled = false;
+        buttonStop.disabled = true;
+      }
     }
   }
 }

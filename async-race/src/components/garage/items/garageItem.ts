@@ -2,7 +2,7 @@ import { createElement } from '../../../utils/dom/createElement';
 import { createButton } from '../../../utils/dom/createButton';
 import type { Car } from '../../../types';
 
-export function createGarageItem(car: Car, raceState?: boolean, selectedCarId?: string): HTMLElement {
+export function createGarageItem(car: Car): HTMLElement {
   const garageItem = createElement({
     tag: 'div',
     classes: ['garage-item'],
@@ -50,13 +50,6 @@ export function createGarageItem(car: Car, raceState?: boolean, selectedCarId?: 
     classes: ['garage-item__track'],
     children: [iconCar, iconFlag],
   });
-
-  if (raceState) {
-    if (startButton.getAttribute('data-id') === selectedCarId && stopButton.getAttribute('data-id') === selectedCarId) {
-      startButton.disabled = true;
-      stopButton.disabled = false;
-    }
-  }
 
   garageItem.append(controls, actionButtons, carTrack);
 

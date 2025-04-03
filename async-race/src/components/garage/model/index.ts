@@ -31,13 +31,15 @@ export class GarageModel {
   private page: number = 1;
   private trackWidth: number = 0;
   private garageElement: HTMLElement | undefined;
-  private isRace: boolean = false;
+  private isRaceTotal: boolean = false;
+  private raceStates: { [carId: string]: boolean } = {};
   private carId: string = '';
 
   private carsToEditListeners: (() => void) | null = null;
   private carsListeners: (() => void)[] = [];
   private pagesListener: (() => void)[] = [];
-  private raceStateListener: (() => void)[] = [];
+  private raceTotalStateListener: (() => void)[] = [];
+  private raceSingleStateListener: (() => void)[] = [];
 
   public setCars(cars: Car[]): void {
     if (cars.length > this.coinCarsAtPage) {
@@ -53,7 +55,7 @@ export class GarageModel {
   }
 
   public setCarToEdit(id: Car['id']): void {
-    const foundCar = this.cars.find((item) => item.id === id);
+    const foundCar = this.cars.find((item) => item.id.toString() === id);
     if (foundCar) {
       this.carToEdit = foundCar;
     }
@@ -136,13 +138,22 @@ export class GarageModel {
     return this.garageElement instanceof HTMLElement ? this.garageElement : null;
   }
 
-  public setRaceState(state: boolean): void {
-    this.isRace = state;
-    this.notifyRaceStateListener();
+  public setTotalRaceState(state: boolean): void {
+    this.isRaceTotal = state;
+    this.notifyRaceTotalStateListener();
   }
 
-  public getRaceState(): boolean {
-    return this.isRace;
+  public getTotalRaceState(): boolean {
+    return this.isRaceTotal;
+  }
+
+  public setSingleRaceState(carId: string, state: boolean): void {
+    this.raceStates[carId] = state;
+    this.notifyRaceSingleStateListener();
+  }
+
+  public getSingleRaceState(carId: string): boolean {
+    return this.raceStates[carId] ?? false;
   }
 
   public setCarId(id: string): void {
@@ -165,8 +176,12 @@ export class GarageModel {
     this.pagesListener.push(callback);
   }
 
-  public subscribeRaceStateListener(callback: () => void): void {
-    this.raceStateListener.push(callback);
+  public subscribeRaceTotalStateListener(callback: () => void): void {
+    this.raceTotalStateListener.push(callback);
+  }
+
+  public subscribeRaceSingleStateListener(callback: () => void): void {
+    this.raceSingleStateListener.push(callback);
   }
 
   private notifyCarsListener(): void {
@@ -183,7 +198,11 @@ export class GarageModel {
     this.pagesListener.forEach((callback) => callback());
   }
 
-  private notifyRaceStateListener(): void {
-    this.raceStateListener.forEach((callback) => callback());
+  private notifyRaceTotalStateListener(): void {
+    this.raceTotalStateListener.forEach((callback) => callback());
+  }
+
+  private notifyRaceSingleStateListener(): void {
+    this.raceSingleStateListener.forEach((callback) => callback());
   }
 }

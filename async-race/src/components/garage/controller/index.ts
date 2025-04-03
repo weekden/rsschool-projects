@@ -13,6 +13,7 @@ export class GarageController {
     this.initEventListeners();
     this.model.setGarage(this.view.garageContainer);
     this.model.subscribeCarsListener(() => this.handleModelUpdateCarsList());
+    this.model.subscribeRaceSingleStateListener(() => this.handleUpdateControlButtons());
   }
 
   public async loadGarage(page: number = 1, limit: number = 7): Promise<void> {
@@ -45,6 +46,7 @@ export class GarageController {
           this.model.setCarId(carId);
           this.controlStateEngineCar(carId, 'started');
         } else if (target.classList.contains('btn-stop')) {
+          this.model.setCarId(carId);
           this.controlStateEngineCar(carId, 'stopped');
         }
       }
@@ -83,6 +85,7 @@ export class GarageController {
 
         if (targetCar instanceof HTMLElement) {
           if (engineState === 'started') {
+            this.model.setSingleRaceState(id, true);
             animateRaceCar(targetCar, distanceTime, distance);
             try {
               const driveModeResponse = await GarageAPI.switchToDriveMode(id, 'drive');
@@ -93,6 +96,7 @@ export class GarageController {
               animateStopCar(targetCar);
             }
           } else if (engineState === 'stopped') {
+            this.model.setSingleRaceState(id, false);
             setCarsToStart(targetCar);
           }
         }
@@ -104,5 +108,9 @@ export class GarageController {
 
   private handleModelUpdateCarsList(): void {
     this.view.renderCars();
+  }
+
+  private handleUpdateControlButtons(): void {
+    this.view.updateControllButtons();
   }
 }

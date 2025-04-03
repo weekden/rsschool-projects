@@ -69,6 +69,7 @@ export class FormView {
 
   public updateUpdatesInputs(): void {
     const car = this.model.getCarToEdit();
+    console.log(car);
     if (!car) return;
     console.log(car);
 
@@ -78,13 +79,11 @@ export class FormView {
   }
 
   public updateControlButtons(): void {
-    const raceState = this.model.getRaceState();
+    const raceState = this.model.getTotalRaceState();
     if (raceState) {
       this.raceButton.disabled = true;
-      // this.resetButton.disabled = true;
     } else {
       this.raceButton.disabled = false;
-      // this.resetButton.disabled = false;
     }
   }
 

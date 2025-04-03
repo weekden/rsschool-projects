@@ -12,7 +12,7 @@ export class FormController {
   ) {
     this.initEventListeners();
     this.model.subscribeCarsToEditListener(() => this.handleModelUpdateUpdateInputs());
-    this.model.subscribeRaceStateListener(() => this.handleModelUpdateControlButtons());
+    this.model.subscribeRaceTotalStateListener(() => this.handleModelUpdateControlButtons());
   }
 
   private initEventListeners(): void {
@@ -78,7 +78,6 @@ export class FormController {
   }
 
   private handleModelUpdateControlButtons(): void {
-    console.log(this.model.getRaceState());
     this.view.updateControlButtons();
   }
 
@@ -110,7 +109,7 @@ export class FormController {
             }
           }
         });
-        this.model.setRaceState(true);
+        this.model.setTotalRaceState(true);
       }
     } catch (error) {
       console.error(error);
@@ -132,7 +131,7 @@ export class FormController {
         }
       });
     }
-    this.model.setRaceState(false);
+    this.model.setTotalRaceState(false);
   }
 
   private clearInputs(): void {
