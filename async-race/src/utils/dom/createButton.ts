@@ -1,5 +1,5 @@
 import type { Button } from '../../types/elements/button';
-export function createButton({ id, text, classes, disabled = false }: Button): HTMLButtonElement {
+export function createButton({ id, text, classes, disabled = false, attributes = {} }: Button): HTMLButtonElement {
   const button = document.createElement('button');
   if (id) {
     button.id = id;
@@ -9,5 +9,10 @@ export function createButton({ id, text, classes, disabled = false }: Button): H
     button.classList.add(...classes);
   }
   !disabled ? (button.disabled = false) : (button.disabled = true);
+
+  Object.entries(attributes).forEach(([key, value]) => {
+    button.setAttribute(key, String(value));
+  });
+
   return button;
 }

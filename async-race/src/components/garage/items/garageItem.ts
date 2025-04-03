@@ -6,7 +6,7 @@ export function createGarageItem(car: Car, raceState?: boolean, selectedCarId?: 
   const garageItem = createElement({
     tag: 'div',
     classes: ['garage-item'],
-    attributes: { 'data-id': car.id.toString() },
+    attributes: { 'data-id': car.id },
   });
 
   const selectButton = createButton({ text: 'SELECT', classes: ['btn', 'btn-select'] });
@@ -14,8 +14,13 @@ export function createGarageItem(car: Car, raceState?: boolean, selectedCarId?: 
 
   const modelLabel = createElement({ tag: 'span', classes: ['car-model'], text: car.name });
 
-  const startButton = createButton({ text: 'A', classes: ['btn', 'btn-start'] });
-  const stopButton = createButton({ text: 'B', classes: ['btn', 'btn-stop'], disabled: true });
+  const startButton = createButton({ text: 'A', classes: ['btn', 'btn-start'], attributes: { 'data-id': car.id } });
+  const stopButton = createButton({
+    text: 'B',
+    classes: ['btn', 'btn-stop'],
+    attributes: { 'data-id': car.id },
+    disabled: true,
+  });
 
   const iconCar = createElement({
     tag: 'div',
@@ -47,7 +52,9 @@ export function createGarageItem(car: Car, raceState?: boolean, selectedCarId?: 
   });
 
   if (raceState) {
-    if (selectedCarId) {
+    if (startButton.getAttribute('data-id') === selectedCarId && stopButton.getAttribute('data-id') === selectedCarId) {
+      startButton.disabled = true;
+      stopButton.disabled = false;
     }
   }
 

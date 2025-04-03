@@ -3,6 +3,7 @@ import { GarageView } from '../view';
 import { GarageAPI } from '../../../API/garageAPI';
 import { getCarElements } from '../../../utils/dom/getCarElement';
 import { animateRaceCar, animateStopCar, setCarsToStart } from '../../../utils/animation/animatioCar';
+import { EngineState } from '../../../types';
 
 export class GarageController {
   constructor(
@@ -12,7 +13,6 @@ export class GarageController {
     this.initEventListeners();
     this.model.setGarage(this.view.garageContainer);
     this.model.subscribeCarsListener(() => this.handleModelUpdateCarsList());
-    this.model.subscribeRaceStateListener(() => this.handleModelUpdateCarsList());
   }
 
   public async loadGarage(page: number = 1, limit: number = 7): Promise<void> {
@@ -43,7 +43,6 @@ export class GarageController {
           this.model.removeCar(carId);
         } else if (target.classList.contains('btn-start')) {
           this.model.setCarId(carId);
-          this.model.setRaceState(true);
           this.controlStateEngineCar(carId, 'started');
         } else if (target.classList.contains('btn-stop')) {
           this.controlStateEngineCar(carId, 'stopped');
@@ -69,14 +68,11 @@ export class GarageController {
     }
   }
 
-  private async controlStateEngineCar(id: string, engineState: string): Promise<void> {
-    if (engineState !== 'started' && engineState !== 'stopped' && engineState !== 'drive') {
-      return;
-    }
+  private async controlStateEngineCar(id: string, engineState: EngineState): Promise<void> {
     const distance = this.model.getTrackWidth();
     try {
-      const engineStates = await GarageAPI.toggleEngine(id, engineState);
-      const distanceTime = engineStates.distance / engineStates.velocity;
+      const engineStatus = await GarageAPI.toggleEngine(id, engineState);
+      const distanceTime = engineStatus.distance / engineStatus.velocity;
 
       const garage = this.model.getGarage();
 
@@ -87,18 +83,15 @@ export class GarageController {
 
         if (targetCar instanceof HTMLElement) {
           if (engineState === 'started') {
-            setTimeout(async () => {
-              try {
-                const driveModeResponse = GarageAPI.switchToDriveMode(id, 'drive');
-                if (!(await driveModeResponse).success) {
-                  animateStopCar(targetCar);
-                }
-              } catch (error) {
-                console.error(error);
+            animateRaceCar(targetCar, distanceTime, distance);
+            try {
+              const driveModeResponse = await GarageAPI.switchToDriveMode(id, 'drive');
+              if (!driveModeResponse.success) {
                 animateStopCar(targetCar);
               }
-            }, 0);
-            animateRaceCar(targetCar, distanceTime, distance);
+            } catch {
+              animateStopCar(targetCar);
+            }
           } else if (engineState === 'stopped') {
             setCarsToStart(targetCar);
           }

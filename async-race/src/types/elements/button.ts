@@ -3,4 +3,5 @@ export type Button = {
   text: string;
   classes: string[];
   disabled?: boolean;
+  attributes?: Record<string, string>;
 };

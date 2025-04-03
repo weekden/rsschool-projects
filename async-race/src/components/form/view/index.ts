@@ -81,10 +81,10 @@ export class FormView {
     const raceState = this.model.getRaceState();
     if (raceState) {
       this.raceButton.disabled = true;
-      this.resetButton.disabled = true;
+      // this.resetButton.disabled = true;
     } else {
       this.raceButton.disabled = false;
-      this.resetButton.disabled = false;
+      // this.resetButton.disabled = false;
     }
   }
 

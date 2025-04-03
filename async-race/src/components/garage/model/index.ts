@@ -24,12 +24,12 @@ export class GarageModel {
     'Volvo XC90',
     'Ferrari F8 Tributo',
   ];
-  private cars: Car[] = Array.from({ length: 7 });
+  private readonly coinCarsAtPage: number = 7;
+  private cars: Car[] = Array.from({ length: this.coinCarsAtPage });
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
   private page: number = 1;
   private trackWidth: number = 0;
-  private readonly coinCarsAtPage: number = 7;
   private garageElement: HTMLElement | undefined;
   private isRace: boolean = false;
   private carId: string = '';

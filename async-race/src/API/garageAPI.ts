@@ -94,6 +94,10 @@ export class GarageAPI {
       method: 'PATCH',
     });
 
+    // if (!response.ok) {
+    //   throw new Error(`Error: ${response.status} ${response.statusText}`);
+    // }
+
     return response.json();
   }
 }
