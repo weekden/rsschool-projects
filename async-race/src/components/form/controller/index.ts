@@ -2,7 +2,7 @@ import { GarageModel } from '../../garage/model';
 import { FormView } from '../view';
 import { GarageAPI } from '../../../API/garageAPI';
 import { Car, CreateCarParameters } from '../../../types';
-import { animateRaceCar, setCarsToStart } from '../../../utils/animation/animatioCar';
+import { animateRaceCar, setCarsToStart, animateStopCar } from '../../../utils/animation/animatioCar';
 import { getCarElements } from '../../../utils/dom/getCarElement';
 
 export class FormController {
@@ -88,7 +88,22 @@ export class FormController {
         const carsElements = getCarElements(garageItems);
 
         carsElements.forEach((carElement, index) => {
+          const carId = carElement.getAttribute('data-id');
           if (carElement instanceof HTMLElement) {
+            setTimeout(async () => {
+              try {
+                if (carId) {
+                  const driveModeResponse = GarageAPI.switchToDriveMode(+carId, 'drive');
+
+                  if (!(await driveModeResponse).success) {
+                    animateStopCar(carElement);
+                  }
+                }
+              } catch (error) {
+                console.error(error);
+                animateStopCar(carElement);
+              }
+            }, 0);
             animateRaceCar(carElement, carsTimesArray[index], distance);
           }
         });

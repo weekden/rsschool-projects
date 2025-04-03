@@ -106,43 +106,6 @@ export class GarageController {
     }
   }
 
-  // private async controlStateEngineCar(id: string, engineState: string): Promise<void> {
-  //   if (engineState !== 'started' && engineState !== 'stopped' && engineState !== 'drive') {
-  //     return;
-  //   }
-  //   const distance = this.model.getTrackWidth();
-  //   try {
-  //     const engineStates = await GarageAPI.toggleEngine(+id, engineState);
-  //     const distanceTime = engineStates.distance / engineStates.velocity;
-
-  //     setTimeout(async () => {
-  //       try {
-  //         const driveModeResponse = GarageAPI.switchToDriveMode(+id, 'drive');
-  //         if (!driveModeResponse) {
-
-  //         }
-  //       } catch {}
-  //     }, distanceTime);
-  //     const garage = this.model.getGarage();
-
-  //     if (garage) {
-  //       const garageItems = Array.from(garage.children);
-  //       const carsElements = getCarElements(garageItems);
-  //       const targetCar = carsElements.find((car) => car.getAttribute('data-id') === id);
-
-  //       if (targetCar instanceof HTMLElement) {
-  //         if (engineState === 'started') {
-  //           animateRaceCar(targetCar, distanceTime, distance);
-  //         } else if (engineState === 'stopped') {
-  //           animateStopRaceCar(targetCar);
-  //         }
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
   private handleModelUpdate(): void {
     this.view.renderCars();
   }
