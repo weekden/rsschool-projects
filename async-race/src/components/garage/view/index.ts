@@ -24,8 +24,8 @@ export class GarageView {
   }
 
   public updateControllButtons(): void {
-    // const stateRace = this.model.getSingleRaceState();
-
+    const totalRaceState = this.model.getTotalRaceState();
+    console.log(totalRaceState);
     const selectedCarId = this.model.getCarId();
     const stateRace = this.model.getSingleRaceState(selectedCarId);
     const targetItemControllWrapper = Array.from(this.garageContainer.children).find(
@@ -42,5 +42,28 @@ export class GarageView {
         buttonStop.disabled = true;
       }
     }
+  }
+
+  public updateAllControlButtons(): void {
+    const totalRaceState = this.model.getTotalRaceState();
+    console.log(totalRaceState);
+
+    Array.from(this.garageContainer.children).forEach((item) => {
+      const controlsWrapper = item.children[1];
+      if (controlsWrapper instanceof HTMLElement) {
+        const startButton = controlsWrapper.firstElementChild;
+        const stopButton = controlsWrapper.lastElementChild;
+
+        if (startButton instanceof HTMLButtonElement && stopButton instanceof HTMLButtonElement) {
+          if (totalRaceState) {
+            startButton.disabled = true;
+            stopButton.disabled = false;
+          } else {
+            startButton.disabled = false;
+            stopButton.disabled = true;
+          }
+        }
+      }
+    });
   }
 }

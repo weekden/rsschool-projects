@@ -14,6 +14,7 @@ export class GarageController {
     this.model.setGarage(this.view.garageContainer);
     this.model.subscribeCarsListener(() => this.handleModelUpdateCarsList());
     this.model.subscribeRaceSingleStateListener(() => this.handleUpdateControlButtons());
+    this.model.subscribeRaceTotalStateListener(() => this.handleUpdateAllControlButtons());
   }
 
   public async loadGarage(page: number = 1, limit: number = 7): Promise<void> {
@@ -112,5 +113,9 @@ export class GarageController {
 
   private handleUpdateControlButtons(): void {
     this.view.updateControllButtons();
+  }
+
+  private handleUpdateAllControlButtons(): void {
+    this.view.updateAllControlButtons();
   }
 }
