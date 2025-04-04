@@ -65,7 +65,7 @@ export class FormController {
     const oneHundredArray: CreateCarParameters[] = this.model.createHundredCars();
     try {
       const newHundredCars = await GarageAPI.generateCars(oneHundredArray);
-      this.model.setCars(newHundredCars);
+      this.model.setCars([...this.model.getCars(), ...newHundredCars]);
       this.model.setCarsCount(this.model.getCarsCount() + newHundredCars.length);
     } catch (error) {
       console.error(error);
