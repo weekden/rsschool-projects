@@ -5,4 +5,5 @@ export type Input = {
   list?: string;
   id?: string;
   classes: string[];
+  disabled?: boolean;
 };

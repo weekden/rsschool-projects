@@ -17,7 +17,10 @@ export class FormController {
 
   private initEventListeners(): void {
     this.view.createButton.addEventListener('click', () => this.handleCreate());
-    this.view.updateButton.addEventListener('click', () => this.handleUpdate());
+    this.view.updateButton.addEventListener('click', () => {
+      this.handleUpdate();
+      this.view.enableDisabledUpdateInputs();
+    });
     this.view.generateButton.addEventListener('click', () => this.handleGenerate());
     this.view.raceButton.addEventListener('click', () => this.handleRace());
     this.view.resetButton.addEventListener('click', () => this.handleReset());

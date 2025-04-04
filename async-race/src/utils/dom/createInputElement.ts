@@ -1,5 +1,13 @@
 import type { Input } from '../../types/elements/input';
-export function createInputElement({ type, placeholder, classes, value, list, id }: Input): HTMLInputElement {
+export function createInputElement({
+  type,
+  placeholder,
+  classes,
+  value,
+  list,
+  id,
+  disabled = false,
+}: Input): HTMLInputElement {
   const input = document.createElement('input');
   input.type = type;
 
@@ -22,6 +30,8 @@ export function createInputElement({ type, placeholder, classes, value, list, id
   if (placeholder) {
     input.placeholder = placeholder;
   }
+
+  !disabled ? (input.disabled = false) : (input.disabled = true);
 
   return input;
 }

@@ -17,3 +17,14 @@ main,
 nav {
   width: 90%;
 }
+
+button[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  background-color: #e7e5e5;
+}

@@ -6,6 +6,7 @@ import { createDataList } from '../../../utils/dom/createDataList';
 import { createElement } from '../../../utils/dom/createElement';
 
 export class FormView {
+  public formContainer: HTMLElement;
   public createButton: HTMLButtonElement;
   public updateButton: HTMLButtonElement;
   public raceButton: HTMLButtonElement;
@@ -17,6 +18,8 @@ export class FormView {
   public colorInputUpdate: HTMLInputElement;
 
   constructor(private model: GarageModel) {
+    this.formContainer = createElement({ tag: 'div', classes: ['form'] });
+
     this.createButton = createButton({
       text: 'CREATE',
       classes: ['controll-item', 'controll-item__btn', 'constro-item__btn-create'],
@@ -69,13 +72,13 @@ export class FormView {
 
   public updateUpdatesInputs(): void {
     const car = this.model.getCarToEdit();
-    console.log(car);
+    const updateContainer = this.formContainer.children[2];
     if (!car) return;
-    console.log(car);
 
     this.textInputUpdate.value = car?.name;
     this.colorInputUpdate.value = car?.color;
     this.textInputUpdate.focus();
+    updateContainer.classList.remove('disabled');
   }
 
   public updateControlButtons(): void {
@@ -87,8 +90,13 @@ export class FormView {
     }
   }
 
+  public enableDisabledUpdateInputs(): void {
+    const updateContainer = this.formContainer.children[2];
+    updateContainer.classList.add('disabled');
+  }
+
   public render(): HTMLElement {
-    const formContainer = createElement({ tag: 'div', classes: ['form'] });
+    // const formContainer = createElement({ tag: 'div', classes: ['form'] });
     const carList = this.model.carList;
     const dataListId = this.textInputCreate.getAttribute('list');
 
@@ -103,12 +111,12 @@ export class FormView {
         children: [this.textInputCreate, this.colorInputCreate, this.createButton],
       });
 
-      formContainer.append(dataList);
+      this.formContainer.append(dataList);
     }
 
     const updateItem = createElement({
       tag: 'div',
-      classes: ['controll', 'controll-wrapper', 'controll-wrapper__update'],
+      classes: ['controll', 'controll-wrapper', 'controll-wrapper__update', 'disabled'],
       children: [this.textInputUpdate, this.colorInputUpdate, this.updateButton],
     });
 
@@ -118,8 +126,8 @@ export class FormView {
       children: [this.raceButton, this.resetButton, this.generateButton],
     });
     if (createItem instanceof HTMLElement) {
-      formContainer.append(createItem, updateItem, stateItem);
+      this.formContainer.append(createItem, updateItem, stateItem);
     }
-    return formContainer;
+    return this.formContainer;
   }
 }
