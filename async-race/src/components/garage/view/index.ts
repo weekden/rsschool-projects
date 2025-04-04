@@ -1,12 +1,17 @@
 import { createElement } from '../../../utils/dom/createElement';
 import { createGarageItem } from '../items/garageItem';
-import { GarageModel } from '../model';
+import { GarageModel } from '../../../models/garageModel';
 
 export class GarageView {
+  public garage: HTMLElement;
   public garageContainer: HTMLElement;
+  private messageContainer: HTMLElement;
 
   constructor(private model: GarageModel) {
-    this.garageContainer = createElement({ tag: 'div', classes: ['garage-wrapper'] });
+    this.garageContainer = createElement({ tag: 'div', classes: ['garage'] });
+    this.garage = createElement({ tag: 'div', classes: ['garage-wrapper'] });
+    this.messageContainer = createElement({ tag: 'p', classes: ['message-container'] });
+    this.garageContainer.append(this.messageContainer, this.garage);
   }
 
   public render(): HTMLElement {
@@ -14,12 +19,12 @@ export class GarageView {
   }
 
   public renderCars(): void {
-    this.garageContainer.innerHTML = '';
+    this.garage.innerHTML = '';
     const cars = this.model.getCars();
     if (!cars) return;
     cars.forEach((car) => {
       const carItem = createGarageItem(car);
-      this.garageContainer.append(carItem);
+      this.garage.append(carItem);
     });
   }
 
@@ -28,7 +33,7 @@ export class GarageView {
     console.log(totalRaceState);
     const selectedCarId = this.model.getCarId();
     const stateRace = this.model.getSingleRaceState(selectedCarId);
-    const targetItemControllWrapper = Array.from(this.garageContainer.children).find(
+    const targetItemControllWrapper = Array.from(this.garage.children).find(
       (item) => item.getAttribute('data-id') === selectedCarId
     )?.children[1];
     const buttonStart = targetItemControllWrapper?.children[0];
@@ -48,7 +53,7 @@ export class GarageView {
     const totalRaceState = this.model.getTotalRaceState();
     console.log(totalRaceState);
 
-    Array.from(this.garageContainer.children).forEach((item) => {
+    Array.from(this.garage.children).forEach((item) => {
       const controlsWrapper = item.children[1];
       if (controlsWrapper instanceof HTMLElement) {
         const startButton = controlsWrapper.firstElementChild;
@@ -65,5 +70,12 @@ export class GarageView {
         }
       }
     });
+  }
+
+  public showWinner(): void {
+    const winner = this.model.getWinner();
+    if (winner) {
+      this.messageContainer.textContent = winner;
+    }
   }
 }

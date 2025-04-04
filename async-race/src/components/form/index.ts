@@ -1,4 +1,4 @@
-import { GarageModel } from '../garage/model';
+import { GarageModel } from '../../models/garageModel';
 import { FormController } from './controller';
 import { FormView } from './view';
 

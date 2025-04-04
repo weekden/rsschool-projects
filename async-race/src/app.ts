@@ -3,6 +3,7 @@ import { Router } from './routes';
 import { MainPage } from './pages/mainPage';
 import { RecordsPage } from './pages/recordsPage';
 import type { Routes } from './types';
+import { AppModel } from './models/appModel';
 
 export class App {
   constructor() {
@@ -15,6 +16,6 @@ export class App {
       '/records': RecordsPage,
     };
 
-    new Router(routes, mainContainer);
+    new Router(routes, mainContainer, new AppModel());
   }
 }

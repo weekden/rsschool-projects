@@ -1,8 +1,10 @@
+import { AppModel } from '../models/appModel';
+
 type Main = {
   render: () => HTMLElement;
 };
 
-export type Routes = Record<string, new () => Main>;
+export type Routes = Record<string, new (appModel: AppModel) => Main>;
 
 type BaseCar = {
   name: string;
@@ -34,4 +36,9 @@ export type EngineResponse = {
 
 export type DriveResponse = {
   success: boolean;
+};
+
+export type WinnerItem = {
+  id: string;
+  time: number;
 };

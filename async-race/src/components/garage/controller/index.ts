@@ -1,4 +1,4 @@
-import { GarageModel } from '../model';
+import { GarageModel } from '../../../models/garageModel';
 import { GarageView } from '../view';
 import { GarageAPI } from '../../../API/garageAPI';
 import { getCarElements } from '../../../utils/dom/getCarElement';
@@ -11,10 +11,11 @@ export class GarageController {
     private readonly model: GarageModel
   ) {
     this.initEventListeners();
-    this.model.setGarage(this.view.garageContainer);
+    this.model.setGarage(this.view.garage);
     this.model.subscribeCarsListener(() => this.handleModelUpdateCarsList());
     this.model.subscribeRaceSingleStateListener(() => this.handleUpdateControlButtons());
     this.model.subscribeRaceTotalStateListener(() => this.handleUpdateAllControlButtons());
+    this.model.subscribeWinnerListener(() => this.handleUpdateModelWinners());
   }
 
   public async loadGarage(page: number = 1, limit: number = 7): Promise<void> {
@@ -28,7 +29,7 @@ export class GarageController {
   }
 
   private initEventListeners(): void {
-    const garageContainer = this.view.garageContainer;
+    const garageContainer = this.view.garage;
     garageContainer.addEventListener('click', (event) => {
       const target = event.target;
       if (target instanceof HTMLElement) {
@@ -117,5 +118,9 @@ export class GarageController {
 
   private handleUpdateAllControlButtons(): void {
     this.view.updateAllControlButtons();
+  }
+
+  private handleUpdateModelWinners(): void {
+    this.view.showWinner();
   }
 }

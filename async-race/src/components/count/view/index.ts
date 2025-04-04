@@ -1,5 +1,5 @@
 import { createElement } from '../../../utils/dom/createElement';
-import { GarageModel } from '../../garage/model';
+import { GarageModel } from '../../../models/garageModel';
 
 export class CountView {
   private countContainer: HTMLElement;

@@ -1,5 +1,5 @@
 import { PaginationView } from '../view';
-import { GarageModel } from '../../garage/model';
+import { GarageModel } from '../../../models/garageModel';
 import type { Car } from '../../../types';
 
 export class PaginationController {

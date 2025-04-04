@@ -1,6 +1,6 @@
 import { CountView } from './view';
 import { CountController } from './controller';
-import { GarageModel } from '../garage/model';
+import { GarageModel } from '../../models/garageModel';
 
 export class InitCount {
   constructor(private model: GarageModel) {}

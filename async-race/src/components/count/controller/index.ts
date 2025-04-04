@@ -1,4 +1,4 @@
-import { GarageModel } from '../../garage/model';
+import { GarageModel } from '../../../models/garageModel';
 import { CountView } from '../view';
 
 export class CountController {

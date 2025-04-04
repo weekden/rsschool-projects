@@ -1,6 +1,6 @@
 import { PaginationView } from './view';
 import { PaginationController } from './controller';
-import { GarageModel } from '../garage/model';
+import { GarageModel } from '../../models/garageModel';
 export class InitPagination {
   constructor(private readonly model: GarageModel) {}
   public init(): HTMLElement {

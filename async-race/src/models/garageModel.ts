@@ -1,6 +1,7 @@
-import type { Car, CreateCarParameters } from '../../../types';
-import { generateColor } from '../../../utils/colorRandomizer';
-import { generateCarName } from '../../../utils/carNameRandomizer';
+import type { Car, CreateCarParameters, WinnerItem } from '../types';
+import { generateColor } from '../utils/colorRandomizer';
+import { generateCarName } from '../utils/carNameRandomizer';
+import { timeConvertation } from '../utils/convertTime';
 
 export class GarageModel {
   public readonly carList = [
@@ -26,6 +27,7 @@ export class GarageModel {
     { brand: 'Ferrari', model: 'F8 Tributo' },
   ];
   private readonly coinCarsAtPage: number = 7;
+  private winners: WinnerItem[] = [];
   private cars: Car[] = Array.from({ length: this.coinCarsAtPage });
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
@@ -41,6 +43,7 @@ export class GarageModel {
   private pagesListener: (() => void)[] = [];
   private raceTotalStateListener: (() => void)[] = [];
   private raceSingleStateListener: (() => void)[] = [];
+  private winnerListener: (() => void)[] = [];
 
   public setCars(cars: Car[]): void {
     if (cars.length > this.coinCarsAtPage) {
@@ -165,6 +168,18 @@ export class GarageModel {
     return this.carId;
   }
 
+  public setWinners(winners: WinnerItem[]): void {
+    this.winners = winners;
+    this.notifyWinnerListener();
+  }
+
+  public getWinner(): string {
+    const winner = this.winners[0];
+    const winnerName = this.cars.find((item) => item.id.toString() === winner.id)?.name;
+    const winnerTime = timeConvertation(winner.time);
+    return ` ${winnerName} wont! Time: ${winnerTime}s`;
+  }
+
   public subscribeCarsListener(callback: () => void): void {
     this.carsListeners.push(callback);
   }
@@ -183,6 +198,10 @@ export class GarageModel {
 
   public subscribeRaceSingleStateListener(callback: () => void): void {
     this.raceSingleStateListener.push(callback);
+  }
+
+  public subscribeWinnerListener(callback: () => void): void {
+    this.winnerListener.push(callback);
   }
 
   private notifyCarsListener(): void {
@@ -205,5 +224,9 @@ export class GarageModel {
 
   private notifyRaceSingleStateListener(): void {
     this.raceSingleStateListener.forEach((callback) => callback());
+  }
+
+  private notifyWinnerListener(): void {
+    this.winnerListener.forEach((callback) => callback());
   }
 }

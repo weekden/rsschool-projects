@@ -1,9 +1,11 @@
-import { GarageModel } from '../../garage/model';
+import { GarageModel } from '../../../models/garageModel';
 import { FormView } from '../view';
 import { GarageAPI } from '../../../API/garageAPI';
 import { Car, CreateCarParameters } from '../../../types';
 import { animateRaceCar, setCarsToStart, animateStopCar } from '../../../utils/animation/animatioCar';
 import { getCarElements } from '../../../utils/dom/getCarElement';
+
+import type { WinnerItem } from '../../../types';
 
 export class FormController {
   constructor(
@@ -75,14 +77,6 @@ export class FormController {
     }
   }
 
-  private handleModelUpdateUpdateInputs(): void {
-    this.view.updateUpdatesInputs();
-  }
-
-  private handleModelUpdateControlButtons(): void {
-    this.view.updateControlButtons();
-  }
-
   private async handleRace(): Promise<void> {
     const distance = this.model.getTrackWidth();
     try {
@@ -93,6 +87,7 @@ export class FormController {
       if (garage) {
         const garageItems = Array.from(garage.children);
         const carsElements = getCarElements(garageItems);
+        const winnersArray: WinnerItem[] = [];
 
         carsElements.forEach(async (carElement, index) => {
           const carId = carElement.getAttribute('data-id');
@@ -105,7 +100,9 @@ export class FormController {
                 if (!driveModeResponse.success) {
                   animateStopCar(carElement);
                 }
+                winnersArray.push({ id: carId, time: carsTimesArray[index] });
               }
+              this.model.setWinners(winnersArray);
             } catch {
               animateStopCar(carElement);
             }
@@ -134,6 +131,14 @@ export class FormController {
       });
     }
     this.model.setTotalRaceState(false);
+  }
+
+  private handleModelUpdateUpdateInputs(): void {
+    this.view.updateUpdatesInputs();
+  }
+
+  private handleModelUpdateControlButtons(): void {
+    this.view.updateControlButtons();
   }
 
   private clearInputs(): void {

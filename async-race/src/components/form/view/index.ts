@@ -1,6 +1,6 @@
 import { createButton } from '../../../utils/dom/createButton';
 import { createInputElement } from '../../../utils/dom/createInputElement';
-import { GarageModel } from '../../garage/model';
+import { GarageModel } from '../../../models/garageModel';
 import { createDataList } from '../../../utils/dom/createDataList';
 
 import { createElement } from '../../../utils/dom/createElement';

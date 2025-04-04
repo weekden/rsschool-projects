@@ -1,6 +1,6 @@
 import { createElement } from '../../../utils/dom/createElement';
 import { createButton } from '../../../utils/dom/createButton';
-import { GarageModel } from '../../garage/model';
+import { GarageModel } from '../../../models/garageModel';
 
 export class PaginationView {
   public buttonPrew: HTMLButtonElement;
