@@ -20,6 +20,11 @@ export type GaragePageResponse = {
   totalCount: number;
 };
 
+export type CarListItem = {
+  brand: string;
+  model: string;
+};
+
 export type EngineState = 'started' | 'stopped' | 'drive';
 
 export type EngineResponse = {

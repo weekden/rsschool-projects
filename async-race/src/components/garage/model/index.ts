@@ -1,28 +1,29 @@
 import type { Car, CreateCarParameters } from '../../../types';
 import { generateColor } from '../../../utils/colorRandomizer';
+import { generateCarName } from '../../../utils/carNameRandomizer';
 
 export class GarageModel {
-  public carList: string[] = [
-    'Toyota Camry',
-    'Honda Accord',
-    'Ford Mustang',
-    'Chevrolet Camaro',
-    'BMW M3',
-    'Mercedes-Benz C-Class',
-    'Audi A4',
-    'Lexus RX',
-    'Tesla Model S',
-    'Porsche 911',
-    'Volkswagen Golf',
-    'Nissan GT-R',
-    'Subaru Impreza',
-    'Mazda CX-5',
-    'Hyundai Sonata',
-    'Kia Sportage',
-    'Jeep Wrangler',
-    'Dodge Charger',
-    'Volvo XC90',
-    'Ferrari F8 Tributo',
+  public readonly carList = [
+    { brand: 'Toyota', model: 'Camry' },
+    { brand: 'Honda', model: 'Accord' },
+    { brand: 'Ford', model: 'Mustang' },
+    { brand: 'Chevrolet', model: 'Camaro' },
+    { brand: 'BMW', model: 'M3' },
+    { brand: 'Mercedes-Benz', model: 'C-Class' },
+    { brand: 'Audi', model: 'A4' },
+    { brand: 'Lexus', model: 'RX' },
+    { brand: 'Tesla', model: 'Model S' },
+    { brand: 'Porsche', model: '911' },
+    { brand: 'Volkswagen', model: 'Golf' },
+    { brand: 'Nissan', model: 'GT-R' },
+    { brand: 'Subaru', model: 'Impreza' },
+    { brand: 'Mazda', model: 'CX-5' },
+    { brand: 'Hyundai', model: 'Sonata' },
+    { brand: 'Kia', model: 'Sportage' },
+    { brand: 'Jeep', model: 'Wrangler' },
+    { brand: 'Dodge', model: 'Charger' },
+    { brand: 'Volvo', model: 'XC90' },
+    { brand: 'Ferrari', model: 'F8 Tributo' },
   ];
   private readonly coinCarsAtPage: number = 7;
   private cars: Car[] = Array.from({ length: this.coinCarsAtPage });
@@ -116,7 +117,7 @@ export class GarageModel {
 
   public createHundredCars(): CreateCarParameters[] {
     const hudredCarsArray: CreateCarParameters[] = Array.from({ length: 100 }, () => ({
-      name: this.carList[Math.floor(Math.random() * this.carList.length)],
+      name: generateCarName(this.carList),
       color: generateColor(),
     }));
     return hudredCarsArray;
