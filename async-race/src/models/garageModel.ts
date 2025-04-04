@@ -168,16 +168,22 @@ export class GarageModel {
     return this.carId;
   }
 
-  public setWinners(winners: WinnerItem[]): void {
-    this.winners = winners;
+  public addWinner(winner: WinnerItem): void {
+    this.winners.push(winner);
     this.notifyWinnerListener();
   }
 
   public getWinner(): string {
+    if (this.winners.length === 0) return '';
     const winner = this.winners[0];
     const winnerName = this.cars.find((item) => item.id.toString() === winner.id)?.name;
     const winnerTime = timeConvertation(winner.time);
-    return ` ${winnerName} wont! Time: ${winnerTime}s`;
+    return `${winnerName} wont! Time: ${winnerTime}s`;
+  }
+
+  public clearWinners(): void {
+    this.winners = [];
+    this.notifyWinnerListener();
   }
 
   public subscribeCarsListener(callback: () => void): void {

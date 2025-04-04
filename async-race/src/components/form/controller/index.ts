@@ -5,8 +5,6 @@ import { Car, CreateCarParameters } from '../../../types';
 import { animateRaceCar, setCarsToStart, animateStopCar } from '../../../utils/animation/animatioCar';
 import { getCarElements } from '../../../utils/dom/getCarElement';
 
-import type { WinnerItem } from '../../../types';
-
 export class FormController {
   constructor(
     private view: FormView,
@@ -79,36 +77,45 @@ export class FormController {
 
   private async handleRace(): Promise<void> {
     const distance = this.model.getTrackWidth();
+    this.model.clearWinners();
+
     try {
       const cars = this.model.getCars();
       const engineStates = await Promise.all(cars.map((car) => GarageAPI.toggleEngine(car.id, 'started')));
       const carsTimesArray = engineStates.map((item) => item.distance / item.velocity);
       const garage = this.model.getGarage();
+
       if (garage) {
         const garageItems = Array.from(garage.children);
         const carsElements = getCarElements(garageItems);
-        const winnersArray: WinnerItem[] = [];
+        this.model.setTotalRaceState(true);
 
         carsElements.forEach(async (carElement, index) => {
           const carId = carElement.getAttribute('data-id');
-          if (carElement instanceof HTMLElement) {
-            animateRaceCar(carElement, carsTimesArray[index], distance);
-            try {
-              if (carId) {
-                const driveModeResponse = await GarageAPI.switchToDriveMode(carId, 'drive');
 
-                if (!driveModeResponse.success) {
-                  animateStopCar(carElement);
-                }
-                winnersArray.push({ id: carId, time: carsTimesArray[index] });
-              }
-              this.model.setWinners(winnersArray);
-            } catch {
+          if (!(carElement instanceof HTMLElement) || !carId) return;
+
+          animateRaceCar(carElement, carsTimesArray[index], distance);
+
+          try {
+            if (!this.model.getTotalRaceState()) {
               animateStopCar(carElement);
+              return;
             }
+            const driveModeResponse = await GarageAPI.switchToDriveMode(carId, 'drive');
+
+            if (!driveModeResponse.success || !this.model.getTotalRaceState()) {
+              animateStopCar(carElement);
+              return;
+            }
+
+            if (this.model.getTotalRaceState()) {
+              this.model.addWinner({ id: carId, time: carsTimesArray[index] });
+            }
+          } catch {
+            animateStopCar(carElement);
           }
         });
-        this.model.setTotalRaceState(true);
       }
     } catch (error) {
       console.error(error);
@@ -116,21 +123,25 @@ export class FormController {
   }
 
   private async handleReset(): Promise<void> {
-    const cars = this.model.getCars();
-    await Promise.all(cars.map((car) => GarageAPI.toggleEngine(car.id, 'stopped')));
-
+    this.model.clearWinners();
     const garage = this.model.getGarage();
-    if (garage) {
-      const garageItems = Array.from(garage.children);
-      const carsElements = getCarElements(garageItems);
-
-      carsElements.forEach((carElement) => {
-        if (carElement instanceof HTMLElement) {
-          setCarsToStart(carElement);
-        }
-      });
-    }
+    const cars = this.model.getCars();
     this.model.setTotalRaceState(false);
+
+    if (!garage) {
+      return;
+    }
+
+    const garageItems = Array.from(garage.children);
+    const carsElements = getCarElements(garageItems);
+
+    carsElements.forEach((carElement) => {
+      if (carElement instanceof HTMLElement) {
+        setCarsToStart(carElement);
+      }
+    });
+
+    await Promise.all(cars.map((car) => GarageAPI.toggleEngine(car.id, 'stopped')));
   }
 
   private handleModelUpdateUpdateInputs(): void {

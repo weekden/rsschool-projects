@@ -74,8 +74,6 @@ export class GarageView {
 
   public showWinner(): void {
     const winner = this.model.getWinner();
-    if (winner) {
-      this.messageContainer.textContent = winner;
-    }
+    this.messageContainer.textContent = winner;
   }
 }

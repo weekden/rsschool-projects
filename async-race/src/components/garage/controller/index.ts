@@ -90,9 +90,15 @@ export class GarageController {
             this.model.setSingleRaceState(id, true);
             animateRaceCar(targetCar, distanceTime, distance);
             try {
-              const driveModeResponse = await GarageAPI.switchToDriveMode(id, 'drive');
-              if (!driveModeResponse.success) {
+              if (!this.model.getSingleRaceState(id)) {
                 animateStopCar(targetCar);
+                return;
+              }
+
+              const driveModeResponse = await GarageAPI.switchToDriveMode(id, 'drive');
+              if (!driveModeResponse.success || !this.model.getSingleRaceState(id)) {
+                animateStopCar(targetCar);
+                return;
               }
             } catch {
               animateStopCar(targetCar);
