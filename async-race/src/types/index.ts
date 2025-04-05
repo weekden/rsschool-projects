@@ -12,7 +12,7 @@ type BaseCar = {
 };
 
 export type Car = BaseCar & {
-  id: string;
+  id: number;
 };
 
 export type CreateCarParameters = BaseCar;
@@ -39,6 +39,7 @@ export type DriveResponse = {
 };
 
 export type WinnerItem = {
-  id: string;
+  id: number;
   time: number;
+  wins?: number;
 };

@@ -6,7 +6,7 @@ export function createGarageItem(car: Car): HTMLElement {
   const garageItem = createElement({
     tag: 'div',
     classes: ['garage-item'],
-    attributes: { 'data-id': car.id },
+    attributes: { 'data-id': car.id.toString() },
   });
 
   const selectButton = createButton({ text: 'SELECT', classes: ['btn', 'btn-select'] });
@@ -14,11 +14,15 @@ export function createGarageItem(car: Car): HTMLElement {
 
   const modelLabel = createElement({ tag: 'span', classes: ['car-model'], text: car.name });
 
-  const startButton = createButton({ text: 'A', classes: ['btn', 'btn-start'], attributes: { 'data-id': car.id } });
+  const startButton = createButton({
+    text: 'A',
+    classes: ['btn', 'btn-start'],
+    attributes: { 'data-id': car.id.toString() },
+  });
   const stopButton = createButton({
     text: 'B',
     classes: ['btn', 'btn-stop'],
-    attributes: { 'data-id': car.id },
+    attributes: { 'data-id': car.id.toString() },
     disabled: true,
   });
 

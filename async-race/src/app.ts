@@ -1,7 +1,7 @@
 import { InitNav } from './components/nav';
 import { Router } from './routes';
-import { MainPage } from './pages/mainPage';
-import { RecordsPage } from './pages/recordsPage';
+import { MainPage } from './pages/garagePage';
+import { RecordsPage } from './pages/winnersPage';
 import type { Routes } from './types';
 import { AppModel } from './models/appModel';
 

@@ -102,7 +102,7 @@ export class FormController {
               animateStopCar(carElement);
               return;
             }
-            const driveModeResponse = await GarageAPI.switchToDriveMode(carId, 'drive');
+            const driveModeResponse = await GarageAPI.switchToDriveMode(+carId, 'drive');
 
             if (!driveModeResponse.success || !this.model.getTotalRaceState()) {
               animateStopCar(carElement);
@@ -110,7 +110,7 @@ export class FormController {
             }
 
             if (this.model.getTotalRaceState()) {
-              this.model.addWinner({ id: carId, time: carsTimesArray[index] });
+              this.model.addWinner({ id: +carId, time: carsTimesArray[index] });
             }
           } catch {
             animateStopCar(carElement);

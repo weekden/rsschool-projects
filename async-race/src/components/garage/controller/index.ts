@@ -36,7 +36,11 @@ export class GarageController {
       const target = event.target;
       if (target instanceof HTMLElement) {
         const carItem = target.closest('.garage-item');
-        const carId = carItem?.getAttribute('data-id');
+        if (!carItem) {
+          return;
+        }
+
+        const carId = Number(carItem?.getAttribute('data-id'));
         if (!carId) {
           return;
         }
@@ -45,7 +49,7 @@ export class GarageController {
           this.model.setCarToEdit(carId);
         } else if (target.classList.contains('btn-remove')) {
           this.deleteCar(carId);
-          this.model.removeCar(carId);
+          this.model.removeCar(+carId);
         } else if (target.classList.contains('btn-start')) {
           this.model.setCarId(carId);
           this.controlStateEngineCar(carId, 'started');
@@ -65,7 +69,7 @@ export class GarageController {
     });
   }
 
-  private async deleteCar(id: string): Promise<void> {
+  private async deleteCar(id: number): Promise<void> {
     try {
       await GarageAPI.deleteCar(id);
 
@@ -75,7 +79,7 @@ export class GarageController {
     }
   }
 
-  private async controlStateEngineCar(id: string, engineState: EngineState): Promise<void> {
+  private async controlStateEngineCar(id: number, engineState: EngineState): Promise<void> {
     const distance = this.model.getTrackWidth();
     try {
       const engineStatus = await GarageAPI.toggleEngine(id, engineState);
@@ -86,7 +90,7 @@ export class GarageController {
       if (garage) {
         const garageItems = Array.from(garage.children);
         const carsElements = getCarElements(garageItems);
-        const targetCar = carsElements.find((car) => car.getAttribute('data-id') === id);
+        const targetCar = carsElements.find((car) => Number(car.getAttribute('data-id')) === id);
 
         if (targetCar instanceof HTMLElement) {
           if (engineState === 'started') {

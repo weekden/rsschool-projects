@@ -32,9 +32,10 @@ export class GarageView {
     const totalRaceState = this.model.getTotalRaceState();
     console.log(totalRaceState);
     const selectedCarId = this.model.getCarId();
+    if (!selectedCarId) return;
     const stateRace = this.model.getSingleRaceState(selectedCarId);
     const targetItemControllWrapper = Array.from(this.garage.children).find(
-      (item) => item.getAttribute('data-id') === selectedCarId
+      (item) => Number(item.getAttribute('data-id')) === selectedCarId
     )?.children[1];
     const buttonStart = targetItemControllWrapper?.children[0];
     const buttonStop = targetItemControllWrapper?.children[1];

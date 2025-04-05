@@ -34,8 +34,8 @@ export class GarageModel {
   private trackWidth: number = 0;
   private garageElement: HTMLElement | undefined;
   private isRaceTotal: boolean = false;
-  private raceStates: { [carId: string]: boolean } = {};
-  private carId: string = '';
+  private raceStates: { [carId: number]: boolean } = {};
+  private carId: number | null = null;
 
   private carsToEditListeners: (() => void) | null = null;
   private carsListeners: (() => void)[] = [];
@@ -57,7 +57,7 @@ export class GarageModel {
   }
 
   public setCarToEdit(id: Car['id']): void {
-    const foundCar = this.cars.find((item) => item.id.toString() === id);
+    const foundCar = this.cars.find((item) => item.id === id);
     if (foundCar) {
       this.carToEdit = foundCar;
     }
@@ -77,7 +77,7 @@ export class GarageModel {
     this.notifyCarsListener();
   }
 
-  public removeCar(id: string): void {
+  public removeCar(id: number): void {
     this.cars = this.cars.filter((car) => car.id !== id);
     this.coinCars--;
     this.notifyCarsListener();
@@ -130,20 +130,20 @@ export class GarageModel {
     return this.isRaceTotal;
   }
 
-  public setSingleRaceState(carId: string, state: boolean): void {
+  public setSingleRaceState(carId: number, state: boolean): void {
     this.raceStates[carId] = state;
     this.notifyRaceSingleStateListener();
   }
 
-  public getSingleRaceState(carId: string): boolean {
+  public getSingleRaceState(carId: number): boolean {
     return this.raceStates[carId] ?? false;
   }
 
-  public setCarId(id: string): void {
+  public setCarId(id: number): void {
     this.carId = id;
   }
 
-  public getCarId(): string {
+  public getCarId(): number | null {
     return this.carId;
   }
 
@@ -155,7 +155,7 @@ export class GarageModel {
   public getWinner(): string {
     if (this.winners.length === 0) return '';
     const winner = this.winners[0];
-    const winnerName = this.cars.find((item) => item.id.toString() === winner.id)?.name;
+    const winnerName = this.cars.find((item) => item.id === winner.id)?.name;
     const winnerTime = timeConvertation(winner.time);
     return `${winnerName} wont! Time: ${winnerTime}s`;
   }
