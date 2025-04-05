@@ -1,13 +1,19 @@
 import { CountView } from './view';
 import { CountController } from './controller';
 import { GarageModel } from '../../models/garageModel';
+import { AppModel } from '../../models/appModel';
 
 export class InitCount {
-  constructor(private model: GarageModel) {}
+  private view: CountView;
+  constructor(
+    private readonly appModel: AppModel,
+    private readonly model: GarageModel
+  ) {
+    this.view = new CountView(this.appModel, this.model);
+    new CountController(this.appModel, this.model, this.view);
+  }
 
   public init(): HTMLElement {
-    const view = new CountView(this.model);
-    new CountController(this.model, view);
-    return view.render();
+    return this.view.render();
   }
 }

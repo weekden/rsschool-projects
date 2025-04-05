@@ -4,21 +4,24 @@ import { InitGarage } from '../components/garage';
 import { InitPagination } from '../components/pagination';
 import { GarageModel } from '../models/garageModel';
 import { AppModel } from '../models/appModel';
+
 export class MainPage {
   constructor(private appModel: AppModel) {}
+
   public render(): HTMLElement {
     const container = document.createElement('div');
     const model = new GarageModel();
+    const pagination = new InitPagination(this.appModel, model);
 
-    new InitGarage(model).init().then((garage) => {
-      const formContainer = new InitForm(model).init();
-      const count = new InitCount(model).init();
-      const pagination = new InitPagination(model).init();
-      container.append(formContainer, count, garage, pagination);
-    });
+    const formContainer = new InitForm(model).init();
+    const count = new InitCount(this.appModel, model).init();
 
-    container.textContent = 'Main';
-    container.append();
+    const garage = new InitGarage(this.appModel, model);
+
+    container.append(formContainer, count, garage.init(), pagination.render());
+
+    pagination.init();
+    garage.init();
 
     return container;
   }

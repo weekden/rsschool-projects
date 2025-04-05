@@ -1,5 +1,6 @@
 import { GarageModel } from '../../../models/garageModel';
 import { GarageView } from '../view';
+import { AppModel } from '../../../models/appModel';
 import { GarageAPI } from '../../../API/garageAPI';
 import { getCarElements } from '../../../utils/dom/getCarElement';
 import { animateRaceCar, animateStopCar, setCarsToStart } from '../../../utils/animation/animatioCar';
@@ -7,8 +8,9 @@ import { EngineState } from '../../../types';
 
 export class GarageController {
   constructor(
-    private readonly view: GarageView,
-    private readonly model: GarageModel
+    private readonly appModel: AppModel,
+    private readonly model: GarageModel,
+    private readonly view: GarageView
   ) {
     this.initEventListeners();
     this.model.setGarage(this.view.garage);
@@ -18,7 +20,7 @@ export class GarageController {
     this.model.subscribeWinnerListener(() => this.handleUpdateModelWinners());
   }
 
-  public async loadGarage(page: number = 1, limit: number = 7): Promise<void> {
+  public async loadGarage(page: number = this.appModel.getPageNumber(), limit: number = 7): Promise<void> {
     try {
       const { cars, totalCount } = await GarageAPI.loadGarage(page, limit);
       this.model.setCars(cars);
@@ -66,6 +68,7 @@ export class GarageController {
   private async deleteCar(id: string): Promise<void> {
     try {
       await GarageAPI.deleteCar(id);
+
       this.loadGarage();
     } catch (error) {
       console.error(error);

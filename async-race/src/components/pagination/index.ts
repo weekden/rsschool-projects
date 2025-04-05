@@ -1,12 +1,25 @@
 import { PaginationView } from './view';
 import { PaginationController } from './controller';
 import { GarageModel } from '../../models/garageModel';
-export class InitPagination {
-  constructor(private readonly model: GarageModel) {}
-  public init(): HTMLElement {
-    const view = new PaginationView(this.model);
-    new PaginationController(view, this.model);
+import { AppModel } from '../../models/appModel';
 
-    return view.render();
+export class InitPagination {
+  private view: PaginationView;
+  private controller: PaginationController;
+
+  constructor(
+    private readonly appModel: AppModel,
+    private readonly model: GarageModel
+  ) {
+    this.view = new PaginationView(this.model, this.appModel);
+    this.controller = new PaginationController(this.appModel, this.model, this.view);
+  }
+
+  public render(): HTMLElement {
+    return this.view.render();
+  }
+
+  public init(): void {
+    this.controller.init();
   }
 }

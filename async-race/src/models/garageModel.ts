@@ -31,7 +31,6 @@ export class GarageModel {
   private cars: Car[] = Array.from({ length: this.coinCarsAtPage });
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
-  private page: number = 1;
   private trackWidth: number = 0;
   private garageElement: HTMLElement | undefined;
   private isRaceTotal: boolean = false;
@@ -40,7 +39,6 @@ export class GarageModel {
 
   private carsToEditListeners: (() => void) | null = null;
   private carsListeners: (() => void)[] = [];
-  private pagesListener: (() => void)[] = [];
   private raceTotalStateListener: (() => void)[] = [];
   private raceSingleStateListener: (() => void)[] = [];
   private winnerListener: (() => void)[] = [];
@@ -97,25 +95,6 @@ export class GarageModel {
 
   public getCarsCount(): number {
     return this.coinCars;
-  }
-
-  public setPageNumber(_page: number): void {
-    this.page = _page;
-    this.notifyPagesListener();
-  }
-
-  public getPageNumber(): number {
-    return this.page;
-  }
-
-  public decreasePageCounter(): void {
-    this.page--;
-    this.notifyPagesListener();
-  }
-
-  public increasePageCounter(): void {
-    this.page++;
-    this.notifyPagesListener();
   }
 
   public createHundredCars(): CreateCarParameters[] {
@@ -194,10 +173,6 @@ export class GarageModel {
     this.carsToEditListeners = callback;
   }
 
-  public subscribePagesListener(callback: () => void): void {
-    this.pagesListener.push(callback);
-  }
-
   public subscribeRaceTotalStateListener(callback: () => void): void {
     this.raceTotalStateListener.push(callback);
   }
@@ -218,10 +193,6 @@ export class GarageModel {
     if (this.carToEdit && this.carsToEditListeners) {
       this.carsToEditListeners();
     }
-  }
-
-  private notifyPagesListener(): void {
-    this.pagesListener.forEach((callback) => callback());
   }
 
   private notifyRaceTotalStateListener(): void {

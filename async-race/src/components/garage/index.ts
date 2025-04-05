@@ -1,15 +1,20 @@
+import { AppModel } from '../../models/appModel';
 import { GarageModel } from '../../models/garageModel';
 import { GarageController } from './controller';
 import { GarageView } from './view';
 
 export class InitGarage {
-  constructor(private model: GarageModel) {}
+  private view: GarageView;
 
-  public async init(): Promise<HTMLElement> {
-    const view = new GarageView(this.model);
-    const controller = new GarageController(view, this.model);
-    await controller.loadGarage();
+  constructor(
+    private readonly appModel: AppModel,
+    private readonly model: GarageModel
+  ) {
+    this.view = new GarageView(this.model);
+    new GarageController(this.appModel, this.model, this.view);
+  }
 
-    return view.render();
+  public init(): HTMLElement {
+    return this.view.render();
   }
 }
