@@ -42,4 +42,6 @@ export type WinnerItem = {
   id: number;
   time: number;
   wins?: number;
+  color?: string;
+  name?: string;
 };

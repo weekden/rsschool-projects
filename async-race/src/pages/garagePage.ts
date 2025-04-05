@@ -18,10 +18,10 @@ export class MainPage {
 
     const garage = new InitGarage(this.appModel, model);
 
-    container.append(formContainer, count, garage.init(), pagination.render());
+    container.append(formContainer, count, garage.render(), pagination.render());
 
     pagination.init();
-    garage.init();
+    garage.render();
 
     return container;
   }

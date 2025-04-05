@@ -14,7 +14,7 @@ export class InitGarage {
     new GarageController(this.appModel, this.model, this.view);
   }
 
-  public init(): HTMLElement {
+  public render(): HTMLElement {
     return this.view.render();
   }
 }

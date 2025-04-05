@@ -1,5 +1,6 @@
 export function animateRaceCar(carElement: HTMLElement, duration: number, containerWidth: number): void {
   const carElementWidth = carElement.offsetWidth;
+  console.log(containerWidth);
   carElement.style.transition = `transform ${duration}ms linear`;
   carElement.style.transform = `translateX(${containerWidth - carElementWidth}px)`;
 }
