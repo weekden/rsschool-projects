@@ -4,11 +4,13 @@ import { createSortableHeaderCell } from '../items';
 import type { WinnerItem } from '../../../types';
 
 export class WinnersView {
+  public readonly winnersTableHeader: HTMLTableCaptionElement;
   private winnersTable: HTMLTableElement;
   private winnersTableBody: HTMLElement;
 
   constructor(private readonly model: WinnersModel) {
     this.winnersTable = document.createElement('table');
+    this.winnersTableHeader = document.createElement('thead');
     this.winnersTableBody = document.createElement('tbody');
     this.winnersTable.append(this.winnersTableBody);
     this.createTable();
@@ -53,7 +55,6 @@ export class WinnersView {
       { title: 'Best time (seconds)', keyClass: 'time' },
     ];
 
-    const tHead = document.createElement('thead');
     const headerRow = document.createElement('tr');
 
     headers.forEach((item) => {
@@ -61,7 +62,7 @@ export class WinnersView {
       headerRow.appendChild(th);
     });
 
-    tHead.append(headerRow);
-    this.winnersTable.prepend(tHead);
+    this.winnersTableHeader.append(headerRow);
+    this.winnersTable.prepend(this.winnersTableHeader);
   }
 }
