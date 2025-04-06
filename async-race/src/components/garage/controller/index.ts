@@ -23,9 +23,9 @@ export class GarageController {
   }
 
   private async loadGarage(page: number = this.appModel.getPageNumber(), limit: number = 7): Promise<void> {
-    this.model.setTotalRaceState(false);
-
+    this.model.clearWinners();
     try {
+      this.model.setTotalRaceState(false);
       const response = await fetch(`http://localhost:3000/garage?_page=${page}&_limit=${limit}`);
       const cars: Car[] = await response.json();
       const totalCount = response.headers.get('X-Total-Count');
