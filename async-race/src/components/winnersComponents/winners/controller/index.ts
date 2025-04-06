@@ -1,16 +1,19 @@
-import { WinnersModel } from '../model';
+import { AppModel } from '../../../../models/appModel';
+import { WinnersModel } from '../../../../models/winnersModel';
 import { WinnersView } from '../view';
-import { WinnerApi } from '../../../API/winnersApi';
-import { GarageAPI } from '../../../API/garageAPI';
+import { WinnerApi } from '../../../../API/winnersApi';
+import { GarageAPI } from '../../../../API/garageAPI';
 
-import { WinnersTypeOrder, WinnersTypeSort } from '../../../types';
+import { WinnersTypeOrder, WinnersTypeSort } from '../../../../types';
 
 export class WinnersController {
   constructor(
+    private readonly appModel: AppModel,
     private readonly model: WinnersModel,
     private readonly view: WinnersView
   ) {
     this.model.subscribeWinnersListener(() => this.handleModelUpdateWinnersList());
+    this.appModel.subscribePagesListener(() => this.loadWinners());
     this.initEventListeners();
     this.loadWinners();
   }
@@ -35,6 +38,7 @@ export class WinnersController {
         }
 
         if (typeSort) {
+          this.appModel.setPageNumber('winners', 1);
           this.model.setSortParams(typeSort);
 
           const parameterSort = this.model.getSortParams();
@@ -47,7 +51,7 @@ export class WinnersController {
   }
 
   private async loadWinners(
-    page: number = 1,
+    page: number = this.appModel.getPageNumber('winners'),
     limit: number = 10,
     sort: WinnersTypeSort = 'id',
     order: WinnersTypeOrder = 'ASC'
@@ -63,6 +67,7 @@ export class WinnersController {
         })
       );
       this.model.setWinners(winners);
+      this.model.setWinnersCount(totalCount);
       console.log(winners);
     } catch (error) {
       console.error(error);

@@ -1,15 +1,15 @@
 import { PaginationView } from '../view';
-import { GarageModel } from '../../../models/garageModel';
-import { AppModel } from '../../../models/appModel';
+import { WinnersModel } from '../../../../models/winnersModel';
+import { AppModel } from '../../../../models/appModel';
 
 export class PaginationController {
   constructor(
     private readonly appModel: AppModel,
-    private readonly model: GarageModel,
+    private readonly model: WinnersModel,
     private readonly view: PaginationView
   ) {
     this.appModel.subscribePagesListener(() => this.updateButtonState());
-    this.model.subscribeCarsListener(() => this.updateButtonState());
+    this.model.subscribeWinnersListener(() => this.updateButtonState());
     this.initEventListeners();
   }
 
@@ -19,11 +19,11 @@ export class PaginationController {
   }
 
   private handleDecrease(): void {
-    this.appModel.decreasePageCounter('garage');
+    this.appModel.decreasePageCounter('winners');
   }
 
   private handleIncrease(): void {
-    this.appModel.increasePageCounter('garage');
+    this.appModel.increasePageCounter('winners');
   }
 
   private updateButtonState(): void {

@@ -1,23 +1,28 @@
+import type { PageName } from '../types';
 export class AppModel {
-  private page: number = 1;
+  private pages: Record<PageName, number> = {
+    garage: 1,
+    winners: 1,
+  };
   private trackWidth: number = 0;
   private pagesListener: (() => void)[] = [];
 
-  public setPageNumber(_page: number): void {
-    this.page = _page;
-  }
-
-  public getPageNumber(): number {
-    return this.page;
-  }
-
-  public decreasePageCounter(): void {
-    this.page--;
+  public setPageNumber(page: PageName, pageNumber: number): void {
+    this.pages[page] = pageNumber;
     this.notifyPagesListener();
   }
 
-  public increasePageCounter(): void {
-    this.page++;
+  public getPageNumber(page: PageName): number {
+    return this.pages[page];
+  }
+
+  public decreasePageCounter(page: PageName): void {
+    this.pages[page]--;
+    this.notifyPagesListener();
+  }
+
+  public increasePageCounter(page: PageName): void {
+    this.pages[page]++;
     this.notifyPagesListener();
   }
 

@@ -22,7 +22,7 @@ export class GarageController {
     this.appModel.subscribePagesListener(() => this.loadGarage());
   }
 
-  private async loadGarage(page: number = this.appModel.getPageNumber(), limit: number = 7): Promise<void> {
+  private async loadGarage(page: number = this.appModel.getPageNumber('garage'), limit: number = 7): Promise<void> {
     this.model.clearWinners();
     try {
       this.model.setTotalRaceState(false);
@@ -79,7 +79,6 @@ export class GarageController {
   private async deleteCar(id: number): Promise<void> {
     try {
       await GarageAPI.deleteCar(id);
-
       this.loadGarage();
     } catch (error) {
       console.error(error);

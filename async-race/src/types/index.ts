@@ -60,3 +60,5 @@ export type WinnersPageData = {
   winners: WinnerItem[];
   totalCount: number;
 };
+
+export type PageName = 'garage' | 'winners';

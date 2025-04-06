@@ -1,6 +1,6 @@
-import { WinnersModel } from '../model';
+import { WinnersModel } from '../../../../models/winnersModel';
 import { createSortableHeaderCell } from '../items';
-import { createElement } from '../../../utils/dom/createElement';
+import { createElement } from '../../../../utils/dom/createElement';
 
 export class WinnersView {
   public readonly winnersTableHeader: HTMLTableCaptionElement;

@@ -1,7 +1,8 @@
-import type { WinnerItem, WinnersTypeSort, WinnersTypeOrder } from '../../../types';
+import type { WinnerItem, WinnersTypeSort, WinnersTypeOrder } from '../types';
 
 export class WinnersModel {
   private readonly coinCarsAtPage: number = 10;
+  private coinWinners: number = 0;
 
   private winners: WinnerItem[] = Array.from({ length: this.coinCarsAtPage });
   private sortParams: { column: WinnersTypeSort; order: WinnersTypeOrder } = {
@@ -20,6 +21,10 @@ export class WinnersModel {
     this.notifyWinnersListener();
   }
 
+  public getWinners(): WinnerItem[] {
+    return this.winners;
+  }
+
   public getSortParams(): { column: WinnersTypeSort; order: WinnersTypeOrder } {
     return this.sortParams;
   }
@@ -31,8 +36,13 @@ export class WinnersModel {
     };
   }
 
-  public getWinners(): WinnerItem[] {
-    return this.winners;
+  public setWinnersCount(coin: number): void {
+    this.coinWinners = coin;
+    this.notifyWinnersListener();
+  }
+
+  public getWinnersCount(): number {
+    return this.coinWinners;
   }
 
   public subscribeWinnersListener(callback: () => void): void {
