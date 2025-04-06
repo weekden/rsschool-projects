@@ -13,7 +13,7 @@ export class MainPage {
     const model = new GarageModel();
     const pagination = new InitPagination(this.appModel, model);
 
-    const formContainer = new InitForm(model).init();
+    const formContainer = new InitForm(this.appModel, model).init();
     const count = new InitCount(this.appModel, model).init();
 
     const garage = new InitGarage(this.appModel, model);

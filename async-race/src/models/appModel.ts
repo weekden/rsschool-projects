@@ -1,5 +1,6 @@
 export class AppModel {
   private page: number = 1;
+  private trackWidth: number = 350;
   private pagesListener: (() => void)[] = [];
 
   public setPageNumber(_page: number): void {
@@ -18,6 +19,14 @@ export class AppModel {
   public increasePageCounter(): void {
     this.page++;
     this.notifyPagesListener();
+  }
+
+  public getTrackWidth(): number {
+    return this.trackWidth;
+  }
+
+  public setTrackWidth(width: number): void {
+    this.trackWidth = width;
   }
 
   public subscribePagesListener(callback: () => void): void {

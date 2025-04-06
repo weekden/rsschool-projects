@@ -61,11 +61,11 @@ export class GarageController {
     });
     window.addEventListener('resize', () => {
       const trackWidth = garageContainer.offsetWidth;
-      this.model.setTrackWidth(trackWidth);
+      this.appModel.setTrackWidth(trackWidth);
     });
     window.addEventListener('load', () => {
       const trackWidth = garageContainer.offsetWidth;
-      this.model.setTrackWidth(trackWidth);
+      this.appModel.setTrackWidth(trackWidth);
     });
   }
 
@@ -80,7 +80,7 @@ export class GarageController {
   }
 
   private async controlStateEngineCar(id: number, engineState: EngineState): Promise<void> {
-    const distance = this.model.getTrackWidth();
+    const distance = this.appModel.getTrackWidth();
     try {
       const engineStatus = await GarageAPI.toggleEngine(id, engineState);
       const distanceTime = engineStatus.distance / engineStatus.velocity;

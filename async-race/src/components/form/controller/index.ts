@@ -1,4 +1,5 @@
 import { GarageModel } from '../../../models/garageModel';
+import { AppModel } from '../../../models/appModel';
 import { FormView } from '../view';
 import { GarageAPI } from '../../../API/garageAPI';
 import { WinnerApi } from '../../../API/winnersApi';
@@ -8,8 +9,9 @@ import { getCarElements } from '../../../utils/dom/getCarElement';
 
 export class FormController {
   constructor(
-    private view: FormView,
-    private model: GarageModel
+    private readonly appModel: AppModel,
+    private readonly model: GarageModel,
+    private readonly view: FormView
   ) {
     this.initEventListeners();
     this.model.subscribeCarsToEditListener(() => this.handleModelUpdateUpdateInputs());
@@ -77,7 +79,7 @@ export class FormController {
   }
 
   private async handleRace(): Promise<void> {
-    const distance = this.model.getTrackWidth();
+    const distance = this.appModel.getTrackWidth();
     this.model.clearWinners();
     try {
       const cars = this.model.getCars();

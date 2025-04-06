@@ -31,7 +31,6 @@ export class GarageModel {
   private cars: Car[] = Array.from({ length: this.coinCarsAtPage });
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
-  private trackWidth: number = 0;
   private garageElement: HTMLElement | undefined;
   private isRaceTotal: boolean = false;
   private raceStates: { [carId: number]: boolean } = {};
@@ -103,14 +102,6 @@ export class GarageModel {
       color: generateColor(),
     }));
     return hudredCarsArray;
-  }
-
-  public getTrackWidth(): number {
-    return this.trackWidth;
-  }
-
-  public setTrackWidth(width: number): void {
-    this.trackWidth = width;
   }
 
   public setGarage(element: HTMLElement): void {
