@@ -11,10 +11,10 @@ export class InitGarage {
     private readonly model: GarageModel
   ) {
     this.view = new GarageView(this.model);
-    new GarageController(this.appModel, this.model, this.view);
   }
 
   public render(): HTMLElement {
+    new GarageController(this.appModel, this.model, this.view);
     return this.view.render();
   }
 }

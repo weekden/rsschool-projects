@@ -1,6 +1,6 @@
 export class AppModel {
   private page: number = 1;
-  private trackWidth: number = 350;
+  private trackWidth: number = 0;
   private pagesListener: (() => void)[] = [];
 
   public setPageNumber(_page: number): void {

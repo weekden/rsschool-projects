@@ -28,7 +28,8 @@ export class WinnersController {
           this.view.updateHeaderButton(tableButton);
           this.loadWinners(1, 10, 'time', 'ASC');
         } else if (target.classList.contains('sort-btn-wins')) {
-        } else if (target.classList.contains('sort-btn-number')) {
+          this.view.updateHeaderButton(tableButton);
+          this.loadWinners(1, 10, 'wins', 'ASC');
         }
       }
     });
