@@ -19,6 +19,7 @@ export class WinnersView {
   }
 
   public updateWinners(): void {
+    [...this.winnersTableBody.children].forEach((item) => item.remove());
     const winners = this.model.getWinners();
     winners.forEach((item, index) => {
       const tableRow = document.createElement('tr');

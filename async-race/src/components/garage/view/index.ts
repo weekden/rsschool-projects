@@ -19,7 +19,7 @@ export class GarageView {
   }
 
   public renderCars(): void {
-    this.garage.innerHTML = '';
+    [...this.garage.children].forEach((item) => item.remove());
     const cars = this.model.getCars();
     if (!cars) return;
     cars.forEach((car) => {
@@ -54,7 +54,7 @@ export class GarageView {
     const totalRaceState = this.model.getTotalRaceState();
     console.log(totalRaceState);
 
-    Array.from(this.garage.children).forEach((item) => {
+    [...this.garage.children].forEach((item) => {
       const controlsWrapper = item.children[1];
       if (controlsWrapper instanceof HTMLElement) {
         const startButton = controlsWrapper.firstElementChild;

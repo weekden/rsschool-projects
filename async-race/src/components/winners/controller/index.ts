@@ -3,6 +3,8 @@ import { WinnersView } from '../view';
 import { WinnerApi } from '../../../API/winnersApi';
 import { GarageAPI } from '../../../API/garageAPI';
 
+import { WinnersTypeOrder, WinnersTypeSort } from '../../../types';
+
 export class WinnersController {
   constructor(
     private readonly model: WinnersModel,
@@ -24,6 +26,7 @@ export class WinnersController {
 
         if (target.classList.contains('sort-btn-time')) {
           this.view.updateHeaderButton(tableButton);
+          this.loadWinners(1, 10, 'time', 'ASC');
         } else if (target.classList.contains('sort-btn-wins')) {
         } else if (target.classList.contains('sort-btn-number')) {
         }
@@ -31,9 +34,14 @@ export class WinnersController {
     });
   }
 
-  private async loadWinners(page: number = 1, limit: number = 10): Promise<void> {
+  private async loadWinners(
+    page: number = 1,
+    limit: number = 10,
+    sort: WinnersTypeSort = 'id',
+    order: WinnersTypeOrder = 'ASC'
+  ): Promise<void> {
     try {
-      const { winners, totalCount } = await WinnerApi.getWinnersPage({ page: page, limit: limit });
+      const { winners, totalCount } = await WinnerApi.getWinnersPage({ page, limit, sort, order });
       console.log({ winners, totalCount });
       await Promise.all(
         winners.map(async (winner) => {
@@ -50,7 +58,6 @@ export class WinnersController {
   }
 
   private handleModelUpdateWinnersList(): void {
-    console.log(this.model.getWinners());
     this.view.updateWinners();
   }
 }

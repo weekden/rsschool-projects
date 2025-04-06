@@ -27,10 +27,7 @@ export class WinnerApi {
   }
 
   public static async getWinnersPage({ page, limit, sort, order }: WinnersTableResponse): Promise<WinnersPageData> {
-    const url =
-      !sort && !order
-        ? `${WINNERS_URL}?_page=${page}&_limit=${limit}`
-        : `${WINNERS_URL}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`;
+    const url = `${WINNERS_URL}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`;
     const response = await fetch(url);
     const winners: WinnerItem[] = await response.json();
     const totalCount = Number(response.headers.get('X-Total-Count')) || 0;

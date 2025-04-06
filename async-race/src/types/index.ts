@@ -46,11 +46,14 @@ export type WinnerItem = {
   name?: string;
 };
 
+export type WinnersTypeSort = 'id' | 'wins' | 'time';
+export type WinnersTypeOrder = 'ASC' | 'DESC';
+
 export type WinnersTableResponse = {
   page: number;
   limit: number;
-  sort?: 'id' | 'wins' | 'time';
-  order?: 'ASC' | 'DESC';
+  sort?: WinnersTypeSort;
+  order?: WinnersTypeOrder;
 };
 
 export type WinnersPageData = {
