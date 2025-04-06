@@ -24,12 +24,23 @@ export class WinnersController {
           return;
         }
 
+        let typeSort: WinnersTypeSort | undefined;
+
         if (target.classList.contains('sort-btn-time')) {
-          this.view.updateHeaderButton(tableButton);
-          this.loadWinners(1, 10, 'time', 'ASC');
+          typeSort = 'time';
         } else if (target.classList.contains('sort-btn-wins')) {
+          typeSort = 'wins';
+        } else if (target.classList.contains('sort-btn-number')) {
+          typeSort = 'id';
+        }
+
+        if (typeSort) {
+          this.model.setSortParams(typeSort);
+
+          const parameterSort = this.model.getSortParams();
+
           this.view.updateHeaderButton(tableButton);
-          this.loadWinners(1, 10, 'wins', 'ASC');
+          this.loadWinners(1, 10, parameterSort.column, parameterSort.order);
         }
       }
     });

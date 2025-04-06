@@ -17,9 +17,6 @@ export class MainPage {
     const count = new InitCount(this.appModel, model).init();
 
     container.append(formContainer, count, garage.render(), pagination.render());
-
-    // pagination.init();
-
     return container;
   }
 }
