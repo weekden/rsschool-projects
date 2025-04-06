@@ -19,7 +19,7 @@ export class InitPagination {
     return this.view.render();
   }
 
-  public init(): void {
-    this.controller.init();
-  }
+  // public init(): void {
+  //   this.controller.init();
+  // }
 }

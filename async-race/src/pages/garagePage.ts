@@ -18,7 +18,7 @@ export class MainPage {
 
     container.append(formContainer, count, garage.render(), pagination.render());
 
-    pagination.init();
+    // pagination.init();
 
     return container;
   }

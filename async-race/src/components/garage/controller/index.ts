@@ -4,7 +4,7 @@ import { AppModel } from '../../../models/appModel';
 import { GarageAPI } from '../../../API/garageAPI';
 import { getCarElements } from '../../../utils/dom/getCarElement';
 import { animateRaceCar, animateStopCar, setCarsToStart } from '../../../utils/animation/animatioCar';
-import { EngineState } from '../../../types';
+import type { Car, EngineState } from '../../../types';
 
 export class GarageController {
   constructor(
@@ -12,24 +12,31 @@ export class GarageController {
     private readonly model: GarageModel,
     private readonly view: GarageView
   ) {
+    this.loadGarage();
     this.initEventListeners();
     this.model.setGarage(this.view.garage);
     this.model.subscribeCarsListener(() => this.handleModelUpdateCarsList());
     this.model.subscribeRaceSingleStateListener(() => this.handleUpdateControlButtons());
     this.model.subscribeRaceTotalStateListener(() => this.handleUpdateAllControlButtons());
     this.model.subscribeWinnerListener(() => this.handleUpdateModelWinners());
+    this.appModel.subscribePagesListener(() => this.loadGarage());
   }
 
-  public async loadGarage(page: number = this.appModel.getPageNumber(), limit: number = 7): Promise<void> {
+  private async loadGarage(page: number = this.appModel.getPageNumber(), limit: number = 7): Promise<void> {
+    this.model.setTotalRaceState(false);
+
     try {
-      const { cars, totalCount } = await GarageAPI.loadGarage(page, limit);
+      const response = await fetch(`http://localhost:3000/garage?_page=${page}&_limit=${limit}`);
+      const cars: Car[] = await response.json();
+      const totalCount = response.headers.get('X-Total-Count');
       this.model.setCars(cars);
-      this.model.setCarsCount(totalCount);
+      if (totalCount) {
+        this.model.setCarsCount(+totalCount);
+      }
     } catch (error) {
       console.error(error);
     }
   }
-
   private initEventListeners(): void {
     const garageContainer = this.view.garage;
     garageContainer.addEventListener('click', (event) => {
