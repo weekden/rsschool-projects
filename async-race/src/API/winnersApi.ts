@@ -38,16 +38,14 @@ export class WinnerApi {
   }
 
   public static async saveWinner(winner: WinnerItem): Promise<void> {
-    try {
-      const verifiableWinner = await this.getWinner(winner.id);
-      if (verifiableWinner && verifiableWinner.wins !== undefined) {
-        const updatedWinner = {
-          wins: verifiableWinner?.wins + 1,
-          time: Math.min(verifiableWinner.time, winner.time),
-        };
-        await this.updateWinner(winner.id, updatedWinner);
-      }
-    } catch {
+    const verifiableWinner = await this.getWinner(winner.id);
+    if (verifiableWinner && verifiableWinner.wins !== undefined) {
+      const updatedWinner = {
+        wins: verifiableWinner.wins + 1,
+        time: Math.min(verifiableWinner.time, winner.time),
+      };
+      await this.updateWinner(winner.id, updatedWinner);
+    } else {
       await this.createWinner(winner);
     }
   }
