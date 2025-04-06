@@ -1,7 +1,7 @@
 import { PaginationView } from './view';
 import { PaginationController } from './controller';
-import { GarageModel } from '../../models/garageModel';
-import { AppModel } from '../../models/appModel';
+import { GarageModel } from '../../../models/garageModel';
+import { AppModel } from '../../../models/appModel';
 
 export class InitPagination {
   private view: PaginationView;

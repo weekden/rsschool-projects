@@ -1,10 +1,10 @@
-import { GarageModel } from '../../../models/garageModel';
+import { GarageModel } from '../../../../models/garageModel';
 import { GarageView } from '../view';
-import { AppModel } from '../../../models/appModel';
-import { GarageAPI } from '../../../API/garageAPI';
-import { getCarElements } from '../../../utils/dom/getCarElement';
-import { animateRaceCar, animateStopCar, setCarsToStart } from '../../../utils/animation/animatioCar';
-import type { Car, EngineState } from '../../../types';
+import { AppModel } from '../../../../models/appModel';
+import { GarageAPI } from '../../../../API/garageAPI';
+import { getCarElements } from '../../../../utils/dom/getCarElement';
+import { animateRaceCar, animateStopCar, setCarsToStart } from '../../../../utils/animation/animatioCar';
+import type { Car, EngineState } from '../../../../types';
 
 export class GarageController {
   constructor(

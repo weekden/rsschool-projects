@@ -1,7 +1,7 @@
-import { createElement } from '../../../utils/dom/createElement';
-import { createButton } from '../../../utils/dom/createButton';
-import { GarageModel } from '../../../models/garageModel';
-import { AppModel } from '../../../models/appModel';
+import { createElement } from '../../../../utils/dom/createElement';
+import { createButton } from '../../../../utils/dom/createButton';
+import { GarageModel } from '../../../../models/garageModel';
+import { AppModel } from '../../../../models/appModel';
 
 export class PaginationView {
   public buttonPrew: HTMLButtonElement;

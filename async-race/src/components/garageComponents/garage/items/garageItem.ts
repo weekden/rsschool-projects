@@ -1,6 +1,6 @@
-import { createElement } from '../../../utils/dom/createElement';
-import { createButton } from '../../../utils/dom/createButton';
-import type { Car } from '../../../types';
+import { createElement } from '../../../../utils/dom/createElement';
+import { createButton } from '../../../../utils/dom/createButton';
+import type { Car } from '../../../../types';
 
 export function createGarageItem(car: Car): HTMLElement {
   const garageItem = createElement({

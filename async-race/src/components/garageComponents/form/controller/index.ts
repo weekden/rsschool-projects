@@ -1,11 +1,11 @@
-import { GarageModel } from '../../../models/garageModel';
-import { AppModel } from '../../../models/appModel';
+import { GarageModel } from '../../../../models/garageModel';
+import { AppModel } from '../../../../models/appModel';
 import { FormView } from '../view';
-import { GarageAPI } from '../../../API/garageAPI';
-import { WinnerApi } from '../../../API/winnersApi';
-import { Car, CreateCarParameters, WinnerItem } from '../../../types';
-import { animateRaceCar, setCarsToStart, animateStopCar } from '../../../utils/animation/animatioCar';
-import { getCarElements } from '../../../utils/dom/getCarElement';
+import { GarageAPI } from '../../../../API/garageAPI';
+import { WinnerApi } from '../../../../API/winnersApi';
+import { Car, CreateCarParameters, WinnerItem } from '../../../../types';
+import { animateRaceCar, setCarsToStart, animateStopCar } from '../../../../utils/animation/animatioCar';
+import { getCarElements } from '../../../../utils/dom/getCarElement';
 
 export class FormController {
   constructor(

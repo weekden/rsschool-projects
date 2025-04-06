@@ -1,7 +1,7 @@
 import { CountView } from './view';
 import { CountController } from './controller';
-import { GarageModel } from '../../models/garageModel';
-import { AppModel } from '../../models/appModel';
+import { GarageModel } from '../../../models/garageModel';
+import { AppModel } from '../../../models/appModel';
 
 export class InitCount {
   private view: CountView;

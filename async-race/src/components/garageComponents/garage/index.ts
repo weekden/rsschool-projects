@@ -1,5 +1,5 @@
-import { AppModel } from '../../models/appModel';
-import { GarageModel } from '../../models/garageModel';
+import { AppModel } from '../../../models/appModel';
+import { GarageModel } from '../../../models/garageModel';
 import { GarageController } from './controller';
 import { GarageView } from './view';
 

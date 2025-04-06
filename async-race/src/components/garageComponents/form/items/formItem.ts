@@ -1,6 +1,6 @@
-import { createButton } from '../../../utils/dom/createButton';
-import { createElement } from '../../../utils/dom/createElement';
-import { createInputElement } from '../../../utils/dom/createInputElement';
+import { createButton } from '../../../../utils/dom/createButton';
+import { createElement } from '../../../../utils/dom/createElement';
+import { createInputElement } from '../../../../utils/dom/createInputElement';
 
 export const createItemForForm = (buttonName: string): HTMLElement => {
   const item = createElement({

@@ -1,5 +1,5 @@
-import { GarageModel } from '../../../models/garageModel';
-import { AppModel } from '../../../models/appModel';
+import { GarageModel } from '../../../../models/garageModel';
+import { AppModel } from '../../../../models/appModel';
 import { CountView } from '../view';
 
 export class CountController {

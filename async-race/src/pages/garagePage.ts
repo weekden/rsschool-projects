@@ -1,7 +1,7 @@
-import { InitForm } from '../components/form';
-import { InitCount } from '../components/count';
-import { InitGarage } from '../components/garage';
-import { InitPagination } from '../components/pagination';
+import { InitForm } from '../components/garageComponents/form';
+import { InitCount } from '../components/garageComponents/count';
+import { InitGarage } from '../components/garageComponents/garage';
+import { InitPagination } from '../components/garageComponents/pagination';
 import { GarageModel } from '../models/garageModel';
 import { AppModel } from '../models/appModel';
 

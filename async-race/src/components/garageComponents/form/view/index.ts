@@ -1,9 +1,9 @@
-import { createButton } from '../../../utils/dom/createButton';
-import { createInputElement } from '../../../utils/dom/createInputElement';
-import { GarageModel } from '../../../models/garageModel';
-import { createDataList } from '../../../utils/dom/createDataList';
+import { createButton } from '../../../../utils/dom/createButton';
+import { createInputElement } from '../../../../utils/dom/createInputElement';
+import { GarageModel } from '../../../../models/garageModel';
+import { createDataList } from '../../../../utils/dom/createDataList';
 
-import { createElement } from '../../../utils/dom/createElement';
+import { createElement } from '../../../../utils/dom/createElement';
 
 export class FormView {
   public formContainer: HTMLElement;

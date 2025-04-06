@@ -1,5 +1,3 @@
-// import { InitWinners } from '../components/winners';
-// import { WinnersModel } from '../components/winners/model';
 import { AppModel } from '../models/appModel';
 import { InitWinners } from '../components/winnersComponents/winners';
 import { WinnersModel } from '../models/winnersModel';

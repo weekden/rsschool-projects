@@ -1,6 +1,6 @@
-import { createElement } from '../../../utils/dom/createElement';
+import { createElement } from '../../../../utils/dom/createElement';
 import { createGarageItem } from '../items/garageItem';
-import { GarageModel } from '../../../models/garageModel';
+import { GarageModel } from '../../../../models/garageModel';
 
 export class GarageView {
   public garage: HTMLElement;

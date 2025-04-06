@@ -1,6 +1,6 @@
-import { createElement } from '../../../utils/dom/createElement';
-import { GarageModel } from '../../../models/garageModel';
-import { AppModel } from '../../../models/appModel';
+import { createElement } from '../../../../utils/dom/createElement';
+import { GarageModel } from '../../../../models/garageModel';
+import { AppModel } from '../../../../models/appModel';
 
 export class CountView {
   private countContainer: HTMLElement;
