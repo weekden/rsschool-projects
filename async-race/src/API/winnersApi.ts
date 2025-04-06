@@ -1,4 +1,4 @@
-import type { WinnerItem } from '../types';
+import type { WinnerItem, WinnersPageData, WinnersTableResponse } from '../types';
 const WINNERS_URL = 'http://localhost:3000/winners';
 export class WinnerApi {
   public static async getWinner(id: string): Promise<WinnerItem> {
@@ -33,5 +33,16 @@ export class WinnerApi {
     });
 
     return response.json();
+  }
+
+  public static async getWinnersPage({ page, limit, sort, order }: WinnersTableResponse): Promise<WinnersPageData> {
+    const url =
+      !sort && !order
+        ? `${WINNERS_URL}?_page=${page}&_limit=${limit}`
+        : `${WINNERS_URL}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`;
+    const response = await fetch(url);
+    const winners: WinnerItem[] = await response.json();
+    const totalCount = Number(response.headers.get('X-Total-Count')) || 0;
+    return { winners, totalCount };
   }
 }

@@ -152,6 +152,13 @@ export class GarageModel {
     this.notifyWinnerListener();
   }
 
+  public getWinnerItem(): WinnerItem {
+    const winner = this.winners[0];
+    const color = this.cars.find((item) => item.id === winner.id)?.color;
+    winner.color = color;
+    return winner;
+  }
+
   public getWinner(): string {
     if (this.winners.length === 0) return '';
     const winner = this.winners[0];

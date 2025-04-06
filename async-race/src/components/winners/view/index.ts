@@ -46,6 +46,14 @@ export class WinnersView {
     });
   }
 
+  public updateHeaderButton(button: Element): void {
+    console.log(button);
+    const pointer = button?.lastChild;
+    console.log(pointer);
+    if (!pointer) return;
+    pointer.textContent = pointer.textContent === '\u25B2' ? '\u25BC' : '\u25B2';
+  }
+
   private createTable(): void {
     const headers = [
       { title: 'Number', keyClass: 'number' },

@@ -1,6 +1,7 @@
 import { GarageModel } from '../../../models/garageModel';
 import { FormView } from '../view';
 import { GarageAPI } from '../../../API/garageAPI';
+import { WinnerApi } from '../../../API/winnersApi';
 import { Car, CreateCarParameters } from '../../../types';
 import { animateRaceCar, setCarsToStart, animateStopCar } from '../../../utils/animation/animatioCar';
 import { getCarElements } from '../../../utils/dom/getCarElement';
@@ -111,6 +112,8 @@ export class FormController {
 
             if (this.model.getTotalRaceState()) {
               this.model.addWinner({ id: +carId, time: carsTimesArray[index] });
+              const winner = this.model.getWinnerItem();
+              await WinnerApi.createWinner(winner);
             }
           } catch {
             animateStopCar(carElement);

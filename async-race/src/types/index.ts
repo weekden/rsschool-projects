@@ -45,3 +45,15 @@ export type WinnerItem = {
   color?: string;
   name?: string;
 };
+
+export type WinnersTableResponse = {
+  page: number;
+  limit: number;
+  sort?: 'id' | 'wins' | 'time';
+  order?: 'ASC' | 'DESC';
+};
+
+export type WinnersPageData = {
+  winners: WinnerItem[];
+  totalCount: number;
+};
