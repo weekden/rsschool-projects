@@ -1,12 +1,14 @@
 import { WinnersModel } from '../model';
 import { WinnersView } from '../view';
 import { WinnerApi } from '../../../API/winnersApi';
+import { GarageAPI } from '../../../API/garageAPI';
 
 export class WinnersController {
   constructor(
     private readonly model: WinnersModel,
     private readonly view: WinnersView
   ) {
+    this.model.subscribeWinnersListener(() => this.handleModelUpdateWinnersList());
     this.initEventListeners();
     this.loadWinners();
   }
@@ -29,13 +31,26 @@ export class WinnersController {
     });
   }
 
-  private async loadWinners(page: number = 1, limit: number = 7): Promise<void> {
+  private async loadWinners(page: number = 1, limit: number = 10): Promise<void> {
     try {
       const { winners, totalCount } = await WinnerApi.getWinnersPage({ page: page, limit: limit });
+      console.log({ winners, totalCount });
+      await Promise.all(
+        winners.map(async (winner) => {
+          const item = await GarageAPI.getCar(winner.id);
+          winner.color = item.color;
+          winner.name = item.name;
+        })
+      );
+      this.model.setWinners(winners);
       console.log(winners);
-      console.log(totalCount);
     } catch (error) {
       console.error(error);
     }
+  }
+
+  private handleModelUpdateWinnersList(): void {
+    console.log(this.model.getWinners());
+    this.view.updateWinners();
   }
 }

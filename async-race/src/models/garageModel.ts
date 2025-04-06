@@ -27,7 +27,7 @@ export class GarageModel {
     { brand: 'Ferrari', model: 'F8 Tributo' },
   ];
   private readonly coinCarsAtPage: number = 7;
-  private winners: WinnerItem[] = [];
+  private winner: WinnerItem | null = null;
   private cars: Car[] = Array.from({ length: this.coinCarsAtPage });
   private carToEdit: Car | null = null;
   private coinCars: number = 0;
@@ -147,28 +147,31 @@ export class GarageModel {
     return this.carId;
   }
 
-  public addWinner(winner: WinnerItem): void {
-    this.winners.push(winner);
+  public setWinner(winner: WinnerItem): void {
+    this.winner = winner;
     this.notifyWinnerListener();
   }
 
-  public getWinnerItem(): WinnerItem {
-    const winner = this.winners[0];
-    const color = this.cars.find((item) => item.id === winner.id)?.color;
-    winner.color = color;
+  public getWinnerItem(): WinnerItem | null {
+    const winner = this.winner;
+    if (winner !== null) {
+      const color = this.cars.find((item) => item.id === winner.id)?.color;
+      winner.color = color;
+      winner.wins = 1;
+    }
     return winner;
   }
 
   public getWinner(): string {
-    if (this.winners.length === 0) return '';
-    const winner = this.winners[0];
+    if (!this.winner) return '';
+    const winner = this.winner;
     const winnerName = this.cars.find((item) => item.id === winner.id)?.name;
     const winnerTime = timeConvertation(winner.time);
     return `${winnerName} wont! Time: ${winnerTime}s`;
   }
 
   public clearWinners(): void {
-    this.winners = [];
+    this.winner = null;
     this.notifyWinnerListener();
   }
 

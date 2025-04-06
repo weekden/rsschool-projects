@@ -1,8 +1,6 @@
 import { WinnersModel } from '../model';
 import { createSortableHeaderCell } from '../items';
 
-import type { WinnerItem } from '../../../types';
-
 export class WinnersView {
   public readonly winnersTableHeader: HTMLTableCaptionElement;
   private winnersTable: HTMLTableElement;
@@ -20,8 +18,8 @@ export class WinnersView {
     return this.winnersTable;
   }
 
-  public updateWinners(winners: Required<WinnerItem>[]): void {
-    if (!winners) return;
+  public updateWinners(): void {
+    const winners = this.model.getWinners();
     winners.forEach((item, index) => {
       const tableRow = document.createElement('tr');
 
@@ -29,16 +27,22 @@ export class WinnersView {
       numberCell.textContent = (index + 1).toString();
 
       const carIconCell = document.createElement('td');
-      carIconCell.textContent = item.color;
+      if (item.color) {
+        carIconCell.textContent = item.color;
+      }
 
       const nameCell = document.createElement('td');
-      nameCell.textContent = item.name;
+      if (item.name) {
+        nameCell.textContent = item.name;
+      }
 
       const winsCell = document.createElement('td');
-      winsCell.textContent = item.wins.toString();
+      if (item.wins) {
+        winsCell.textContent = item.wins.toString();
+      }
 
       const bestTimeCell = document.createElement('td');
-      bestTimeCell.textContent = item.time.toFixed(2);
+      bestTimeCell.textContent = (item.time / 1000).toFixed(2);
 
       tableRow.append(numberCell, carIconCell, nameCell, winsCell, bestTimeCell);
 
