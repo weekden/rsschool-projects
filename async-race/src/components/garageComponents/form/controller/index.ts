@@ -96,7 +96,6 @@ export class FormController {
         const winner = await Promise.any(race);
         if (winner) {
           const win = 1;
-          console.log(winner);
           this.model.setWinner(winner);
           winner.wins = win;
           WinnerApi.saveWinner(winner);
