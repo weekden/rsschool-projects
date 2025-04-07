@@ -52,7 +52,6 @@ export class GarageView {
 
   public updateAllControlButtons(): void {
     const totalRaceState = this.model.getTotalRaceState();
-    console.log(totalRaceState);
 
     [...this.garage.children].forEach((item) => {
       const controlsWrapper = item.children[1];

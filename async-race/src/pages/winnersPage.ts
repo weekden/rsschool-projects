@@ -8,6 +8,7 @@ export class RecordsPage {
   constructor(private appModel: AppModel) {}
   public render(): HTMLElement {
     const container = document.createElement('div');
+    container.className = 'container';
     const model = new WinnersModel();
     const winnersTable = new InitWinners(this.appModel, model).init();
     const count = new InitCount(this.appModel, model).init();

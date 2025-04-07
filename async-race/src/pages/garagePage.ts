@@ -10,6 +10,7 @@ export class MainPage {
 
   public render(): HTMLElement {
     const container = document.createElement('div');
+    container.className = 'container';
     const model = new GarageModel();
     const pagination = new InitPagination(this.appModel, model);
     const garage = new InitGarage(this.appModel, model);
