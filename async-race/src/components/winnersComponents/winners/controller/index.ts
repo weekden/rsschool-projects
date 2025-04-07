@@ -38,13 +38,17 @@ export class WinnersController {
         }
 
         if (typeSort) {
-          this.appModel.setPageNumber('winners', 1);
           this.model.setSortParams(typeSort);
+          this.view.updateHeaderButton(tableButton);
 
+          const currentPage = this.appModel.getPageNumber('winners');
           const parameterSort = this.model.getSortParams();
 
-          this.view.updateHeaderButton(tableButton);
-          this.loadWinners(1, 10, parameterSort.column, parameterSort.order);
+          if (currentPage === 1) {
+            this.loadWinners(1, 10, parameterSort.column, parameterSort.order);
+          } else {
+            this.appModel.setPageNumber('winners', 1);
+          }
         }
       }
     });
@@ -57,7 +61,12 @@ export class WinnersController {
     order: WinnersTypeOrder = 'ASC'
   ): Promise<void> {
     try {
-      const { winners, totalCount } = await WinnerApi.getWinnersPage({ page, limit, sort, order });
+      const { winners, totalCount } = await WinnerApi.getWinnersPage({
+        page,
+        limit,
+        sort,
+        order,
+      });
       console.log({ winners, totalCount });
       await Promise.all(
         winners.map(async (winner) => {
