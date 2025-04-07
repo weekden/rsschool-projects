@@ -5,6 +5,7 @@ export class WinnerApi {
     const response = await fetch(`${WINNERS_URL}/${id}`, {
       method: 'GET',
     });
+
     return response.json();
   }
 
@@ -13,6 +14,13 @@ export class WinnerApi {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(winner),
+    });
+    return response.json();
+  }
+
+  public static async deleteWinner(id: number): Promise<void> {
+    const response = await fetch(`${WINNERS_URL}/${id}`, {
+      method: 'DELETE',
     });
     return response.json();
   }

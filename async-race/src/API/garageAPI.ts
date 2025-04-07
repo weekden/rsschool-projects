@@ -42,12 +42,14 @@ export class GarageAPI {
     return response.json();
   }
 
-  public static async deleteCar(id: number): Promise<string> {
+  public static async deleteCar(id: number): Promise<void> {
     const response = await fetch(`${GARAGE_URL}/${id}`, {
       method: 'DELETE',
     });
 
-    return response.json();
+    if (!response.ok) {
+      throw new Error(`Delete car id ${id}`);
+    }
   }
 
   public static async generateCars(cars: CreateCarParameters[]): Promise<Car[]> {

@@ -5,6 +5,7 @@ import { GarageAPI } from '../../../../API/garageAPI';
 import { getCarElements } from '../../../../utils/dom/getCarElement';
 import { animateRaceCar, animateStopCar, setCarsToStart } from '../../../../utils/animation/animatioCar';
 import type { Car, EngineState } from '../../../../types';
+import { WinnerApi } from '../../../../API/winnersApi';
 
 export class GarageController {
   constructor(
@@ -79,9 +80,19 @@ export class GarageController {
   private async deleteCar(id: number): Promise<void> {
     try {
       await GarageAPI.deleteCar(id);
+      try {
+        await WinnerApi.getWinner(id);
+        try {
+          await WinnerApi.deleteWinner(id);
+        } catch {
+          console.error('Winner not found');
+        }
+      } catch {
+        console.error('Winner not found');
+      }
       this.loadGarage();
-    } catch (error) {
-      console.error(error);
+    } catch {
+      console.error('Car not found');
     }
   }
 

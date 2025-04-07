@@ -67,7 +67,6 @@ export class WinnersController {
         sort,
         order,
       });
-      console.log({ winners, totalCount });
       await Promise.all(
         winners.map(async (winner) => {
           const item = await GarageAPI.getCar(winner.id);
@@ -77,7 +76,6 @@ export class WinnersController {
       );
       this.model.setWinners(winners);
       this.model.setWinnersCount(totalCount);
-      console.log(winners);
     } catch (error) {
       console.error(error);
     }
