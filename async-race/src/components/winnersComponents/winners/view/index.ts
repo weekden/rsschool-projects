@@ -1,13 +1,17 @@
 import { WinnersModel } from '../../../../models/winnersModel';
 import { createSortableHeaderCell } from '../items';
 import { createElement } from '../../../../utils/dom/createElement';
+import { AppModel } from '../../../../models/appModel';
 
 export class WinnersView {
   public readonly winnersTableHeader: HTMLTableCaptionElement;
   private winnersTable: HTMLTableElement;
   private winnersTableBody: HTMLElement;
 
-  constructor(private readonly model: WinnersModel) {
+  constructor(
+    private readonly appModel: AppModel,
+    private readonly model: WinnersModel
+  ) {
     this.winnersTable = document.createElement('table');
     this.winnersTableHeader = document.createElement('thead');
     this.winnersTableBody = document.createElement('tbody');
@@ -20,13 +24,14 @@ export class WinnersView {
   }
 
   public updateWinners(): void {
+    const currentPage = this.appModel.getPageNumber('winners');
     [...this.winnersTableBody.children].forEach((item) => item.remove());
     const winners = this.model.getWinners();
     winners.forEach((item, index) => {
       const tableRow = document.createElement('tr');
 
       const numberCell = document.createElement('td');
-      numberCell.textContent = (index + 1).toString();
+      numberCell.textContent = (index + 1 + (currentPage - 1) * 10).toString();
 
       const carIconCell = document.createElement('td');
       const iconCar = createElement({

@@ -10,7 +10,7 @@ export class InitWinners {
     private readonly appModel: AppModel,
     private readonly model: WinnersModel
   ) {
-    this.view = new WinnersView(this.model);
+    this.view = new WinnersView(this.appModel, this.model);
     new WinnersController(this.appModel, this.model, this.view);
   }
 

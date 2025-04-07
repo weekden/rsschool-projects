@@ -1,10 +1,9 @@
 import type { WinnerItem, WinnersTypeSort, WinnersTypeOrder } from '../types';
 
 export class WinnersModel {
-  private readonly coinCarsAtPage: number = 10;
   private coinWinners: number = 0;
 
-  private winners: WinnerItem[] = Array.from({ length: this.coinCarsAtPage });
+  private winners: WinnerItem[] = [];
   private sortParams: { column: WinnersTypeSort; order: WinnersTypeOrder } = {
     column: 'id',
     order: 'ASC',
@@ -13,11 +12,7 @@ export class WinnersModel {
   private winnersListeners: (() => void)[] = [];
 
   public setWinners(winners: WinnerItem[]): void {
-    if (this.winners.length > this.coinCarsAtPage) {
-      this.winners = winners.slice(0, this.coinCarsAtPage);
-    } else {
-      this.winners = winners;
-    }
+    this.winners = winners;
     this.notifyWinnersListener();
   }
 

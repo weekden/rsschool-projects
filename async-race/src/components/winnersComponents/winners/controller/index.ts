@@ -57,8 +57,8 @@ export class WinnersController {
   private async loadWinners(
     page: number = this.appModel.getPageNumber('winners'),
     limit: number = 10,
-    sort: WinnersTypeSort = 'id',
-    order: WinnersTypeOrder = 'ASC'
+    sort: WinnersTypeSort = this.model.getSortParams().column,
+    order: WinnersTypeOrder = this.model.getSortParams().order
   ): Promise<void> {
     try {
       const { winners, totalCount } = await WinnerApi.getWinnersPage({
