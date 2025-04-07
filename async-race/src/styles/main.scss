@@ -1,7 +1,8 @@
-@use "./components/garage";
-@use "./components/tableWinners.scss";
-@use "./components/count.scss";
-@use "./components/pagination.scss";
+@use './components/garage';
+@use './components/tableWinners.scss';
+@use './components/count.scss';
+@use './components/pagination.scss';
+@use './components/form.scss';
 
 * {
   box-sizing: border-box;
@@ -73,7 +74,7 @@ button {
 }
 
 button[disabled],
-button.disabled {
+.disabled {
   pointer-events: none;
   color: #8e8888;
   opacity: 0.5;

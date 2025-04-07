@@ -4,9 +4,11 @@ table {
 
   width: 90%;
   margin: 0 auto;
-  border: 3px solid #8e735b;
+  border: 4px solid #8e735b;
+  border-radius: 12px;
 
-  background-color: #f8f4f1;
+  background-color: #8e735b;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
 
   th,
   td {
@@ -16,11 +18,13 @@ table {
     border-left: 2px solid #d2b49c;
 
     text-align: center;
+
+    background-color: #f8f4f1;
   }
 
   th {
     padding: 10px;
-    border-bottom: 3px solid #8e735b;
+    border-bottom: 4px solid #8e735b;
     color: #4c3b2f;
     background-color: #e6d5c3;
 

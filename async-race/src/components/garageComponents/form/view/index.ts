@@ -96,7 +96,6 @@ export class FormView {
   }
 
   public render(): HTMLElement {
-    // const formContainer = createElement({ tag: 'div', classes: ['form'] });
     const carList = this.model.carList;
     const dataListId = this.textInputCreate.getAttribute('list');
 
