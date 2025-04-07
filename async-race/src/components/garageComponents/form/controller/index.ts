@@ -95,10 +95,8 @@ export class FormController {
         const race = carsElements.map(async (item, index) => this.runCar(item, carsTimesArray[index], distance));
         const winner = await Promise.any(race);
         if (winner) {
-          const win = 1;
           this.model.setWinner(winner);
-          winner.wins = win;
-          WinnerApi.saveWinner(winner);
+          await WinnerApi.saveWinner(winner);
         }
       }
     } catch (error) {
@@ -109,6 +107,7 @@ export class FormController {
   private async runCar(carElement: Element, time: number, distance: number): Promise<WinnerItem | undefined> {
     const carId = Number(carElement.getAttribute('data-id'));
     const id = carId;
+    const wins = 1;
 
     if (!(carElement instanceof HTMLElement) || !carId) return;
 
@@ -127,7 +126,7 @@ export class FormController {
         return;
       }
 
-      return { id, time };
+      return { id, time, wins };
     } catch {
       animateStopCar(carElement);
       throw new Error('Car crashed');

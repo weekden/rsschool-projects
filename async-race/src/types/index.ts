@@ -41,7 +41,7 @@ export type DriveResponse = {
 export type WinnerItem = {
   id: number;
   time: number;
-  wins?: number;
+  wins: number;
   color?: string;
   name?: string;
 };

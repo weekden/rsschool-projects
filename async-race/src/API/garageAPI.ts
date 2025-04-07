@@ -47,9 +47,7 @@ export class GarageAPI {
       method: 'DELETE',
     });
 
-    if (!response.ok) {
-      throw new Error(`Delete car id ${id}`);
-    }
+    return response.json();
   }
 
   public static async generateCars(cars: CreateCarParameters[]): Promise<Car[]> {
@@ -95,10 +93,6 @@ export class GarageAPI {
     const response = await fetch(`${ENGINE_URL}?id=${carId}&status=${status}`, {
       method: 'PATCH',
     });
-
-    // if (!response.ok) {
-    //   throw new Error(`Error: ${response.status} ${response.statusText}`);
-    // }
 
     return response.json();
   }

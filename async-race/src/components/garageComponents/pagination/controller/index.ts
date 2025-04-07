@@ -19,10 +19,12 @@ export class PaginationController {
   }
 
   private handleDecrease(): void {
+    this.model.clearWinners();
     this.appModel.decreasePageCounter('garage');
   }
 
   private handleIncrease(): void {
+    this.model.clearWinners();
     this.appModel.increasePageCounter('garage');
   }
 

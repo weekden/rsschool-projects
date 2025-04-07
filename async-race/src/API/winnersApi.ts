@@ -6,6 +6,10 @@ export class WinnerApi {
       method: 'GET',
     });
 
+    if (!response.ok) {
+      throw new Error('Winner not found');
+    }
+
     return response.json();
   }
 
@@ -43,14 +47,17 @@ export class WinnerApi {
   }
 
   public static async saveWinner(winner: WinnerItem): Promise<void> {
-    const verifiableWinner = await this.getWinner(winner.id);
-    if (verifiableWinner && verifiableWinner.wins !== undefined) {
-      const updatedWinner = {
-        wins: verifiableWinner.wins + 1,
-        time: Math.min(verifiableWinner.time, winner.time),
-      };
-      await this.updateWinner(winner.id, updatedWinner);
-    } else {
+    try {
+      const existingWinner = await this.getWinner(winner.id);
+      if (existingWinner) {
+        const updatedWinner = {
+          wins: existingWinner.wins + 1,
+          time: Math.min(existingWinner.time, winner.time),
+        };
+        await this.updateWinner(winner.id, updatedWinner);
+      }
+    } catch {
+      console.error('Winner not found, creating new winner');
       await this.createWinner(winner);
     }
   }

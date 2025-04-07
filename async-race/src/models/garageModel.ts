@@ -148,7 +148,6 @@ export class GarageModel {
     if (winner !== null) {
       const color = this.cars.find((item) => item.id === winner.id)?.color;
       winner.color = color;
-      winner.wins = 1;
     }
     return winner;
   }
