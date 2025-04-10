@@ -18,7 +18,6 @@ export class CountController {
   }
 
   private updatePage(): void {
-    console.log('updata');
     this.view.updatePage();
   }
 }

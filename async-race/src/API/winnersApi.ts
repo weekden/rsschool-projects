@@ -19,6 +19,7 @@ export class WinnerApi {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(winner),
     });
+
     return response.json();
   }
 
@@ -26,6 +27,7 @@ export class WinnerApi {
     const response = await fetch(`${WINNERS_URL}/${id}`, {
       method: 'DELETE',
     });
+
     return response.json();
   }
 
@@ -35,6 +37,7 @@ export class WinnerApi {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
+
     return response.json();
   }
 
@@ -43,6 +46,7 @@ export class WinnerApi {
     const response = await fetch(url);
     const winners: WinnerItem[] = await response.json();
     const totalCount = Number(response.headers.get('X-Total-Count')) || 0;
+
     return { winners, totalCount };
   }
 

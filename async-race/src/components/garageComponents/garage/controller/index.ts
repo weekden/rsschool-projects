@@ -98,6 +98,7 @@ export class GarageController {
 
   private async controlStateEngineCar(id: number, engineState: EngineState): Promise<void> {
     try {
+      this.model.setSingleRaceState(id, true);
       const engineStatus = await GarageAPI.toggleEngine(id, engineState);
       const distanceTime = engineStatus.distance / engineStatus.velocity;
 
@@ -110,7 +111,6 @@ export class GarageController {
 
         if (targetCar instanceof HTMLElement) {
           if (engineState === 'started') {
-            this.model.setSingleRaceState(id, true);
             animateRaceCar(targetCar, distanceTime, this.appModel.getTrackWidth());
             try {
               if (!this.model.getSingleRaceState(id)) {

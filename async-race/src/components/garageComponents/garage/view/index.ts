@@ -29,8 +29,6 @@ export class GarageView {
   }
 
   public updateControllButtons(): void {
-    const totalRaceState = this.model.getTotalRaceState();
-    console.log(totalRaceState);
     const selectedCarId = this.model.getCarId();
     if (!selectedCarId) return;
     const stateRace = this.model.getSingleRaceState(selectedCarId);
