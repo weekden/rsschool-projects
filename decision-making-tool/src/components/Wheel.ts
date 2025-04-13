@@ -6,6 +6,7 @@ import { generateArrayColor } from '../utils/colorRandomize';
 
 import type { Todo } from '../types/todo-type';
 import type { ControlCallback } from '../types/control-type';
+import type { SegmentDrawData } from '../types/wheel-type';
 
 export class Wheel {
   private wheelContainer: HTMLElement;
@@ -122,61 +123,77 @@ export class Wheel {
   }
 
   private drawWheel(): void {
-    if (!this.context) {
-      return;
-    }
+    if (!this.context) return;
 
     const radius = (this.canvas.width / 2) * 0.95;
     const centerWheelRadius = radius * 0.1;
     const fontSize = radius * 0.075;
     const segments = this.getSegmentsArray(this.renderList);
 
-    // Segments
-    segments.forEach((item, index) => {
-      if (!this.context) {
-        return;
-      }
-
-      const endAngle = this.startAngle + +item.weight;
+    segments.forEach((segment, index) => {
+      const endAngle = this.startAngle + +segment.weight;
       const textAngle = (this.startAngle + endAngle) / 2;
-      const textX = this.centerX + radius * 0.9 * Math.cos(textAngle);
-      const textY = this.centerY + radius * 0.9 * Math.sin(textAngle);
-      const segmentHeight = (radius * (endAngle - this.startAngle)) / Math.PI;
 
-      this.context.beginPath();
-      this.context.moveTo(this.centerX, this.centerY);
-      this.context.arc(this.centerX, this.centerY, radius, this.startAngle, endAngle);
-      this.context.fillStyle = this.segmentColors[index];
-      this.context.fill();
-      this.context.lineWidth = 3;
-      this.context.strokeStyle = '#ffffff';
-      this.context.stroke();
-      this.context.closePath();
+      const segmentData: SegmentDrawData = {
+        start: this.startAngle,
+        end: endAngle,
+        color: this.segmentColors[index],
+        title: segment.title,
+        angle: textAngle,
+        fontSize: fontSize,
+        radius: radius,
+      };
 
-      // SegmentTextContent
-      this.context.save();
-      this.context.beginPath();
-      this.context.translate(textX, textY);
-      this.context.rotate(textAngle + Math.PI);
-      this.context.textAlign = 'start';
-      this.context.font = `${fontSize}px Times New Roman`;
-      this.context.fillStyle = '#ffffff';
-
-      if (fontSize > segmentHeight * 0.85) {
-        this.context.fillText('', 0, 0);
-      } else {
-        this.context.fillText(`${getSlicedString(item.title)}`, 0, fontSize / 6);
-      }
-
-      this.context.closePath();
-      this.context.restore();
+      this.drawSegment(segmentData);
+      this.drawSegmentText(segmentData);
 
       this.startAngle = endAngle;
     });
 
-    // Center
+    this.drawCenterCircle(centerWheelRadius);
+  }
+
+  private drawSegment({ start, end, color }: SegmentDrawData): void {
+    if (!this.context) return;
+
     this.context.beginPath();
-    this.context.arc(this.centerX, this.centerY, centerWheelRadius, 0, Math.PI * 2);
+    this.context.moveTo(this.centerX, this.centerY);
+    this.context.arc(this.centerX, this.centerY, (this.canvas.width / 2) * 0.95, start, end);
+    this.context.fillStyle = color;
+    this.context.fill();
+    this.context.lineWidth = 3;
+    this.context.strokeStyle = '#ffffff';
+    this.context.stroke();
+    this.context.closePath();
+  }
+
+  private drawSegmentText({ title, angle, fontSize, radius, start, end }: SegmentDrawData): void {
+    if (!this.context || !title || angle === undefined || fontSize === undefined || radius === undefined) return;
+
+    const textX = this.centerX + radius * 0.9 * Math.cos(angle);
+    const textY = this.centerY + radius * 0.9 * Math.sin(angle);
+    const segmentHeight = (radius * (end - start)) / Math.PI;
+
+    this.context.save();
+    this.context.beginPath();
+    this.context.translate(textX, textY);
+    this.context.rotate(angle + Math.PI);
+    this.context.textAlign = 'start';
+    this.context.font = `${fontSize}px Times New Roman`;
+    this.context.fillStyle = '#ffffff';
+
+    const text = fontSize > segmentHeight * 0.85 ? '' : getSlicedString(title);
+    this.context.fillText(text, 0, fontSize / 6);
+
+    this.context.closePath();
+    this.context.restore();
+  }
+
+  private drawCenterCircle(radius: number): void {
+    if (!this.context) return;
+
+    this.context.beginPath();
+    this.context.arc(this.centerX, this.centerY, radius, 0, Math.PI * 2);
     this.context.fillStyle = '#f7b75b';
     this.context.fill();
     this.context.lineWidth = 3;

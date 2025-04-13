@@ -26,7 +26,7 @@ export class Decision {
     return container;
   }
 
-  private checkAfterRender() {
+  private checkAfterRender(): void {
     const list = LSControl.getListForRender();
 
     if (!list || list.length < 2) {
