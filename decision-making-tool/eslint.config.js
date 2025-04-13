@@ -31,6 +31,7 @@ export default [
     files: ['**/*.ts'],
 
     rules: {
+      'max-lines-per-function': ['error', 40],
       'import/extensions': 'off',
       'prettier/prettier': 'error',
       'import/prefer-default-export': 'off',

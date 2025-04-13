@@ -1,8 +1,7 @@
 import { createButton } from '../utils/dom/createButton';
 import { LSControl } from '../utils/storage/lsControl';
 import { createPopup } from '../utils/dom/createPopup';
-import { createTextArea } from '../utils/dom/createTextArea';
-import { parseValueFromTextArea } from '../utils/dom/createTextArea';
+import { createTextArea, parseValueFromTextArea } from '../utils/dom/createTextArea';
 import type { TodoList } from './List';
 import { loadFile, saveFile } from '../utils/storage/saveLoad';
 
@@ -15,44 +14,35 @@ export class Buttons {
   }
 
   public render(): HTMLDivElement {
-    const addButton = createButton('Add Option', () => {
-      this.todoList.addLi();
-    });
-    const pasteButton = createButton('Paste List', () => {
-      createPopup({
-        content: createTextArea(),
-        buttons: [
-          {
-            text: 'Cancel',
-            onClick: (popup): void => {
-              if (popup) {
-                popup.remove();
-              }
-            },
-          },
-          {
-            text: 'Confirm',
-            onClick: (popup, content): void => {
-              if (content instanceof HTMLTextAreaElement) {
-                const textValue = content.value;
-                const listItemObject = parseValueFromTextArea(textValue, LSControl.getState().counter);
-                listItemObject.items.forEach((item) => this.todoList.addLi(item));
-                popup.remove();
-              }
-            },
-          },
-        ],
-      });
-    });
-    const clearButton = createButton('Clear List', () => {
+    const saveLoadContainer = document.createElement('div');
+    saveLoadContainer.append(this.createSaveButton(), this.createLoadButton());
+
+    this.buttonsContainer.append(
+      this.createAddButton(),
+      this.createPasteButton(),
+      this.createClearButton(),
+      saveLoadContainer,
+      this.createStartButton()
+    );
+
+    return this.buttonsContainer;
+  }
+
+  private createAddButton = (): HTMLButtonElement => createButton('Add Option', () => this.todoList.addLi());
+
+  private createClearButton = (): HTMLButtonElement =>
+    createButton('Clear List', () => {
       this.todoList.clearUl();
       LSControl.clearItems();
     });
-    const saveButton = createButton('Save List to File', () => {
-      const fileToString = JSON.stringify(LSControl.getState());
-      saveFile(fileToString);
+
+  private createSaveButton = (): HTMLButtonElement =>
+    createButton('Save List to File', () => {
+      saveFile(JSON.stringify(LSControl.getState()));
     });
-    const loadButton = createButton('Load List from File', () => {
+
+  private createLoadButton = (): HTMLButtonElement =>
+    createButton('Load List from File', () => {
       loadFile((data: string) => {
         this.todoList.clearUl();
         LSControl.saveState(JSON.parse(data));
@@ -61,36 +51,39 @@ export class Buttons {
         this.todoList.renderFromStorage();
       });
     });
-    const startButton = createButton('Start', () => {
-      const listForRender = LSControl.getListForRender();
 
-      if (listForRender.length < 2) {
+  private createPasteButton = (): HTMLButtonElement =>
+    createButton('Paste List', () => {
+      createPopup({
+        content: createTextArea(),
+        buttons: [
+          { text: 'Cancel', onClick: (popup): void => popup?.remove() },
+          {
+            text: 'Confirm',
+            onClick: (popup, content): void => {
+              if (content instanceof HTMLTextAreaElement) {
+                const parsed = parseValueFromTextArea(content.value, LSControl.getState().counter);
+                parsed.items.forEach((item) => this.todoList.addLi(item));
+                popup.remove();
+              }
+            },
+          },
+        ],
+      });
+    });
+
+  private createStartButton = (): HTMLButtonElement =>
+    createButton('Start', () => {
+      const list = LSControl.getListForRender();
+      if (list.length < 2) {
         createPopup({
           content: `Please add at least 2 valid options.
 
-        An option is considered valid if its title is not empty and its weight is greater than 0
-        `,
-          buttons: [
-            {
-              text: 'Cancel',
-              onClick: (popup): void => {
-                if (popup) {
-                  popup.remove();
-                }
-              },
-            },
-          ],
+An option is considered valid if its title is not empty and its weight is greater than 0`,
+          buttons: [{ text: 'Cancel', onClick: (popup): void => popup?.remove() }],
         });
       } else {
         location.href = '#/decision-picker';
       }
     });
-
-    const saveLoadContainer = document.createElement('div');
-    saveLoadContainer.append(saveButton, loadButton);
-
-    this.buttonsContainer.append(addButton, pasteButton, clearButton, saveLoadContainer, startButton);
-
-    return this.buttonsContainer;
-  }
 }
