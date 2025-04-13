@@ -1,9 +1,12 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import webpack from 'webpack';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-module.exports = (env) => {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default (env) => {
   return {
     mode: env.mode || 'development',
     entry: path.resolve(__dirname, 'src', 'index.ts'),

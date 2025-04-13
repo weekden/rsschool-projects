@@ -5,6 +5,7 @@ import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 import prettierPlugin from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -12,9 +13,18 @@ export default [
   {
     ignores: ['node_modules/', 'dist/', 'public/', 'webpack.config.js', 'eslint.config.js', '.commitlintrc.cjs'],
   },
+
   {
     plugins: { unicorn, '@typescript-eslint': tseslint, import: importPlugin, prettier: prettierPlugin },
   },
+
+  {
+    linterOptions: {
+      noInlineConfig: true,
+      reportUnusedDisableDirectives: true,
+    },
+  },
+
   {
     languageOptions: {
       ecmaVersion: 'latest',
@@ -29,8 +39,8 @@ export default [
   },
   {
     files: ['**/*.ts'],
-
     rules: {
+      ...prettierConfig.rules,
       'max-lines-per-function': ['error', 40],
       'import/extensions': 'off',
       'prettier/prettier': 'error',
@@ -38,6 +48,7 @@ export default [
       'no-debugger': 'off',
       'no-console': 'off',
       'class-methods-use-this': 'off',
+
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/member-ordering': 'error',
       '@typescript-eslint/no-inferrable-types': 'off',
@@ -59,8 +70,8 @@ export default [
         },
       ],
       '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
-      '@typescript-eslint/no-non-null-assertion': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+
       'unicorn/no-array-callback-reference': 'off',
       'unicorn/no-array-for-each': 'off',
       'unicorn/no-array-reduce': 'off',
