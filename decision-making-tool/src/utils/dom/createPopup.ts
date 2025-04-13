@@ -1,61 +1,46 @@
-import type { PopupOptions } from '../../types/popup-types';
+import { createElement } from './createElement';
 import { createButton } from './createButton';
 import { onElementRemoved } from '../observer/elementObserver';
 
-export const createPopup = ({ content, buttons }: PopupOptions): HTMLDivElement => {
-  const popupWrappew = document.createElement('div');
-  popupWrappew.className = 'overlay';
+import type { PopupOptions } from '../../types/popup-types';
 
-  const popup = document.createElement('div');
-  popup.classList.add('popup');
+export const createPopup = ({ content, buttons }: PopupOptions): HTMLElement => {
+  const popupWrapper = createElement({ tag: 'div', classes: ['overlay'] });
+  const popup = createElement({ tag: 'div', classes: ['popup'] });
+  const popupContent = createElement({ tag: 'div', classes: ['popup-content'] });
+  const buttonContainer = createElement({ tag: 'div', classes: ['popup-buttons'] });
 
-  const popupContent = document.createElement('div');
-  popupContent.classList.add('popup-content');
-
-  if (typeof content === 'string') {
-    popupContent.textContent = content;
-  } else if (content instanceof HTMLTextAreaElement) {
-    popupContent.appendChild(content);
-  }
-
-  const buttonContainer = document.createElement('div');
-  buttonContainer.classList.add('popup-buttons');
+  typeof content === 'string' ? (popupContent.textContent = content) : popupContent.append(content);
 
   buttons.forEach(({ text, onClick }) => {
-    const button = createButton(text, () => {
-      if (content instanceof HTMLTextAreaElement) {
-        onClick(popupWrappew, content);
-      } else {
-        onClick(popupWrappew);
-      }
-    });
-
-    buttonContainer.appendChild(button);
+    if (!(popupWrapper instanceof HTMLDivElement)) return;
+    buttonContainer.append(
+      createButton(text, () => onClick(popupWrapper, content instanceof HTMLTextAreaElement ? content : undefined))
+    );
   });
 
   popup.append(popupContent, buttonContainer);
-  popupWrappew.append(popup);
-  document.body.appendChild(popupWrappew);
-
-  const handleEscape = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape') {
-      popupWrappew.remove();
-    }
-  };
-
-  const handleBodyClick = (event: MouseEvent): void => {
-    if (event.target instanceof HTMLDivElement && !popup.contains(event.target)) {
-      popupWrappew.remove();
-    }
-  };
-  document.addEventListener('keydown', handleEscape);
-  document.addEventListener('click', handleBodyClick);
+  popupWrapper.append(popup);
+  document.body.appendChild(popupWrapper);
   document.body.style.overflow = 'hidden';
 
-  onElementRemoved(popupWrappew, () => {
+  const handleEscape = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') popupWrapper.remove();
+  };
+  const handleBodyClick = (event: MouseEvent): void => {
+    if (event.target instanceof HTMLDivElement && !popup.contains(event.target)) {
+      popupWrapper.remove();
+    }
+  };
+
+  document.addEventListener('keydown', handleEscape);
+  document.addEventListener('click', handleBodyClick);
+
+  onElementRemoved(popupWrapper, () => {
     document.removeEventListener('keydown', handleEscape);
     document.removeEventListener('click', handleBodyClick);
     document.body.style.overflow = '';
   });
-  return popupWrappew;
+
+  return popupWrapper;
 };
