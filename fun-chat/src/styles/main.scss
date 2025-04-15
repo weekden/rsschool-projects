@@ -1,14 +1,21 @@
 @use './components/loginForm.scss';
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.app-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
