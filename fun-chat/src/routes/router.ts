@@ -10,12 +10,17 @@ export class Router {
     private appModel: AppModel
   ) {
     this.routes = routes;
-    window.addEventListener('hashchange', () => this.loadRoute());
+    window.addEventListener('popstate', () => this.loadRoute());
+    this.loadRoute();
+  }
+
+  public navigate(path: string): void {
+    history.pushState(null, '', path);
     this.loadRoute();
   }
 
   private loadRoute(): void {
-    const path = location.hash.slice(1) || '/';
+    const path = location.pathname || '/';
     const view = this.routes[path] || this.routes['/not-found'];
 
     if (view) {

@@ -1,4 +1,2 @@
-import { App } from './app';
+import './app.ts';
 import './styles/main.scss';
-
-new App();

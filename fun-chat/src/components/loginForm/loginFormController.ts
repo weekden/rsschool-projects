@@ -3,6 +3,7 @@ import { LoginModel } from '../../models/LoginModel';
 import { LoginView } from './loginFormView';
 import { validateUsername, validatePassword } from '../../utils/validate/validation';
 import type { User } from '../../types';
+import { router } from '../../app';
 
 export class LoginController {
   constructor(
@@ -48,6 +49,7 @@ export class LoginController {
 
     this.appModel.setUser({ login, password });
     console.log(this.appModel.getUser());
+    router.navigate('/chat');
     this.clearInputsValue();
   }
 

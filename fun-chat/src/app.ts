@@ -1,19 +1,17 @@
-import { AppModel } from './models/appModel';
-import { LoginPage } from './pages/loginPage';
 import { Router } from './routes/router';
-import { Routes } from './types';
+import { AppModel } from './models/appModel';
+import { ChatPage } from './pages/chatPage';
+import { LoginPage } from './pages/loginPage';
 import { createElement } from './utils/dom/customElement';
+import { Routes } from './types';
 
-export class App {
-  constructor() {
-    const mainContainer = createElement({ tag: 'div', classes: ['app-wrapper'] });
-    document.body.append(mainContainer);
+const mainContainer = createElement({ tag: 'div', classes: ['app-wrapper'] });
+document.body.append(mainContainer);
 
-    const routes: Routes = {
-      '/': LoginPage,
-      '/login': LoginPage,
-    };
+const routes: Routes = {
+  '/': LoginPage,
+  '/login': LoginPage,
+  '/chat': ChatPage,
+};
 
-    new Router(routes, mainContainer, new AppModel());
-  }
-}
+export const router = new Router(routes, mainContainer, new AppModel());
