@@ -4,6 +4,8 @@ import { LoginView } from './loginFormView';
 import { validateUsername, validatePassword } from '../../utils/validate/validation';
 import type { User } from '../../types';
 import { router } from '../../app';
+import { loginUser } from '../../API/auth/reqests';
+import { socketService } from '../../API/webSocketService';
 
 export class LoginController {
   constructor(
@@ -13,6 +15,17 @@ export class LoginController {
   ) {
     this.addEventListeners();
     this.subscribeToModel();
+    socketService.connect();
+    socketService.onError((message) => {
+      console.log(message);
+    });
+
+    socketService.onMessage((data) => {
+      if (data.type === 'USER_LOGIN') {
+        router.navigate('/chat');
+        this.clearInputsValue();
+      }
+    });
   }
   private addEventListeners(): void {
     const inputUserName = this.view.getUsernameInput();
@@ -49,8 +62,7 @@ export class LoginController {
 
     this.appModel.setUser({ login, password });
     console.log(this.appModel.getUser());
-    router.navigate('/chat');
-    this.clearInputsValue();
+    loginUser({ login, password });
   }
 
   private validateForm(user: User): boolean {
