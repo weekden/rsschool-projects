@@ -1,13 +1,74 @@
 import { ChatModel } from '../../models/chatModel';
+import { createElement } from '../../utils/dom/customElement';
+import { createButton } from '../../utils/dom/button';
+import { createAnchorElement } from '../../utils/dom/anchor';
+import { createInputElement } from '../../utils/dom/input';
 
 export class ChatView {
-  private container: HTMLDivElement;
-  constructor(private readonly view: ChatModel) {
-    this.container = document.createElement('div');
+  private container: HTMLElement;
+  private userNameContainer: HTMLElement;
+  private buttonInfo: HTMLButtonElement;
+  private buttonExit: HTMLButtonElement;
+  private searchInput: HTMLInputElement;
+
+  constructor(private readonly model: ChatModel) {
+    this.container = createElement({ tag: 'div', classes: ['chat'] });
+    this.userNameContainer = createElement({ tag: 'span', classes: ['header__user-name'] });
+    this.buttonInfo = createButton({ text: 'Info', classes: ['btn', 'header__btn', 'header__btn-info'] });
+    this.buttonExit = createButton({ text: 'Info', classes: ['btn', 'header__btn', 'header__btn-exit'] });
+    this.searchInput = createInputElement({ type: 'text', placeholder: 'serch', classes: ['users-container__input'] });
   }
 
-  public render(): HTMLDivElement {
-    this.container.textContent = 'CHAT';
+  public render(): HTMLElement {
+    this.container.append(this.createHeader(), this.createMainContainer(), this.createFooter());
     return this.container;
+  }
+
+  private createHeader(): HTMLElement {
+    const headerContainer = createElement({ tag: 'div', classes: ['header', 'header-container'] });
+    const headerChatName = createElement({ tag: 'span', text: 'Fun Chat', classes: ['header__chat-name'] });
+    const headerButtonsWrapper = createElement({
+      tag: 'div',
+      classes: ['header__buttons-wrapper'],
+      children: [this.buttonInfo, this.buttonExit],
+    });
+    headerContainer.append(this.userNameContainer, headerChatName, headerButtonsWrapper);
+    return headerContainer;
+  }
+
+  private createFooter(): HTMLElement {
+    const footerContainer = createElement({ tag: 'div', classes: ['footer', 'footer-container'] });
+    const linkGitHub = createAnchorElement({
+      href: 'https://github.com/weekden',
+      text: 'Git Hub',
+      classes: ['footer-link'],
+      target: '_blank',
+    });
+    const linkRSS = createAnchorElement({
+      href: 'https://rs.school/',
+      text: 'RSSchool',
+      classes: ['footer-link'],
+      target: '_blank',
+    });
+
+    const yearProdoction = createElement({ tag: 'span', text: '2025' });
+    footerContainer.append(linkGitHub, yearProdoction, linkRSS);
+    return footerContainer;
+  }
+
+  private createMainContainer(): HTMLElement {
+    const usersContainer = this.createUsersContainerWrapper();
+    const mainContainer = createElement({ tag: 'div', classes: ['chat-container'] });
+    mainContainer.append(usersContainer);
+    return mainContainer;
+  }
+
+  private createUsersContainerWrapper(): HTMLElement {
+    const usersContainerWrapper = createElement({
+      tag: 'div',
+      classes: ['chat-container__users-wrapper'],
+      children: [this.searchInput],
+    });
+    return usersContainerWrapper;
   }
 }
