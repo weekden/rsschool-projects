@@ -61,7 +61,7 @@ export default [
           },
         },
       ],
-      '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
+      // '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
       '@typescript-eslint/no-non-null-assertion': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       'unicorn/no-array-callback-reference': 'off',

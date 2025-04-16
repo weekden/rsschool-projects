@@ -1,11 +1,14 @@
+import { AppModel } from '../../models/appModel';
 import { LoginModel } from '../../models/LoginModel';
 import { LoginView } from './loginFormView';
 import { validateUsername, validatePassword } from '../../utils/validate/validation';
+import type { User } from '../../types';
 
 export class LoginController {
   constructor(
-    private model: LoginModel,
-    private view: LoginView
+    private readonly appModel: AppModel,
+    private readonly model: LoginModel,
+    private readonly view: LoginView
   ) {
     this.addEventListeners();
     this.subscribeToModel();
@@ -26,11 +29,37 @@ export class LoginController {
       this.model.setStateInputPassword(isValid);
     });
 
-    buttonSubmit.addEventListener('click', () => {});
+    buttonSubmit.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.handleSubmit();
+    });
 
     buttonInfo.addEventListener('click', (event) => {
       event.preventDefault();
     });
+  }
+
+  private handleSubmit(): void {
+    const login = this.view.getUsernameInput().value;
+    const password = this.view.getPasswordInput().value;
+
+    const isValid = this.validateForm({ login, password });
+    if (!isValid) return;
+
+    this.appModel.setUser({ login, password });
+    console.log(this.appModel.getUser());
+    this.clearInputsValue();
+  }
+
+  private validateForm(user: User): boolean {
+    const { login, password } = user;
+    const isUsernameValid = validateUsername(login);
+    const isPasswordValid = validatePassword(password);
+
+    this.model.setStateInputUserName(isUsernameValid);
+    this.model.setStateInputPassword(isPasswordValid);
+
+    return isUsernameValid && isPasswordValid;
   }
 
   private subscribeToModel(): void {
@@ -43,5 +72,10 @@ export class LoginController {
       const hasError = !this.model.getStateInputPassword();
       this.view.toggleError('password', hasError);
     });
+  }
+
+  private clearInputsValue(): void {
+    this.view.getUsernameInput().value = '';
+    this.view.getPasswordInput().value = '';
   }
 }

@@ -7,7 +7,7 @@ export class LoginPage {
 
   public render(): HTMLElement {
     const model = new LoginModel();
-    const initLogin = new InitLogin(model);
+    const initLogin = new InitLogin(this.appModel, model);
     return initLogin.render();
   }
 }

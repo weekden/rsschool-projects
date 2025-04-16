@@ -11,7 +11,7 @@ export class App {
 
     const routes: Routes = {
       '/': LoginPage,
-      '/lodin': LoginPage,
+      '/login': LoginPage,
     };
 
     new Router(routes, mainContainer, new AppModel());
