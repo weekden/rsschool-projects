@@ -71,9 +71,9 @@ export type ErrorResponse = {
   };
 };
 
-export type WSRequest = UserLoginRequest | UserLogoutRequest;
+export type WSAuthRequest = UserLoginRequest | UserLogoutRequest;
 
-export type WSResponse =
+export type WSAuthResponse =
   | UserLoginResponse
   | UserLogoutResponse
   // | UserExternalLoginResponse

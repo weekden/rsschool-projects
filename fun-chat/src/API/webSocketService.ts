@@ -1,8 +1,9 @@
-import { WSRequest, WSResponse } from './auth/types';
+import { WSAuthRequest, WSAuthResponse } from './auth/types';
+import { WSChatRequest, WSChatResponse } from './chat/types';
 
 export default class WebSocketService {
   private socket: WebSocket | null = null;
-  private onMessageCallback: ((data: WSResponse) => void) | null = null;
+  private onMessageCallback: ((data: WSAuthResponse | WSChatResponse) => void) | null = null;
   private onErrorCallback: ((error: string) => void) | null = null;
 
   constructor(private url: string) {}
@@ -40,7 +41,7 @@ export default class WebSocketService {
     });
   }
 
-  public send(message: WSRequest): void {
+  public send(message: WSAuthRequest | WSChatRequest): void {
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(message));
     } else {
@@ -48,7 +49,7 @@ export default class WebSocketService {
     }
   }
 
-  public onMessage(callback: (data: WSResponse) => void): void {
+  public onMessage(callback: (data: WSAuthResponse | WSChatResponse) => void): void {
     this.onMessageCallback = callback;
   }
 

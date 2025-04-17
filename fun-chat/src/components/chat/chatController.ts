@@ -4,6 +4,7 @@ import { ChatView } from './chatView';
 import { logoutUser } from '../../API/auth/reqests';
 import { socketService } from '../../API/webSocketService';
 import { router } from '../../app';
+import { getAllAuthUsers, getAllUnauthorizedUsers } from '../../API/chat/reqests';
 
 export class ChatController {
   constructor(
@@ -12,9 +13,18 @@ export class ChatController {
     private readonly view: ChatView
   ) {
     this.addEventListeners();
+
+    getAllAuthUsers();
+    getAllUnauthorizedUsers();
+
     socketService.onMessage((data) => {
       if (data.type === 'USER_LOGOUT') {
         router.navigate('/login');
+        console.log(`user ${data.payload.user.login} exit`);
+      }
+
+      if (data.type === 'USER_INACTIVE') {
+        console.log(data.payload.users);
       }
     });
   }
