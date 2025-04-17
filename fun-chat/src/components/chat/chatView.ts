@@ -18,7 +18,11 @@ export class ChatView {
     this.usersContainer = createElement({ tag: 'div', classes: ['chat-container__users'] });
     this.buttonInfo = createButton({ text: 'Info', classes: ['btn', 'header__btn', 'header__btn-info'] });
     this.buttonExit = createButton({ text: 'Exit', classes: ['btn', 'header__btn', 'header__btn-exit'] });
-    this.searchInput = createInputElement({ type: 'text', placeholder: 'serch', classes: ['users-container__input'] });
+    this.searchInput = createInputElement({
+      type: 'text',
+      placeholder: 'search...',
+      classes: ['input-text', 'users-container__input'],
+    });
   }
 
   public render(): HTMLElement {

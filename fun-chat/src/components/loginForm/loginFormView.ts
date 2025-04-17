@@ -19,7 +19,7 @@ export class LoginView {
 
     this.usernameInput = createInputElement({
       type: 'text',
-      classes: ['login-form__input'],
+      classes: ['input-text', 'login-form__input'],
       name: 'username',
       placeholder: 'Enter user name',
       required: true,
@@ -27,14 +27,14 @@ export class LoginView {
 
     this.passwordInput = createInputElement({
       type: 'password',
-      classes: ['login-form__input'],
+      classes: ['input-text', 'login-form__input'],
       name: 'password',
       placeholder: 'Enter password',
       required: true,
     });
 
-    this.submitButton = createButton({ text: 'Login', type: 'submit', classes: ['login-form__btn'] });
-    this.infoButton = createButton({ text: 'Info', classes: ['login-form__btn'] });
+    this.submitButton = createButton({ text: 'Login', type: 'submit', classes: ['btn', 'login-form__btn'] });
+    this.infoButton = createButton({ text: 'Info', classes: ['btn', 'login-form__btn'] });
 
     this.usernameError = createElement({
       tag: 'span',

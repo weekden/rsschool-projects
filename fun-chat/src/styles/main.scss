@@ -1,5 +1,6 @@
 @use './components/loginForm.scss';
 @use './components/popup.scss';
+@use './components/chat.scss';
 
 * {
   box-sizing: border-box;
@@ -19,4 +20,42 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+.btn {
+  cursor: pointer;
+
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+
+  background-color: #8396ad;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    background-color: #465e7b;
+  }
+}
+
+.input-text {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  font-size: 14px;
+
+  &:focus {
+    border-color: #666;
+    outline: none;
+  }
 }
