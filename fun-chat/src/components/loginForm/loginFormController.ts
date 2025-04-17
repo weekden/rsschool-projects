@@ -6,6 +6,8 @@ import type { User } from '../../types';
 import { router } from '../../app';
 import { loginUser } from '../../API/auth/reqests';
 import { socketService } from '../../API/webSocketService';
+import { WSAuthResponse } from '../../API/auth/types';
+import { WSChatResponse } from '../../API/chat/types';
 
 export class LoginController {
   constructor(
@@ -13,22 +15,12 @@ export class LoginController {
     private readonly model: LoginModel,
     private readonly view: LoginView
   ) {
+    socketService.connect();
     this.addEventListeners();
     this.subscribeToModel();
-    socketService.connect();
-    socketService.onError((message) => {
-      if (message === 'incorrect password') {
-        this.view.showPopup(message);
-        console.log('Неверный пароль');
-      }
-    });
-
-    socketService.onMessage((data) => {
-      if (data.type === 'USER_LOGIN') {
-        router.navigate('/chat');
-        this.clearInputsValue();
-      }
-    });
+    this.model.subscribePopupListener((message) => this.handleModelShowModal(message));
+    socketService.onMessage((data) => this.handleSocketMessage(data));
+    socketService.onError((message) => this.handleSocketErrors(message));
   }
   private addEventListeners(): void {
     const inputUserName = this.view.getUsernameInput();
@@ -94,5 +86,29 @@ export class LoginController {
   private clearInputsValue(): void {
     this.view.getUsernameInput().value = '';
     this.view.getPasswordInput().value = '';
+  }
+
+  private handleSocketMessage(data: WSAuthResponse | WSChatResponse): void {
+    const { type } = data;
+
+    switch (type) {
+      case 'USER_LOGIN':
+        router.navigate('/chat');
+        this.clearInputsValue();
+        break;
+    }
+  }
+
+  private handleSocketErrors(message: string): void {
+    switch (message) {
+      case 'incorrect password':
+        this.model.setPopupMessage(message);
+        console.log('Неверный пароль');
+        break;
+    }
+  }
+
+  private handleModelShowModal(message: string): void {
+    this.view.showPopup(message);
   }
 }

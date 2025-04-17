@@ -7,6 +7,7 @@ type Main = {
 export type Routes = Record<string, new (appModel: AppModel) => Main>;
 
 export type Subscriber = () => void;
+export type PopupSubscriber = (message: string) => void;
 
 export type User = {
   login: string;
