@@ -16,27 +16,27 @@ export type UserLogoutRequest = {
   };
 };
 
-// type UserExternalLoginResponse = {
-//   id: null;
-//   type: 'USER_EXTERNAL_LOGIN';
-//   payload: {
-//     user: {
-//       login: string;
-//       isLogined: boolean;
-//     };
-//   };
-// };
+type UserExternalLoginResponse = {
+  id: null;
+  type: 'USER_EXTERNAL_LOGIN';
+  payload: {
+    user: {
+      login: string;
+      isLogined: boolean;
+    };
+  };
+};
 
-// type UserExternalLogoutResponse = {
-//   id: null;
-//   type: 'USER_EXTERNAL_LOGOUT';
-//   payload: {
-//     user: {
-//       login: string;
-//       isLogined: boolean;
-//     };
-//   };
-// };
+type UserExternalLogoutResponse = {
+  id: null;
+  type: 'USER_EXTERNAL_LOGOUT';
+  payload: {
+    user: {
+      login: string;
+      isLogined: boolean;
+    };
+  };
+};
 
 type UserLoginResponse = {
   id: string;
@@ -76,6 +76,6 @@ export type WSAuthRequest = UserLoginRequest | UserLogoutRequest;
 export type WSAuthResponse =
   | UserLoginResponse
   | UserLogoutResponse
-  // | UserExternalLoginResponse
-  // | UserExternalLogoutResponse
+  | UserExternalLoginResponse
+  | UserExternalLogoutResponse
   | ErrorResponse;

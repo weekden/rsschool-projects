@@ -6,6 +6,7 @@ import { createInputElement } from '../../utils/dom/input';
 
 export class ChatView {
   private container: HTMLElement;
+  private usersContainer: HTMLElement;
   private userNameContainer: HTMLElement;
   private buttonInfo: HTMLButtonElement;
   private buttonExit: HTMLButtonElement;
@@ -14,6 +15,7 @@ export class ChatView {
   constructor(private readonly model: ChatModel) {
     this.container = createElement({ tag: 'div', classes: ['chat'] });
     this.userNameContainer = createElement({ tag: 'span', classes: ['header__user-name'] });
+    this.usersContainer = createElement({ tag: 'div', classes: ['chat-container__users'] });
     this.buttonInfo = createButton({ text: 'Info', classes: ['btn', 'header__btn', 'header__btn-info'] });
     this.buttonExit = createButton({ text: 'Exit', classes: ['btn', 'header__btn', 'header__btn-exit'] });
     this.searchInput = createInputElement({ type: 'text', placeholder: 'serch', classes: ['users-container__input'] });
@@ -27,6 +29,32 @@ export class ChatView {
   public getButtonExit(): HTMLButtonElement {
     return this.buttonExit;
   }
+
+  public renderUsers(): void {
+    if (!this.usersContainer) return;
+
+    this.usersContainer.innerHTML = '';
+    const users = this.model.getUsers();
+    users.forEach((user) => {
+      const userWrapper = createElement({ tag: 'div', classes: ['chat-user'] });
+
+      const statusCircle = createElement({
+        tag: 'span',
+        classes: ['chat-user__status'],
+      });
+      statusCircle.style.backgroundColor = user.isLogined ? 'green' : 'black';
+
+      const nameElement = createElement({
+        tag: 'span',
+        classes: ['chat-user__name'],
+      });
+      nameElement.textContent = user.login;
+
+      userWrapper.append(statusCircle, nameElement);
+      this.usersContainer.append(userWrapper);
+    });
+  }
+
   private createHeader(): HTMLElement {
     const headerContainer = createElement({ tag: 'div', classes: ['header', 'header-container'] });
     const headerChatName = createElement({ tag: 'span', text: 'Fun Chat', classes: ['header__chat-name'] });
@@ -70,7 +98,7 @@ export class ChatView {
     const usersContainerWrapper = createElement({
       tag: 'div',
       classes: ['chat-container__users-wrapper'],
-      children: [this.searchInput],
+      children: [this.searchInput, this.usersContainer],
     });
     return usersContainerWrapper;
   }

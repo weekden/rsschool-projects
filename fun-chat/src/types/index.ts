@@ -12,3 +12,8 @@ export type User = {
   login: string;
   password: string;
 };
+
+export type UserStatus = {
+  login: string;
+  isLogined: boolean;
+};
