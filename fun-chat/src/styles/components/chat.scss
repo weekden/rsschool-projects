@@ -4,6 +4,7 @@
   gap: 10px;
 
   box-sizing: border-box;
+  width: 90%;
   height: 100vh;
   padding: 10px;
 
@@ -76,6 +77,19 @@
   .chat-user__name {
     font-size: 0.95em;
   }
+}
+
+.chat-container__chat-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+}
+
+.chat-container__input-wrapper {
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  padding: 5px;
 }
 
 .footer {

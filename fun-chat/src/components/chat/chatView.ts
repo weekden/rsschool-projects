@@ -9,9 +9,14 @@ export class ChatView {
   private container: HTMLElement;
   private usersContainer: HTMLElement;
   private userNameContainer: HTMLElement;
+  private messagesContainer: HTMLElement;
+
   private buttonInfo: HTMLButtonElement;
   private buttonExit: HTMLButtonElement;
   private searchInput: HTMLInputElement;
+
+  private messageInput: HTMLInputElement;
+  private sendButton: HTMLButtonElement;
 
   constructor(
     private readonly appModel: AppModel,
@@ -31,6 +36,13 @@ export class ChatView {
       placeholder: 'search...',
       classes: ['input-text', 'users-container__input'],
     });
+    this.messagesContainer = createElement({ tag: 'div', classes: ['chat-container__messages'] });
+    this.messageInput = createInputElement({
+      type: 'text',
+      placeholder: 'Type a message...',
+      classes: ['input-text', 'chat-container__input'],
+    });
+    this.sendButton = createButton({ text: 'Send', classes: ['btn', 'chat-container__send-btn'] });
   }
 
   public render(): HTMLElement {
@@ -102,8 +114,9 @@ export class ChatView {
 
   private createMainContainer(): HTMLElement {
     const usersContainer = this.createUsersContainerWrapper();
+    const chatContainer = this.createChatWrapper();
     const mainContainer = createElement({ tag: 'div', classes: ['chat-container'] });
-    mainContainer.append(usersContainer);
+    mainContainer.append(usersContainer, chatContainer);
     return mainContainer;
   }
 
@@ -114,5 +127,29 @@ export class ChatView {
       children: [this.searchInput, this.usersContainer],
     });
     return usersContainerWrapper;
+  }
+
+  private createChatWrapper(): HTMLElement {
+    const chatWrapper = createElement({ tag: 'div', classes: ['chat-container__chat-wrapper'] });
+
+    const messagesWrapper = createElement({
+      tag: 'div',
+      classes: ['chat-container__messages-wrapper'],
+      children: [this.messagesContainer],
+    });
+
+    const messageInputWrapper = this.createMessageInputContainer();
+
+    chatWrapper.append(messagesWrapper, messageInputWrapper);
+    return chatWrapper;
+  }
+
+  private createMessageInputContainer(): HTMLElement {
+    const inputWrapper = createElement({
+      tag: 'div',
+      classes: ['chat-container__input-wrapper'],
+      children: [this.messageInput, this.sendButton],
+    });
+    return inputWrapper;
   }
 }
