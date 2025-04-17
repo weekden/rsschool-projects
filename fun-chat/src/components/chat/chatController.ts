@@ -16,17 +16,23 @@ export class ChatController {
   ) {
     this.addEventListeners();
     this.model.subscribeUsersListener(() => this.handleModelUpdateUsersList());
+    this.model.subscribeActiveChatUserListener(() => this.handleModelUpdateMessageInputCotainer());
     getAllAuthUsers();
     getAllUnauthorizedUsers();
     socketService.onMessage((data) => this.handleSocketMessage(data));
   }
   private addEventListeners(): void {
     const buttonExit = this.view.getButtonExit();
+    const userContainer = this.view.getUserContainer();
     buttonExit.addEventListener('click', () => {
       const user = this.appModel.getUser();
       if (user) {
         logoutUser(user);
       }
+    });
+
+    userContainer.addEventListener('click', (event) => {
+      this.handleUserClick(event);
     });
   }
 
@@ -59,5 +65,22 @@ export class ChatController {
   }
   private handleModelUpdateUsersList(): void {
     this.view.renderUsers();
+  }
+
+  private handleModelUpdateMessageInputCotainer(): void {
+    this.view.updateInputMessageContainer();
+  }
+
+  private handleUserClick(event: Event): void {
+    if (!(event.target instanceof HTMLElement)) return;
+    const userElement = event.target.closest<HTMLElement>('.chat-user');
+
+    if (!userElement) return;
+
+    const login = userElement.getAttribute('user-data');
+    if (!login) return;
+
+    console.log(login);
+    this.model.setActiveChatUser(login);
   }
 }

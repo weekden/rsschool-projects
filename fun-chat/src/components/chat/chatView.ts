@@ -41,17 +41,22 @@ export class ChatView {
       type: 'text',
       placeholder: 'Type a message...',
       classes: ['input-text', 'chat-container__input'],
+      disabled: true,
     });
-    this.sendButton = createButton({ text: 'Send', classes: ['btn', 'chat-container__send-btn'] });
+    this.sendButton = createButton({ text: 'Send', classes: ['btn', 'chat-container__send-btn'], disabled: true });
+  }
+
+  public getButtonExit(): HTMLButtonElement {
+    return this.buttonExit;
+  }
+
+  public getUserContainer(): HTMLElement {
+    return this.usersContainer;
   }
 
   public render(): HTMLElement {
     this.container.append(this.createHeader(), this.createMainContainer(), this.createFooter());
     return this.container;
-  }
-
-  public getButtonExit(): HTMLButtonElement {
-    return this.buttonExit;
   }
 
   public renderUsers(): void {
@@ -62,6 +67,7 @@ export class ChatView {
     users.forEach((user) => {
       if (user.login === currentUser) return;
       const userWrapper = createElement({ tag: 'div', classes: ['chat-user'] });
+      userWrapper.setAttribute('user-data', user.login);
 
       const statusCircle = createElement({
         tag: 'span',
@@ -78,6 +84,16 @@ export class ChatView {
       userWrapper.append(statusCircle, nameElement);
       this.usersContainer.append(userWrapper);
     });
+  }
+
+  public updateInputMessageContainer(): void {
+    const selectedUser = this.model.getActiveChatUser();
+    console.log(selectedUser);
+
+    if (selectedUser) {
+      this.messageInput.disabled = false;
+      this.sendButton.disabled = false;
+    }
   }
 
   private createHeader(): HTMLElement {

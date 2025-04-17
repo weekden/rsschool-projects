@@ -58,3 +58,9 @@ body {
     outline: none;
   }
 }
+
+:disabled {
+  pointer-events: none;
+  color: #999;
+  background-color: #f0f0f0;
+}
