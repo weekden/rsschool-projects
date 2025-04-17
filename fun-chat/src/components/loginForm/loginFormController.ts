@@ -23,9 +23,9 @@ export class LoginController {
     socketService.onError((message) => this.handleSocketErrors(message));
   }
   private addEventListeners(): void {
+    const form = this.view.getForm();
     const inputUserName = this.view.getUsernameInput();
     const inputPassword = this.view.getPasswordInput();
-    const buttonSubmit = this.view.getSubmitButton();
     const buttonInfo = this.view.getInfoButton();
 
     inputUserName.addEventListener('input', () => {
@@ -38,7 +38,7 @@ export class LoginController {
       this.model.setStateInputPassword(isValid);
     });
 
-    buttonSubmit.addEventListener('click', (event) => {
+    form.addEventListener('submit', (event) => {
       event.preventDefault();
       this.handleSubmit();
     });
@@ -55,8 +55,6 @@ export class LoginController {
     const isValid = this.validateForm({ login, password });
     if (!isValid) return;
 
-    this.appModel.setUser({ login, password });
-    console.log(this.appModel.getUser());
     loginUser({ login, password });
   }
 
@@ -92,10 +90,14 @@ export class LoginController {
     const { type } = data;
 
     switch (type) {
-      case 'USER_LOGIN':
+      case 'USER_LOGIN': {
+        const login = this.view.getUsernameInput().value;
+        const password = this.view.getPasswordInput().value;
+        this.appModel.setUser({ login, password });
         router.navigate('/chat');
         this.clearInputsValue();
         break;
+      }
     }
   }
 
@@ -104,6 +106,11 @@ export class LoginController {
       case 'incorrect password':
         this.model.setPopupMessage(message);
         console.log('Неверный пароль');
+        break;
+
+      case 'a user with this login is already authorized':
+        this.model.setPopupMessage(message);
+        console.log('Пользователь с указаным имененм уже существует и авторизирован');
         break;
     }
   }

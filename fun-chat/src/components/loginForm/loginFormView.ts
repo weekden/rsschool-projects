@@ -63,6 +63,10 @@ export class LoginView {
     return this.form;
   }
 
+  public getForm(): HTMLFormElement {
+    return this.form;
+  }
+
   public getUsernameInput(): HTMLInputElement {
     return this.usernameInput;
   }
