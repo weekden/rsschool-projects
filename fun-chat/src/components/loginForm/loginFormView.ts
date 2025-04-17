@@ -2,6 +2,7 @@ import { LoginModel } from '../../models/LoginModel';
 import { createButton } from '../../utils/dom/button';
 import { createElement } from '../../utils/dom/customElement';
 import { createInputElement } from '../../utils/dom/input';
+import { createPopup } from '../utils/creteInformPopup';
 
 export class LoginView {
   private usernameInput: HTMLInputElement;
@@ -81,5 +82,9 @@ export class LoginView {
   public toggleError(type: 'username' | 'password', show: boolean): void {
     const element = type === 'username' ? this.usernameError : this.passwordError;
     element.classList.toggle('error--visible', show);
+  }
+
+  public showPopup(message: string): void {
+    createPopup(message);
   }
 }

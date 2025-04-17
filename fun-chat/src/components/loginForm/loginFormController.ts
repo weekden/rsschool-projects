@@ -18,6 +18,7 @@ export class LoginController {
     socketService.connect();
     socketService.onError((message) => {
       if (message === 'incorrect password') {
+        this.view.showPopup(message);
         console.log('Неверный пароль');
       }
     });
