@@ -24,7 +24,9 @@ export class ChatController {
     const buttonExit = this.view.getButtonExit();
     buttonExit.addEventListener('click', () => {
       const user = this.appModel.getUser();
-      if (user) logoutUser(user);
+      if (user) {
+        logoutUser(user);
+      }
     });
   }
 

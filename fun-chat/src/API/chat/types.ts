@@ -26,5 +26,35 @@ type GetAllUnauthorizedUsersResponse = {
   };
 };
 
-export type WSChatRequest = GetAllAuthUsersRequest | GetAllUnauthorizedUsersRequest;
-export type WSChatResponse = GetAllAuthUsersResponse | GetAllUnauthorizedUsersResponse;
+export type SendingMessageRequest = {
+  id: string;
+  type: 'MSG_SEND';
+  payload: {
+    message: {
+      to: string;
+      text: string;
+    };
+  };
+};
+
+type SendingMessageResponse = {
+  id: string;
+  type: 'MSG_SEND';
+  payload: {
+    message: {
+      id: string;
+      from: string;
+      to: string;
+      text: string;
+      datetime: number;
+      status: {
+        isDelivered: boolean;
+        isReaded: boolean;
+        isEdited: boolean;
+      };
+    };
+  };
+};
+
+export type WSChatRequest = GetAllAuthUsersRequest | GetAllUnauthorizedUsersRequest | SendingMessageRequest;
+export type WSChatResponse = GetAllAuthUsersResponse | GetAllUnauthorizedUsersResponse | SendingMessageResponse;
