@@ -3,6 +3,7 @@ import { createElement } from '../../utils/dom/customElement';
 import { createButton } from '../../utils/dom/button';
 import { createAnchorElement } from '../../utils/dom/anchor';
 import { createInputElement } from '../../utils/dom/input';
+import { AppModel } from '../../models/appModel';
 
 export class ChatView {
   private container: HTMLElement;
@@ -12,9 +13,16 @@ export class ChatView {
   private buttonExit: HTMLButtonElement;
   private searchInput: HTMLInputElement;
 
-  constructor(private readonly model: ChatModel) {
+  constructor(
+    private readonly appModel: AppModel,
+    private readonly model: ChatModel
+  ) {
     this.container = createElement({ tag: 'div', classes: ['chat'] });
-    this.userNameContainer = createElement({ tag: 'span', classes: ['header__user-name'] });
+    this.userNameContainer = createElement({
+      tag: 'span',
+      text: this.appModel.getUser()?.login,
+      classes: ['header__user-name'],
+    });
     this.usersContainer = createElement({ tag: 'div', classes: ['chat-container__users'] });
     this.buttonInfo = createButton({ text: 'Info', classes: ['btn', 'header__btn', 'header__btn-info'] });
     this.buttonExit = createButton({ text: 'Exit', classes: ['btn', 'header__btn', 'header__btn-exit'] });

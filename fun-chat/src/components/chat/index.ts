@@ -10,7 +10,7 @@ export class InitChat {
     private readonly appModel: AppModel,
     private readonly model: ChatModel
   ) {
-    this.view = new ChatView(this.model);
+    this.view = new ChatView(this.appModel, this.model);
   }
 
   public render(): HTMLElement {
