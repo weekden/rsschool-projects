@@ -18,8 +18,8 @@ export default class WebSocketService {
       try {
         const data = JSON.parse(event.data);
 
-        if (data.type === 'LOGIN_ERROR' && this.onErrorCallback) {
-          this.onErrorCallback(data.payload.message);
+        if (data.type === 'ERROR' && this.onErrorCallback) {
+          this.onErrorCallback(data.payload.error);
           return;
         }
 

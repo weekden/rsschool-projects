@@ -27,6 +27,17 @@ type UserLoginResponse = {
   };
 };
 
+type UserLogoutResponse = {
+  id: string;
+  type: 'USER_LOGOUT';
+  payload: {
+    user: {
+      login: string;
+      isLogined: boolean;
+    };
+  };
+};
+
 export type ErrorResponse = {
   id: string;
   type: 'ERROR';
@@ -40,4 +51,4 @@ export type ErrorResponse = {
 
 export type WSRequest = UserLoginRequest | UserLogoutRequest;
 
-export type WSResponse = UserLoginResponse | ErrorResponse;
+export type WSResponse = UserLoginResponse | UserLogoutResponse | ErrorResponse;

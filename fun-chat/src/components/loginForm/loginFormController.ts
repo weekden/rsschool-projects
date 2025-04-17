@@ -17,7 +17,9 @@ export class LoginController {
     this.subscribeToModel();
     socketService.connect();
     socketService.onError((message) => {
-      console.log(message);
+      if (message === 'incorrect password') {
+        console.log('Неверный пароль');
+      }
     });
 
     socketService.onMessage((data) => {

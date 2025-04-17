@@ -24,6 +24,9 @@ export class ChatView {
     return this.container;
   }
 
+  public getButtonExit(): HTMLButtonElement {
+    return this.buttonExit;
+  }
   private createHeader(): HTMLElement {
     const headerContainer = createElement({ tag: 'div', classes: ['header', 'header-container'] });
     const headerChatName = createElement({ tag: 'span', text: 'Fun Chat', classes: ['header__chat-name'] });
