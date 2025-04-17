@@ -44,10 +44,11 @@ export class ChatView {
 
   public renderUsers(): void {
     if (!this.usersContainer) return;
-
-    this.usersContainer.innerHTML = '';
+    const currentUser = this.appModel.getUser()?.login;
     const users = this.model.getUsers();
+    this.usersContainer.replaceChildren();
     users.forEach((user) => {
+      if (user.login === currentUser) return;
       const userWrapper = createElement({ tag: 'div', classes: ['chat-user'] });
 
       const statusCircle = createElement({
