@@ -10,6 +10,7 @@ export class ChatView {
   private usersContainer: HTMLElement;
   private userNameContainer: HTMLElement;
   private messagesContainer: HTMLElement;
+  private chatSendForm: HTMLElement;
 
   private buttonInfo: HTMLButtonElement;
   private buttonExit: HTMLButtonElement;
@@ -43,7 +44,17 @@ export class ChatView {
       classes: ['input-text', 'chat-container__input'],
       disabled: true,
     });
-    this.sendButton = createButton({ text: 'Send', classes: ['btn', 'chat-container__send-btn'], disabled: true });
+    this.sendButton = createButton({
+      text: 'Send',
+      type: 'submit',
+      classes: ['btn', 'chat-container__send-btn'],
+      disabled: true,
+    });
+    this.chatSendForm = createElement({
+      tag: 'form',
+      classes: ['chat-container__input-wrapper'],
+      children: [this.messageInput, this.sendButton],
+    });
   }
 
   public getButtonExit(): HTMLButtonElement {
@@ -52,6 +63,14 @@ export class ChatView {
 
   public getUserContainer(): HTMLElement {
     return this.usersContainer;
+  }
+
+  public getMessageInput(): HTMLInputElement {
+    return this.messageInput;
+  }
+
+  public getChatSendForm(): HTMLElement {
+    return this.chatSendForm;
   }
 
   public render(): HTMLElement {
@@ -88,7 +107,6 @@ export class ChatView {
 
   public updateInputMessageContainer(): void {
     const selectedUser = this.model.getActiveChatUser();
-    console.log(selectedUser);
 
     if (selectedUser) {
       this.messageInput.disabled = false;
@@ -154,18 +172,7 @@ export class ChatView {
       children: [this.messagesContainer],
     });
 
-    const messageInputWrapper = this.createMessageInputContainer();
-
-    chatWrapper.append(messagesWrapper, messageInputWrapper);
+    chatWrapper.append(messagesWrapper, this.chatSendForm);
     return chatWrapper;
-  }
-
-  private createMessageInputContainer(): HTMLElement {
-    const inputWrapper = createElement({
-      tag: 'div',
-      classes: ['chat-container__input-wrapper'],
-      children: [this.messageInput, this.sendButton],
-    });
-    return inputWrapper;
   }
 }

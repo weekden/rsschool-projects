@@ -19,7 +19,7 @@ export function getAllUnauthorizedUsers(id = crypto.randomUUID()): void {
   socketService.send(request);
 }
 
-export function sendingMessage(id = crypto.randomUUID(), login: string, text: string): void {
+export function sendingMessage(login: string, text: string, id = crypto.randomUUID()): void {
   const request: SendingMessageRequest = {
     id,
     type: 'MSG_SEND',

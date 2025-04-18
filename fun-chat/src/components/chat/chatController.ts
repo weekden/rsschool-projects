@@ -4,7 +4,7 @@ import { ChatView } from './chatView';
 import { logoutUser } from '../../API/auth/reqests';
 import { socketService } from '../../API/webSocketService';
 import { router } from '../../app';
-import { getAllAuthUsers, getAllUnauthorizedUsers } from '../../API/chat/reqests';
+import { getAllAuthUsers, getAllUnauthorizedUsers, sendingMessage } from '../../API/chat/reqests';
 import { WSAuthResponse } from '../../API/auth/types';
 import { WSChatResponse } from '../../API/chat/types';
 
@@ -24,6 +24,8 @@ export class ChatController {
   private addEventListeners(): void {
     const buttonExit = this.view.getButtonExit();
     const userContainer = this.view.getUserContainer();
+    const sendForm = this.view.getChatSendForm();
+
     buttonExit.addEventListener('click', () => {
       const user = this.appModel.getUser();
       if (user) {
@@ -33,6 +35,10 @@ export class ChatController {
 
     userContainer.addEventListener('click', (event) => {
       this.handleUserClick(event);
+    });
+
+    sendForm.addEventListener('submit', (event) => {
+      this.handleSendMessage(event);
     });
   }
 
@@ -61,6 +67,9 @@ export class ChatController {
         this.model.setUsers(payload.users);
         console.log('Inactive users:', payload.users);
         break;
+
+      case 'MSG_SEND':
+        console.log(payload);
     }
   }
   private handleModelUpdateUsersList(): void {
@@ -82,5 +91,15 @@ export class ChatController {
 
     console.log(login);
     this.model.setActiveChatUser(login);
+  }
+
+  private handleSendMessage(event: Event): void {
+    event.preventDefault();
+    const messageInput = this.view.getMessageInput();
+    const message = messageInput.value;
+    if (message === '') return;
+    const recipient = this.model.getActiveChatUser();
+    sendingMessage(recipient, message);
+    messageInput.value = '';
   }
 }
