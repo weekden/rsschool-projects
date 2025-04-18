@@ -25,7 +25,7 @@ export class ChatController {
     const buttonExit = this.view.getButtonExit();
     const userContainer = this.view.getUserContainer();
     const sendForm = this.view.getChatSendForm();
-
+    if (!buttonExit || !userContainer || !sendForm) return;
     buttonExit.addEventListener('click', () => {
       const user = this.appModel.getUser();
       if (user) {
@@ -74,10 +74,12 @@ export class ChatController {
   }
   private handleModelUpdateUsersList(): void {
     this.view.renderUsers();
+    this.view.updateCompanionsContainer();
   }
 
   private handleModelUpdateMessageInputCotainer(): void {
     this.view.updateInputMessageContainer();
+    this.view.updateCompanionsContainer();
   }
 
   private handleUserClick(event: Event): void {
@@ -96,8 +98,8 @@ export class ChatController {
   private handleSendMessage(event: Event): void {
     event.preventDefault();
     const messageInput = this.view.getMessageInput();
-    const message = messageInput.value;
-    if (message === '') return;
+    const message = messageInput?.value;
+    if (message === '' || !message) return;
     const recipient = this.model.getActiveChatUser();
     sendingMessage(recipient, message);
     messageInput.value = '';
