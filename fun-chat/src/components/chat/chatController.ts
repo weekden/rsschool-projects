@@ -4,7 +4,7 @@ import { ChatView } from './chatView';
 import { logoutUser } from '../../API/auth/reqests';
 import { socketService } from '../../API/webSocketService';
 import { router } from '../../app';
-import { getAllAuthUsers, getAllUnauthorizedUsers, sendingMessage } from '../../API/chat/reqests';
+import { getAllAuthUsers, getAllUnauthorizedUsers, getHistoryMessages, sendingMessage } from '../../API/chat/reqests';
 import { WSAuthResponse } from '../../API/auth/types';
 import { WSChatResponse } from '../../API/chat/types';
 
@@ -17,7 +17,7 @@ export class ChatController {
     this.addEventListeners();
     this.model.subscribeUsersListener(() => this.handleModelUpdateUsersList());
     this.model.subscribeActiveChatUserListener(() => this.handleModelUpdateMessageInputCotainer());
-    this.model.subscribeMessagesListener(() => this.handleModelUpdateChat());
+    this.model.subscribeMessagesListener(() => this.handleModelUpdateChat(false));
     getAllAuthUsers();
     getAllUnauthorizedUsers();
     socketService.onMessage((data) => {
@@ -33,7 +33,6 @@ export class ChatController {
     buttonExit.addEventListener('click', () => {
       console.log('exit');
       const user = this.appModel.getCurrentUserData();
-      console.log(user);
       if (user) {
         logoutUser(user);
       }
@@ -84,6 +83,7 @@ export class ChatController {
         break;
       case 'MSG_SEND':
         this.model.addMessage(payload.message, currentUser);
+        this.handleModelUpdateChat(true);
         break;
     }
   }
@@ -98,8 +98,8 @@ export class ChatController {
     this.view.updateCompanionsContainer();
   }
 
-  private handleModelUpdateChat(): void {
-    this.view.renderMessageInChat(true);
+  private handleModelUpdateChat(onlyOne = false): void {
+    this.view.renderMessageInChat(onlyOne);
   }
 
   private handleUserClick(event: Event): void {
@@ -114,6 +114,7 @@ export class ChatController {
     if (!login) {
       return;
     }
+    getHistoryMessages(login);
     this.model.setActiveChatUser(login);
     this.view.renderMessageInChat();
   }

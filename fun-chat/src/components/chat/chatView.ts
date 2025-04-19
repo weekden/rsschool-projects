@@ -101,18 +101,7 @@ export class ChatView {
     }
   }
 
-  // public renderMessageInChat(): void {
-  //   this.chatContainer?.replaceChildren();
-  //   const messages = this.model.getMessages();
-  //   const currentUser = this.appModel.getCurrentLogin();
-  //   messages.forEach((message) => {
-  //     const messageElement = createMessageItem(message, currentUser);
-  //     this.chatContainer?.append(messageElement);
-  //   });
-  // }
-
   public renderMessageInChat(lastOnly = false): void {
-    this.chatContainer?.replaceChildren();
     const messages = this.model.getMessages();
     const currentUser = this.appModel.getCurrentLogin();
 
