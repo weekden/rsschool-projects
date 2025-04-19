@@ -31,3 +31,8 @@ export type ChatMessage = {
     isEdited: boolean;
   };
 };
+
+export type MessageStatus = {
+  id: string;
+  status: Partial<ChatMessage['status']>;
+};

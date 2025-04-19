@@ -136,6 +136,18 @@ export class ChatView {
     }
   }
 
+  public updateMessageStatus(): void {
+    const messageStatus = this.model.getMessageStatus();
+
+    const messageElement = Array.from(this.chatContainer?.children || []).find(
+      (item) => item.getAttribute('message-id') === messageStatus?.id
+    );
+
+    if (!messageElement) return;
+    const statusContainer = messageElement.children[2].children[1];
+    statusContainer.textContent = messageStatus.status.isReaded ? '✓✓' : messageStatus.status.isDelivered ? '✓' : '';
+  }
+
   private createMainContainer(): HTMLElement {
     const usersContainer = this.createUsersContainerWrapper();
     const chatContainer = this.createChatWrapper();

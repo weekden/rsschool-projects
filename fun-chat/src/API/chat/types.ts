@@ -74,6 +74,19 @@ type GetHistoryMessagesResponse = {
   };
 };
 
+type MessageDeliveryStatusResponse = {
+  id: null;
+  type: 'MSG_DELIVER';
+  payload: {
+    message: {
+      id: string;
+      status: {
+        isDelivered: boolean;
+      };
+    };
+  };
+};
+
 export type WSChatRequest =
   | GetAllAuthUsersRequest
   | GetAllUnauthorizedUsersRequest
@@ -84,4 +97,5 @@ export type WSChatResponse =
   | GetAllAuthUsersResponse
   | GetAllUnauthorizedUsersResponse
   | SendingMessageResponse
-  | GetHistoryMessagesResponse;
+  | GetHistoryMessagesResponse
+  | MessageDeliveryStatusResponse;

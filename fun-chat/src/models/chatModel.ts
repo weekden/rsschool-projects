@@ -1,11 +1,20 @@
-import { ChatMessage, Subscriber, UserStatus } from '../types';
+import { ChatMessage, MessageStatus, Subscriber, UserStatus } from '../types';
 export class ChatModel {
   private messages: Record<string, ChatMessage[]> = {};
   private activeChatUser: string = '';
+  private messageStatus: MessageStatus = {
+    id: '',
+    status: {
+      isDelivered: false,
+      isReaded: false,
+      isEdited: false,
+    },
+  };
   private users: UserStatus[] = [];
   private userListener: Subscriber[] = [];
   private activeChatUserListener: Subscriber[] = [];
   private messageListeners: Subscriber[] = [];
+  private upadateMessageStatusListener: Subscriber[] = [];
 
   public setUsers(users: UserStatus[]): void {
     this.users = [...this.users, ...users];
@@ -39,17 +48,32 @@ export class ChatModel {
   }
 
   public addMessage(message: ChatMessage | ChatMessage[], currentLogin: string): void {
-    const messages = Array.isArray(message) ? message : [message];
-
-    messages.forEach((item) => {
-      const chatKey = item.from === currentLogin ? item.to : item.from;
+    if (Array.isArray(message)) {
+      message.forEach((item) => {
+        const chatKey = item.from === currentLogin ? item.to : item.from;
+        if (!this.messages[chatKey]) {
+          this.messages[chatKey] = [];
+        }
+        this.messages[chatKey].push(item);
+      });
+      this.notifyMessageListeners();
+    } else {
+      const chatKey = message.from === currentLogin ? message.to : message.from;
       if (!this.messages[chatKey]) {
         this.messages[chatKey] = [];
       }
-      this.messages[chatKey].push(item);
-    });
+      this.messages[chatKey].push(message);
+    }
+  }
 
-    this.notifyMessageListeners();
+  public getMessageStatus(): MessageStatus {
+    return this.messageStatus;
+  }
+
+  public setMessageStatus(status: MessageStatus): void {
+    this.messageStatus = status;
+
+    this.notifyMessageStatusUpdateListeners();
   }
 
   public subscribeUsersListener(callback: () => void): void {
@@ -63,6 +87,10 @@ export class ChatModel {
     this.messageListeners.push(callback);
   }
 
+  public subscribeMessageStatusUpdate(callback: () => void): void {
+    this.upadateMessageStatusListener.push(callback);
+  }
+
   private notifyUserListener(): void {
     this.userListener.forEach((callback) => callback());
   }
@@ -73,5 +101,9 @@ export class ChatModel {
 
   private notifyMessageListeners(): void {
     this.messageListeners.forEach((callback) => callback());
+  }
+
+  private notifyMessageStatusUpdateListeners(): void {
+    this.upadateMessageStatusListener.forEach((callback) => callback());
   }
 }

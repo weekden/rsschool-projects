@@ -17,7 +17,8 @@ export class ChatController {
     this.addEventListeners();
     this.model.subscribeUsersListener(() => this.handleModelUpdateUsersList());
     this.model.subscribeActiveChatUserListener(() => this.handleModelUpdateMessageInputCotainer());
-    this.model.subscribeMessagesListener(() => this.handleModelUpdateChat(false));
+    this.model.subscribeMessagesListener(() => this.handleModelUpdateChat());
+    this.model.subscribeMessageStatusUpdate(() => this.handleModelUpdateMessageStatus());
     getAllAuthUsers();
     getAllUnauthorizedUsers();
     socketService.onMessage((data) => {
@@ -83,8 +84,10 @@ export class ChatController {
         break;
       case 'MSG_SEND':
         this.model.addMessage(payload.message, currentUser);
-        this.handleModelUpdateChat(true);
+        this.view.renderMessageInChat(true);
         break;
+      case 'MSG_DELIVER':
+        this.model.setMessageStatus(payload.message);
     }
   }
 
@@ -98,8 +101,12 @@ export class ChatController {
     this.view.updateCompanionsContainer();
   }
 
-  private handleModelUpdateChat(onlyOne = false): void {
-    this.view.renderMessageInChat(onlyOne);
+  private handleModelUpdateChat(): void {
+    this.view.renderMessageInChat();
+  }
+
+  private handleModelUpdateMessageStatus(): void {
+    this.view.updateMessageStatus();
   }
 
   private handleUserClick(event: Event): void {
@@ -111,7 +118,7 @@ export class ChatController {
     }
 
     const login = userElement.getAttribute('user-data');
-    if (!login) {
+    if (!login || login === this.model.getActiveChatUser()) {
       return;
     }
     getHistoryMessages(login);
