@@ -1,13 +1,22 @@
 import type { User } from '../types';
 
 export class AppModel {
-  private currentUser: User | null = null;
+  private currentUserData: User | null = null;
+  private currentLogin: string = '';
 
-  public setCurrentUser(user: User): void {
-    this.currentUser = user;
+  public setCurrentUserData(user: User): void {
+    this.currentUserData = user;
   }
 
-  public getCurrentUser(): User | null {
-    return this.currentUser;
+  public getCurrentUserData(): User | null {
+    return this.currentUserData;
+  }
+
+  public setCurrenLogin(login: string): void {
+    this.currentLogin = login;
+  }
+
+  public getCurrentLogin(): string {
+    return this.currentLogin;
   }
 }

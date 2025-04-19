@@ -65,7 +65,7 @@ export class ChatView {
 
   public renderUsers(): void {
     if (!this.usersContainer) return;
-    const currentUser = this.appModel.getCurrentUser()?.login;
+    const currentUser = this.appModel.getCurrentLogin();
     const users = this.model.getUsers();
     this.usersContainer.replaceChildren();
     users.forEach((user) => {
@@ -102,12 +102,13 @@ export class ChatView {
   }
 
   public renderMessageInChat(): void {
+    this.chatContainer?.replaceChildren();
     const messages = this.model.getMessages();
-    console.log(messages);
-    const currentUser = this.appModel.getCurrentUser()?.login;
-    const lastMessage = messages[messages.length - 1];
-    const message = createMessageItem(lastMessage, currentUser);
-    this.chatContainer?.append(message);
+    const currentUser = this.appModel.getCurrentLogin();
+    messages.forEach((message) => {
+      const messageElement = createMessageItem(message, currentUser);
+      this.chatContainer?.append(messageElement);
+    });
   }
 
   public updateCompanionsContainer(): void {
@@ -214,7 +215,7 @@ export class ChatView {
   private initHeaderElements(): void {
     this.userNameContainer = createElement({
       tag: 'span',
-      text: this.appModel.getCurrentUser()?.login,
+      text: this.appModel.getCurrentLogin(),
       classes: ['header__user-name'],
     });
     this.buttonInfo = createButton({

@@ -31,7 +31,7 @@ export class ChatController {
     const sendForm = this.view.getChatSendForm();
     if (!buttonExit || !userContainer || !sendForm) return;
     buttonExit.addEventListener('click', () => {
-      const user = this.appModel.getCurrentUser();
+      const user = this.appModel.getCurrentUserData();
       if (user) {
         logoutUser(user);
       }
@@ -77,8 +77,8 @@ export class ChatController {
     const { type, payload } = data;
     switch (type) {
       case 'MSG_SEND':
-        this.model.setMessages(payload.message);
-        console.log(payload);
+        const currentUser = this.appModel.getCurrentLogin();
+        this.model.addMessage(payload.message, currentUser);
         break;
     }
   }
@@ -110,6 +110,7 @@ export class ChatController {
       return;
     }
     this.model.setActiveChatUser(login);
+    this.view.renderMessageInChat();
   }
 
   private handleSendMessage(event: Event): void {

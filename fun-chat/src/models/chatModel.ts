@@ -1,6 +1,6 @@
 import { ChatMessage, Subscriber, UserStatus } from '../types';
 export class ChatModel {
-  private messages: ChatMessage[] = [];
+  private messages: Record<string, ChatMessage[]> = {};
   private activeChatUser: string = '';
   private users: UserStatus[] = [];
   private userListener: Subscriber[] = [];
@@ -33,21 +33,19 @@ export class ChatModel {
     return this.activeChatUser;
   }
 
-  public setMessages(message: ChatMessage): void {
-    this.messages.push(message);
-    this.notifyMessageListeners();
-  }
-
   public getMessages(): ChatMessage[] {
-    return this.messages;
+    const activeUser = this.getActiveChatUser();
+    return this.messages[activeUser] || [];
   }
 
-  public clearMessages(): void {
-    this.messages.length = 0;
-  }
+  public addMessage(message: ChatMessage, currentLogin: string): void {
+    const chatKey = message.from === currentLogin ? message.to : message.from;
 
-  public addMessage(message: ChatMessage): void {
-    this.messages.push(message);
+    if (!this.messages[chatKey]) {
+      this.messages[chatKey] = [];
+    }
+
+    this.messages[chatKey].push(message);
     this.notifyMessageListeners();
   }
 
