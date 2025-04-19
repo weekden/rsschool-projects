@@ -4,6 +4,7 @@ import { createButton } from '../../utils/dom/button';
 import { createAnchorElement } from '../../utils/dom/anchor';
 import { createInputElement } from '../../utils/dom/input';
 import { AppModel } from '../../models/appModel';
+import { createMessageItem } from '../../utils/elements/createMessageItem';
 
 export class ChatView {
   private container: HTMLElement;
@@ -64,7 +65,7 @@ export class ChatView {
 
   public renderUsers(): void {
     if (!this.usersContainer) return;
-    const currentUser = this.appModel.getUser()?.login;
+    const currentUser = this.appModel.getCurrentUser()?.login;
     const users = this.model.getUsers();
     this.usersContainer.replaceChildren();
     users.forEach((user) => {
@@ -98,6 +99,15 @@ export class ChatView {
       this.messageInput.disabled = false;
       this.sendButton.disabled = false;
     }
+  }
+
+  public renderMessageInChat(): void {
+    const messages = this.model.getMessages();
+    console.log(messages);
+    const currentUser = this.appModel.getCurrentUser()?.login;
+    const lastMessage = messages[messages.length - 1];
+    const message = createMessageItem(lastMessage, currentUser);
+    this.chatContainer?.append(message);
   }
 
   public updateCompanionsContainer(): void {
@@ -204,7 +214,7 @@ export class ChatView {
   private initHeaderElements(): void {
     this.userNameContainer = createElement({
       tag: 'span',
-      text: this.appModel.getUser()?.login,
+      text: this.appModel.getCurrentUser()?.login,
       classes: ['header__user-name'],
     });
     this.buttonInfo = createButton({

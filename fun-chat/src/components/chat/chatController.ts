@@ -17,9 +17,13 @@ export class ChatController {
     this.addEventListeners();
     this.model.subscribeUsersListener(() => this.handleModelUpdateUsersList());
     this.model.subscribeActiveChatUserListener(() => this.handleModelUpdateMessageInputCotainer());
+    this.model.subscribeMessagesListener(() => this.handleModelUpdateChat());
     getAllAuthUsers();
     getAllUnauthorizedUsers();
-    socketService.onMessage((data) => this.handleSocketMessage(data));
+    socketService.onMessage((data) => {
+      this.handleSocketUsers(data);
+      this.handleSocketMessages(data);
+    });
   }
   private addEventListeners(): void {
     const buttonExit = this.view.getButtonExit();
@@ -27,7 +31,7 @@ export class ChatController {
     const sendForm = this.view.getChatSendForm();
     if (!buttonExit || !userContainer || !sendForm) return;
     buttonExit.addEventListener('click', () => {
-      const user = this.appModel.getUser();
+      const user = this.appModel.getCurrentUser();
       if (user) {
         logoutUser(user);
       }
@@ -42,11 +46,15 @@ export class ChatController {
     });
   }
 
-  private handleSocketMessage(data: WSAuthResponse | WSChatResponse): void {
+  private handleSocketUsers(data: WSAuthResponse | WSChatResponse): void {
     const { type, payload } = data;
 
     switch (type) {
       case 'USER_ACTIVE':
+        this.model.setUsers(payload.users);
+        break;
+
+      case 'USER_INACTIVE':
         this.model.setUsers(payload.users);
         break;
 
@@ -62,16 +70,19 @@ export class ChatController {
         console.log(`user ${payload.user.login} exit`);
         router.navigate('/login');
         break;
-
-      case 'USER_INACTIVE':
-        this.model.setUsers(payload.users);
-        console.log('Inactive users:', payload.users);
-        break;
-
-      case 'MSG_SEND':
-        console.log(payload);
     }
   }
+
+  private handleSocketMessages(data: WSAuthResponse | WSChatResponse): void {
+    const { type, payload } = data;
+    switch (type) {
+      case 'MSG_SEND':
+        this.model.setMessages(payload.message);
+        console.log(payload);
+        break;
+    }
+  }
+
   private handleModelUpdateUsersList(): void {
     this.view.renderUsers();
     this.view.updateCompanionsContainer();
@@ -82,16 +93,22 @@ export class ChatController {
     this.view.updateCompanionsContainer();
   }
 
+  private handleModelUpdateChat(): void {
+    this.view.renderMessageInChat();
+  }
+
   private handleUserClick(event: Event): void {
     if (!(event.target instanceof HTMLElement)) return;
     const userElement = event.target.closest<HTMLElement>('.chat-user');
 
-    if (!userElement) return;
+    if (!userElement) {
+      return;
+    }
 
     const login = userElement.getAttribute('user-data');
-    if (!login) return;
-
-    console.log(login);
+    if (!login) {
+      return;
+    }
     this.model.setActiveChatUser(login);
   }
 

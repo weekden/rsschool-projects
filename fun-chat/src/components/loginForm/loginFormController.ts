@@ -93,7 +93,7 @@ export class LoginController {
       case 'USER_LOGIN': {
         const login = this.view.getUsernameInput().value;
         const password = this.view.getPasswordInput().value;
-        this.appModel.setUser({ login, password });
+        this.appModel.setCurrentUser({ login, password });
         router.navigate('/chat');
         this.clearInputsValue();
         break;
