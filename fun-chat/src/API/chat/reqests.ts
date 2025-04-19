@@ -1,5 +1,10 @@
 import { socketService } from '../webSocketService';
-import { GetAllAuthUsersRequest, GetAllUnauthorizedUsersRequest, SendingMessageRequest } from './types';
+import {
+  GetAllAuthUsersRequest,
+  GetAllUnauthorizedUsersRequest,
+  GetHistoryMessagesRequest,
+  SendingMessageRequest,
+} from './types';
 
 export function getAllAuthUsers(id = crypto.randomUUID()): void {
   const request: GetAllAuthUsersRequest = {
@@ -27,6 +32,19 @@ export function sendingMessage(login: string, text: string, id = crypto.randomUU
       message: {
         to: login,
         text: text,
+      },
+    },
+  };
+  socketService.send(request);
+}
+
+export function getHistoryMessages(login: string, id = crypto.randomUUID()): void {
+  const request: GetHistoryMessagesRequest = {
+    id,
+    type: 'MSG_FROM_USER',
+    payload: {
+      user: {
+        login: login,
       },
     },
   };

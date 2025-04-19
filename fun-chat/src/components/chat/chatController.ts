@@ -31,7 +31,9 @@ export class ChatController {
     const sendForm = this.view.getChatSendForm();
     if (!buttonExit || !userContainer || !sendForm) return;
     buttonExit.addEventListener('click', () => {
+      console.log('exit');
       const user = this.appModel.getCurrentUserData();
+      console.log(user);
       if (user) {
         logoutUser(user);
       }
@@ -68,16 +70,19 @@ export class ChatController {
 
       case 'USER_LOGOUT':
         console.log(`user ${payload.user.login} exit`);
-        router.navigate('/login');
+        if (!payload.user.isLogined) router.navigate('/login');
         break;
     }
   }
 
   private handleSocketMessages(data: WSAuthResponse | WSChatResponse): void {
     const { type, payload } = data;
+    const currentUser = this.appModel.getCurrentLogin();
     switch (type) {
+      case 'MSG_FROM_USER':
+        this.model.addMessage(payload.messages, currentUser);
+        break;
       case 'MSG_SEND':
-        const currentUser = this.appModel.getCurrentLogin();
         this.model.addMessage(payload.message, currentUser);
         break;
     }
@@ -94,7 +99,7 @@ export class ChatController {
   }
 
   private handleModelUpdateChat(): void {
-    this.view.renderMessageInChat();
+    this.view.renderMessageInChat(true);
   }
 
   private handleUserClick(event: Event): void {

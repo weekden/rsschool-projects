@@ -56,5 +56,32 @@ type SendingMessageResponse = {
   };
 };
 
-export type WSChatRequest = GetAllAuthUsersRequest | GetAllUnauthorizedUsersRequest | SendingMessageRequest;
-export type WSChatResponse = GetAllAuthUsersResponse | GetAllUnauthorizedUsersResponse | SendingMessageResponse;
+export type GetHistoryMessagesRequest = {
+  id: string;
+  type: 'MSG_FROM_USER';
+  payload: {
+    user: {
+      login: string;
+    };
+  };
+};
+
+type GetHistoryMessagesResponse = {
+  id: string;
+  type: 'MSG_FROM_USER';
+  payload: {
+    messages: [];
+  };
+};
+
+export type WSChatRequest =
+  | GetAllAuthUsersRequest
+  | GetAllUnauthorizedUsersRequest
+  | SendingMessageRequest
+  | GetHistoryMessagesRequest;
+
+export type WSChatResponse =
+  | GetAllAuthUsersResponse
+  | GetAllUnauthorizedUsersResponse
+  | SendingMessageResponse
+  | GetHistoryMessagesResponse;

@@ -38,14 +38,17 @@ export class ChatModel {
     return this.messages[activeUser] || [];
   }
 
-  public addMessage(message: ChatMessage, currentLogin: string): void {
-    const chatKey = message.from === currentLogin ? message.to : message.from;
+  public addMessage(message: ChatMessage | ChatMessage[], currentLogin: string): void {
+    const messages = Array.isArray(message) ? message : [message];
 
-    if (!this.messages[chatKey]) {
-      this.messages[chatKey] = [];
-    }
+    messages.forEach((item) => {
+      const chatKey = item.from === currentLogin ? item.to : item.from;
+      if (!this.messages[chatKey]) {
+        this.messages[chatKey] = [];
+      }
+      this.messages[chatKey].push(item);
+    });
 
-    this.messages[chatKey].push(message);
     this.notifyMessageListeners();
   }
 
