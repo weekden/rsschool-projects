@@ -17,7 +17,17 @@ export class ChatModel {
   private upadateMessageStatusListener: Subscriber[] = [];
 
   public setUsers(users: UserStatus[]): void {
-    this.users = [...users];
+    const mergedMap = new Map<string, UserStatus>();
+
+    this.users.forEach((user) => {
+      mergedMap.set(user.login, user);
+    });
+
+    users.forEach((user) => {
+      mergedMap.set(user.login, user);
+    });
+
+    this.users = Array.from(mergedMap.values());
     this.notifyUserListener();
   }
 
@@ -33,7 +43,7 @@ export class ChatModel {
   }
 
   public getUsers(): UserStatus[] {
-    return this.users;
+    return this.users.sort((a, b) => +b.isLogined - +a.isLogined);
   }
 
   public setActiveChatUser(activeUser: string): void {
