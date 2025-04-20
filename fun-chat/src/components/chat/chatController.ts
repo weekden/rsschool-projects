@@ -27,11 +27,16 @@ export class ChatController {
     });
   }
   private addEventListeners(): void {
+    const searchInput = this.view.getSearchInput();
     const buttonExit = this.view.getButtonExit();
     const userContainer = this.view.getUserContainer();
     const sendForm = this.view.getChatSendForm();
-    if (!buttonExit || !userContainer || !sendForm) return;
-    buttonExit.addEventListener('click', () => {
+    searchInput?.addEventListener('input', () => {
+      const subString = searchInput.value.toLowerCase();
+      this.view.renderUsers(subString);
+    });
+
+    buttonExit?.addEventListener('click', () => {
       console.log('exit');
       const user = this.appModel.getCurrentUserData();
       if (user) {
@@ -39,11 +44,11 @@ export class ChatController {
       }
     });
 
-    userContainer.addEventListener('click', (event) => {
+    userContainer?.addEventListener('click', (event) => {
       this.handleUserClick(event);
     });
 
-    sendForm.addEventListener('submit', (event) => {
+    sendForm?.addEventListener('submit', (event) => {
       this.handleSendMessage(event);
     });
   }

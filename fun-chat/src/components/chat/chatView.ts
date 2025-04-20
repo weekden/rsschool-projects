@@ -34,6 +34,12 @@ export class ChatView {
     this.initCompanionElements();
   }
 
+  public getSearchInput(): HTMLInputElement | undefined {
+    if (this.searchInput) {
+      return this.searchInput;
+    }
+  }
+
   public getButtonExit(): HTMLButtonElement | undefined {
     if (this.buttonExit) {
       return this.buttonExit;
@@ -63,33 +69,36 @@ export class ChatView {
     return this.container;
   }
 
-  public renderUsers(): void {
+  public renderUsers(substring: string = ''): void {
     if (!this.usersContainer) return;
     const currentUser = this.appModel.getCurrentLogin();
     const users = this.model.getUsers();
     this.usersContainer.replaceChildren();
-    users.forEach((user) => {
-      if (user.login === currentUser) return;
-      const userWrapper = createElement({ tag: 'div', classes: ['chat-user'] });
-      userWrapper.setAttribute('user-data', user.login);
+    users
+      .filter((user) => user.login !== currentUser)
+      .filter((user) => user.login.toLowerCase().includes(substring))
+      .forEach((user) => {
+        if (user.login === currentUser) return;
+        const userWrapper = createElement({ tag: 'div', classes: ['chat-user'] });
+        userWrapper.setAttribute('user-data', user.login);
 
-      const statusCircle = createElement({
-        tag: 'span',
-        classes: ['chat-user__status'],
+        const statusCircle = createElement({
+          tag: 'span',
+          classes: ['chat-user__status'],
+        });
+        statusCircle.style.backgroundColor = user.isLogined ? 'green' : 'black';
+
+        const nameElement = createElement({
+          tag: 'span',
+          classes: ['chat-user__name'],
+        });
+        nameElement.textContent = user.login;
+
+        userWrapper.append(statusCircle, nameElement);
+        if (this.usersContainer) {
+          this.usersContainer.append(userWrapper);
+        }
       });
-      statusCircle.style.backgroundColor = user.isLogined ? 'green' : 'black';
-
-      const nameElement = createElement({
-        tag: 'span',
-        classes: ['chat-user__name'],
-      });
-      nameElement.textContent = user.login;
-
-      userWrapper.append(statusCircle, nameElement);
-      if (this.usersContainer) {
-        this.usersContainer.append(userWrapper);
-      }
-    });
   }
 
   public updateInputMessageContainer(): void {
