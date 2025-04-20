@@ -31,6 +31,8 @@ export class ChatController {
     const buttonExit = this.view.getButtonExit();
     const userContainer = this.view.getUserContainer();
     const sendForm = this.view.getChatSendForm();
+    const chatContainer = this.view.getChatContainer();
+
     searchInput?.addEventListener('input', () => {
       const subString = searchInput.value.toLowerCase();
       this.view.renderUsers(subString);
@@ -51,6 +53,10 @@ export class ChatController {
     sendForm?.addEventListener('submit', (event) => {
       this.handleSendMessage(event);
     });
+
+    chatContainer?.addEventListener('contextmenu', (event) => {
+      this.hendleClickContextMenu(event);
+    });
   }
 
   private handleSocketUsers(data: WSAuthResponse | WSChatResponse): void {
@@ -58,10 +64,12 @@ export class ChatController {
 
     switch (type) {
       case 'USER_ACTIVE':
+        console.log(payload.users);
         this.model.setUsers(payload.users);
         break;
 
       case 'USER_INACTIVE':
+        console.log(payload.users);
         this.model.setUsers(payload.users);
         break;
 
@@ -74,10 +82,8 @@ export class ChatController {
         break;
 
       case 'USER_LOGOUT':
-        console.log(`user ${payload.user.login} exit`);
-        if (!payload.user.isLogined) {
-          router.navigate('/login');
-        }
+        window.sessionStorage.clear();
+        router.navigate('/login');
         break;
     }
   }
@@ -142,5 +148,20 @@ export class ChatController {
     const recipient = this.model.getActiveChatUser();
     sendingMessage(recipient, message);
     messageInput.value = '';
+  }
+
+  private hendleClickContextMenu(event: Event): void {
+    event.preventDefault();
+    if (!(event.target instanceof HTMLElement)) return;
+    const messageElement = event.target.closest<HTMLElement>('.chat-message');
+    if (!messageElement) {
+      return;
+    }
+
+    const messageId = messageElement.getAttribute('message-id');
+    if (messageId) {
+      this.view.renderContextMenu();
+    }
+    console.log(messageId);
   }
 }

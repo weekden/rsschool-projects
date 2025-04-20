@@ -15,7 +15,6 @@ export class LoginController {
     private readonly model: LoginModel,
     private readonly view: LoginView
   ) {
-    socketService.connect();
     this.addEventListeners();
     this.subscribeToModel();
     this.model.subscribePopupListener((message) => this.handleModelShowModal(message));
@@ -93,8 +92,8 @@ export class LoginController {
       case 'USER_LOGIN': {
         const login = this.view.getUsernameInput().value;
         const password = this.view.getPasswordInput().value;
+        window.sessionStorage.setItem('funchat', JSON.stringify({ login, password }));
         this.appModel.setCurrentUserData({ login, password });
-        this.appModel.setCurrenLogin(login);
         router.navigate('/chat');
         this.clearInputsValue();
         break;

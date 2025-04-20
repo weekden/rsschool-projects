@@ -64,6 +64,12 @@ export class ChatView {
     }
   }
 
+  public getChatContainer(): HTMLElement | undefined {
+    if (this.chatContainer) {
+      return this.chatContainer;
+    }
+  }
+
   public render(): HTMLElement {
     this.container.append(this.createHeader(), this.createMainContainer(), this.createFooter());
     return this.container;
@@ -71,14 +77,12 @@ export class ChatView {
 
   public renderUsers(substring: string = ''): void {
     if (!this.usersContainer) return;
-    const currentUser = this.appModel.getCurrentLogin();
     const users = this.model.getUsers();
     this.usersContainer.replaceChildren();
     users
-      .filter((user) => user.login !== currentUser)
+      .filter((user) => user.login !== this.appModel.getCurrentLogin())
       .filter((user) => user.login.toLowerCase().includes(substring))
       .forEach((user) => {
-        if (user.login === currentUser) return;
         const userWrapper = createElement({ tag: 'div', classes: ['chat-user'] });
         userWrapper.setAttribute('user-data', user.login);
 
@@ -101,6 +105,8 @@ export class ChatView {
       });
   }
 
+  public renderContextMenu(): void {}
+
   public updateInputMessageContainer(): void {
     const selectedUser = this.model.getActiveChatUser();
 
@@ -112,7 +118,7 @@ export class ChatView {
 
   public renderMessageInChat(lastOnly = false): void {
     const messages = this.model.getMessages();
-    const currentUser = this.appModel.getCurrentLogin();
+    const currentLogin = this.appModel.getCurrentLogin();
 
     if (messages.length === 0) {
       this.chatContainer?.replaceChildren();
@@ -121,12 +127,12 @@ export class ChatView {
 
     if (lastOnly) {
       const lastMessage = messages[messages.length - 1];
-      const messageElement = createMessageItem(lastMessage, currentUser);
+      const messageElement = createMessageItem(lastMessage, currentLogin);
       this.chatContainer?.append(messageElement);
     } else {
       this.chatContainer?.replaceChildren();
       messages.forEach((message) => {
-        const messageElement = createMessageItem(message, currentUser);
+        const messageElement = createMessageItem(message, currentLogin);
         this.chatContainer?.append(messageElement);
       });
     }

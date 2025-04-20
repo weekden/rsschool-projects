@@ -17,15 +17,18 @@ export class ChatModel {
   private upadateMessageStatusListener: Subscriber[] = [];
 
   public setUsers(users: UserStatus[]): void {
-    this.users = [...this.users, ...users];
+    this.users = [...users];
     this.notifyUserListener();
   }
 
   public updateUserStatus(login: string, isLogined: boolean): void {
     const user = this.users.find((user) => user.login === login);
+
     if (user) {
       user.isLogined = isLogined;
       this.notifyUserListener();
+    } else {
+      this.setUsers([...this.users, { login, isLogined }]);
     }
   }
 

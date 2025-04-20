@@ -4,40 +4,48 @@ import { WSChatRequest, WSChatResponse } from './chat/types';
 export default class WebSocketService {
   private socket: WebSocket | null = null;
   private onMessageCallback: ((data: WSAuthResponse | WSChatResponse) => void) | null = null;
+  private onMessageCallbackRouting: ((data: WSAuthResponse | WSChatResponse) => void) | null = null;
   private onErrorCallback: ((error: string) => void) | null = null;
 
   constructor(private url: string) {}
 
-  public connect(): void {
-    this.socket = new WebSocket(this.url);
+  public connect(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.socket = new WebSocket(this.url);
 
-    this.socket.addEventListener('open', () => {
-      console.log('[WebSocket] Connected');
-    });
+      this.socket.addEventListener('open', () => {
+        console.log('[WebSocket] Connected');
+        return resolve();
+      });
 
-    this.socket.addEventListener('message', (event) => {
-      try {
-        const data = JSON.parse(event.data);
+      this.socket.addEventListener('message', (event) => {
+        try {
+          const data = JSON.parse(event.data);
 
-        if (data.type === 'ERROR' && this.onErrorCallback) {
-          this.onErrorCallback(data.payload.error);
-          return;
+          if (data.type === 'ERROR' && this.onErrorCallback) {
+            this.onErrorCallback(data.payload.error);
+            return;
+          }
+
+          if (this.onMessageCallback) {
+            this.onMessageCallback(data);
+          }
+
+          if (this.onMessageCallbackRouting) {
+            this.onMessageCallbackRouting(data);
+          }
+        } catch {
+          console.error('[WebSocket] Invalid JSON:', event.data);
         }
+      });
 
-        if (this.onMessageCallback) {
-          this.onMessageCallback(data);
-        }
-      } catch {
-        console.error('[WebSocket] Invalid JSON:', event.data);
-      }
-    });
+      this.socket.addEventListener('close', () => {
+        console.log('[WebSocket] Disconnected');
+      });
 
-    this.socket.addEventListener('close', () => {
-      console.log('[WebSocket] Disconnected');
-    });
-
-    this.socket.addEventListener('error', (error) => {
-      console.error('[WebSocket] Error:', error);
+      this.socket.addEventListener('error', (error) => {
+        console.error('[WebSocket] Error:', error);
+      });
     });
   }
 
@@ -51,6 +59,10 @@ export default class WebSocketService {
 
   public onMessage(callback: (data: WSAuthResponse | WSChatResponse) => void): void {
     this.onMessageCallback = callback;
+  }
+
+  public onMessageRouting(callback: (data: WSAuthResponse | WSChatResponse) => void): void {
+    this.onMessageCallbackRouting = callback;
   }
 
   public onError(callback: (message: string) => void): void {
