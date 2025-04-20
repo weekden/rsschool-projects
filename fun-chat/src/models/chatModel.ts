@@ -66,6 +66,14 @@ export class ChatModel {
     }
   }
 
+  public clearMessagesHistory(): void {
+    const userLogin = this.getActiveChatUser();
+    if (userLogin && this.messages[userLogin]) {
+      this.messages[userLogin].length = 0;
+      this.notifyMessageListeners();
+    }
+  }
+
   public getMessageStatus(): MessageStatus {
     return this.messageStatus;
   }

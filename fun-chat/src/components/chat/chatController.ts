@@ -17,7 +17,7 @@ export class ChatController {
     this.addEventListeners();
     this.model.subscribeUsersListener(() => this.handleModelUpdateUsersList());
     this.model.subscribeActiveChatUserListener(() => this.handleModelUpdateMessageInputCotainer());
-    this.model.subscribeMessagesListener(() => this.handleModelUpdateChat());
+    this.model.subscribeMessagesListener(() => this.handleModelUpdateChat(false));
     this.model.subscribeMessageStatusUpdate(() => this.handleModelUpdateMessageStatus());
     getAllAuthUsers();
     getAllUnauthorizedUsers();
@@ -70,7 +70,9 @@ export class ChatController {
 
       case 'USER_LOGOUT':
         console.log(`user ${payload.user.login} exit`);
-        if (!payload.user.isLogined) router.navigate('/login');
+        if (!payload.user.isLogined) {
+          router.navigate('/login');
+        }
         break;
     }
   }
@@ -81,10 +83,11 @@ export class ChatController {
     switch (type) {
       case 'MSG_FROM_USER':
         this.model.addMessage(payload.messages, currentUser);
+        this.handleModelUpdateChat(false);
         break;
       case 'MSG_SEND':
         this.model.addMessage(payload.message, currentUser);
-        this.view.renderMessageInChat(true);
+        this.handleModelUpdateChat(true);
         break;
       case 'MSG_DELIVER':
         this.model.setMessageStatus(payload.message);
@@ -101,8 +104,8 @@ export class ChatController {
     this.view.updateCompanionsContainer();
   }
 
-  private handleModelUpdateChat(): void {
-    this.view.renderMessageInChat();
+  private handleModelUpdateChat(isOnlyOne: boolean): void {
+    this.view.renderMessageInChat(isOnlyOne);
   }
 
   private handleModelUpdateMessageStatus(): void {
@@ -121,9 +124,9 @@ export class ChatController {
     if (!login || login === this.model.getActiveChatUser()) {
       return;
     }
-    getHistoryMessages(login);
     this.model.setActiveChatUser(login);
-    this.view.renderMessageInChat();
+    this.model.clearMessagesHistory();
+    getHistoryMessages(login);
   }
 
   private handleSendMessage(event: Event): void {

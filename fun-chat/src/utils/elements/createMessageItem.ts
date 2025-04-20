@@ -7,7 +7,7 @@ export function createMessageItem(message: ChatMessage, currentUser: string = ''
   const messageWrapper = createElement({
     tag: 'div',
     classes: ['chat-message', isOutgoing ? 'chat-message__outgoing' : 'chat-message__incoming'],
-    children: [createHeaderMessage(message), createMainMessage(message), createFooterMessage(isOutgoing)],
+    children: [createHeaderMessage(message), createMainMessage(message), createFooterMessage(message, isOutgoing)],
     attributes: isOutgoing ? { 'message-id': message.id } : {},
   });
   return messageWrapper;
@@ -26,7 +26,7 @@ function createHeaderMessage(message: ChatMessage): HTMLElement {
       createElement({
         tag: 'span',
         classes: ['chat-message__header-time'],
-        text: message.datetime.toString(),
+        text: `${new Date(message.datetime).getHours()}:${new Date(message.datetime).getMinutes()}`,
       }),
     ],
   });
@@ -40,7 +40,7 @@ function createMainMessage(message: ChatMessage): HTMLElement {
   });
 }
 
-function createFooterMessage(isOutgoing: boolean): HTMLElement {
+function createFooterMessage(message: ChatMessage, isOutgoing: boolean): HTMLElement {
   const messageFooter = createElement({
     tag: 'div',
     classes: ['chat-message__footer'],
@@ -48,48 +48,25 @@ function createFooterMessage(isOutgoing: boolean): HTMLElement {
 
   if (!isOutgoing) return messageFooter;
 
+  const { isEdited, isDelivered, isReaded } = message.status;
+  const statusText = isReaded ? '✓✓' : isDelivered ? '✓' : '';
+
   const statusElement = createElement({
     tag: 'span',
     classes: ['chat-message__footer-status'],
+    text: statusText,
   });
 
-  const editedElement = createElement({
-    tag: 'span',
-    classes: ['chat-message__footer-edited'],
-  });
+  messageFooter.append(statusElement);
 
-  messageFooter.append(editedElement, statusElement);
+  if (isEdited) {
+    const editedElement = createElement({
+      tag: 'span',
+      classes: ['chat-message__footer-edited'],
+      text: 'edited',
+    });
+    messageFooter.prepend(editedElement);
+  }
 
   return messageFooter;
 }
-
-// function createFooterMessage(message: ChatMessage, isOutgoing: boolean): HTMLElement {
-//   const messageFooter = createElement({
-//     tag: 'div',
-//     classes: ['chat-message__footer'],
-//   });
-
-//   if (!isOutgoing) return messageFooter;
-
-//   const { isEdited, isDelivered, isReaded } = message.status;
-//   const statusText = isReaded ? '✓✓' : isDelivered ? '✓' : '';
-
-//   const statusElement = createElement({
-//     tag: 'span',
-//     classes: ['chat-message__footer-status'],
-//     text: statusText,
-//   });
-
-//   messageFooter.append(statusElement);
-
-//   if (isEdited) {
-//     const editedElement = createElement({
-//       tag: 'span',
-//       classes: ['chat-message__footer-edited'],
-//       text: 'edited',
-//     });
-//     messageFooter.prepend(editedElement);
-//   }
-
-//   return messageFooter;
-// }

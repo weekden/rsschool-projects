@@ -105,7 +105,10 @@ export class ChatView {
     const messages = this.model.getMessages();
     const currentUser = this.appModel.getCurrentLogin();
 
-    if (!messages.length) return;
+    if (messages.length === 0) {
+      this.chatContainer?.replaceChildren();
+      return;
+    }
 
     if (lastOnly) {
       const lastMessage = messages[messages.length - 1];
