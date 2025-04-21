@@ -7,13 +7,18 @@ export function createMessageItem(message: ChatMessage, currentUser: string = ''
   const messageWrapper = createElement({
     tag: 'div',
     classes: ['chat-message', isOutgoing ? 'chat-message__outgoing' : 'chat-message__incoming'],
-    children: [createHeaderMessage(message), createMainMessage(message), createFooterMessage(message, isOutgoing)],
+    children: [
+      createHeaderMessage(message, currentUser),
+      createMainMessage(message),
+      createFooterMessage(message, isOutgoing),
+    ],
     attributes: isOutgoing ? { 'message-id': message.id } : {},
   });
   return messageWrapper;
 }
 
-function createHeaderMessage(message: ChatMessage): HTMLElement {
+function createHeaderMessage(message: ChatMessage, currentUser: string = ''): HTMLElement {
+  const isOutgoing = message.from === currentUser;
   return createElement({
     tag: 'div',
     classes: ['chat-message__header'],
@@ -21,7 +26,7 @@ function createHeaderMessage(message: ChatMessage): HTMLElement {
       createElement({
         tag: 'span',
         classes: ['chat-message__header-sender'],
-        text: message.from,
+        text: isOutgoing ? 'You' : message.from,
       }),
       createElement({
         tag: 'span',
