@@ -55,7 +55,6 @@ export default (env) => {
       open: true,
       static: path.resolve(__dirname, 'dist'),
       hot: true,
-      historyApiFallback: true,
     },
   };
 };

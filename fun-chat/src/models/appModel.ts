@@ -14,4 +14,8 @@ export class AppModel {
   public getCurrentUserData(): User | null {
     return this.currentUserData;
   }
+
+  public clearCurrentUserData(): void {
+    this.currentUserData = null;
+  }
 }

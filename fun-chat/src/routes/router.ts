@@ -2,12 +2,14 @@ import { loginUser } from '../API/auth/reqests';
 import { WSAuthResponse } from '../API/auth/types';
 import { WSChatResponse } from '../API/chat/types';
 import { socketService } from '../API/webSocketService';
-import { router } from '../app';
 import { AppModel } from '../models/appModel';
 import { Routes, User } from '../types';
 
 export class Router {
   private routes: Routes;
+  private readonly publicRoutes = ['/login', '/about', '/not-found'];
+  private isLoggedIn = false;
+
   constructor(
     routes: Routes,
     private mainContainer: HTMLElement,
@@ -18,20 +20,18 @@ export class Router {
   }
 
   public navigate(path: string): void {
-    history.pushState(null, '', path);
-    this.loadRoute();
+    location.hash = path.startsWith('#') ? path : `#${path}`;
   }
-
   private initSocketConnection(): void {
     socketService.connect().then(() => {
       socketService.onMessageRouting((data) => this.handleSocketMessage(data));
       socketService.onError(() => this.handleSocketErrors());
 
       const userDataString = window.sessionStorage.getItem('funchat');
-
       if (userDataString) {
         const userData: User = JSON.parse(userDataString);
         if (userData.login && userData.password) {
+          this.isLoggedIn = true;
           loginUser(userData);
         } else {
           sessionStorage.removeItem('funchat');
@@ -40,13 +40,29 @@ export class Router {
       } else {
         this.navigate('/login');
       }
-
-      window.addEventListener('popstate', () => this.loadRoute());
+      this.loadRoute();
+      window.addEventListener('hashchange', () => this.loadRoute());
     });
   }
 
+  private getCurrentPath(): string {
+    const hash = location.hash;
+    return hash.startsWith('#') ? hash.slice(1) : '/';
+  }
+
   private loadRoute(): void {
-    const path = location.pathname || '/';
+    const path = this.getCurrentPath();
+
+    if (this.isLoggedIn && path === '/login') {
+      this.navigate('/chat');
+      return;
+    }
+
+    if (!this.isLoggedIn && !this.publicRoutes.includes(path)) {
+      this.navigate('/login');
+      return;
+    }
+
     const view = this.routes[path] || this.routes['/not-found'];
 
     if (view) {
@@ -55,23 +71,29 @@ export class Router {
   }
 
   private handleSocketMessage(data: WSAuthResponse | WSChatResponse): void {
-    const { type } = data;
-
-    if (type === 'USER_LOGIN') {
+    if (data.type === 'USER_LOGIN') {
       const userDataString = window.sessionStorage.getItem('funchat');
-
       if (userDataString) {
         const userData: User = JSON.parse(userDataString);
         if (userData.login && userData.password) {
           this.appModel.setCurrentUserData(userData);
-          router.navigate('/chat');
+          this.isLoggedIn = true;
+          this.navigate('/chat');
         }
       }
+    }
+
+    if (data.type === 'USER_LOGOUT') {
+      this.isLoggedIn = false;
+      this.appModel.clearCurrentUserData();
+      window.sessionStorage.clear();
+      this.navigate('/login');
     }
   }
 
   private handleSocketErrors(): void {
+    this.isLoggedIn = false;
     window.sessionStorage.clear();
-    router.navigate('/login');
+    this.navigate('/login');
   }
 }
