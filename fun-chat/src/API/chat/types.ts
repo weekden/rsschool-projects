@@ -87,15 +87,40 @@ type MessageDeliveryStatusResponse = {
   };
 };
 
+export type MessageDeletaRequest = {
+  id: string;
+  type: 'MSG_DELETE';
+  payload: {
+    message: {
+      id: string;
+    };
+  };
+};
+
+type MessageDeletaResponse = {
+  id: string;
+  type: 'MSG_DELETE';
+  payload: {
+    message: {
+      id: string;
+      status: {
+        isDeleted: boolean;
+      };
+    };
+  };
+};
+
 export type WSChatRequest =
   | GetAllAuthUsersRequest
   | GetAllUnauthorizedUsersRequest
   | SendingMessageRequest
-  | GetHistoryMessagesRequest;
+  | GetHistoryMessagesRequest
+  | MessageDeletaRequest;
 
 export type WSChatResponse =
   | GetAllAuthUsersResponse
   | GetAllUnauthorizedUsersResponse
   | SendingMessageResponse
   | GetHistoryMessagesResponse
-  | MessageDeliveryStatusResponse;
+  | MessageDeliveryStatusResponse
+  | MessageDeletaResponse;

@@ -4,7 +4,13 @@ import { ChatView } from './chatView';
 import { logoutUser } from '../../API/auth/reqests';
 import { socketService } from '../../API/webSocketService';
 import { router } from '../../app';
-import { getAllAuthUsers, getAllUnauthorizedUsers, getHistoryMessages, sendingMessage } from '../../API/chat/reqests';
+import {
+  deleteMessage,
+  getAllAuthUsers,
+  getAllUnauthorizedUsers,
+  getHistoryMessages,
+  sendingMessage,
+} from '../../API/chat/reqests';
 import { WSAuthResponse } from '../../API/auth/types';
 import { WSChatResponse } from '../../API/chat/types';
 
@@ -125,6 +131,9 @@ export class ChatController {
         break;
       case 'MSG_DELIVER':
         this.model.setMessageStatus(payload.message);
+        break;
+      case 'MSG_DELETE':
+        break;
     }
   }
 
@@ -204,6 +213,7 @@ export class ChatController {
       return;
     }
     if (deleteButton) {
+      deleteMessage(messageId);
       this.model.deleteMessageById(messageId);
     }
   }
