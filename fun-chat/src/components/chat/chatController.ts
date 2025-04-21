@@ -27,17 +27,23 @@ export class ChatController {
     });
   }
   private addEventListeners(): void {
-    const searchInput = this.view.getSearchInput();
-    const buttonExit = this.view.getButtonExit();
-    const buttonInfo = this.view.getButtonInfo();
-    const userContainer = this.view.getUserContainer();
-    const sendForm = this.view.getChatSendForm();
-    const chatContainer = this.view.getChatContainer();
+    this.addSearchListener();
+    this.addHeaderListeners();
+    this.addUserListListener();
+    this.addChatListeners();
+  }
 
+  private addSearchListener(): void {
+    const searchInput = this.view.getSearchInput();
     searchInput?.addEventListener('input', () => {
       const subString = searchInput.value.toLowerCase();
       this.view.renderUsers(subString);
     });
+  }
+
+  private addHeaderListeners(): void {
+    const buttonExit = this.view.getButtonExit();
+    const buttonInfo = this.view.getButtonInfo();
 
     buttonExit?.addEventListener('click', () => {
       console.log('exit');
@@ -50,17 +56,29 @@ export class ChatController {
     buttonInfo?.addEventListener('click', () => {
       router.navigate('/about');
     });
+  }
 
+  private addUserListListener(): void {
+    const userContainer = this.view.getUserContainer();
     userContainer?.addEventListener('click', (event) => {
       this.handleUserClick(event);
     });
+  }
+
+  private addChatListeners(): void {
+    const sendForm = this.view.getChatSendForm();
+    const chatContainer = this.view.getChatContainer();
 
     sendForm?.addEventListener('submit', (event) => {
       this.handleSendMessage(event);
     });
 
     chatContainer?.addEventListener('contextmenu', (event) => {
-      this.hendleClickContextMenu(event);
+      this.hendleClickToCreateContextMenu(event);
+    });
+
+    chatContainer?.addEventListener('click', () => {
+      this.handleClickChatContainer();
     });
   }
 
@@ -155,18 +173,38 @@ export class ChatController {
     messageInput.value = '';
   }
 
-  private hendleClickContextMenu(event: Event): void {
+  private hendleClickToCreateContextMenu(event: MouseEvent): void {
     event.preventDefault();
     if (!(event.target instanceof HTMLElement)) return;
     const messageElement = event.target.closest<HTMLElement>('.chat-message');
     if (!messageElement) {
       return;
     }
-
     const messageId = messageElement.getAttribute('message-id');
-    if (messageId) {
-      this.view.renderContextMenu();
+    if (!messageId) {
+      return;
     }
-    console.log(messageId);
+    const contextMenu = this.view.renderContextMenu(messageId, event.clientX, event.clientY);
+    contextMenu.addEventListener('click', (event) => {
+      this.handlerClickContextMenu(event);
+    });
+  }
+
+  private handleClickChatContainer(): void {
+    this.view.removeContextMenu();
+  }
+
+  private handlerClickContextMenu(event: MouseEvent): void {
+    if (!(event.target instanceof HTMLElement)) return;
+    const menu = event.target.closest<HTMLElement>('.context-menu');
+    const messageId = menu?.dataset.messageId;
+    const deleteButton = event.target.closest('.context-delete');
+    // const editButton = event.target.closest('.context-edit');
+    if (!messageId) {
+      return;
+    }
+    if (deleteButton) {
+      this.model.deleteMessageById(messageId);
+    }
   }
 }

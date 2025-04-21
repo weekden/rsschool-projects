@@ -5,6 +5,7 @@ import { createAnchorElement } from '../../utils/dom/anchor';
 import { createInputElement } from '../../utils/dom/input';
 import { AppModel } from '../../models/appModel';
 import { createMessageItem } from '../../utils/elements/createMessageItem';
+import { createContextMenu } from './utils/createContextMenu';
 
 export class ChatView {
   private container: HTMLElement;
@@ -23,6 +24,7 @@ export class ChatView {
   private companion: HTMLSpanElement | null = null;
   private companionStatus: HTMLSpanElement | null = null;
   private informationContainer: HTMLElement | null = null;
+  private contextMenu: HTMLElement | null = null;
 
   constructor(
     private readonly appModel: AppModel,
@@ -77,6 +79,12 @@ export class ChatView {
     }
   }
 
+  public getContextMenu(): HTMLElement | undefined {
+    if (this.contextMenu) {
+      return this.contextMenu;
+    }
+  }
+
   public render(): HTMLElement {
     this.container.append(this.createHeader(), this.createMainContainer(), this.createFooter());
     return this.container;
@@ -111,8 +119,6 @@ export class ChatView {
         }
       });
   }
-
-  public renderContextMenu(): void {}
 
   public updateInputMessageContainer(): void {
     const selectedUser = this.model.getActiveChatUser();
@@ -173,6 +179,22 @@ export class ChatView {
     if (!messageElement) return;
     const statusContainer = messageElement.children[2].children[1];
     statusContainer.textContent = messageStatus.status.isReaded ? '✓✓' : messageStatus.status.isDelivered ? '✓' : '';
+  }
+
+  public renderContextMenu(messageId: string, x: number, y: number): HTMLElement {
+    this.removeContextMenu();
+
+    this.contextMenu = createContextMenu(messageId);
+    this.contextMenu.style.position = 'absolute';
+    this.contextMenu.style.top = `${y}px`;
+    this.contextMenu.style.left = `${x}px`;
+
+    document.body.append(this.contextMenu);
+    return this.contextMenu;
+  }
+
+  public removeContextMenu(): void {
+    this.contextMenu?.remove();
   }
 
   private createMainContainer(): HTMLElement {

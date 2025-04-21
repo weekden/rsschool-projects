@@ -79,6 +79,16 @@ export class ChatModel {
     }
   }
 
+  public deleteMessageById(messageId: string): void {
+    const chatKey = this.getActiveChatUser();
+
+    if (!chatKey || !this.messages[chatKey]) return;
+
+    this.messages[chatKey] = this.messages[chatKey].filter((message) => message.id !== messageId);
+
+    this.notifyMessageListeners();
+  }
+
   public clearMessagesHistory(): void {
     const userLogin = this.getActiveChatUser();
     if (userLogin && this.messages[userLogin]) {
