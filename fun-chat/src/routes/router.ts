@@ -8,8 +8,6 @@ import { Routes, User } from '../types';
 
 export class Router {
   private routes: Routes;
-  private readonly publicRoutes = ['/login', '/about', '/not-found'];
-
   constructor(
     routes: Routes,
     private mainContainer: HTMLElement,
@@ -29,17 +27,21 @@ export class Router {
       socketService.onMessageRouting((data) => this.handleSocketMessage(data));
       socketService.onError(() => this.handleSocketErrors());
 
-      const userData: string | null = window.sessionStorage.getItem('funchat');
-      const currentPath = location.pathname;
-      if (userData) {
-        const userDataParsed: User = JSON.parse(userData);
-        loginUser(userDataParsed);
-      } else if (!this.publicRoutes.includes(currentPath)) {
+      const userDataString = window.sessionStorage.getItem('funchat');
+
+      if (userDataString) {
+        const userData: User = JSON.parse(userDataString);
+        if (userData.login && userData.password) {
+          loginUser(userData);
+        } else {
+          sessionStorage.removeItem('funchat');
+          this.navigate('/login');
+        }
+      } else {
         this.navigate('/login');
       }
 
       window.addEventListener('popstate', () => this.loadRoute());
-      this.loadRoute();
     });
   }
 
@@ -55,16 +57,16 @@ export class Router {
   private handleSocketMessage(data: WSAuthResponse | WSChatResponse): void {
     const { type } = data;
 
-    // && location.pathname !== '/login'
     if (type === 'USER_LOGIN') {
-      const userData: string | null = window.sessionStorage.getItem('funchat');
+      const userDataString = window.sessionStorage.getItem('funchat');
 
-      if (userData) {
-        const userDataParsed: User = JSON.parse(userData);
-        this.appModel.setCurrentUserData(userDataParsed);
+      if (userDataString) {
+        const userData: User = JSON.parse(userDataString);
+        if (userData.login && userData.password) {
+          this.appModel.setCurrentUserData(userData);
+          router.navigate('/chat');
+        }
       }
-
-      router.navigate('/chat');
     }
   }
 
