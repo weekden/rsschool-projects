@@ -22,6 +22,7 @@ export class ChatView {
 
   private companion: HTMLSpanElement | null = null;
   private companionStatus: HTMLSpanElement | null = null;
+  private informationContainer: HTMLElement | null = null;
 
   constructor(
     private readonly appModel: AppModel,
@@ -128,10 +129,12 @@ export class ChatView {
 
     if (messages.length === 0) {
       this.chatContainer?.replaceChildren();
+      this.chatContainer?.append(this.createInformContainer('Напишите ваше первое сообщение...'));
       return;
     }
 
     if (lastOnly) {
+      this.informationContainer?.remove();
       const lastMessage = messages[messages.length - 1];
       const messageElement = createMessageItem(lastMessage, currentLogin);
       this.chatContainer?.append(messageElement);
@@ -196,7 +199,10 @@ export class ChatView {
     if (!(this.chatContainer && this.chatSendForm)) {
       return createElement({ tag: 'div' });
     }
-    const chatWrapper = createElement({ tag: 'div', classes: ['chat-container__chat-wrapper'] });
+    const chatWrapper = createElement({
+      tag: 'div',
+      classes: ['chat-container__chat-wrapper'],
+    });
 
     const messagesWrapper = createElement({
       tag: 'div',
@@ -283,7 +289,11 @@ export class ChatView {
   }
 
   private initSendMessageElements(): void {
-    this.chatContainer = createElement({ tag: 'div', classes: ['chat-container__messages'] });
+    this.chatContainer = createElement({
+      tag: 'div',
+      classes: ['chat-container__messages'],
+      children: [this.createInformContainer('Выберете пользователя для отправки сообщения...')],
+    });
     this.messageInput = createInputElement({
       type: 'text',
       placeholder: 'Type a message...',
@@ -312,5 +322,14 @@ export class ChatView {
       tag: 'span',
       classes: ['chat-container__header-span', 'chat-container__header-companion-status'],
     });
+  }
+
+  private createInformContainer(text: string): HTMLElement {
+    this.informationContainer = createElement({
+      tag: 'p',
+      text: text,
+      classes: ['chat-container__inform'],
+    });
+    return this.informationContainer;
   }
 }
