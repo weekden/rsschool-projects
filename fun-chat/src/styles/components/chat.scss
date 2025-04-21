@@ -49,7 +49,8 @@
   flex-direction: column;
 
   box-sizing: border-box;
-  width: 250px;
+  width: 20%;
+  min-width: 100px;
   padding: 10px;
   border-right: 1px solid #ccc;
 
@@ -96,7 +97,6 @@
 .chat-container__input-wrapper {
   display: flex;
   gap: 10px;
-  height: 50px;
   padding: 5px;
 }
 
@@ -109,14 +109,17 @@
 .chat-container__messages-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: end;
+
   height: 100%;
+  min-height: 0;
 }
 
 .chat-container__messages {
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  min-height: 0;
 }
 
 .chat-container__inform {
@@ -142,5 +145,15 @@
 
   .footer-link {
     text-decoration: none;
+  }
+}
+
+@media (width <= 400px) {
+  .chat {
+    width: 100%;
+  }
+
+  .chat-container__input-wrapper {
+    flex-direction: column;
   }
 }

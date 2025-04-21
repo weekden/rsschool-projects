@@ -130,6 +130,7 @@ export class ChatController {
         this.handleModelUpdateChat(true);
         break;
       case 'MSG_DELIVER':
+        console.log('[MSG_DELIVER]', payload.message);
         this.model.setMessageStatus(payload.message);
         break;
       case 'MSG_DELETE':

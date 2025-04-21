@@ -148,9 +148,11 @@ export class ChatView {
       this.chatContainer?.replaceChildren();
       messages.forEach((message) => {
         const messageElement = createMessageItem(message, currentLogin);
+        messageElement;
         this.chatContainer?.append(messageElement);
       });
     }
+    if (this.chatContainer) this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
   }
 
   public updateCompanionsContainer(): void {
@@ -176,7 +178,9 @@ export class ChatView {
       (item) => item.getAttribute('message-id') === messageStatus?.id
     );
 
-    if (!messageElement) return;
+    if (!messageElement) {
+      return;
+    }
     const statusContainer = messageElement.children[2].children[1];
     statusContainer.textContent = messageStatus.status.isReaded ? '✓✓' : messageStatus.status.isDelivered ? '✓' : '';
   }
