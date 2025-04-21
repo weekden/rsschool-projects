@@ -44,6 +44,7 @@ export class LoginController {
 
     buttonInfo.addEventListener('click', (event) => {
       event.preventDefault();
+      router.navigate('/about');
     });
   }
 

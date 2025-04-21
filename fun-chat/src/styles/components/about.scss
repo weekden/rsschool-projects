@@ -1,0 +1,32 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+  width: 90%;
+  max-width: 700px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  .btn {
+    width: 50%;
+  }
+}
+
+.about-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.about-container p {
+  font-size: 18px;
+  text-align: center;
+}
+
+.about-author {
+  font-size: 18px;
+  color: purple;
+  text-decoration: none;
+}

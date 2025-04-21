@@ -77,6 +77,10 @@
   .chat-user__name {
     font-size: 0.95em;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .chat-container__chat-wrapper {

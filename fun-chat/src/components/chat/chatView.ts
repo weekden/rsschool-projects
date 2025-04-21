@@ -46,6 +46,12 @@ export class ChatView {
     }
   }
 
+  public getButtonInfo(): HTMLButtonElement | undefined {
+    if (this.buttonInfo) {
+      return this.buttonInfo;
+    }
+  }
+
   public getUserContainer(): HTMLElement | undefined {
     if (this.usersContainer) {
       return this.usersContainer;

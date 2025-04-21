@@ -29,6 +29,7 @@ export class ChatController {
   private addEventListeners(): void {
     const searchInput = this.view.getSearchInput();
     const buttonExit = this.view.getButtonExit();
+    const buttonInfo = this.view.getButtonInfo();
     const userContainer = this.view.getUserContainer();
     const sendForm = this.view.getChatSendForm();
     const chatContainer = this.view.getChatContainer();
@@ -44,6 +45,10 @@ export class ChatController {
       if (user) {
         logoutUser(user);
       }
+    });
+
+    buttonInfo?.addEventListener('click', () => {
+      router.navigate('/about');
     });
 
     userContainer?.addEventListener('click', (event) => {

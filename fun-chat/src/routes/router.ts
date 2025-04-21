@@ -8,6 +8,7 @@ import { Routes, User } from '../types';
 
 export class Router {
   private routes: Routes;
+  private readonly publicRoutes = ['/login', '/about', '/not-found'];
 
   constructor(
     routes: Routes,
@@ -29,11 +30,11 @@ export class Router {
       socketService.onError(() => this.handleSocketErrors());
 
       const userData: string | null = window.sessionStorage.getItem('funchat');
-
+      const currentPath = location.pathname;
       if (userData) {
         const userDataParsed: User = JSON.parse(userData);
         loginUser(userDataParsed);
-      } else {
+      } else if (!this.publicRoutes.includes(currentPath)) {
         this.navigate('/login');
       }
 
