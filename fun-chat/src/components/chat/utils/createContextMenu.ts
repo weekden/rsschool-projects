@@ -4,13 +4,13 @@ import { createElement } from '../../../utils/dom/customElement';
 export function createContextMenu(messageId: string): HTMLElement {
   const editButton = createButton({
     text: 'Edit',
-    classes: ['context-btn', 'context-edit'],
+    classes: ['btn', 'context-btn', 'context-edit'],
     type: 'button',
   });
 
   const deleteButton = createButton({
     text: 'Delete',
-    classes: ['context-btn', 'context-delete'],
+    classes: ['btn', 'context-btn', 'context-delete'],
     type: 'button',
   });
 

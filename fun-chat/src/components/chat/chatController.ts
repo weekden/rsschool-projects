@@ -216,6 +216,7 @@ export class ChatController {
     if (deleteButton) {
       deleteMessage(messageId);
       this.model.deleteMessageById(messageId);
+      this.view.removeContextMenu();
     }
   }
 }

@@ -189,7 +189,6 @@ export class ChatView {
     this.removeContextMenu();
 
     this.contextMenu = createContextMenu(messageId);
-    this.contextMenu.style.position = 'absolute';
     this.contextMenu.style.top = `${y}px`;
     this.contextMenu.style.left = `${x}px`;
 
