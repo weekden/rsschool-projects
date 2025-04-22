@@ -50,28 +50,24 @@ function createFooterMessage(message: ChatMessage, isOutgoing: boolean): HTMLEle
     tag: 'div',
     classes: ['chat-message__footer'],
   });
-
-  if (!isOutgoing) return messageFooter;
-
-  const { isEdited, isDelivered, isReaded } = message.status;
-  const statusText = isReaded ? '✓✓' : isDelivered ? '✓' : '';
-
-  const statusElement = createElement({
-    tag: 'span',
-    classes: ['chat-message__footer-status'],
-    text: statusText,
-  });
-
-  messageFooter.append(statusElement);
-
-  if (isEdited) {
-    const editedElement = createElement({
+  const { isDelivered, isReaded, isEdited } = message.status;
+  const isEditText = isEdited ? 'edit' : '';
+  if (isOutgoing) {
+    const statusText = isReaded ? '✓✓' : isDelivered ? '✓' : '';
+    const statusElement = createElement({
       tag: 'span',
-      classes: ['chat-message__footer-edited'],
-      text: 'edited',
+      classes: ['chat-message__footer-status'],
+      text: statusText,
     });
-    messageFooter.prepend(editedElement);
+
+    messageFooter.append(statusElement);
   }
+  const editedElement = createElement({
+    tag: 'span',
+    classes: ['chat-message__footer-edited'],
+    text: isEditText,
+  });
+  messageFooter.prepend(editedElement);
 
   return messageFooter;
 }
