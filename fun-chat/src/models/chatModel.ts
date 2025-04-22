@@ -82,10 +82,22 @@ export class ChatModel {
   public deleteMessageById(messageId: string): void {
     const chatKey = this.getActiveChatUser();
 
-    if (!chatKey || !this.messages[chatKey]) return;
-
+    if (!chatKey || !this.messages[chatKey]) {
+      return;
+    }
     this.messages[chatKey] = this.messages[chatKey].filter((message) => message.id !== messageId);
 
+    this.notifyMessageListeners();
+  }
+
+  public editMessage(messageId: string, text: string): void {
+    const chatKey = this.getActiveChatUser();
+    if (!chatKey || !this.messages[chatKey]) {
+      return;
+    }
+    const messages = this.messages[chatKey];
+    const index = messages.findIndex((message) => message.id === messageId);
+    this.messages[chatKey][index].text = text;
     this.notifyMessageListeners();
   }
 

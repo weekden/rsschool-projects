@@ -4,6 +4,7 @@ import {
   GetAllUnauthorizedUsersRequest,
   GetHistoryMessagesRequest,
   MessageDeletaRequest,
+  MessageToEditRequest,
   SendingMessageRequest,
 } from './types';
 
@@ -59,6 +60,20 @@ export function deleteMessage(messageId: string, id = crypto.randomUUID()): void
     payload: {
       message: {
         id: messageId,
+      },
+    },
+  };
+  socketService.send(request);
+}
+
+export function editMessage(messageId: string, text: string, id = crypto.randomUUID()): void {
+  const request: MessageToEditRequest = {
+    id,
+    type: 'MSG_EDIT',
+    payload: {
+      message: {
+        id: messageId,
+        text: text,
       },
     },
   };

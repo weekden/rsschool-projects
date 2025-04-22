@@ -110,12 +110,38 @@ type MessageDeletaResponse = {
   };
 };
 
+export type MessageToEditRequest = {
+  id: string;
+  type: 'MSG_EDIT';
+  payload: {
+    message: {
+      id: string;
+      text: string;
+    };
+  };
+};
+
+type MessageToEditResponse = {
+  id: string;
+  type: 'MSG_EDIT';
+  payload: {
+    message: {
+      id: string;
+      text: string;
+      status: {
+        isEdited: boolean;
+      };
+    };
+  };
+};
+
 export type WSChatRequest =
   | GetAllAuthUsersRequest
   | GetAllUnauthorizedUsersRequest
   | SendingMessageRequest
   | GetHistoryMessagesRequest
-  | MessageDeletaRequest;
+  | MessageDeletaRequest
+  | MessageToEditRequest;
 
 export type WSChatResponse =
   | GetAllAuthUsersResponse
@@ -123,4 +149,5 @@ export type WSChatResponse =
   | SendingMessageResponse
   | GetHistoryMessagesResponse
   | MessageDeliveryStatusResponse
-  | MessageDeletaResponse;
+  | MessageDeletaResponse
+  | MessageToEditResponse;

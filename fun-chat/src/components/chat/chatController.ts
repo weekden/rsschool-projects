@@ -6,6 +6,7 @@ import { socketService } from '../../API/webSocketService';
 import { router } from '../../app';
 import {
   deleteMessage,
+  editMessage,
   getAllAuthUsers,
   getAllUnauthorizedUsers,
   getHistoryMessages,
@@ -15,6 +16,7 @@ import { WSAuthResponse } from '../../API/auth/types';
 import { WSChatResponse } from '../../API/chat/types';
 
 export class ChatController {
+  private editingMessageId: string | null = null;
   constructor(
     private readonly appModel: AppModel,
     private readonly model: ChatModel,
@@ -134,6 +136,11 @@ export class ChatController {
         this.model.setMessageStatus(payload.message);
         break;
       case 'MSG_DELETE':
+        this.model.deleteMessageById(payload.message.id);
+        break;
+      case 'MSG_EDIT':
+        this.model.editMessage(payload.message.id, payload.message.text);
+        this.handleModelUpdateChat(false);
         break;
     }
   }
@@ -179,13 +186,20 @@ export class ChatController {
     const message = messageInput?.value;
     if (message === '' || !message) return;
     const recipient = this.model.getActiveChatUser();
-    sendingMessage(recipient, message);
+    if (this.editingMessageId) {
+      editMessage(this.editingMessageId, message);
+      this.editingMessageId = null;
+    } else {
+      sendingMessage(recipient, message);
+    }
     messageInput.value = '';
   }
 
   private hendleClickToCreateContextMenu(event: MouseEvent): void {
     event.preventDefault();
-    if (!(event.target instanceof HTMLElement)) return;
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
     const messageElement = event.target.closest<HTMLElement>('.chat-message');
     if (!messageElement) {
       return;
@@ -196,7 +210,7 @@ export class ChatController {
     }
     const contextMenu = this.view.renderContextMenu(messageId, event.clientX, event.clientY);
     contextMenu.addEventListener('click', (event) => {
-      this.handlerClickContextMenu(event);
+      this.handlerClickContextMenu(event, messageElement);
     });
   }
 
@@ -204,12 +218,12 @@ export class ChatController {
     this.view.removeContextMenu();
   }
 
-  private handlerClickContextMenu(event: MouseEvent): void {
+  private handlerClickContextMenu(event: MouseEvent, message: HTMLElement): void {
     if (!(event.target instanceof HTMLElement)) return;
     const menu = event.target.closest<HTMLElement>('.context-menu');
     const messageId = menu?.dataset.messageId;
     const deleteButton = event.target.closest('.context-delete');
-    // const editButton = event.target.closest('.context-edit');
+    const editButton = event.target.closest('.context-edit');
     if (!messageId) {
       return;
     }
@@ -217,6 +231,14 @@ export class ChatController {
       deleteMessage(messageId);
       this.model.deleteMessageById(messageId);
       this.view.removeContextMenu();
+    } else if (editButton) {
+      this.view.removeContextMenu();
+      const input = this.view.getMessageInput();
+      const textToEdit = message.children[1].textContent;
+      if (input && textToEdit) {
+        input.value = textToEdit;
+      }
+      this.editingMessageId = messageId;
     }
   }
 }
