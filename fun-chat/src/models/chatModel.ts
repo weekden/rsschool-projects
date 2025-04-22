@@ -118,6 +118,18 @@ export class ChatModel {
     this.notifyMessageListeners();
   }
 
+  public changeStausDeliveryMessageForFirstLoad(login: string): void {
+    Object.values(this.messages).forEach((allMessage) => {
+      allMessage.forEach((message) => {
+        if (message.to === login && !message.status.isDelivered) {
+          message.status.isDelivered = true;
+        }
+      });
+    });
+
+    this.notifyMessageListeners();
+  }
+
   public subscribeUsersListener(callback: () => void): void {
     this.userListener.push(callback);
   }

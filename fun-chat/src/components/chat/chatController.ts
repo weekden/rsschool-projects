@@ -26,7 +26,6 @@ export class ChatController {
     this.model.subscribeUsersListener(() => this.handleModelUpdateUsersList());
     this.model.subscribeActiveChatUserListener(() => this.handleModelUpdateMessageInputCotainer());
     this.model.subscribeMessagesListener(() => this.handleModelUpdateChat(false));
-    // this.model.subscribeMessageStatusUpdate(() => this.handleModelUpdateMessageStatus());
     getAllAuthUsers();
     getAllUnauthorizedUsers();
     socketService.onMessage((data) => {
@@ -106,6 +105,7 @@ export class ChatController {
 
       case 'USER_EXTERNAL_LOGIN':
         this.model.updateUserStatus(payload.user.login, true);
+        this.model.changeStausDeliveryMessageForFirstLoad(payload.user.login);
         break;
 
       case 'USER_EXTERNAL_LOGOUT':
@@ -132,8 +132,9 @@ export class ChatController {
         this.handleModelUpdateChat(true);
         break;
       case 'MSG_DELIVER':
+        this.model.changeStatusOfMessage(payload.message.id, payload.message.status);
+        this.handleModelUpdateChat(false);
         console.log('[MSG_DELIVER]', payload.message);
-        // this.model.setMessageStatus(payload.message);
         break;
       case 'MSG_DELETE':
         this.model.deleteMessageById(payload.message.id);
@@ -159,10 +160,6 @@ export class ChatController {
   private handleModelUpdateChat(isOnlyOne: boolean): void {
     this.view.renderMessageInChat(isOnlyOne);
   }
-
-  // private handleModelUpdateMessageStatus(): void {
-  //   this.view.updateMessageStatus();
-  // }
 
   private handleUserClick(event: Event): void {
     if (!(event.target instanceof HTMLElement)) return;
