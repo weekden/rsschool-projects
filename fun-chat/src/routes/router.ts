@@ -20,7 +20,7 @@ export class Router {
   }
 
   public navigate(path: string): void {
-    location.hash = path.startsWith('#') ? path : `#${path}`;
+    location.hash = `#${path}`;
   }
   private initSocketConnection(): void {
     socketService.connect().then(() => {
@@ -32,6 +32,7 @@ export class Router {
         const userData: User = JSON.parse(userDataString);
         if (userData.login && userData.password) {
           this.isLoggedIn = true;
+          this.appModel.setCurrentUserData(userData);
           loginUser(userData);
         } else {
           sessionStorage.removeItem('funchat');
@@ -47,7 +48,7 @@ export class Router {
 
   private getCurrentPath(): string {
     const hash = location.hash;
-    return hash.startsWith('#') ? hash.slice(1) : '/';
+    return hash.slice(1) || '/';
   }
 
   private loadRoute(): void {
