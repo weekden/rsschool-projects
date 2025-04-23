@@ -126,6 +126,7 @@ export class ChatController {
     switch (type) {
       case 'MSG_FROM_USER':
         this.model.addMessage(payload.messages, currentUser);
+        // this.model.clearMessagesHistory();
         break;
       case 'MSG_SEND':
         this.model.addMessage(payload.message, currentUser);
@@ -150,7 +151,7 @@ export class ChatController {
         break;
       case 'MSG_READ':
         this.model.changeStatusOfMessage(payload.message.id, payload.message.status);
-        this.handleModelUpdateChat(false);
+        // this.handleModelUpdateChat(false);
         break;
     }
   }
@@ -183,10 +184,12 @@ export class ChatController {
     }
     this.model.setActiveChatUser(login);
     getHistoryMessages(login);
+
     const currentLogin = this.appModel.getCurrentLogin();
 
     const unreadMessages = this.model.getUnreadMessagesFromUser(login, currentLogin);
     unreadMessages.forEach((message) => readMessageChangeStatus(message.id));
+    this.model.clearMessagesHistory();
   }
 
   private handleSendMessage(event: Event): void {
