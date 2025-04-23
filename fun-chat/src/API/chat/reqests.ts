@@ -5,6 +5,7 @@ import {
   GetHistoryMessagesRequest,
   MessageDeletaRequest,
   MessageToEditRequest,
+  ReadMessageRequest,
   SendingMessageRequest,
 } from './types';
 
@@ -74,6 +75,19 @@ export function editMessage(messageId: string, text: string, id = crypto.randomU
       message: {
         id: messageId,
         text: text,
+      },
+    },
+  };
+  socketService.send(request);
+}
+
+export function readMessageChangeStatus(messageId: string, id = crypto.randomUUID()): void {
+  const request: ReadMessageRequest = {
+    id,
+    type: 'MSG_READ',
+    payload: {
+      message: {
+        id: messageId,
       },
     },
   };

@@ -135,13 +135,37 @@ type MessageToEditResponse = {
   };
 };
 
+export type ReadMessageRequest = {
+  id: string;
+  type: 'MSG_READ';
+  payload: {
+    message: {
+      id: string;
+    };
+  };
+};
+
+type ReadMessageResponse = {
+  id: string;
+  type: 'MSG_READ';
+  payload: {
+    message: {
+      id: string;
+      status: {
+        isReaded: boolean;
+      };
+    };
+  };
+};
+
 export type WSChatRequest =
   | GetAllAuthUsersRequest
   | GetAllUnauthorizedUsersRequest
   | SendingMessageRequest
   | GetHistoryMessagesRequest
   | MessageDeletaRequest
-  | MessageToEditRequest;
+  | MessageToEditRequest
+  | ReadMessageRequest;
 
 export type WSChatResponse =
   | GetAllAuthUsersResponse
@@ -150,4 +174,5 @@ export type WSChatResponse =
   | GetHistoryMessagesResponse
   | MessageDeliveryStatusResponse
   | MessageDeletaResponse
-  | MessageToEditResponse;
+  | MessageToEditResponse
+  | ReadMessageResponse;

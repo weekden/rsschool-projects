@@ -10,6 +10,7 @@ import {
   getAllAuthUsers,
   getAllUnauthorizedUsers,
   getHistoryMessages,
+  readMessageChangeStatus,
   sendingMessage,
 } from '../../API/chat/reqests';
 import { WSAuthResponse } from '../../API/auth/types';
@@ -125,22 +126,29 @@ export class ChatController {
     switch (type) {
       case 'MSG_FROM_USER':
         this.model.addMessage(payload.messages, currentUser);
-        this.handleModelUpdateChat(false);
         break;
       case 'MSG_SEND':
         this.model.addMessage(payload.message, currentUser);
         this.handleModelUpdateChat(true);
+        const activeUser = this.model.getActiveChatUser();
+        const isFromActiveChat = payload.message.to === currentUser && payload.message.from === activeUser;
+        if (isFromActiveChat) {
+          readMessageChangeStatus(payload.message.id);
+        }
         break;
       case 'MSG_DELIVER':
-        this.model.changeStatusOfMessage(payload.message.id, payload.message.status);
-        this.handleModelUpdateChat(false);
         console.log('[MSG_DELIVER]', payload.message);
+        this.model.changeStatusOfMessage(payload.message.id, payload.message.status);
         break;
       case 'MSG_DELETE':
         this.model.deleteMessageById(payload.message.id);
         break;
       case 'MSG_EDIT':
         this.model.editMessage(payload.message.id, payload.message.text);
+        this.model.changeStatusOfMessage(payload.message.id, payload.message.status);
+        this.handleModelUpdateChat(false);
+        break;
+      case 'MSG_READ':
         this.model.changeStatusOfMessage(payload.message.id, payload.message.status);
         this.handleModelUpdateChat(false);
         break;
@@ -174,8 +182,11 @@ export class ChatController {
       return;
     }
     this.model.setActiveChatUser(login);
-    this.model.clearMessagesHistory();
     getHistoryMessages(login);
+    const currentLogin = this.appModel.getCurrentLogin();
+
+    const unreadMessages = this.model.getUnreadMessagesFromUser(login, currentLogin);
+    unreadMessages.forEach((message) => readMessageChangeStatus(message.id));
   }
 
   private handleSendMessage(event: Event): void {

@@ -126,8 +126,15 @@ export class ChatModel {
         }
       });
     });
-
+    console.log(this.messages);
     this.notifyMessageListeners();
+  }
+
+  public getUnreadMessagesFromUser(from: string, to: string): ChatMessage[] {
+    const messages = this.messages[from] || [];
+    return messages.filter(
+      (message) => message.from === from && message.to === to && message.status.isDelivered && !message.status.isReaded
+    );
   }
 
   public subscribeUsersListener(callback: () => void): void {
