@@ -2,13 +2,13 @@ import { createButton } from '../../utils/dom/button';
 import { createElement } from '../../utils/dom/customElement';
 import { onElementRemoved } from '../../utils/observer/elementObserver';
 
-export function createPopup(message: string): HTMLElement {
+export function createPopup(message: string, isButton: boolean = true): HTMLElement {
   const popupWrapper = createElement({ tag: 'div', classes: ['overlay'] });
   const popup = createElement({ tag: 'div', classes: ['popup'] });
   const popupContent = createElement({ tag: 'div', text: message, classes: ['popup-content'] });
   const button = createButton({ text: 'OK', classes: ['btn', 'popup-btn'] });
 
-  popup.append(popupContent, button);
+  isButton ? popup.append(popupContent, button) : popup.append(popupContent);
   popupWrapper.append(popup);
   document.body.append(popupWrapper);
   document.body.style.overflow = 'hidden';

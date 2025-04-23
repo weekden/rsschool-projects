@@ -6,18 +6,23 @@ export default class WebSocketService {
   private onMessageCallback: ((data: WSAuthResponse | WSChatResponse) => void) | null = null;
   private onMessageCallbackRouting: ((data: WSAuthResponse | WSChatResponse) => void) | null = null;
   private onErrorCallback: ((error: string) => void) | null = null;
+  private onDisconnectCallback: (() => void) | null = null;
+  private onReconnectCallback: (() => void) | null = null;
 
   constructor(private url: string) {}
 
   public connect(): Promise<void> {
     return new Promise<void>((resolve) => {
+      if (this.socket) {
+        this.socket.removeEventListener('close', this.handleDisconnect);
+        this.socket.removeEventListener('error', this.handleDisconnect);
+        this.socket.close();
+      }
       this.socket = new WebSocket(this.url);
-
       this.socket.addEventListener('open', () => {
-        console.log('[WebSocket] Connected');
-        return resolve();
+        if (this.onReconnectCallback) this.onReconnectCallback();
+        resolve();
       });
-
       this.socket.addEventListener('message', (event) => {
         try {
           const data = JSON.parse(event.data);
@@ -26,26 +31,16 @@ export default class WebSocketService {
             this.onErrorCallback(data.payload.error);
             return;
           }
+          if (this.onMessageCallback) this.onMessageCallback(data);
 
-          if (this.onMessageCallback) {
-            this.onMessageCallback(data);
-          }
-
-          if (this.onMessageCallbackRouting) {
-            this.onMessageCallbackRouting(data);
-          }
+          if (this.onMessageCallbackRouting) this.onMessageCallbackRouting(data);
         } catch {
           console.error('[WebSocket] Invalid JSON:', event.data);
         }
       });
 
-      this.socket.addEventListener('close', () => {
-        console.log('[WebSocket] Disconnected');
-      });
-
-      this.socket.addEventListener('error', (error) => {
-        console.error('[WebSocket] Error:', error);
-      });
+      this.socket.addEventListener('close', this.handleDisconnect);
+      this.socket.addEventListener('error', this.handleDisconnect);
     });
   }
 
@@ -69,11 +64,27 @@ export default class WebSocketService {
     this.onErrorCallback = callback;
   }
 
+  public onDisconnect(callback: () => void): void {
+    this.onDisconnectCallback = callback;
+  }
+
+  public onReconnect(callback: () => void): void {
+    this.onReconnectCallback = callback;
+  }
+
   public disconnect(): void {
     if (this.socket) {
       this.socket.close();
     }
   }
+
+  private handleDisconnect = (): void => {
+    if (this.onDisconnectCallback) this.onDisconnectCallback();
+    setTimeout(() => {
+      this.connect();
+    }, 3000);
+  };
 }
 
 export const socketService = new WebSocketService('ws://localhost:4000');
+// export const socketService = new WebSocketService('wss://mik-aleinik.by/chat');
