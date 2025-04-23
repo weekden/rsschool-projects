@@ -10,7 +10,7 @@ import { NotFoundPage } from './pages/notFoundPage';
 const mainContainer = createElement({ tag: 'div', classes: ['app-wrapper'] });
 document.body.append(mainContainer);
 const routes: Routes = {
-  '/': LoginPage,
+  // '/': LoginPage,
   '/login': LoginPage,
   '/chat': ChatPage,
   '/about': AboutPage,

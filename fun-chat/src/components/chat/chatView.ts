@@ -93,6 +93,7 @@ export class ChatView {
   public renderUsers(substring: string = ''): void {
     if (!this.usersContainer) return;
     const users = this.model.getUsers();
+    const currentLogin = this.appModel.getCurrentLogin();
     this.usersContainer.replaceChildren();
     users
       .filter((user) => user.login !== this.appModel.getCurrentLogin())
@@ -113,11 +114,25 @@ export class ChatView {
         });
         nameElement.textContent = user.login;
 
-        userWrapper.append(statusCircle, nameElement);
+        const countMissedMessages = createElement({
+          tag: 'span',
+          classes: ['chat-user__coin'],
+        });
+        const unreadMessages = this.model.getUnreadMessagesFromUser(user.login, currentLogin);
+        countMissedMessages.textContent = unreadMessages.length > 0 ? `(${unreadMessages.length})` : '';
+        userWrapper.append(statusCircle, nameElement, countMissedMessages);
         if (this.usersContainer) {
           this.usersContainer.append(userWrapper);
         }
       });
+  }
+
+  public clearCountMissedMessages(user: string): void {
+    if (!this.usersContainer) return;
+    const targetItem = Array.from(this.usersContainer.children).find((item) => item.getAttribute('user-data') === user);
+    if (!targetItem) return;
+    const countElement = targetItem.children[2];
+    countElement.textContent = '';
   }
 
   public updateInputMessageContainer(): void {

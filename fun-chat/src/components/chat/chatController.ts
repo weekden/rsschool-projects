@@ -95,12 +95,10 @@ export class ChatController {
 
     switch (type) {
       case 'USER_ACTIVE':
-        console.log(payload.users);
         this.model.setUsers(payload.users);
         break;
 
       case 'USER_INACTIVE':
-        console.log(payload.users);
         this.model.setUsers(payload.users);
         break;
 
@@ -126,7 +124,6 @@ export class ChatController {
     switch (type) {
       case 'MSG_FROM_USER':
         this.model.addMessage(payload.messages, currentUser);
-        // this.model.clearMessagesHistory();
         break;
       case 'MSG_SEND':
         this.model.addMessage(payload.message, currentUser);
@@ -135,6 +132,7 @@ export class ChatController {
         const isFromActiveChat = payload.message.to === currentUser && payload.message.from === activeUser;
         if (isFromActiveChat) {
           readMessageChangeStatus(payload.message.id);
+          this.view.clearCountMissedMessages(activeUser);
         }
         break;
       case 'MSG_DELIVER':
@@ -151,7 +149,6 @@ export class ChatController {
         break;
       case 'MSG_READ':
         this.model.changeStatusOfMessage(payload.message.id, payload.message.status);
-        // this.handleModelUpdateChat(false);
         break;
     }
   }
@@ -173,7 +170,6 @@ export class ChatController {
   private handleUserClick(event: Event): void {
     if (!(event.target instanceof HTMLElement)) return;
     const userElement = event.target.closest<HTMLElement>('.chat-user');
-
     if (!userElement) {
       return;
     }
@@ -182,13 +178,13 @@ export class ChatController {
     if (!login || login === this.model.getActiveChatUser()) {
       return;
     }
-    this.model.setActiveChatUser(login);
-    getHistoryMessages(login);
 
     const currentLogin = this.appModel.getCurrentLogin();
-
+    this.view.clearCountMissedMessages(login);
     const unreadMessages = this.model.getUnreadMessagesFromUser(login, currentLogin);
     unreadMessages.forEach((message) => readMessageChangeStatus(message.id));
+    this.model.setActiveChatUser(login);
+    getHistoryMessages(login);
     this.model.clearMessagesHistory();
   }
 

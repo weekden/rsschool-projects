@@ -68,6 +68,7 @@ export class ChatModel {
       }
       this.messages[chatKey].push(message);
     }
+    this.notifyUserListener();
   }
 
   public deleteMessageById(messageId: string): void {
