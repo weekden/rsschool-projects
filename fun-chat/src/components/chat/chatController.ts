@@ -24,6 +24,7 @@ export class ChatController {
     private readonly view: ChatView
   ) {
     this.addEventListeners();
+    this.appModel.subscribeUsersListener(() => this.handleModelUpdateUsersList());
     this.model.subscribeUsersListener(() => this.handleModelUpdateUsersList());
     this.model.subscribeActiveChatUserListener(() => this.handleModelUpdateMessageInputCotainer());
     this.model.subscribeMessagesListener(() => this.handleModelUpdateChat(false));
@@ -95,20 +96,20 @@ export class ChatController {
 
     switch (type) {
       case 'USER_ACTIVE':
-        this.model.setUsers(payload.users);
+        this.appModel.setUsers(payload.users);
         break;
 
       case 'USER_INACTIVE':
-        this.model.setUsers(payload.users);
+        this.appModel.setUsers(payload.users);
         break;
 
       case 'USER_EXTERNAL_LOGIN':
-        this.model.updateUserStatus(payload.user.login, true);
+        this.appModel.updateUserStatus(payload.user.login, true);
         this.model.changeStausDeliveryMessageForFirstLoad(payload.user.login);
         break;
 
       case 'USER_EXTERNAL_LOGOUT':
-        this.model.updateUserStatus(payload.user.login, false);
+        this.appModel.updateUserStatus(payload.user.login, false);
         break;
 
       case 'USER_LOGOUT':
@@ -179,10 +180,10 @@ export class ChatController {
       return;
     }
 
-    const currentLogin = this.appModel.getCurrentLogin();
+    // const currentLogin = this.appModel.getCurrentLogin();
     this.view.clearCountMissedMessages(login);
-    const unreadMessages = this.model.getUnreadMessagesFromUser(login, currentLogin);
-    unreadMessages.forEach((message) => readMessageChangeStatus(message.id));
+    // const unreadMessages = this.model.getUnreadMessagesFromUser(login, currentLogin);
+    // unreadMessages.forEach((message) => readMessageChangeStatus(message.id));
     this.model.setActiveChatUser(login);
     getHistoryMessages(login);
     this.model.clearMessagesHistory();
@@ -223,6 +224,11 @@ export class ChatController {
   }
 
   private handleClickChatContainer(): void {
+    const currentLogin = this.appModel.getCurrentLogin();
+    const login = this.model.getActiveChatUser();
+    const unreadMessages = this.model.getUnreadMessagesFromUser(login, currentLogin);
+    unreadMessages.forEach((message) => readMessageChangeStatus(message.id));
+    setTimeout(() => this.view.renderUsers(), 100);
     this.view.removeContextMenu();
   }
 

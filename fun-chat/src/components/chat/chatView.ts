@@ -26,6 +26,8 @@ export class ChatView {
   private informationContainer: HTMLElement | null = null;
   private contextMenu: HTMLElement | null = null;
 
+  private line: HTMLElement;
+
   constructor(
     private readonly appModel: AppModel,
     private readonly model: ChatModel
@@ -35,6 +37,7 @@ export class ChatView {
     this.initUsersElements();
     this.initSendMessageElements();
     this.initCompanionElements();
+    this.line = createElement({ tag: 'div', classes: ['line'] });
   }
 
   public getSearchInput(): HTMLInputElement | undefined {
@@ -92,7 +95,7 @@ export class ChatView {
 
   public renderUsers(substring: string = ''): void {
     if (!this.usersContainer) return;
-    const users = this.model.getUsers();
+    const users = this.appModel.getUsers();
     const currentLogin = this.appModel.getCurrentLogin();
     this.usersContainer.replaceChildren();
     users
@@ -158,12 +161,23 @@ export class ChatView {
       this.informationContainer?.remove();
       const lastMessage = messages[messages.length - 1];
       const messageElement = createMessageItem(lastMessage, currentLogin);
-      this.chatContainer?.append(messageElement);
+      // this.chatContainer?.append(messageElement);
+      if (!lastMessage.status.isReaded && lastMessage.to === currentLogin) {
+        this.chatContainer?.append(this.line, messageElement);
+      } else {
+        this.chatContainer?.append(messageElement);
+      }
     } else {
       this.chatContainer?.replaceChildren();
+      let lineInserted = false;
       messages.forEach((message) => {
         const messageElement = createMessageItem(message, currentLogin);
-        messageElement;
+
+        if (message.to === currentLogin && !message.status.isReaded && !lineInserted) {
+          this.chatContainer?.append(this.line);
+          lineInserted = true;
+        }
+
         this.chatContainer?.append(messageElement);
       });
     }
@@ -173,7 +187,7 @@ export class ChatView {
   public updateCompanionsContainer(): void {
     if (!this.companion || !this.companionStatus) return;
     const companionLogin = this.model.getActiveChatUser();
-    const users = this.model.getUsers();
+    const users = this.appModel.getUsers();
     const companionData = users.find((user) => user.login === companionLogin);
 
     if (companionData) {

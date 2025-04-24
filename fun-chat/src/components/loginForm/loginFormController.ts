@@ -8,6 +8,7 @@ import { loginUser } from '../../API/auth/reqests';
 import { socketService } from '../../API/webSocketService';
 import { WSAuthResponse } from '../../API/auth/types';
 import { WSChatResponse } from '../../API/chat/types';
+import { getHistoryMessages } from '../../API/chat/reqests';
 
 export class LoginController {
   constructor(
@@ -95,6 +96,9 @@ export class LoginController {
         const password = this.view.getPasswordInput().value;
         window.sessionStorage.setItem('funchat', JSON.stringify({ login, password }));
         this.appModel.setCurrentUserData({ login, password });
+        const users = this.appModel.getUsers();
+        console.log(users);
+        users.forEach((item) => getHistoryMessages(item.login));
         router.navigate('/chat');
         this.clearInputsValue();
         break;

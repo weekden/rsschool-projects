@@ -1,41 +1,41 @@
-import { ChatMessage, Subscriber, UserStatus } from '../types';
+import { ChatMessage, Subscriber } from '../types';
 export class ChatModel {
   private messages: Record<string, ChatMessage[]> = {};
   private activeChatUser: string = '';
-  private users: UserStatus[] = [];
+  // private users: UserStatus[] = [];
   private userListener: Subscriber[] = [];
   private activeChatUserListener: Subscriber[] = [];
   private messageListeners: Subscriber[] = [];
 
-  public setUsers(users: UserStatus[]): void {
-    const mergedMap = new Map<string, UserStatus>();
+  // public setUsers(users: UserStatus[]): void {
+  //   const mergedMap = new Map<string, UserStatus>();
 
-    this.users.forEach((user) => {
-      mergedMap.set(user.login, user);
-    });
+  //   this.users.forEach((user) => {
+  //     mergedMap.set(user.login, user);
+  //   });
 
-    users.forEach((user) => {
-      mergedMap.set(user.login, user);
-    });
+  //   users.forEach((user) => {
+  //     mergedMap.set(user.login, user);
+  //   });
 
-    this.users = Array.from(mergedMap.values());
-    this.notifyUserListener();
-  }
+  //   this.users = Array.from(mergedMap.values());
+  //   this.notifyUserListener();
+  // }
 
-  public updateUserStatus(login: string, isLogined: boolean): void {
-    const user = this.users.find((user) => user.login === login);
+  // public updateUserStatus(login: string, isLogined: boolean): void {
+  //   const user = this.users.find((user) => user.login === login);
 
-    if (user) {
-      user.isLogined = isLogined;
-      this.notifyUserListener();
-    } else {
-      this.setUsers([...this.users, { login, isLogined }]);
-    }
-  }
+  //   if (user) {
+  //     user.isLogined = isLogined;
+  //     this.notifyUserListener();
+  //   } else {
+  //     this.setUsers([...this.users, { login, isLogined }]);
+  //   }
+  // }
 
-  public getUsers(): UserStatus[] {
-    return this.users.sort((a, b) => +b.isLogined - +a.isLogined);
-  }
+  // public getUsers(): UserStatus[] {
+  //   return this.users.sort((a, b) => +b.isLogined - +a.isLogined);
+  // }
 
   public setActiveChatUser(activeUser: string): void {
     this.activeChatUser = activeUser;
