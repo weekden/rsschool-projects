@@ -30,13 +30,16 @@ export class GarageView {
 
   public updateControllButtons(): void {
     const selectedCarId = this.model.getCarId();
-    if (!selectedCarId) return;
+    if (!selectedCarId) {
+      return;
+    }
     const stateRace = this.model.getSingleRaceState(selectedCarId);
     const targetItemControllWrapper = Array.from(this.garage.children).find(
       (item) => Number(item.getAttribute('data-id')) === selectedCarId
     )?.children[1];
     const buttonStart = targetItemControllWrapper?.children[0];
     const buttonStop = targetItemControllWrapper?.children[1];
+
     if (buttonStart instanceof HTMLButtonElement && buttonStop instanceof HTMLButtonElement) {
       if (stateRace) {
         buttonStart.disabled = true;

@@ -19,20 +19,20 @@ export class FormController {
   }
 
   private initEventListeners(): void {
-    this.view.createButton.addEventListener('click', () => this.handleCreate());
-    this.view.updateButton.addEventListener('click', () => {
+    this.view.createButton?.addEventListener('click', () => this.handleCreate());
+    this.view.updateButton?.addEventListener('click', () => {
       this.handleUpdate();
       this.view.enableDisabledUpdateInputs();
     });
-    this.view.generateButton.addEventListener('click', () => this.handleGenerate());
-    this.view.raceButton.addEventListener('click', () => this.handleRace());
-    this.view.resetButton.addEventListener('click', () => this.handleReset());
+    this.view.generateButton?.addEventListener('click', () => this.handleGenerate());
+    this.view.raceButton?.addEventListener('click', () => this.handleRace());
+    this.view.resetButton?.addEventListener('click', () => this.handleReset());
   }
 
   private async handleCreate(): Promise<void> {
-    const name = this.view.textInputCreate.value;
-    const color = this.view.colorInputCreate.value;
-    if (!name) {
+    const name = this.view.textInputCreate?.value;
+    const color = this.view.colorInputCreate?.value;
+    if (!name || !color) {
       return;
     }
 
@@ -48,10 +48,10 @@ export class FormController {
   }
 
   private async handleUpdate(): Promise<void> {
-    const name = this.view.textInputUpdate.value;
-    const color = this.view.colorInputUpdate.value;
+    const name = this.view.textInputUpdate?.value;
+    const color = this.view.colorInputUpdate?.value;
     const id = this.model.getCarToEdit()?.id;
-    if (!name || !id) {
+    if (!name || !id || !color) {
       return;
     }
 
@@ -164,9 +164,6 @@ export class FormController {
   }
 
   private clearInputs(): void {
-    this.view.textInputCreate.value = '';
-    this.view.colorInputCreate.value = '#ffffff';
-    this.view.textInputUpdate.value = '';
-    this.view.colorInputUpdate.value = '#ffffff';
+    this.view.clearInputs();
   }
 }
