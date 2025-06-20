@@ -1,5 +1,5 @@
-@use '.././utils/vars' as v;
-@use '.././utils/templates' as *;
+@use ".././utils/vars" as v;
+@use ".././utils/templates" as *;
 
 .overlay {
   @extend %flex-center;

@@ -1,12 +1,12 @@
-@use './utils/vars' as v;
-@use './utils/templates' as *;
-@use './components/header' as *;
-@use './components/button' as *;
-@use './components/list' as *;
-@use './components/popup' as *;
-@use './components/decisionControl' as *;
-@use './components/pickedOption' as *;
-@use './components/error' as *;
+@use "./utils/vars" as v;
+@use "./utils/templates" as *;
+@use "./components/header" as *;
+@use "./components/button" as *;
+@use "./components/list" as *;
+@use "./components/popup" as *;
+@use "./components/decisionControl" as *;
+@use "./components/pickedOption" as *;
+@use "./components/error" as *;
 
 * {
   box-sizing: border-box;

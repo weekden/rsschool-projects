@@ -1,5 +1,5 @@
-@use '.././utils/vars' as v;
-@use '.././utils/templates' as *;
+@use ".././utils/vars" as v;
+@use ".././utils/templates" as *;
 
 .decision-control__wrapper {
   @extend %flex-space;
@@ -30,7 +30,7 @@
     width: 8rem;
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     display: none;
   }
 
