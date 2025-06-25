@@ -29,6 +29,11 @@ export default [
     },
   },
   {
+    linterOptions: {
+      noInlineConfig: true,
+    },
+  },
+  {
     files: ['**/*.ts'],
 
     rules: {
