@@ -161,7 +161,6 @@ export class ChatView {
       this.informationContainer?.remove();
       const lastMessage = messages[messages.length - 1];
       const messageElement = createMessageItem(lastMessage, currentLogin);
-      // this.chatContainer?.append(messageElement);
       if (!lastMessage.status.isReaded && lastMessage.to === currentLogin) {
         this.chatContainer?.append(this.line, messageElement);
       } else {

@@ -180,10 +180,7 @@ export class ChatController {
       return;
     }
 
-    // const currentLogin = this.appModel.getCurrentLogin();
     this.view.clearCountMissedMessages(login);
-    // const unreadMessages = this.model.getUnreadMessagesFromUser(login, currentLogin);
-    // unreadMessages.forEach((message) => readMessageChangeStatus(message.id));
     this.model.setActiveChatUser(login);
     getHistoryMessages(login);
     this.model.clearMessagesHistory();

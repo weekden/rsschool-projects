@@ -19,7 +19,8 @@ export function createButton({
   if (type) {
     button.type = type;
   }
-  !disabled ? (button.disabled = false) : (button.disabled = true);
+
+  button.disabled = disabled;
 
   Object.entries(attributes).forEach(([key, value]) => {
     button.setAttribute(key, String(value));

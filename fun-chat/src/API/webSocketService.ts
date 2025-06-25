@@ -87,4 +87,3 @@ export default class WebSocketService {
 }
 
 export const socketService = new WebSocketService('ws://localhost:4000');
-// export const socketService = new WebSocketService('wss://mik-aleinik.by/chat');
