@@ -1,11 +1,10 @@
 # RSSchool Projects
 
 Welcome to the repository containing my projects from **RSSchool** courses.  
-All projects are grouped by stages (stage0, stage1, stage2) and have their GitHub Pages links.
+All projects are grouped by stages (stage0, stage1, stage2, React) and have their GitHub Pages links.
 
----
 
-## Stage 0 Projects
+## Stage0 Projects
 
 | Project | Description | Link |
 |---------|------------|------|
@@ -16,7 +15,7 @@ All projects are grouped by stages (stage0, stage1, stage2) and have their GitHu
 
 ---
 
-## Stage 1 Projects
+## Stage1 Projects
 
 | Project | Description | Link |
 |---------|------------|------|
@@ -24,9 +23,8 @@ All projects are grouped by stages (stage0, stage1, stage2) and have their GitHu
 | Simon Says | A mini memory training game | [Open Project](https://rolling-scopes-school.github.io/weekden-JSFE2024Q4/simon-says/index.html#/) |
 | Nonograms | A mini nonogram game with difficulty selection, progress saving, color themes, and sound effects | [Open Project](https://rolling-scopes-school.github.io/weekden-JSFE2024Q4/nonograms/index.html#/) |
 
----
 
-## Stage 2 Projects
+## Stage2 Projects
 
 In this stage, projects are implemented using the **MVC pattern and Type Script**.
 
@@ -37,13 +35,14 @@ In this stage, projects are implemented using the **MVC pattern and Type Script*
 | Fun Chat | A mini chat with simple registration for message exchange. Implemented using WebSocket protocol | [Open Project](https://rolling-scopes-school.github.io/weekden-JSFE2024Q4/fun-chat/index.html#/) |
 | eCommerce |The final RS School Front-end 2025Q4 task. It is an online store where you can buy products made from recycled plastic. The project helps to understand how a real eCommerce platform works and emphasizes the importance of conscious consumption and caring for the environment. A modular e-commerce frontend built with TypeScript, Webpack. This guide will help you set up and start working with the project locally — fast and efficiently. [Open Project](https://github.com/weekden/eCommerce/tree/develop) | [Netlify Deploy](https://clean-ocean.netlify.app/#/) |
 
----
 
-## React Projects
+## React
 
 | Project | Description | Link |
 |---------|------------|------|
 | REST Client |The final RS School React 2025Q3 task.This web application is built on Next.js with Material UI, designed for testing REST APIs. It includes authentication, a main client for requests, history, variables, and common interface elements. The application is oriented towards users who want to quickly test APIs without complex tools. [Open Project](https://github.com/weekden/rest-client-app) | [Vercel Deploy](https://rest-client-app-pi.vercel.app/) |
+
+
 ## Notes
 
 - All projects are deployed via **GitHub Pages**.  
