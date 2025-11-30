@@ -1,0 +1,374 @@
+import { ChatModel } from '../../models/chatModel';
+import { createElement } from '../../utils/dom/customElement';
+import { createButton } from '../../utils/dom/button';
+import { createAnchorElement } from '../../utils/dom/anchor';
+import { createInputElement } from '../../utils/dom/input';
+import { AppModel } from '../../models/appModel';
+import { createMessageItem } from '../../utils/elements/createMessageItem';
+import { createContextMenu } from './utils/createContextMenu';
+
+export class ChatView {
+  private container: HTMLElement;
+  private usersContainer: HTMLElement | null = null;
+  private userNameContainer: HTMLElement | null = null;
+  private chatContainer: HTMLElement | null = null;
+  private chatSendForm: HTMLElement | null = null;
+
+  private buttonInfo: HTMLButtonElement | null = null;
+  private buttonExit: HTMLButtonElement | null = null;
+  private searchInput: HTMLInputElement | null = null;
+
+  private messageInput: HTMLInputElement | null = null;
+  private sendButton: HTMLButtonElement | null = null;
+
+  private companion: HTMLSpanElement | null = null;
+  private companionStatus: HTMLSpanElement | null = null;
+  private informationContainer: HTMLElement | null = null;
+  private contextMenu: HTMLElement | null = null;
+
+  private line: HTMLElement;
+
+  constructor(
+    private readonly appModel: AppModel,
+    private readonly model: ChatModel
+  ) {
+    this.container = createElement({ tag: 'div', classes: ['chat'] });
+    this.initHeaderElements();
+    this.initUsersElements();
+    this.initSendMessageElements();
+    this.initCompanionElements();
+    this.line = createElement({ tag: 'div', classes: ['line'] });
+  }
+
+  public getSearchInput(): HTMLInputElement | undefined {
+    if (this.searchInput) {
+      return this.searchInput;
+    }
+  }
+
+  public getButtonExit(): HTMLButtonElement | undefined {
+    if (this.buttonExit) {
+      return this.buttonExit;
+    }
+  }
+
+  public getButtonInfo(): HTMLButtonElement | undefined {
+    if (this.buttonInfo) {
+      return this.buttonInfo;
+    }
+  }
+
+  public getUserContainer(): HTMLElement | undefined {
+    if (this.usersContainer) {
+      return this.usersContainer;
+    }
+  }
+
+  public getMessageInput(): HTMLInputElement | undefined {
+    if (this.messageInput) {
+      return this.messageInput;
+    }
+  }
+
+  public getChatSendForm(): HTMLElement | undefined {
+    if (this.chatSendForm) {
+      return this.chatSendForm;
+    }
+  }
+
+  public getChatContainer(): HTMLElement | undefined {
+    if (this.chatContainer) {
+      return this.chatContainer;
+    }
+  }
+
+  public getContextMenu(): HTMLElement | undefined {
+    if (this.contextMenu) {
+      return this.contextMenu;
+    }
+  }
+
+  public render(): HTMLElement {
+    this.container.append(this.createHeader(), this.createMainContainer(), this.createFooter());
+    return this.container;
+  }
+
+  public renderUsers(substring: string = ''): void {
+    if (!this.usersContainer) return;
+    const users = this.appModel.getUsers();
+    const currentLogin = this.appModel.getCurrentLogin();
+    this.usersContainer.replaceChildren();
+    users
+      .filter((user) => user.login !== this.appModel.getCurrentLogin())
+      .filter((user) => user.login.toLowerCase().includes(substring))
+      .forEach((user) => {
+        const userWrapper = createElement({ tag: 'div', classes: ['chat-user'] });
+        userWrapper.setAttribute('user-data', user.login);
+
+        const statusCircle = createElement({
+          tag: 'span',
+          classes: ['chat-user__status'],
+        });
+        statusCircle.style.backgroundColor = user.isLogined ? 'green' : 'black';
+
+        const nameElement = createElement({
+          tag: 'span',
+          classes: ['chat-user__name'],
+        });
+        nameElement.textContent = user.login;
+
+        const countMissedMessages = createElement({
+          tag: 'span',
+          classes: ['chat-user__coin'],
+        });
+        const unreadMessages = this.model.getUnreadMessagesFromUser(user.login, currentLogin);
+        countMissedMessages.textContent = unreadMessages.length > 0 ? `(${unreadMessages.length})` : '';
+        userWrapper.append(statusCircle, nameElement, countMissedMessages);
+        if (this.usersContainer) {
+          this.usersContainer.append(userWrapper);
+        }
+      });
+  }
+
+  public clearCountMissedMessages(user: string): void {
+    if (!this.usersContainer) return;
+    const targetItem = Array.from(this.usersContainer.children).find((item) => item.getAttribute('user-data') === user);
+    if (!targetItem) return;
+    const countElement = targetItem.children[2];
+    countElement.textContent = '';
+  }
+
+  public updateInputMessageContainer(): void {
+    const selectedUser = this.model.getActiveChatUser();
+
+    if (selectedUser && this.messageInput && this.sendButton) {
+      this.messageInput.disabled = false;
+      this.sendButton.disabled = false;
+    }
+  }
+
+  public renderMessageInChat(lastOnly = false): void {
+    const messages = this.model.getMessages();
+    const currentLogin = this.appModel.getCurrentLogin();
+
+    if (messages.length === 0) {
+      this.chatContainer?.replaceChildren();
+      this.chatContainer?.append(this.createInformContainer('Напишите ваше первое сообщение...'));
+      return;
+    }
+
+    if (lastOnly) {
+      this.informationContainer?.remove();
+      const lastMessage = messages[messages.length - 1];
+      const messageElement = createMessageItem(lastMessage, currentLogin);
+      if (!lastMessage.status.isReaded && lastMessage.to === currentLogin) {
+        this.chatContainer?.append(this.line, messageElement);
+      } else {
+        this.chatContainer?.append(messageElement);
+      }
+    } else {
+      this.chatContainer?.replaceChildren();
+      let lineInserted = false;
+      messages.forEach((message) => {
+        const messageElement = createMessageItem(message, currentLogin);
+
+        if (message.to === currentLogin && !message.status.isReaded && !lineInserted) {
+          this.chatContainer?.append(this.line);
+          lineInserted = true;
+        }
+
+        this.chatContainer?.append(messageElement);
+      });
+    }
+    if (this.chatContainer) this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+  }
+
+  public updateCompanionsContainer(): void {
+    if (!this.companion || !this.companionStatus) return;
+    const companionLogin = this.model.getActiveChatUser();
+    const users = this.appModel.getUsers();
+    const companionData = users.find((user) => user.login === companionLogin);
+
+    if (companionData) {
+      this.companion.textContent = companionData.login;
+      this.companionStatus.textContent = companionData.isLogined ? 'online' : 'offline';
+      this.companionStatus.style.color = companionData.isLogined ? 'green' : 'red';
+    } else {
+      this.companion.textContent = '';
+      this.companionStatus.textContent = '';
+    }
+  }
+
+  public renderContextMenu(messageId: string, x: number, y: number): HTMLElement {
+    this.removeContextMenu();
+
+    this.contextMenu = createContextMenu(messageId);
+    this.contextMenu.style.top = `${y - 5}px`;
+    this.contextMenu.style.left = `${x - 5}px`;
+
+    document.body.append(this.contextMenu);
+    return this.contextMenu;
+  }
+
+  public removeContextMenu(): void {
+    this.contextMenu?.remove();
+  }
+
+  private createMainContainer(): HTMLElement {
+    const usersContainer = this.createUsersContainerWrapper();
+    const chatContainer = this.createChatWrapper();
+    const mainContainer = createElement({ tag: 'div', classes: ['chat-container'] });
+    mainContainer.append(usersContainer, chatContainer);
+    return mainContainer;
+  }
+
+  private createUsersContainerWrapper(): HTMLElement {
+    if (!(this.searchInput && this.usersContainer)) {
+      return createElement({ tag: 'div' });
+    }
+    const usersContainerWrapper = createElement({
+      tag: 'div',
+      classes: ['chat-container__users-wrapper'],
+      children: [this.searchInput, this.usersContainer],
+    });
+    return usersContainerWrapper;
+  }
+
+  private createChatWrapper(): HTMLElement {
+    if (!(this.chatContainer && this.chatSendForm)) {
+      return createElement({ tag: 'div' });
+    }
+    const chatWrapper = createElement({
+      tag: 'div',
+      classes: ['chat-container__chat-wrapper'],
+    });
+
+    const messagesWrapper = createElement({
+      tag: 'div',
+      classes: ['chat-container__messages-wrapper'],
+      children: [this.chatContainer],
+    });
+
+    const companionContainer = this.createCompanionWrapper();
+
+    chatWrapper.append(companionContainer, messagesWrapper, this.chatSendForm);
+    return chatWrapper;
+  }
+
+  private createCompanionWrapper(): HTMLElement {
+    if (!(this.companion && this.companionStatus)) {
+      return createElement({ tag: 'div' });
+    }
+    const companionWrapper = createElement({
+      tag: 'div',
+      classes: ['chat-container__companion-wrapper'],
+      children: [this.companion, this.companionStatus],
+    });
+    return companionWrapper;
+  }
+
+  private createHeader(): HTMLElement {
+    if (!(this.buttonInfo && this.buttonExit && this.userNameContainer)) {
+      return createElement({ tag: 'div' });
+    }
+    const headerContainer = createElement({ tag: 'div', classes: ['header', 'header-container'] });
+    const headerChatName = createElement({ tag: 'span', text: 'Fun Chat', classes: ['header__chat-name'] });
+    const headerButtonsWrapper = createElement({
+      tag: 'div',
+      classes: ['header__buttons-wrapper'],
+      children: [this.buttonInfo, this.buttonExit],
+    });
+    headerContainer.append(this.userNameContainer, headerChatName, headerButtonsWrapper);
+    return headerContainer;
+  }
+
+  private createFooter(): HTMLElement {
+    const footerContainer = createElement({ tag: 'div', classes: ['footer', 'footer-container'] });
+    const linkGitHub = createAnchorElement({
+      href: 'https://github.com/weekden',
+      text: 'Git Hub',
+      classes: ['footer-link'],
+      target: '_blank',
+    });
+    const linkRSS = createAnchorElement({
+      href: 'https://rs.school/',
+      text: 'RSSchool',
+      classes: ['footer-link'],
+      target: '_blank',
+    });
+
+    const yearProdoction = createElement({ tag: 'span', text: '2025' });
+    footerContainer.append(linkGitHub, yearProdoction, linkRSS);
+    return footerContainer;
+  }
+
+  private initHeaderElements(): void {
+    this.userNameContainer = createElement({
+      tag: 'span',
+      text: this.appModel.getCurrentLogin(),
+      classes: ['header__user-name'],
+    });
+    this.buttonInfo = createButton({
+      text: 'Info',
+      classes: ['btn', 'header__btn', 'header__btn-info'],
+    });
+    this.buttonExit = createButton({
+      text: 'Exit',
+      classes: ['btn', 'header__btn', 'header__btn-exit'],
+    });
+  }
+
+  private initUsersElements(): void {
+    this.usersContainer = createElement({ tag: 'div', classes: ['chat-container__users'] });
+    this.searchInput = createInputElement({
+      type: 'text',
+      placeholder: 'search...',
+      classes: ['input-text', 'users-container__input'],
+    });
+  }
+
+  private initSendMessageElements(): void {
+    this.chatContainer = createElement({
+      tag: 'div',
+      classes: ['chat-container__messages'],
+      children: [this.createInformContainer('Выберете пользователя для отправки сообщения...')],
+    });
+    this.messageInput = createInputElement({
+      type: 'text',
+      placeholder: 'Type a message...',
+      classes: ['input-text', 'chat-container__input'],
+      disabled: true,
+    });
+    this.sendButton = createButton({
+      text: 'Send',
+      type: 'submit',
+      classes: ['btn', 'chat-container__send-btn'],
+      disabled: true,
+    });
+    this.chatSendForm = createElement({
+      tag: 'form',
+      classes: ['chat-container__input-wrapper'],
+      children: [this.messageInput, this.sendButton],
+    });
+  }
+
+  private initCompanionElements(): void {
+    this.companion = createElement({
+      tag: 'span',
+      classes: ['chat-container__header-span', 'chat-container__header-companion'],
+    });
+    this.companionStatus = createElement({
+      tag: 'span',
+      classes: ['chat-container__header-span', 'chat-container__header-companion-status'],
+    });
+  }
+
+  private createInformContainer(text: string): HTMLElement {
+    this.informationContainer = createElement({
+      tag: 'p',
+      text: text,
+      classes: ['chat-container__inform'],
+    });
+    return this.informationContainer;
+  }
+}
