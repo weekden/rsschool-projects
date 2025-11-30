@@ -1,0 +1,9 @@
+import './data.js';
+import './homepage.js';
+import './giftspage.js';
+import './popup.js';
+import './bm.js';
+import './cyrcle.js';
+import './timer.js';
+import './slider.js';
+import './check.js';

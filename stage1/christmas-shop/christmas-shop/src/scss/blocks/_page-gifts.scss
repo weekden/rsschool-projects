@@ -1,0 +1,93 @@
+.gifts__page-wrapper {
+    position: relative;
+}
+.page-gifts__section {
+	background-image: url('.././img/bg-garland.png');
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: contain;
+    padding: 0 0.8rem;
+}
+
+.page-gifts__inner {
+	@extend %flex-center;
+	flex-direction: column;
+	padding: 6rem 0;
+	gap: 2rem;
+	.section__title {
+		font-size: 3.2rem;
+		max-width: 42.6rem;
+		width: 100%;
+		text-align: center;
+		font-weight: 600;
+		letter-spacing: 0.18em;
+        @media (max-width: 400px) {
+            letter-spacing: 0.19em;
+        }
+	}
+}
+
+.page-gifts__tabs {
+	@extend %flex-space;
+	gap: 0.8rem;
+    @media (max-width: 568px) {
+        gap: 0;
+    }
+}
+
+.page-gifts__tabs-tab {
+	@extend %flex-center;
+	@extend %transition-color;
+	padding: 1.2rem 2rem;
+	border-radius: 1.2rem;
+	background-color: transparent;
+
+	p {
+		font-size: 1.2rem;
+		line-height: 130%;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: $static-white;
+	}
+
+    @media (hover: hover) and (pointer: fine) {
+		&:hover {
+			cursor: pointer;
+		    background-color: $static-white-20;
+		}
+	}
+
+    @media (max-width: 568px) {
+        padding: 1.2rem 0.8rem;
+    }
+}
+
+.active-tab {
+    background: $static-white-20;
+}
+
+.page-gifts__container {
+	@extend %flex-center;
+	flex-wrap: wrap;
+	gap: 1.2rem;
+}
+
+.return-circle {
+    display: none;
+    div {
+    @extend %flex-center;
+    border-radius: 50%;
+    width: 5.6rem;
+    height: 5.6rem;
+    border: 1px solid $primary;
+    background: $static-white;
+    cursor: pointer;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0.8rem;
+    a {
+        padding: 1.8rem;
+    }
+    }
+}

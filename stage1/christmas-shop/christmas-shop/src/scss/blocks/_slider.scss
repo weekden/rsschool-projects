@@ -1,0 +1,99 @@
+.section-slider {
+	@extend %flex-center;
+	flex-direction: column;
+	gap: 0;
+}
+
+.slider-inner {
+	@extend %flex-center;
+	flex-direction: column;
+	gap: 2rem;
+	margin: 6rem 0;
+	width: 100%;
+}
+
+.slider {
+	@extend %flex-center;
+	width: max-content;
+	gap: 2rem;
+	flex-wrap: nowrap;
+	align-self: flex-start;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+.slider__item {
+	@extend %flex-space;
+	gap: 2rem;
+	p {
+		font-size: 8rem;
+		text-transform: uppercase;
+		text-align: center;
+		color: $static-white;
+	}
+}
+
+.slider__item-img {
+	img {
+		max-width: 20rem;
+		width: 100%;
+		height: auto;
+		border-radius: 2rem;
+		object-fit: cover;
+	}
+}
+
+.slider__controls {
+	align-self: end;
+}
+
+.slider__controls-container {
+	@extend %flex-center;
+	justify-content: flex-end;
+	gap: 2rem;
+}
+
+.slider__controls-btn {
+	@extend %flex-center;
+	@extend %transition-color;
+	border: 1px solid $static-white;
+	border-radius: 2rem;
+	width: 5.6rem;
+	height: 5.6rem;
+	path {
+		@extend %transition-color;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			cursor: pointer;
+			background-color: $static-white;
+			path {
+				stroke: $primary;
+			}
+		}
+	}
+}
+
+.slide-btn__disabled {
+	border: 1px solid $static-white-40;
+	pointer-events: none;
+	svg path {
+		stroke-opacity: 0.4;
+	}
+}
+
+@media (max-width: 1060px) {
+	.slider__controls {
+		padding-right: 0.8rem;
+	}
+
+	.slider-inner {
+		.section__title {
+			margin-right: 0.8rem;
+		}
+		.section__subtitle {
+			margin-right: 0.8rem;
+		}
+	}
+}

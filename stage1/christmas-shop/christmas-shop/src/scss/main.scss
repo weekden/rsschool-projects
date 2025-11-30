@@ -1,0 +1,85 @@
+@import './utilits/resize';
+@import './fonts';
+@import './vars';
+
+
+@import './components/templates';
+@import './components/gift-card';
+@import './components/popup';
+
+@import './blocks/header';
+@import './blocks/hero';
+@import './blocks/about';
+@import './blocks/slider';
+@import './blocks/gifts';
+@import './blocks/cta';
+@import './blocks/footer';
+
+@import './blocks/page-gifts';
+
+body {
+    position: relative;
+	font-family: $font-family;
+	background: $static-white;
+}
+
+html {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+a {
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+	font-weight: 600;
+}
+
+.page-wrapper {
+	max-width: 144rem;
+	width: 100%;
+	margin: 0 auto;
+	background: $static-white;
+    overflow: hidden;
+}
+
+main {
+	background: $primary;
+	border-radius: 2rem;
+}
+
+section {
+	@extend %bg-section;
+	@extend %flex-center;
+	padding: 0 8.2rem;
+    user-select: none;
+}
+
+.section__title-container {
+	@extend %flex-center;
+	flex-direction: column;
+	gap: 1.2rem;
+}
+.section__title {
+	@extend %section-title;
+}
+.section__subtitle {
+	@extend %section-subtitle;
+}
+
+.show-item {
+    display: block;
+}
+
+.hide-item {
+    display: none;
+}
+
+@media (max-width: 1080px) {
+	section {
+		padding: 0 0.8rem;
+	}
+}

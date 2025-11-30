@@ -1,0 +1,17 @@
+.gifts-inner {
+	margin: 6rem 0;
+	@extend %flex-center;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.gifts__container {
+	@extend %flex-center;
+	align-items: start;
+    flex-wrap: wrap;
+	gap: 1.2rem;
+}
+
+.gifts-section {
+    padding: 0 0.8rem;
+}

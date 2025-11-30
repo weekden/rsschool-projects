@@ -1,0 +1,63 @@
+.gift__card {
+	@extend %flex-center;
+	flex-direction: column;
+	background: $content-background;
+	border-radius: 2rem;
+    max-width: 31rem;
+	width: 100%;
+	height: 100%;
+	gap: 0;
+
+	img {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+	}
+	.gift-container {
+		width: 100%;
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-start;
+		flex-direction: column;
+		gap: 2rem;
+	}
+	.gift-container__description {
+		display: flex;
+		flex-direction: column;
+		border-radius: 2rem;
+		background: $static-white;
+		width: 100%;
+		padding: 2rem;
+		gap: 0.8rem;
+		min-height: 11.2rem;
+
+		p {
+			font-size: 1.2rem;
+			line-height: 120%;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+		}
+		h3 {
+			@extend %transition-color;
+			font-size: 1.6rem;
+			line-height: 160%;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: $dark;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2; // Указывает количество строк для обрезки
+			text-overflow: ellipsis;
+		}
+	}
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          cursor: pointer;
+          h3 {
+            color: $primary;
+          }
+        }
+    }
+}
