@@ -1,0 +1,82 @@
+@use "./components/garage";
+@use "./components/tableWinners.scss";
+@use "./components/count.scss";
+@use "./components/pagination.scss";
+@use "./components/form.scss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  background-color: rgb(201 179 154);
+}
+
+main,
+nav {
+  width: 90%;
+}
+
+nav {
+  margin-top: 40px;
+}
+
+.nav_btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+
+  background-color: #87612c;
+
+  &:hover {
+    background-color: #644122;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 10px;
+  padding: 20px 0;
+}
+
+button {
+  cursor: pointer;
+
+  margin: 0 5px;
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+
+  font-size: 12px;
+  color: #fff;
+
+  background-color: #f19d4f;
+
+  &:hover {
+    background-color: #e18c14;
+  }
+}
+
+button[disabled],
+.disabled {
+  pointer-events: none;
+  color: #8e8888;
+  opacity: 0.5;
+  background-color: #e7e5e5;
+}
