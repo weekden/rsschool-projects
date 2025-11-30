@@ -1,0 +1,176 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#game-wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 10px;
+	max-width: 800px;
+	width: 100%;
+	margin: 0 auto;
+    flex: 1;
+}
+
+button {
+	transform: translateY(5px);
+	padding: 5px 10px;
+	font-size: 16px;
+	cursor: pointer;
+	background-color: #ff00bf;
+	color: #ffffff;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+
+.buttons-container {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+#game-score {
+	font-size: 3rem;
+}
+
+.game {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.results-container,
+.settings-container {
+	position: absolute;
+}
+
+#result-table {
+	width: 50%;
+	border-collapse: collapse;
+	margin-top: 20px;
+	position: relative;
+	border: 2px solid #800080;
+	border-radius: 8px;
+	background-color: #ffffff;
+}
+
+.table-header {
+	text-align: center;
+	font-size: 24px;
+	color: #800080;
+}
+
+.table-header__row th {
+	background-color: #800080;
+	color: #ffffff;
+	padding: 12px 8px;
+	text-align: center;
+	font-size: 18px;
+	border: 1px solid #800080;
+}
+
+th,
+td {
+	padding: 10px 8px;
+	text-align: center;
+	border: 1px solid #800080;
+	font-size: 16px;
+}
+
+button:hover {
+	background-color: #800080;
+}
+
+.hide {
+	display: none;
+}
+
+.results-container.active, 
+.settings-container.active {
+	width: 100%;
+	height: 110vh;
+	position: fixed;
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(100, 100, 100, 0.8);
+}
+
+.settings {
+    width: 50%;
+    height: 50%;
+    background-color:#800080 ;
+    border-radius: 8px;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#mute {
+    display: none;
+}
+
+.settings-row label,
+.settings-row select {
+    cursor: pointer;
+}
+
+.tutorial {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 40px;
+    color: #ffffff;
+}
+
+.user-header {
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+#close-settings {
+    display: block;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+#close-settings:hover {
+    background-color: #ffffff;
+    color: #800080;
+}
+
+footer {
+	background-color: #800080;
+    margin-top: auto;
+}
+
+.footer-container {
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #800080;
+	width: 90%;
+	height: 2rem;
+}
+
