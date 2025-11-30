@@ -1,0 +1,358 @@
+body,
+.app-container,
+.buttons-container,
+.buttons-container div,
+.decision-control__wrapper-top .decision-control__item-timer-wrapper,
+.overlay,
+.popup .popup-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.decision-control__wrapper,
+.decision-control__wrapper-top,
+.popup,
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  margin: 1rem 0;
+  padding: 1rem;
+
+  font-size: 3rem;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+.button {
+  cursor: pointer;
+
+  width: 100%;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.6rem;
+
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+
+  background-color: #f7b75b;
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 10%);
+
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.button:hover {
+  background-color: #e9a34d;
+}
+
+.button:active {
+  background-color: #d88f3a;
+}
+
+.todo-item {
+  gap: 1rem;
+
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: 0.1rem solid #d0c1a1;
+  border-radius: 0.5rem;
+
+  background-color: #f5f0e3;
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 10%);
+}
+
+.todo-item .todo-item__id {
+  flex-shrink: 0;
+
+  width: 4.5rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+
+  font-size: 1.6rem;
+  line-height: 4rem;
+  color: #4a4a4a;
+  text-align: center;
+
+  background-color: #f7b75b;
+}
+
+.todo-item .todo-item__input {
+  padding: 1rem;
+  border: 2px solid #d0c1a1;
+  border-radius: 0.5rem;
+
+  font-size: 1.6rem;
+  color: #4a4a4a;
+
+  background-color: #f9f6eb;
+}
+
+.todo-item .todo-item__input::placeholder {
+  color: #a5a5a5;
+}
+
+.todo-item .todo-item__input::placeholder {
+  color: #a5a5a5;
+}
+
+.todo-item .todo-item__input:focus {
+  border: 2px solid #f7b75b;
+  outline: none;
+}
+
+.todo-item .todo-item__input-title {
+  width: 70%;
+}
+
+.todo-item .todo-item__input-weight {
+  width: 8rem;
+  text-align: center;
+}
+
+.todo-item .todo-item__input-weight::-webkit-inner-spin-button,
+.todo-item .todo-item__input-weight::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+  appearance: none;
+}
+
+.todo-item .todo-item__button {
+  cursor: pointer;
+
+  padding: 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+
+  color: #fff;
+
+  background-color: #f7b75b;
+}
+
+.todo-item .todo-item__button:hover {
+  background-color: #e9a34d;
+}
+
+.todo-item .todo-item__button:active {
+  background-color: #d88f3a;
+}
+
+.overlay {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100dvh;
+
+  background-color: rgb(74 74 74 / 30%);
+}
+
+.popup {
+  flex-direction: column;
+
+  width: 70%;
+  height: 30rem;
+  padding: 2rem;
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+
+  background-color: #d1b89e;
+}
+
+.popup .popup-content {
+  width: 100%;
+  height: fit-content;
+  height: fit-content;
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+
+  font-size: 2rem;
+  color: #4a4a4a;
+  white-space: pre-line;
+
+  background-color: #f5f0e3;
+}
+
+.popup .popup-content textarea {
+  resize: none;
+
+  width: 100%;
+  height: 100%;
+  min-height: 20rem;
+  padding: 0.5rem;
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+
+  font-size: 1.4rem;
+  color: #4a4a4a;
+
+  background-color: #d1b89e;
+  outline: none;
+}
+
+.popup .popup-buttons {
+  gap: 2rem;
+  width: 100%;
+}
+
+.popup .popup-buttons .button {
+  width: 35%;
+  padding: 1rem 2rem;
+}
+
+.decision-control__wrapper {
+  flex-direction: column;
+  gap: 2rem;
+
+  width: 100%;
+  max-width: 40rem;
+  height: auto;
+  padding: 1rem;
+  border: 2px solid #d0c1a1;
+  border-radius: 0.5rem;
+
+  background-color: #f5f0e3;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+}
+
+.decision-control__wrapper-top {
+  gap: 1rem;
+  width: 100%;
+}
+
+.decision-control__wrapper-top .decision-control__wrapper-top-button {
+  width: 8rem;
+}
+
+.decision-control__wrapper-top input[type='checkbox'] {
+  display: none;
+}
+
+.decision-control__wrapper-top .decision-control__item-label {
+  cursor: pointer;
+
+  display: block;
+
+  width: 4rem;
+  height: 4rem;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+
+  background-color: #f7b75b;
+
+  transition: all 0.3s ease;
+}
+
+.decision-control__wrapper-top .decision-control__item-label .icon {
+  width: 100%;
+  height: auto;
+}
+
+.decision-control__wrapper-top .decision-control__item-label:hover {
+  background-color: #e9a34d;
+}
+
+.decision-control__wrapper-top .decision-control__item-label-timer {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input {
+  width: 4rem;
+  height: 4rem;
+  padding: 0.5rem;
+  border: 2px solid #d0c1a1;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+
+  font-size: 1.4rem;
+  color: #4a4a4a;
+  text-align: center;
+
+  background-color: transparent;
+  outline: none;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input::placeholder {
+  color: #a5a5a5;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input::placeholder {
+  color: #a5a5a5;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input:focus {
+  border-bottom: 2px solid #f7b75b;
+}
+
+.decision-control__wrapper-top .decision-control__item-timer-input::-webkit-inner-spin-button,
+.decision-control__wrapper-top .decision-control__item-timer-input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+  appearance: none;
+}
+
+.decision-control__wrapper-bottom {
+  width: 100%;
+}
+
+.decision-option {
+  width: 100%;
+  max-width: 40rem;
+  padding: 1rem 2rem;
+  border: 2px solid #d0c1a1;
+  border-radius: 0.5rem;
+
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #4a4a4a;
+  text-align: center;
+
+  background-color: #d1b89e;
+  box-shadow: 0 2px 2px rgb(0 0 0 / 10%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  background-color: #f5f0e3;
+}
+
+.app-container {
+  flex-direction: column;
+  gap: 2rem;
+
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 1rem;
+}
+
+.buttons-container {
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.buttons-container div {
+  gap: 1rem;
+  width: 100%;
+}

@@ -1,0 +1,55 @@
+@use "./utils/vars" as v;
+@use "./utils/templates" as *;
+@use "./components/header" as *;
+@use "./components/button" as *;
+@use "./components/list" as *;
+@use "./components/popup" as *;
+@use "./components/decisionControl" as *;
+@use "./components/pickedOption" as *;
+@use "./components/error" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  @extend %flex-center;
+
+  position: relative;
+  height: 100%;
+  background-color: v.$page-background;
+}
+
+.app-container {
+  @extend %flex-center;
+
+  flex-direction: column;
+  gap: 2rem;
+
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 1rem;
+  margin-top: 2%;
+}
+
+.buttons-container {
+  @extend %flex-center;
+
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 2rem;
+
+  div {
+    @extend %flex-center;
+
+    gap: 1rem;
+    width: 100%;
+  }
+}
